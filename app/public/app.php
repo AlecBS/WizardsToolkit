@@ -133,7 +133,7 @@ if ($pgMobile != ''): // this makes website work for iOS and Android apps; have 
         </p><br>
         <p>Prefer GIT?  Wizard&rsquo;s Toolkit is also available for download on
             GitHub at:
-            https://github.com/AlecBS/wizardstoolkit
+            https://github.com/AlecBS/WizardsToolkit
         </p>
     </div>
 </div>
