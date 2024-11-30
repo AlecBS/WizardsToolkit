@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wizard's Toolkit Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/wtk/imgs/wtk.ico"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+</head>
+<body onload="JavaScript:getSideNav('files')" id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+        <h1 class="phpdocumentor-title"><a href="../" class="phpdocumentor-title__link">Wizard&rsquo;s Toolkit&nbsp;<small>Documentation</small></a></h1>
+        <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+        <section data-search-form class="phpdocumentor-search">
+            <label>
+                <span class="visually-hidden">Search for</span>
+                <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+            </label>
+        </section>
+    </header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">Menu</label>
+<aside id="sidenav" class="phpdocumentor-column -four phpdocumentor-sidebar">&nbsp;</aside>
+
+<div class="phpdocumentor-column -eight phpdocumentor-content">
+    <article class="phpdocumentor-element -file">
+        <h2 class="phpdocumentor-content__title">Google.php</h2>
+        <p class="phpdocumentor-summary">This contains Wizard&rsquo;s Toolkit functions for Google API calls and Map Links.</p>
+
+    <section class="phpdocumentor-description">
+        <p>The above copyright notice and this permission notice shall be included
+        in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+        OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+        CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+        TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+    </section>
+        <h5 class="phpdocumentor-tag-list__heading" id="tags">Tags
+            <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        </h5>
+        <dl class="phpdocumentor-tag-list">
+            <div>
+                <div class="phpdoc-tag">author</div>
+                <div class="phpdoc-descrip">Programming Labs</div>
+            </div>
+            <div>
+                <div class="phpdoc-tag">license</div>
+                <div class="phpdoc-descrip">All rights reserved</div>
+            </div>
+            <div>
+                <div class="phpdoc-tag">version</div>
+                <div class="phpdoc-descrip">2.0</div>
+            </div>
+            <div>
+                <div class="phpdoc-tag">website</div>
+                <div class="phpdoc-descrip">
+                    <a href="https://wizardstoolkit.com" target="_blank">https://wizardstoolkit.com</a>
+                </div>
+            </div>
+        </dl>
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+<dl class="phpdocumentor-table-of-contents">
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetTimeZoneFromGeoCodes">wtkGetTimeZoneFromGeoCodes()</a>
+        <span> &nbsp;: string</span>
+    </dt>
+    <dd>Pass in Latitude and Longitude and Google will return Time Zone.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGmap">wtkGmap()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Call this function to create a Google map with markers where your locations are.</dd>
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkMapLink">wtkMapLink()</a>
+        <span> &nbsp;: <abbr title="\html">html</abbr></span>
+    </dt>
+    <dd>Create a link to native mapping based on device type.</dd>
+
+</dl>
+    <section class="phpdocumentor-functions">
+        <h3 class="phpdocumentor-elements__header" id="functions">
+            Functions
+            <a href="wtk-lib-google.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetTimeZoneFromGeoCodes">
+        wtkGetTimeZoneFromGeoCodes()
+        <a href="#function_wtkGetTimeZoneFromGeoCodes" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Google.php"><a href="wtk-lib-google.html"><abbr title="wtk/lib/Google.php">Google.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">34</span>
+
+    </aside>
+
+    <p class="phpdocumentor-summary">Pass in Latitude and Longitude and Google will return Time Zone.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetTimeZoneFromGeoCodes</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLatitude</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLongitude</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncBasic</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLatitude</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLongitude</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncBasic</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+        <section class="phpdocumentor-description">
+            <p>defaults to 'N'; if set to 'Y' then will change 'America/Los_Angeles' to 'US/Pacific'
+and other similar US time zones to basic options like US/Eastern, US/Mountain, etc.</p>
+    </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+             <section class="phpdocumentor-description">
+                 <p>string $gloGoogleApiKey must be defined in wtk/wtkServerInfo.php for this to work</p>
+             </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+        &mdash;
+        <section class="phpdocumentor-description"><p>time zone</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGmap">
+        wtkGmap()
+        <a href="#function_wtkGmap" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Google.php">
+        <a href="wtk-lib-google.html"><abbr title="wtk/lib/Google.php">Google.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">101</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Call this function to create a Google map with markers where your locations are.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGmap</span>
+        <span>(</span><span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLat</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLng</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncIcon</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncTitle</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncInfo</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncCall</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;marker&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>First time this is called the last parameter must be 'init'.
+Thereafter leave last parameter empty and function builds markers.
+This does require gmaps.js to work.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLat</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLng</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncIcon</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>optionally pass icon to use as marker. Put file in /wtk/imgs/map/' .  $fncIcon . &quot;.png</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncTitle</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>optionally include 'title'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncInfo</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>optionally include text to be in infoWindow</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCall</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+             = <span class="phpdocumentor-signature__argument__default-value">&#039;marker&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to 'marker' but initial call this needs to pass 'init'</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloGoogleApiKey must be defined in wtk/wtkServerInfo.php for this to work</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloMapJScenter filled with code to make Google and GMaps work</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloMapJS this receives JavaScript to make Map work</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkMapLink">
+        wtkMapLink()
+        <a href="#function_wtkMapLink" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Google.php">
+        <a href="wtk-lib-google.html"><abbr title="wtk/lib/Google.php">Google.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">165</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Create a link to native mapping based on device type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkMapLink</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLatitude</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLongitude</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>If iOS will direct to http://maps.apple.com
+If Android will direct to https://google.com/maps
+otherwise will direct to http://www.google.com/maps</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLatitude</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLongitude</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">uses</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <span class="phpdocumentor-tag-link"><abbr title="\class">class</abbr></span>
+            <section class="phpdocumentor-description"><p>Mobile_Detect</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description"><p>for link to map</p></section>
+</article>
+</section>
+</article>
+<section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+            </div>
+        </div>
+        <a href="wtk-lib-google.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+    </main>
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

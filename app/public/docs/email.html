@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wizard's Toolkit Menus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/wtk/favicon/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="js/search.js"></script>
+    <script defer src="js/searchIndex.js"></script>
+</head>
+<body onload="JavaScript:getSideNav('root')" id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+        <h1 class="phpdocumentor-title"><a href="index.html" class="phpdocumentor-title__link">Wizard&rsquo;s Toolkit&nbsp;<small>Documentation</small></a></h1>
+        <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+        <section data-search-form class="phpdocumentor-search">
+            <label>
+                <span class="visually-hidden">Search for</span>
+                <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading ..." disabled />
+            </label>
+        </section>
+    </header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">Menu</label>
+<aside id="sidenav" class="phpdocumentor-column -four phpdocumentor-sidebar">&nbsp;</aside>
+
+<div class="phpdocumentor-column -eight phpdocumentor-content">
+    <h2>Wizard&rsquo;s Toolkit Emailing</h2>
+    <p>Websites often need to send emails for registrations, forgotten passwords, automated reminders and all sorts of other
+        reasons.  Since emailing is so critical, Wizard&rsquo;s Toolkit has several functions and pages to make this easier
+        for the developer.</p>
+
+    <h3 id="toc">Table of Contents</h3>
+
+    <dl class="phpdocumentor-table-of-contents">
+        <dt class="phpdocumentor-table-of-contents__entry -function">
+            <a href="#setup">Setting Up Emailing</a>
+        </dt>
+        <dt class="phpdocumentor-table-of-contents__entry -function">
+            <a href="#phpfuncs">Functions in PHP</a>
+        </dt>
+        <dt class="phpdocumentor-table-of-contents__entry -function">
+            <a href="#htmlsyntax">HTML Form Emailing</a>
+        </dt>
+        <dt class="phpdocumentor-table-of-contents__entry -function">
+            <a href="#JSfuncs">JavaScript Functions</a>
+        </dt>
+    </dl>
+<br>
+    <h3 id="setup">Setting Up Emailing</h3>
+    <p><b>All</b> server-specific PHP Global variables are defined in wtk/wtkServerInfo.php.  The easiest way to
+        verify your email setup is correct is to use <a href="/testWTKEmail.php" target="_blank">/testWTKEmail.php</a> in
+        your localhost environment.  There you can easily test different configurations until you find
+        what works.</p>
+    <p>Wizard&rsquo;s Toolkit has functions written which work well with PHPMailer and with PostmarkApp.</p>
+    <h4>Configuration Variables</h4>
+    <ul>
+        <li>$gloEmailFromAddress : email address used for sending emails</li>
+        <li>$gloTechSupport : the tech support email address for website</li>
+        <li>$gloEmailMethod : PostmarkApp, sendMail, smtp, qmail, mail</li>
+        <li>$gloPostmarkToken : only applicable if using service and Email Method "PostmarkApp"</li>
+        <li>$gloEmailHost : this variable and below are not necessary if using PostmarkApp</li>
+        <li>$gloEmailPassword : password for email account if necessary to send</li>
+        <li>$gloEmailSMTPAuth : PHPMailer uses for $mail->SMTPAuth</li>
+        <li>$gloEmailPort : port used for emailing</li>
+    </ul>
+    <p>Most emails you send with Wizard&rsquo;s Toolkit will use the default <b>email HTML template</b> which
+        is located in /wtk/htm/ folder.  There you will find two HTML files: <b>emailLight.htm</b> and
+        <b>emailDark.htm</b>.  Which one is used is determined by the global PHP variable <b>$gloDarkLight</b>;
+        if you want the "Light" theme then this variable should be set to 'Light' and if you want the "Dark" theme
+        this variable should be set to 'Dark'.</p>
+
+    <h3 id="phpfuncs">Functions in PHP</h3>
+    <p>All emailing related functions are in the <b>/wtk/lib/Email.php</b> file.  As with everything in
+        Wizard&rsquo;s Toolkit, there is one function which can be called by passing some variables and
+        it will make a lot of assumptions then call more low-level functions.  You, as the developer decide
+        whether you want the high-level or low-level function when sending an email.  Of course you have access
+        to the code so you can modify these for your own specific needs.</p>
+
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkNotifyViaEmail">
+            wtkNotifyViaEmail()
+            <a href="#function_wtkNotifyViaEmail" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <p class="phpdocumentor-summary">You can pass as little as just the Subject and Email Body to this function
+            and it will default the rest.  More functionality can be handled by filling in the optional parameters.</p>
+
+        <code class="phpdocumentor-code phpdocumentor-signature">
+            <span class="phpdocumentor-signature__visibility"></span>
+            <span class="phpdocumentor-signature__name">wtkNotifyViaEmail($fncSubject, $fncMessage, $fncToEmail = '', $fncSaveArray = [], $fncCC = '')</span>
+        </code>
+
+        <section class="phpdocumentor-description"><p>This sends email using HTML template, adding log to database
+            and making so will know when/if email is opened. It defaults to sending email to <b>$gloTechSupport</b>
+            defined in wtkServerInfo.php but you can pass both a To and a CC email address.</p>
+            <p>See full functional specifications <a href="files/wtk-lib-email.html#function_wtkNotifyViaEmail">here</a> .</p>
+        </section>
+    </article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkSendMail">
+            wtkSendMail()
+            <a href="#function_wtkSendMail" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <p>This calls either <a href="#function_wtkSendPHPMail">wtkSendPHPMail</a>
+            or <a href="#function_wtkPostmarkApp">wtkPostmarkApp</a> depending on $gloEmailMethod value.</p>
+        <p>See full functional specifications <a href="files/wtk-lib-email.html#function_wtkSendMail">here</a> .</p>
+
+    </article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkSendPHPMail">
+            wtkSendPHPMail()
+            <a href="#function_wtkSendPHPMail" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <p>Uses PHPMailer to send email.
+            See full functional specifications <a href="files/wtk-lib-email.html#function_wtkSendPHPMail">here</a> .</p>
+    </article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkPostmarkApp">
+            wtkPostmarkApp()
+            <a href="#function_wtkPostmarkApp" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <p>Uses PostmarkApp to send email.
+            See full functional specifications <a href="files/wtk-lib-email.html#function_wtkPostmarkApp">here</a> .</p>
+    </article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkSaveEmailSent">
+            wtkSaveEmailSent()
+            <a href="#function_wtkSaveEmailSent" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <p>This is called by wtkSendPHPMail and wtkPostmarkApp to log the email into the wtkEmailsSent data table.
+            See full functional specifications <a href="files/wtk-lib-email.html#function_wtkSaveEmailSent">here</a> .</p>
+    </article>
+
+    <h3 id="htmlsyntax">HTML Syntax</h3>
+    <p>The HTML generated by WTK is built for <a href="https://materializecss.com/" target="_blank">MaterializeCSS</a>.
+        This of course can be modified for any HTML framework.  The only thing that Wizard&rsquo;s Toolkit relies on
+        is the form must have a unique ID, the from "email" must use name and id of 'email', and calling the JavaScript
+        function wtkSendEmail processes the emailing.</p>
+
+    <section class="phpdocumentor-functions">
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="hardcode">Example HTML Form</h4>
+            <p class="phpdocumentor-summary">The below HTML form will validate the email address then AJAX post
+              to ajxSendEmail.php which will email form contents to the person designated.  </p>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+   <xmp><div id="submitWebsite" class="modal container grey darken-4 content">
+       <div class="modal-content">
+           <a class="btn btn-mini grey darken-2 waves-effect modal-close right">X</a>
+           <form  method="post" id="emailForm" name="submitForm">
+               <div class="row">
+                   <div class="input-field col m6 s12">
+                       <input id="yourWebsite" name="yourWebsite" type="text" class="validate deep-purple-text text-lighten-4">
+                       <label for="yourWebsite">URL for your website using Wizards Toolkit</label>
+                   </div>
+                   <div class="input-field col m6 s12">
+                       <input id="email" name="email" type="email" class="validate deep-purple-text text-lighten-4">
+                       <label for="email">Your email address</label>
+                   </div>
+                   <div class="input-field col m9 s12">
+                       <textarea id="note" name="note" class="materialize-textarea deep-purple-text text-lighten-4"></textarea>
+                       <label for="note">Editorial Text you would like displayed about your website or app</label>
+                   </div>
+                   <div class="input-field col m3 s12">
+                       <button id="emailBtn" onclick="JavaScript:wtkSendEmail('submitWebsite')" class="btn waves-effect waves-light" type="button">Submit</button>
+                   </div>
+               </div>
+           </form>
+       </div>
+   </div></xmp>
+            </code>
+        </article>
+    </section>
+
+    <h3 id="JSfuncs">JavaScript Functions</h3>
+    <section class="phpdocumentor-functions">
+       <article class="phpdocumentor-element -function">
+           <h4 class="phpdocumentor-element__name" id="function_wtkSendEmail">
+               wtkSendEmail()
+               <a href="#function_wtkSendEmail" class="headerlink"><i class="fas fa-link"></i></a>
+           </h4>
+           <p class="phpdocumentor-summary">Validate email address and email all form fields.</p>
+
+           <code class="phpdocumentor-code phpdocumentor-signature">
+               <span class="phpdocumentor-signature__visibility"></span>
+               <span class="phpdocumentor-signature__name">wtkSendEmail(fncModalId, fncURL, fncFormName, fncEmailBtn)</span>
+           </code>
+
+           <section class="phpdocumentor-description"><p>This sends all form fields to the designated email address.</p></section>
+
+           <h5 class="phpdocumentor-argument-list__heading">File Containing Function</h5>
+           <p class="phpdocumentor-summary">/wtk/js/wtkUtils.js</p>
+
+           <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+           <dl class="phpdocumentor-argument-list">
+               <dt class="phpdocumentor-argument-list__entry">
+                   <span class="phpdocumentor-signature__argument__name">fncModalId</span>
+                   : <span class="phpdocumentor-signature__argument__return-type">string</span>
+               </dt>
+               <dd class="phpdocumentor-argument-list__definition">Defaults to blank.  If form is in modal window pass
+                   in the ID of the modal window and this will close upon successful emailing.</dd>
+           </dl>
+           <dl class="phpdocumentor-argument-list">
+               <dt class="phpdocumentor-argument-list__entry">
+                   <span class="phpdocumentor-signature__argument__name">fncFormName</span>
+                   : <span class="phpdocumentor-signature__argument__return-type">string</span>
+               </dt>
+               <dd class="phpdocumentor-argument-list__definition">Defaults to 'emailForm'.  All form field values
+                    will be sent.  Checkbox values are only sent if the checkbox is checked.</dd>
+           </dl>
+           <dl class="phpdocumentor-argument-list">
+               <dt class="phpdocumentor-argument-list__entry">
+                   <span class="phpdocumentor-signature__argument__name">fncEmailBtn</span>
+                   : <span class="phpdocumentor-signature__argument__return-type">string</span>
+               </dt>
+               <dd class="phpdocumentor-argument-list__definition">Defaults to 'emailBtn'.  If the email address is valid,
+                   the button with this id will be disabled for 3.6 seconds to prevent double-click issues.</dd>
+           </dl>
+
+           <h5 class="phpdocumentor-return-value__heading">Action</h5>
+           <section class="phpdocumentor-description"><p>First this JavaScript function checks the value
+                in the 'email' field to verify it is a valid email address.  Below is sample HTML code.</p></section>
+
+            <code class="phpdocumentor-code phpdocumentor-signature">
+&lt;button id="emailBtn" onclick="JavaScript:wtkSendEmail('submitWebsite')" class="btn waves-effect waves-light" type="button">Submit&lt;/button>
+            </code>
+           <section class="phpdocumentor-description"><p>Above is all that is needed to have email sent to
+            tech support email address as defined in wtkServerInfo.php $gloTechSupport</p></section>
+       </article>
+
+       <article class="phpdocumentor-element -function">
+           <h4 class="phpdocumentor-element__name" id="function_wtkSendEmail">
+               isValidEmail()
+               <a href="#function_wtkSendEmail" class="headerlink"><i class="fas fa-link"></i></a>
+           </h4>
+           <p class="phpdocumentor-summary">Verifies an email address is valid - returns true if valid and false if not valid.</p>
+
+           <code class="phpdocumentor-code phpdocumentor-signature">
+if (isValidEmail(fncEmail)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// valid email - do something<br>
+}else{ // not valid email<br>
+&nbsp;&nbsp;&nbsp;&nbsp;wtkAlert("Please enter a valid email address.");<br>
+}
+           </code>
+           <section class="phpdocumentor-description"><p>Pass in a value and this function will return true if value is
+               in proper format for an email address.</p></section>
+           <h5 class="phpdocumentor-argument-list__heading">File Containing Function</h5>
+           <p class="phpdocumentor-summary">/wtk/js/wtkUtils.js</p>
+
+           <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+           <dl class="phpdocumentor-argument-list">
+               <dt class="phpdocumentor-argument-list__entry">
+                   <span class="phpdocumentor-signature__argument__name">fncEmail</span>
+                   : <span class="phpdocumentor-signature__argument__return-type">string</span>
+               </dt>
+               <dd class="phpdocumentor-argument-list__definition">If format of value passed does not contain the following,
+                   a <b>false</b> will be returned.  <b>char@char.char</b></dd>
+           </dl>
+       </article>
+   </section>
+
+<section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+            </div>
+        </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+    </main>
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

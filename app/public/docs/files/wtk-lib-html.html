@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wizard's Toolkit Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/wtk/imgs/wtk.ico"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+</head>
+<body onload="JavaScript:getSideNav('files')" id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+        <h1 class="phpdocumentor-title"><a href="../" class="phpdocumentor-title__link">Wizard&rsquo;s Toolkit&nbsp;<small>Documentation</small></a></h1>
+        <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+        <section data-search-form class="phpdocumentor-search">
+            <label>
+                <span class="visually-hidden">Search for</span>
+                <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+            </label>
+        </section>
+    </header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">Menu</label>
+<aside id="sidenav" class="phpdocumentor-column -four phpdocumentor-sidebar">&nbsp;</aside>
+
+<div class="phpdocumentor-column -eight phpdocumentor-content">
+    <article class="phpdocumentor-element -file">
+        <h2 class="phpdocumentor-content__title">Html.php</h2>
+        <p class="phpdocumentor-summary">This contains Wizard&rsquo;s Toolkit functions for creating HTML excluding form fields.</p>
+
+    <section class="phpdocumentor-description"><p>All rights reserved.</p>
+<p>The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</section>
+
+<h5 class="phpdocumentor-tag-list__heading" id="tags">Tags
+    <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+</h5>
+<dl class="phpdocumentor-tag-list">
+    <div>
+        <div class="phpdoc-tag">author</div>
+        <div class="phpdoc-descrip">Programming Labs</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">license</div>
+        <div class="phpdoc-descrip">All rights reserved</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">version</div>
+        <div class="phpdoc-descrip">2.0</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">website</div>
+        <div class="phpdoc-descrip">
+            <a href="https://wizardstoolkit.com" target="_blank">https://wizardstoolkit.com</a>
+        </div>
+    </div>
+</dl>
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkPhoneLink">wtkPhoneLink()</a>
+        <span> &nbsp;: <abbr title="\html">html</abbr> </span>
+    </dt>
+    <dd>Create the HTML for a phone link.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkHelp">wtkHelp()</a>
+        <span> &nbsp;: <abbr title="\html">html</abbr> </span>
+    </dt>
+    <dd>Help buttons can be created and placed in multiple places on a page.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkHtmTableTop">wtkHtmTableTop()</a>
+        <span> &nbsp;: <abbr title="\HTML">HTML</abbr> </span>
+    </dt>
+    <dd>HTM Table start.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSearchReplace">wtkSearchReplace()</a>
+        <span> &nbsp;: mixed </span>
+    </dt>
+    <dd></dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkHtmSpace">wtkHtmSpace()</a>
+        <span> &nbsp;: <abbr title="\HTML">HTML</abbr> </span>
+    </dt>
+    <dd>Create multiple HTM spaces.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkHref">wtkHref()</a>
+        <span> &nbsp;: <abbr title="\HTML">HTML</abbr> </span>
+    </dt>
+    <dd>Generate &lt;a &gt; linking tag based on whether accessing from a computer, tablet or phone</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBroadcastAlerts">wtkBroadcastAlerts()</a>
+        <span> &nbsp;: <abbr title="\html">html</abbr> </span>
+    </dt>
+    <dd>This data-driven method of notifying users.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkMergePage">wtkMergePage()</a>
+        <span> &nbsp;: mixed </span>
+    </dt>
+    <dd>Use HTML template and display entire page (Multi Page Application)</dd>
+</dl>
+
+<section class="phpdocumentor-functions">
+    <h3 class="phpdocumentor-elements__header" id="functions">
+        Functions
+        <a href="wtk-lib-html.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h3>
+    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkPhoneLink">
+        wtkPhoneLink()
+        <a href="#function_wtkPhoneLink" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">40</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Create the HTML for a phone link.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkPhoneLink</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncPhone</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncPhoneExt</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncShowNumber</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;Y&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>If $gloMobileApp = 'Y' this creates JavaScript:postMessage('dialPhone- and the phone number,
+which is a WTK mobile app function that natively triggers phone feature on smart phones.
+If $gloMobileApp != 'Y' and user has chosen to &quot;Use Skype for calls&quot; this will
+use &quot;callto:&quot;, otherwise it will use &quot;tel:&quot;.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncPhone</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncPhoneExt</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>optionally show phone extension</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncShowNumber</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;Y&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloMobileApp should be set to 'Y' if page is called via mobile app</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloUseSkype this contains user's preference on whether to use Skype for outbound calls</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description"><p>for href link to phone number</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkHelp">
+        wtkHelp()
+        <a href="#function_wtkHelp" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">96</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Help buttons can be created and placed in multiple places on a page.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkHelp</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span>[</span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncHelpIndex</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncHelpTitle</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>This creates Help button on a page.  It checks to see if help exists and if it doesn't it inserts data
+so in back-office Help can be added for this page.  If help does not currently exist or is &quot;blank help&quot;
+then it will not show unless User has rights to Add/Edit Help.  Users that do have Help permissions
+can add/edit the help information from the Help popup.</p>
+<p>The Help is shown in a MaterializeCSS modal window and can include text and/or video display.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncHelpIndex</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>defaults to blank and will use PHP page if nothing passed</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncHelpTitle</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to blank in which case will use $gloPageTitle if it exists</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloPageTitle</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description"><p>of button which calls wtkShowHelp JS function</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkHtmTableTop">
+        wtkHtmTableTop()
+        <a href="#function_wtkHtmTableTop" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">166</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">HTM Table start.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkHtmTableTop</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span>[</span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncWidth</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;100%&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncCellSpacing</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;0&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncCellPadding</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;0&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncBorder</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;0&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncAttrib</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\HTML">HTML</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>With newer HTML table definitions this is no longer as useful.</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncWidth</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;100%&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '100%'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCellSpacing</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;0&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '0'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCellPadding</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;0&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '0'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncBorder</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;0&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '0'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncAttrib</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to blank</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloIndentCnt</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\HTML">HTML</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description">
+        <p>for beginning of a table like <table width="100%" cellspacing="0" cellpadding="0" border="0"><tr></p>
+    </section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSearchReplace">
+        wtkSearchReplace()
+        <a href="#function_wtkSearchReplace" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">196</span>
+    </aside>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSearchReplace</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSearch</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncReplace</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <section class="phpdocumentor-description"></section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSearch</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncReplace</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkHtmSpace">
+        wtkHtmSpace()
+        <a href="#function_wtkHtmSpace" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">213</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Create multiple HTM spaces.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkHtmSpace</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncCnt</span></span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\HTML">HTML</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>Pass in number of spaces you want and this will generate that many  </p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCnt</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\HTML">HTML</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description"><p>  based on count passed</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkHref">
+        wtkHref()
+        <a href="#function_wtkHref" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">229</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Generate &lt;a &gt; linking tag based on whether accessing from a computer, tablet or phone</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkHref</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncURL</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncTitle</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncClass</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">
+        <abbr title="\HTML">HTML</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>If $gloMobileApp != 'Y' from website use normal href syntax.
+If $gloMobileApp = 'Y' then uses JavaScript:ajaxGo syntax for WTK Single Page navigation.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncURL</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>what to link to</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncTitle</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>what to display</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncClass</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>optional class style to add</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\HTML">HTML</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description"><p><a> tag based on parameter and access device</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkBroadcastAlerts">
+        wtkBroadcastAlerts()
+        <a href="#function_wtkBroadcastAlerts" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">255</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">This data-driven method of notifying users.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkBroadcastAlerts</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span>[</span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncMode</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;display&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>Broadcast messages to users and allow them to clear.
+        This uses wtkBroadcast and wtkBroadcast_wtkUsers tables.
+If there are eligible broadcast messages they will be returned in a div class="row".  Once a user has
+cleared it will not be displayed again for that user.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncMode</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;display&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>defaults to 'display'; other option is 'count'
+to retrieve count of broadcasts to show in tag or alert</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>$gloPrinting boolean if count and printing then skip getting count from data</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description"><p>with listing of broadcast alerts</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkMergePage">
+        wtkMergePage()
+        <a href="#function_wtkMergePage" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Html.php"><a href="wtk-lib-html.html"><abbr title="wtk/lib/Html.php">Html.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">363</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Use HTML template and display entire page (Multi Page Application)</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkMergePage</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncFiller</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncPageTitle</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncTemplateHTML</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSkipExit</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncFiller</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncPageTitle</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncTemplateHTML</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to blank in which case will use /wtk/html/spa.htm for HTML template</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSkipExit</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">false</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>defaults to false</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloCoLogo</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloFormMsg</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloJsInit</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloFooterNav</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloFormChangeArray</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $pgSearchReplaceCntr</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloShowPrint</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloPrinting</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloShowExport</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloShowExportXML</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloIconPrint</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloIsFileUploadForm</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+        &mdash;
+</article>
+</section>
+</article>
+<section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+            </div>
+        </div>
+        <a href="wtk-lib-html.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+    </main>
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

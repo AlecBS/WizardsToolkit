@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+    wtk_db_pg:
+        platform: linux/amd64
+        container_name: wtk_db_pg
+        image: 'bitnami/postgresql:latest'
+        volumes:
+            - ./Mounts/pgdata:/bitnami/postgresql
+            - ./SQL/PostgreSQL/SetupDB/:/docker-entrypoint-initdb.d
+        ports:
+            - '5432:5432'
+        environment:
+            - POSTGRESQL_USERNAME=wizdba
+            - POSTGRESQL_PASSWORD=LowCodeViaWTK
+            - POSTGRESQL_DATABASE=pgwiztools
+    web:
+        platform: linux/amd64
+        container_name: wtk_webserver
+        image: nginx:1.22.0-alpine
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - wtk_db_pg
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./app:/app
+    php:
+        platform: linux/amd64
+        container_name: wtk_php81
+        build:
+            context: .
+            dockerfile: PHP.DockerfilePG
+        volumes:
+            - ./app:/app
+        env_file:
+            - ./phpPG.env

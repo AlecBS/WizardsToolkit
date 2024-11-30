@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wizard&rsquo;s Toolkit</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="../wtk/css/materialize.min.css"/>
+	<link rel="stylesheet" href="../wtk/css/wtkBlue.css">
+	<link rel="stylesheet" href="../wtk/css/wtkLight.css">
+	<link rel="stylesheet" href="../wtk/css/wtkGlobal.css">
+	<link rel="shortcut icon" href="../imgs/favicon/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="../imgs/favicon/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../imgs/favicon/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../imgs/favicon/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../imgs/favicon/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../imgs/favicon/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../imgs/favicon/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../imgs/favicon/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../imgs/favicon/apple-touch-icon-152x152.png" />
+	<script type="text/javascript" src="../wtk/js/wtkUtils.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/jquery.min.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/materialize.min.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/wtkPaths.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/wtkColors.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/chart382.min.js" defer></script>
+</head>
+<body onload="JavaScript:wtkStartMaterializeCSS()">
+	<div id="mainPage"><br><br>
+		<div class="container">
+			<h3>Tooltips show Percentages</h3>
+			<p>This page demonstrates the HTML and JavaScript that is generated
+				by the Wizard&rsquo;s Toolkit library.<br>Review charts.php to
+				see how SQL and wtkRptChart function generates all this complex
+				code for you.</p>
+			    <div class="wtk-box">
+        <div id="RptTitle0">
+            <ul class="tabs rpt-tabs" id="wtkRptTab0">
+                <li class="tab col s3"><a class="active" onclick="Javascript:changeChart('regRpt', 'nada', 0)">Report</a></li>
+    <li class="tab col s2"><a onclick="Javascript:changeChart('bar', 'barCanvas0', 0 )">Bar Chart</a></li>
+    <li class="tab col s2"><a onclick="Javascript:changeChart('line', 'lineCanvas0', 0 )">Line Chart</a></li>
+    <li class="tab col s2"><a onclick="Javascript:changeChart('area', 'areaCanvas0', 0 )">Area Chart</a></li>
+    <li class="tab col s2"><a onclick="Javascript:changeChart('pie', 'pieCanvas0', 0 )">Pie Chart</a></li>
+            </ul>
+        </div>
+            <div class="col s12" id="regRpt0">
+        <table id="wtkRpt1" class="striped"><thead><tr>
+<th>User</th>
+<th><div align="right">Logins</div></th>
+<th><div align="right">Page Views</div></th>
+<th><div align="right">Report Views</div></th>
+<th><div align="right">Updates</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Merlin of Britain</td>
+  <td><div align="right">14</div></td>
+  <td><div align="right">495</div></td>
+  <td><div align="right">90</div></td>
+  <td><div align="right">53</div></td>
+</tr>
+<tr>
+  <td>Nicolas Flamel</td>
+  <td><div align="right">27</div></td>
+  <td><div align="right">617</div></td>
+  <td><div align="right">43</div></td>
+  <td><div align="right">81</div></td>
+</tr>
+<tr>
+  <td>Morgan le Fay</td>
+  <td><div align="right">72</div></td>
+  <td><div align="right">573</div></td>
+  <td><div align="right">117</div></td>
+  <td><div align="right">69</div></td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+    <div class="hide col s12" id="barChart0"><canvas id="barCanvas0"></canvas></div>
+    <div class="hide col s12" id="lineChart0"><canvas id="lineCanvas0"></canvas></div>
+    <div class="hide col s12" id="areaChart0"><canvas id="areaCanvas0"></canvas></div>
+    <div class="hide col s12" id="pieChart0">
+        <a onclick="JavaScript:wtkRemovePie(0)" class="btn">Remove Dataset</a>
+        <a onclick="JavaScript:togglePieDoughnut(0)" class="btn">Toggle Doughnut View</a>
+        <canvas id="pieCanvas0"></canvas>
+    </div>
+    </div>
+<input type="hidden" name="HasTabs" id="HasTabs" value="Y">
+<script type="text/javascript">
+function wtkMPAstart(){
+
+wtk0ChartLabels = ['Merlin of Britain','Nicolas Flamel','Morgan le Fay'];
+
+wtk0BarData = [{
+label: 'Logins',
+fill: true,
+data: [14,27,72],
+borderColor: wtkColor.blue,
+backgroundColor: chartColor(wtkColor.blue).alpha(0.5).rgbString()
+},{
+label: 'Page Views',
+fill: true,
+data: [495,617,573],
+borderColor: wtkColor.red,
+backgroundColor: chartColor(wtkColor.red).alpha(0.5).rgbString()
+},{
+label: 'Report Views',
+fill: true,
+data: [90,43,117],
+borderColor: wtkColor.green,
+backgroundColor: chartColor(wtkColor.green).alpha(0.5).rgbString()
+},{
+label: 'Updates',
+fill: true,
+data: [53,81,69],
+borderColor: wtkColor.purple,
+backgroundColor: chartColor(wtkColor.purple).alpha(0.5).rgbString()
+}];
+
+wtk0LineData = [{
+label: 'Logins',
+fill: false,
+data: [14,27,72],
+borderColor: wtkColor.blue,
+backgroundColor: chartColor(wtkColor.blue).alpha(0.2).rgbString()
+},{
+label: 'Page Views',
+fill: false,
+data: [495,617,573],
+borderColor: wtkColor.red,
+backgroundColor: chartColor(wtkColor.red).alpha(0.2).rgbString()
+},{
+label: 'Report Views',
+fill: false,
+data: [90,43,117],
+borderColor: wtkColor.green,
+backgroundColor: chartColor(wtkColor.green).alpha(0.2).rgbString()
+},{
+label: 'Updates',
+fill: false,
+data: [53,81,69],
+borderColor: wtkColor.purple,
+backgroundColor: chartColor(wtkColor.purple).alpha(0.2).rgbString()
+}];
+
+wtk0AreaData = [{
+label: 'Logins',
+fill: true,
+data: [14,27,72],
+borderColor: wtkColor.blue,
+backgroundColor: chartColor(wtkColor.blue).alpha(0.2).rgbString()
+},{
+label: 'Page Views',
+fill: true,
+data: [495,617,573],
+borderColor: wtkColor.red,
+backgroundColor: chartColor(wtkColor.red).alpha(0.2).rgbString()
+},{
+label: 'Report Views',
+fill: true,
+data: [90,43,117],
+borderColor: wtkColor.green,
+backgroundColor: chartColor(wtkColor.green).alpha(0.2).rgbString()
+},{
+label: 'Updates',
+fill: true,
+data: [53,81,69],
+borderColor: wtkColor.purple,
+backgroundColor: chartColor(wtkColor.purple).alpha(0.2).rgbString()
+}];
+
+wtk0PieData = [{
+label: 'Logins',
+data: [14,27,72],
+backgroundColor: wtkPieSliceColors
+},{
+label: 'Page Views',
+data: [495,617,573],
+backgroundColor: wtkPieSliceColors
+},{
+label: 'Report Views',
+data: [90,43,117],
+backgroundColor: wtkPieSliceColors
+},{
+label: 'Updates',
+data: [53,81,69],
+backgroundColor: wtkPieSliceColors
+}];
+
+wtk0BarConfig = {
+    type: 'bar',
+    data: {
+        labels: wtk0ChartLabels,
+        datasets:
+         wtk0BarData
+    },
+    options: {responsive: true,
+		plugins: {
+			tooltip: {
+				callbacks: {
+					label: function(context) {
+						let fncLabel = context.dataset.label || '';
+						let fncPercent = '';
+						if (context.parsed.y !== null) {
+							fncLabel += ': ' + context.parsed.y;
+							let fncSum = context.dataset.data.reduce((a, b) => a + b);
+							fncPercent = ((context.parsed.y / fncSum)*100).toFixed(1) + '%';
+						}
+						return [fncLabel, fncPercent];
+					}
+				}
+			}
+		}
+    }
+};
+wtk0LineConfig = {
+    type: 'line',
+    data: {
+        labels: wtk0ChartLabels,
+        datasets:
+         wtk0LineData
+    },
+    options: {responsive: true,
+		plugins: {
+			tooltip: {
+				callbacks: {
+					label: function(context) {
+						let fncLabel = context.dataset.label || '';
+						let fncPercent = '';
+						if (context.parsed.y !== null) {
+							fncLabel += ': ' + context.parsed.y;
+							let fncSum = context.dataset.data.reduce((a, b) => a + b);
+							fncPercent = ((context.parsed.y / fncSum)*100).toFixed(1) + '%';
+						}
+						return [fncLabel, fncPercent];
+					}
+				}
+			}
+		}
+    }
+};
+wtk0AreaConfig = {
+    type: 'line',
+    data: {
+        labels: wtk0ChartLabels,
+        datasets:
+         wtk0AreaData
+    },
+    options: {responsive: true,
+		plugins: {
+			tooltip: {
+				callbacks: {
+					label: function(context) {
+						let fncLabel = context.dataset.label || '';
+						let fncPercent = '';
+						if (context.parsed.y !== null) {
+							fncLabel += ': ' + context.parsed.y;
+							let fncSum = context.dataset.data.reduce((a, b) => a + b);
+							fncPercent = ((context.parsed.y / fncSum)*100).toFixed(1) + '%';
+						}
+						return [fncLabel, fncPercent];
+					}
+				}
+			}
+		}
+    }
+};
+//	options: {responsive: true, aspectRatio: 3},
+
+wtk0PieConfig = {
+    type: 'pie',
+    data: {
+        labels: wtk0ChartLabels,
+        datasets:
+         wtk0PieData
+    },
+	options: {responsive: true, aspectRatio: 3},
+    tooltip: {
+        callbacks: {
+            label: function(context) {
+                let label = context.label;
+                let value = context.formattedValue;
+				console.log('pie label' + value);
+                if (!label){
+					label = 'Unknown';
+				}
+
+                let sum = 0;
+                let dataArr = context.chart.data.datasets[0].data;
+                dataArr.map(data => {
+                    sum += Number(data);
+                });
+
+                let percentage = (value * 100 / sum).toFixed(2) + '%';
+                return label + ": " + percentage;
+            }
+        }
+    }
+};
+
+gloLastTab[0] = 'regRpt0';
+gloChartExists[0] = false;
+}
+</script>
+
+		</div>
+	</div>
+	<!-- preloader -->
+	<div id="loaderDiv1" class="wrapper-load active">
+		<div id="loaderDiv2" class="preloader-wrapper big">
+			<div class="spinner-layer spinner-custom">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end preloader -->
+	<script type="text/javascript" src="../wtk/js/wtkLibrary.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/wtkClientVars.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/wtkChart.js" defer></script>
+	<script type="text/javascript" src="../wtk/js/wtkFileUpload.js" defer></script>
+</body>
+</html>

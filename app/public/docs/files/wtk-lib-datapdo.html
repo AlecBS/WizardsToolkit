@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wizard's Toolkit Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/wtk/imgs/wtk.ico"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+</head>
+<body onload="JavaScript:getSideNav('files')" id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+        <h1 class="phpdocumentor-title"><a href="../" class="phpdocumentor-title__link">Wizard&rsquo;s Toolkit&nbsp;<small>Documentation</small></a></h1>
+        <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+        <section data-search-form class="phpdocumentor-search">
+            <label>
+                <span class="visually-hidden">Search for</span>
+                <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+            </label>
+        </section>
+    </header>
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+            <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">Menu</label>
+            <aside id="sidenav" class="phpdocumentor-column -four phpdocumentor-sidebar">&nbsp;</aside>
+
+<div class="phpdocumentor-column -eight phpdocumentor-content">
+    <article class="phpdocumentor-element -file">
+        <h2 class="phpdocumentor-content__title">DataPDO.php</h2>
+
+            <p class="phpdocumentor-summary">This contains all Wizard&rsquo;s Toolkit functions that involve database access.</p>
+            <section class="phpdocumentor-description"><p>All rights reserved.</p>
+        <p>The above copyright notice and this permission notice shall be included
+        in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+        OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+        CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+        TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+            </section>
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <div>
+                    <div class="phpdoc-tag">author</div>
+                    <div class="phpdoc-descrip">Programming Labs</div>
+                </div>
+                <div>
+                    <div class="phpdoc-tag">license</div>
+                    <div class="phpdoc-descrip">All rights reserved</div>
+                </div>
+                <div>
+                    <div class="phpdoc-tag">version</div>
+                    <div class="phpdoc-descrip">2.0</div>
+                </div>
+                <div>
+                    <div class="phpdoc-tag">website</div>
+                    <div class="phpdoc-descrip">
+                        <a href="https://wizardstoolkit.com" target="_blank">https://wizardstoolkit.com</a>
+                    </div>
+                </div>
+            </dl>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkConnectToDB">wtkConnectToDB()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Connect to Database using PDO</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkDisconnectToDB">wtkDisconnectToDB()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Disconnect from Database</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSqlGetOneResult">wtkSqlGetOneResult()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>SQL Get One Result</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSqlGetRow">wtkSqlGetRow()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>SQL Get Row of data</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSqlValue">wtkSqlValue()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Returns SQL Value from result set for single column&#039;s value.  Will return &#039;&#039; blank if data is NULL.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSqlExec">wtkSqlExec()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>SQL Exec</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSqlPrep">wtkSqlPrep()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>SQL Prep</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetSelectOptions">wtkGetSelectOptions()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Get Select Options</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkEscapeStringForDB">wtkEscapeStringForDB()</a>
+        <span> &nbsp;: bool </span>
+    </dt>
+    <dd>Prepares the string to be used in either a MySQL or PostgreSQL DB.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSqlDateFormat">wtkSqlDateFormat()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>SQL Date Format</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBuildInsertSQL">wtkBuildInsertSQL()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Build Insert SQL</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkExecInsertSQL">wtkExecInsertSQL()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Execute Insert SQL</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBuildUpdateSQL">wtkBuildUpdateSQL()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Build Update SQL</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkExecUpdateSQL">wtkExecUpdateSQL()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Execute Update SQL</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBuildInsertLog">wtkBuildInsertLog()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Build SQL to Insert into wtkUpdateLog table</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBuildUpdateLog">wtkBuildUpdateLog()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Build SQL to Insert into wtkUpdateLog table</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSaveUpdateLog">wtkSaveUpdateLog()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Save database changes to wtkUpdateLog</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkCheckSqlInjection">wtkCheckSqlInjection()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Checks to see if there is a SQL injection in the SQL.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGenerateFileName">wtkGenerateFileName()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd>Generate new file name.  This is mostly used for creating a file name for image uploads.</dd>
+</dl>
+
+            <section class="phpdocumentor-functions">
+        <h3 class="phpdocumentor-elements__header" id="functions">
+            Functions
+            <a href="wtk-lib-datapdo.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkConnectToDB">
+        wtkConnectToDB()
+        <a href="#function_wtkConnectToDB" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">57</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Connect to Database using PDO</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkConnectToDB</span><span>(</span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    </dl class="phpdocumentor-tag-list">
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+        <section class="phpdocumentor-description"><p>boolean $gloConnected - set to true when connected</p></section>
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+        <section class="phpdocumentor-description"><p>array $gloWTKobjConn connection to data object</p></section>
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+        <section class="phpdocumentor-description"><p>string $gloServer1 defined in /wtk/wtkServerInfo.php</p></section>
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+        <section class="phpdocumentor-description"><p>string $gloDb1 defined in /wtk/wtkServerInfo.php</p></section>
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+        <section class="phpdocumentor-description"><p>string $gloUser1 defined in /wtk/wtkServerInfo.php</p></section>
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+        <section class="phpdocumentor-description"><p>string $gloPassword1 defined in /wtk/wtkServerInfo.php</p></section>
+    </dd>
+</dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkDisconnectToDB">
+        wtkDisconnectToDB()
+        <a href="#function_wtkDisconnectToDB" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php">
+        <a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">82</span>
+
+    </aside>
+
+    <p class="phpdocumentor-summary">Disconnect from Database</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkDisconnectToDB</span><span>(</span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>boolean $gloConnected</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>array $gloWTKobjConn connection to data object</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSqlGetOneResult">
+        wtkSqlGetOneResult()
+        <a href="#function_wtkSqlGetOneResult" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php">
+        <a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">99</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">SQL Get One Result</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSqlGetOneResult</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncDefault</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        <span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>SQL Query that should return a single result</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDefault</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>Defaults to blank but can pass in the desired default to return if no rows are found.</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">returns</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string returns a single value</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>array $gloWTKobjConn connection to data object</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSqlGetRow">
+        wtkSqlGetRow()
+        <a href="#function_wtkSqlGetRow" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">120</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">SQL Get Row of data</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSqlGetRow</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>SQL Query that returns set of results</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>array $gloWTKobjConn connection to data object</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>array $gloPDOrow stores first row's data into $gloPDOrow</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSqlValue">
+        wtkSqlValue()
+        <a href="#function_wtkSqlValue" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">138</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns SQL Value from result set for single column&#039;s value.  Will return &#039;&#039; blank if data is NULL.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSqlValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncColName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>If page is in 'ADD' mode as per $gloWTKmode = 'ADD' then will return blank ''.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncColName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Field name in a query</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>string $gloWTKmode will be 'ADD' or 'EDIT'.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>array $gloPDOrow stores a row's data</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">returns</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>string value of a field in a SQL query</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSqlExec">
+        wtkSqlExec()
+        <a href="#function_wtkSqlExec" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">165</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">SQL Exec</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSqlExec</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSQL</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Execute a SQL call (update, insert, delete, etc.) that does not return a result</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>SQL Query</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>boolean $gloConnected</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>array $gloWTKobjConn connection to data object</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSqlPrep">
+        wtkSqlPrep()
+        <a href="#function_wtkSqlPrep" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">193</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">SQL Prep</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSqlPrep</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSQL</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>change ` to DB_COL_QUOTE so can use same code for MySQL, PostgreSQL or MS SQL</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Pass in SQL Query to be modified</p>
+</section>
+
+            </dd>
+        </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetSelectOptions">
+        wtkGetSelectOptions()
+        <a href="#function_wtkGetSelectOptions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">211</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Select Options</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkGetSelectOptions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSQL</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncDisplayField</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncValueField</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncCurrentValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in SELECT statement to retrieve value and display values for drop list.  Sends back <option> tags only.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>SQL Query</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncDisplayField</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Display Field for example 'Male', 'Female'</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncValueField</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Value Field for example 'M', 'F'</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncCurrentValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Current Value so knows which value to mark as SELECTED</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>array $gloWTKobjConn connection to data object</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">returns</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>string Return HTML built SELECT drop down menu</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkEscapeStringForDB">
+        wtkEscapeStringForDB()
+        <a href="#function_wtkEscapeStringForDB" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">238</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepares the string to be used in either a MySQL or PostgreSQL DB.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkEscapeStringForDB</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncRawString</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"><p>Replaces single quote with two single quotes.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncRawString</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+
+            </dd>
+            </dl>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>string $gloDriver1 used to determine whether to use pg_escape_string or str_replace</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSqlDateFormat">
+        wtkSqlDateFormat()
+        <a href="#function_wtkSqlDateFormat" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">266</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">SQL Date Format</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSqlDateFormat</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncColName</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncAlias</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncFormat</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Used in SELECT statements so common code can be used which will format date
+appropriately regardless of whether MySQL or PostgreSQL database.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncColName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncAlias</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Defaults to column name if blank</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncFormat</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Defaults to use $gloSqlDateTime if not passed or blank</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>string $gloDriver1 used to determine whether to use DATE_FORMAT or to_char</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>string $gloSqlDateTime is set in wtk/wtkServerInfo.php ; choose your default datetime format</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkBuildInsertSQL">
+        wtkBuildInsertSQL()
+        <a href="#function_wtkBuildInsertSQL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">306</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Build Insert SQL</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBuildInsertSQL</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTable</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncField</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in the table, field and value parameters which are added to variables to construct an INSERT statement.
+This is called by Save.php.  It saves the information in $pgInsertColumns, $pgInsertValues, $pgPDOvalues;</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTable</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Database Table Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncField</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Database Field Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Database Value</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkExecInsertSQL">
+        wtkExecInsertSQL()
+        <a href="#function_wtkExecInsertSQL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">359</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Execute Insert SQL</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkExecInsertSQL</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTable</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in the Table name and this performs the INSERT script that was created by previously calling wtkBuildInsertSQL.
+This is called by Save.php</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTable</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Database Table Name</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkBuildUpdateSQL">
+        wtkBuildUpdateSQL()
+        <a href="#function_wtkBuildUpdateSQL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">401</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Build Update SQL</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBuildUpdateSQL</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTable</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncField</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncOldValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncNewValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in the table, field, prior value and new value which are added to variables to construct an UPDATE statement
+Checks old and new field values -&gt; Only updates if value has changed.
+This is called by Save.php</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTable</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Table Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncField</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Field Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncOldValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Old Value</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncNewValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>New Value</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkExecUpdateSQL">
+        wtkExecUpdateSQL()
+        <a href="#function_wtkExecUpdateSQL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">457</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Execute Update SQL</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkExecUpdateSQL</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTable</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncWhere</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in the Table name and WHERE clause and this performs the UPDATE that was created by previously calling wtkBuildUpdateSQL.
+This is called by Save.php</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTable</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Table Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncWhere</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>SQL WHERE statement</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkBuildInsertLog">
+        wtkBuildInsertLog()
+        <a href="#function_wtkBuildInsertLog" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">478</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Build SQL to Insert into wtkUpdateLog table</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBuildInsertLog</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTable</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncField</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncNewValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in the table, field and value parameters which are added to variables to construct an INSERT statement.
+This is called by wtkBuildInsertSQL to show log file of who INSERTed what and when.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTable</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Table Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncField</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Field Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncNewValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>New Value</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkBuildUpdateLog">
+        wtkBuildUpdateLog()
+        <a href="#function_wtkBuildUpdateLog" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">495</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Build SQL to Insert into wtkUpdateLog table</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBuildUpdateLog</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTable</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncField</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncOldValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncNewValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in the table, field and value parameters which are added to variables to construct an INSERT statement
+This is called by wtkBuildUpdateSQL to show log file of who UPDATEd what and when</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTable</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Table Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncField</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Field Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncOldValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Old Value</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncNewValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>New Value</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSaveUpdateLog">
+        wtkSaveUpdateLog()
+        <a href="#function_wtkSaveUpdateLog" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">511</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Save database changes to wtkUpdateLog</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSaveUpdateLog</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTable</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSQL</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTable</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Table Name</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>SQL Query</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkCheckSqlInjection">
+        wtkCheckSqlInjection()
+        <a href="#function_wtkCheckSqlInjection" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">543</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks to see if there is a SQL injection in the SQL.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkCheckSqlInjection</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSqlColumn</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in a value and it will mark as SQL injection if ;, single quote or information_schema .</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncSqlColumn</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+                    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGenerateFileName">
+        wtkGenerateFileName()
+        <a href="#function_wtkGenerateFileName" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/DataPDO.php"><a href="wtk-lib-datapdo.html"><abbr title="wtk/lib/DataPDO.php">DataPDO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">592</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Generate new file name.  This is mostly used for creating a file name for image uploads.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+    <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkGenerateFileName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncTableName</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncFileExt</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>Pass in the Table Name and File Extension.  The TableName is inserted into wtkGUID and
+the auto-generated GUID is used as part of the file name.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncTableName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>name of table that is asociated with new file</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fncFileExt</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the file extension</p>
+</section>
+
+            </dd>
+            </dl>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">returns</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+
+                                                 <section class="phpdocumentor-description"><p>string Returns new file name as 'w' . File GUID . '.' . $fncFileExt</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+
+
+</article>
+            </section>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+            </div>
+        </div>
+        <a href="wtk-lib-datapdo.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

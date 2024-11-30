@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>wtkFillBrowsePage Demo</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="@wtkPath@css/wtkGreen.css">
+	<link rel="stylesheet" href="@wtkPath@css/wtkDark.css">
+	<link rel="stylesheet" href="@wtkPath@css/wtkGlobal.css">
+	<link rel="stylesheet" href="@wtkPath@css/owl.carousel.min.css">
+	<link rel="stylesheet" href="@wtkPath@css/owl.theme.default.min.css">
+	<link rel="shortcut icon" href="@rootPath@imgs/favicon/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="@rootPath@imgs/favicon/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="@rootPath@imgs/favicon/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="@rootPath@imgs/favicon/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="@rootPath@imgs/favicon/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="@rootPath@imgs/favicon/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="@rootPath@imgs/favicon/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="@rootPath@imgs/favicon/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="@rootPath@imgs/favicon/apple-touch-icon-152x152.png" />
+	<script type="text/javascript" src="@wtkPath@js/wtkUtils.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/jquery.min.js" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkPaths.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkColors.js" defer></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" defer></script>
+</head>
+<body onload="JavaScript:wtkStartMaterializeCSS()">
+	<div id="mainPage">
+		<div class="container">
+			<br>
+			<div class="card green darken-4">
+				<div class="card-content">
+					<h4>My Super Demo
+						<small class="right"><!-- @HeaderButtons@ --></small></h4>
+					<p class="green-text text-lighten-3">Wizard&rsquo;s Toolkit is a low-code development library
+						using PHP, SQL and JavaScript.</p>
+					@wtkContent@
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- preloader -->
+	<div id="plsWait" class="modal wrapper-load center-align">
+		<div class="preloader-wrapper medium-size active">
+			<div class="spinner-layer spinner-custom">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end preloader -->
+	<div id="modalAlert" class="modal">
+		<div class="modal-content card center">
+			<i id="modIcon" class="material-icons large red-text text-darken-1">warning</i>
+			<h4 id="modHdr">Ooops!</h4>
+			<p id="modText"></p>
+			<a class="btn-action-bg b-shadow center modal-close waves-effect" id="langClose">Close</a>
+		</div>
+	</div>
+	<script type="text/javascript" src="@wtkPath@js/wtkLibrary.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkClientVars.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkChart.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkFileUpload.js" defer></script>
+</body>
+</html>

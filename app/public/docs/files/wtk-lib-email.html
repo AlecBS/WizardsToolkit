@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wizard's Toolkit Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/wtk/imgs/wtk.ico"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+</head>
+<body onload="JavaScript:getSideNav('files')" id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+        <h1 class="phpdocumentor-title"><a href="../" class="phpdocumentor-title__link">Wizard&rsquo;s Toolkit&nbsp;<small>Documentation</small></a></h1>
+        <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+        <section data-search-form class="phpdocumentor-search">
+            <label>
+                <span class="visually-hidden">Search for</span>
+                <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+            </label>
+        </section>
+    </header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">Menu</label>
+<aside id="sidenav" class="phpdocumentor-column -four phpdocumentor-sidebar">&nbsp;</aside>
+
+<div class="phpdocumentor-column -eight phpdocumentor-content">
+    <article class="phpdocumentor-element -file">
+        <h2 class="phpdocumentor-content__title">Email.php</h2>
+        <p class="phpdocumentor-summary">This contains all Wizard&rsquo;s Toolkit functions that involve emailing.</p>
+
+    <section class="phpdocumentor-description"><p>All rights reserved.</p>
+<p>The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</section>
+
+<h5 class="phpdocumentor-tag-list__heading" id="tags">Tags
+    <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+</h5>
+<dl class="phpdocumentor-tag-list">
+    <div>
+        <div class="phpdoc-tag">author</div>
+        <div class="phpdoc-descrip">Programming Labs</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">license</div>
+        <div class="phpdoc-descrip">All rights reserved</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">version</div>
+        <div class="phpdoc-descrip">2.0</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">website</div>
+        <div class="phpdoc-descrip">
+            <a href="https://wizardstoolkit.com" target="_blank">https://wizardstoolkit.com</a>
+        </div>
+    </div>
+</dl>
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+<dl class="phpdocumentor-table-of-contents">
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSendMail">wtkSendMail()</a>
+        <span> &nbsp;: bool </span>
+    </dt>
+    <dd>Primary function to call to send emails.</dd>
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkPostmarkApp">wtkPostmarkApp()</a>
+        <span> &nbsp;: bool </span>
+    </dt>
+    <dd>Called from wtkSendMail, this uses PostmarkApp to send emails.</dd>
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSendPHPMail">wtkSendPHPMail()</a>
+        <span> &nbsp;: bool </span>
+    </dt>
+    <dd>Called from wtkSendMail, this uses PHPMailer to send emails.</dd>
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSaveEmailSent">wtkSaveEmailSent()</a>
+        <span> &nbsp;: mixed</span>
+    </dt>
+    <dd></dd>
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkNotifyViaEmailPlain">wtkNotifyViaEmailPlain()</a>
+        <span> &nbsp;: void </span>
+    </dt>
+    <dd>One-line method of sending an email &lt;strong&gt;without&lt;/strong&gt; any email HTML template.</dd>
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkNotifyViaEmail">wtkNotifyViaEmail()</a>
+        <span> &nbsp;: void </span>
+    </dt>
+    <dd>One-line method of sending an email using an email HTML template.</dd>
+</dl>
+
+    <section class="phpdocumentor-functions">
+        <h3 class="phpdocumentor-elements__header" id="functions">
+            Functions
+            <a href="wtk-lib-email.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+        <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSendMail">
+        wtkSendMail()
+        <a href="#function_wtkSendMail" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Email.php"><a href="wtk-lib-email.html"><abbr title="wtk/lib/Email.php">Email.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">67</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Primary function to call to send emails.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSendMail</span><span>(</span><span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncEmailArray</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span>
+        <span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncAttachments</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncDebugLevel</span></span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>If second parameter is passed then it will also save email information into wtkEmailsSent data table.</p>
+<p>Example call includes defining Email Array and optional Save Array like:
+<code class="prettyprint"><br>
+$pgMailArray = array(<br>
+'ToAddress'   =&gt; $pgToEmail,<br>
+'ToName'      =&gt; $pgUserName,<br>
+'Subject'     =&gt; $pgSubject,<br>
+'Body'        =&gt; $pgBody<br>
+);<br>
+<br>
+$pgSaveArray = array (<br>
+'FromUID' =&gt; 0,<br>
+'EmailUID' =&gt; $pgEmailUID,<br>
+'ToUID' =&gt; $gloUserUID<br>
+);<br>
+<br>
+if (wtkSendMail($pgMailArray, $pgSaveArray)):<br>
+// show success message<br>
+endif;
+</code></p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+<dl class="phpdocumentor-argument-list">
+    <dt class="phpdocumentor-argument-list__entry">
+        <span class="phpdocumentor-signature__argument__name">$fncEmailArray</span>
+        : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+    </dt>
+    <dd class="phpdocumentor-argument-list__definition">
+
+    </dd>
+    <dt class="phpdocumentor-argument-list__entry">
+        <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span>
+        : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+        = <span class="phpdocumentor-signature__argument__default-value">[]</span> </dt>
+    <dd class="phpdocumentor-argument-list__definition">
+
+    </dd>
+    <dt class="phpdocumentor-argument-list__entry">
+        <span class="phpdocumentor-signature__argument__name">$fncAttachments</span>
+        : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+        = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> </dt>
+    <dd class="phpdocumentor-argument-list__definition">
+        <section class="phpdocumentor-description">
+            <p>defaults to blank</p>
+        </section>
+
+    </dd>
+    <dt class="phpdocumentor-argument-list__entry">
+        <span class="phpdocumentor-signature__argument__name">$fncDebugLevel</span>
+        : <span class="phpdocumentor-signature__argument__return-type">string</span>
+    </dt>
+    <dd class="phpdocumentor-argument-list__definition">
+        <section class="phpdocumentor-description">
+            <p>defaults to 0</p>
+        </section>
+
+    </dd>
+</dl>
+
+
+<h5 class="phpdocumentor-tag-list__heading" id="tags">
+    Tags
+    <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+</h5>
+<dl class="phpdocumentor-tag-list">
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+
+        <section class="phpdocumentor-description">
+            <p>string $gloEmailMethod</p>
+        </section>
+
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+
+        <section class="phpdocumentor-description">
+            <p>string $gloTechSupport</p>
+        </section>
+
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+
+        <section class="phpdocumentor-description">
+            <p>string $gloDbConnection If not 'Live' then
+                changes To address to $gloTechSupport and prepends 'TST: ' to subject</p>
+        </section>
+
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+
+        <section class="phpdocumentor-description">
+            <p>string $gloWebBaseURL replaces @website@ token</p>
+        </section>
+
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">global</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+
+        <section class="phpdocumentor-description">
+            <p>string $gloCoName replaces @CompanyName@ in both Subject and Body</p>
+        </section>
+
+    </dd>
+    <dt class="phpdocumentor-tag-list__entry">
+        <span class="phpdocumentor-tag__name">uses</span>
+    </dt>
+    <dd class="phpdocumentor-tag-list__definition">
+        <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+
+        <section class="phpdocumentor-description">
+            <p>wtkSendPHPMail or wtkPostmarkApp depending on $gloEmailMethod value</p>
+        </section>
+
+    </dd>
+</dl>
+
+<h5 class="phpdocumentor-return-value__heading">Return values</h5>
+<span class="phpdocumentor-signature__response_type">bool</span>
+&mdash;
+<section class="phpdocumentor-description">
+    <p>true if succeeds, false if email fails</p>
+</section>
+
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkPostmarkApp">
+        wtkPostmarkApp()
+        <a href="#function_wtkPostmarkApp" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Email.php"><a href="wtk-lib-email.html"><abbr title="wtk/lib/Email.php">Email.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">120</span>
+
+    </aside>
+
+    <p class="phpdocumentor-summary">Called from wtkSendMail, this uses PostmarkApp to send emails.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkPostmarkApp</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span
+                class="phpdocumentor-signature__argument__name">$fncEmailArray</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int,
+                mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncSaveArray</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span
+                class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fncAttachments</span><span> = </span><span
+                class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <section class="phpdocumentor-description">
+        <p>If second parameter is passed then it will also save email information into wtkEmailsSent data table.
+            This uses curl method of calling PostmarkApp.</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncEmailArray</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncAttachments</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to blank</p>
+            </section>
+
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloPostmarkToken defined in wtk/wtkServerInfo.php</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailFromAddress will be used as the From email address; must be assigned in PostmarkApp</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">uses</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+            <section class="phpdocumentor-description">
+                <p>wtkSaveEmailSent to save email data if $fncSaveArray filled</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">link</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <a class="phpdocumentor-tag-link" href="https://postmarkapp.com/developer/user-guide/send-email-with-api/send-a-single-email"> https://postmarkapp.com/developer/user-guide/send-email-with-api/send-a-single-email </a>
+
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+    &mdash;
+    <section class="phpdocumentor-description">
+        <p>true if succeeds, false if email fails</p>
+    </section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSendPHPMail">
+        wtkSendPHPMail()
+        <a href="#function_wtkSendPHPMail" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Email.php"><a href="wtk-lib-email.html"><abbr title="wtk/lib/Email.php">Email.php</abbr></a></abbr>
+        : <span class="phpdocumentor-element-found-in__line">270</span>
+
+    </aside>
+    <p class="phpdocumentor-summary">Called from wtkSendMail, this uses PHPMailer to send emails.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSendPHPMail</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncEmailArray</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span class="phpdocumentor-signature__argument">
+        <span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncAttachments</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncDebugLevel</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>If second parameter is passed then it will
+            also save email information into wtkEmailsSent data table.
+            This uses curl method of calling PostmarkApp.</p>
+        </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncEmailArray</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+            = <span class="phpdocumentor-signature__argument__default-value">[]</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncAttachments</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to blank</p>
+            </section>
+
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDebugLevel</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to 0</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailFromAddress will be used as the From email address; must be assigned in PostmarkApp</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloWebBaseURL used for unsubscribe feature</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailHost all these global variables are defined in wtk/wtkServerInfo.php</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailMethod</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailPort</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailSMTPAuth</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailFromAddress</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloEmailPassword</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">uses</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+            <section class="phpdocumentor-description">
+                <p>wtkSaveEmailSent to save email data if $fncSaveArray filled</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">link</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <a class="phpdocumentor-tag-link" href="https://postmarkapp.com/developer/user-guide/send-email-with-api/send-a-single-email"> https://postmarkapp.com/developer/user-guide/send-email-with-api/send-a-single-email </a>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">boolean</span>
+    &mdash;
+    <section class="phpdocumentor-description">
+        <p>true if succeeds, false if email fails</p>
+    </section>
+</article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkSaveEmailSent">
+            wtkSaveEmailSent()
+            <a href="#function_wtkSaveEmailSent" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Email.php"><a href="wtk-lib-email.html"><abbr title="wtk/lib/Email.php">Email.php</abbr></a></abbr>
+            : <span class="phpdocumentor-element-found-in__line">405</span>
+        </aside>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSaveEmailSent</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+        </span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>This is called by wtkSendPHPMail and wtkPostmarkApp to log the email into the
+            wtkEmailsSent data table.</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+    &mdash;
+    </article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkNotifyViaEmailPlain">
+            wtkNotifyViaEmailPlain()
+            <a href="#function_wtkNotifyViaEmailPlain" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Email.php"><a href="wtk-lib-email.html"><abbr title="wtk/lib/Email.php">Email.php</abbr></a></abbr>
+            : <span class="phpdocumentor-element-found-in__line">439</span>
+        </aside>
+
+        <p class="phpdocumentor-summary">One-line method of sending an email &lt;strong&gt;without&lt;/strong&gt; any email HTML template.</p>
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkNotifyViaEmailPlain</span>
+        <span>(</span><span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncSubject</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncMessage</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncToEmail</span>
+        <span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        <span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span>
+        <span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span>
+        <span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>,
+        </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncCC</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        <span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>This defaults to sending email to $gloTechSupport definied in wtkServerInfo.php but you can pass both a To and a CC email</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">fncSubject</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">Subject of email.</dd>
+    </dl>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">fncMessage</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">Body of email - this can have HTML in it.</dd>
+    </dl>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">fncToEmail</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">The email address to send to.
+            If this is blank then will send to $gloTechSupport.</dd>
+    </dl>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">fncSaveArray</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+            = <span class="phpdocumentor-signature__argument__default-value">[]</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">This will save additional information
+            into the wtkEmailsSent data table.</dd>
+    </dl>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCC</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <ul>
+                    <li>email address to CC if desired</li>
+                </ul>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+    &mdash;
+</article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkNotifyViaEmail">
+            wtkNotifyViaEmail()
+            <a href="#function_wtkNotifyViaEmail" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Email.php"><a href="wtk-lib-email.html"><abbr title="wtk/lib/Email.php">Email.php</abbr></a></abbr>
+            : <span class="phpdocumentor-element-found-in__line">474</span>
+        </aside>
+
+        <p class="phpdocumentor-summary">One-line method of sending an email using an email HTML template.</p>
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkNotifyViaEmail</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSubject</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncMessage</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncToEmail</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncCC</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncTemplate</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;emailDark.htm&#039;</span>
+        <span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncReplyTo</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncAddNL2BR</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;Y&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>This sends email using HTML template, adding log to database
+        and making so will know when/if email is opened. It defaults to sending email to <b>$gloTechSupport</b>
+        defined in wtkServerInfo.php but you can pass both a To and a CC email address.</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSubject</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncMessage</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <ul>
+                    <li>body of email</li>
+                </ul>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncToEmail</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>if blank then $gloTechSupport will be used</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSaveArray</span>
+            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+            = <span class="phpdocumentor-signature__argument__default-value">[]</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCC</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>email address to CC if desired</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncTemplate</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;emailDark.htm&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>what HTML email template you want to use</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncReplyTo</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>the email addresss to have as the ReplyTo</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncAddNL2BR</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;Y&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to 'Y'; if set to 'Y' then does nl2br() on body of message</p>
+            </section>
+        </dd>
+    </dl>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloDarkLight if $fncTemplate is not set will default to 'email' . $gloDarkLight . '.htm'</p>
+            </section>
+        </dd>
+    </dl>
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">boolean</span>
+    &mdash; returns true if email succeeded and false if email failed.  If failed, check wtkErrorLog for details.
+    </article>
+</section>
+</article>
+    <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+        <section class="phpdocumentor-search-results__dialog">
+            <header class="phpdocumentor-search-results__header">
+                <h2 class="phpdocumentor-search-results__title">Search results</h2>
+                <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+            </header>
+            <section class="phpdocumentor-search-results__body">
+                <ul class="phpdocumentor-search-results__entries"></ul>
+            </section>
+        </section>
+    </section>
+    </div>
+</div>
+    <a href="wtk-lib-email.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+</main>
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

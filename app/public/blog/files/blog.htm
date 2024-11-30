@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@PageTitle@</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="files/blog2.css">
+	<link rel="shortcut icon" href="@rootPath@imgs/favicon/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="@rootPath@imgs/favicon/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="@rootPath@imgs/favicon/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="@rootPath@imgs/favicon/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="@rootPath@imgs/favicon/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="@rootPath@imgs/favicon/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="@rootPath@imgs/favicon/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="@rootPath@imgs/favicon/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="@rootPath@imgs/favicon/apple-touch-icon-152x152.png" />
+	<!-- @OGtags@ -->
+	<script type="text/javascript" src="@rootPath@wtk/js/jquery.min.js" defer></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
+	<script type="text/javascript" src="files/blog.js" defer></script>
+</head>
+<body onload="Javascript:wtkStart()">
+	<header>
+		<nav class="navbar-fixed-top">
+			<div class="nav-wrapper navbar">
+				<a href="/"><img src="/imgs/WTKcircle.png" class="brand-logo responsive-img" alt="logo"></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="/tutorials.php">Tutorials</a></li>
+					<li><a href="/showcase.php">Showcase</a></li>
+					<li><a href="/pricing.php">Pricing</a></li>
+					<li><a href="/docs/" target="_blank">Documentation</a></li>
+					<li><a href="/wiki/" target="_blank">Wiki</a></li>
+				</ul>
+				<ul id="slide-out" class="sidenav">
+					<li><a href="/tutorials.php"><i class="material-icons">live_tv</i>Tutorials</a></li>
+					<li><a href="/showcase.php"><i class="material-icons">important_devices</i>Showcase</a></li>
+					<li><a href="/pricing.php"><i class="material-icons">attach_money</i>Pricing</a></li>
+					<li><a href="/docs/" target="_blank"><i class="material-icons">library_books</i>Documentation</a></li>
+					<li><a href="/wiki/" target="_blank"><i class="material-icons">info_outline</i>Wiki</a></li>
+			   </ul>
+			   <a data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+			</div>
+		</nav>
+    </header>
+	<div class="row">
+    	<div class="col m3 s12 hide-on-small-only">
+        @ListOfBlogs@
+    	</div>
+		<div class="col m9 s12 blog-main">
+	        @BlogContent@
+			<br><br>
+		</div>
+	</div>
+    <footer>&copy @CurrentYear@ Wizard&rsquo;s Toolkit
+		<div class="right"><a href="/">WizardsToolkit.com</a></div></footer>
+	<!-- preloader -->
+	<div id="plsWait" class="modal wrapper-load center-align">
+		<div class="preloader-wrapper medium-size active">
+			<div class="spinner-layer spinner-custom">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end preloader -->
+	<div id="modalAlert" class="modal">
+		<div class="modal-content card center">
+			<i id="modIcon" class="material-icons large red-text text-darken-1">warning</i>
+			<h4 id="modHdr">Oops!</h4>
+			<p id="modText"></p>
+			<a class="btn-action-bg b-shadow center modal-close waves-effect">Close</a>
+		</div>
+	</div>
+</body>
+</html>

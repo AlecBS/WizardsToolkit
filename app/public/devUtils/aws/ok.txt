@@ -1,0 +1,2 @@
+this file just forces GIT to create folder
+this folder will only be used if you are transferring files from AWS S3 to Cloudflare R2 via S3toR2.php

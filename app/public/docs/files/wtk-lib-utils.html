@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wizard's Toolkit Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/wtk/imgs/wtk.ico"/>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+</head>
+<body onload="JavaScript:getSideNav('files')" id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+        <h1 class="phpdocumentor-title"><a href="../" class="phpdocumentor-title__link">Wizard&rsquo;s Toolkit&nbsp;<small>Documentation</small></a></h1>
+        <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+        <section data-search-form class="phpdocumentor-search">
+            <label>
+                <span class="visually-hidden">Search for</span>
+                <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+                </svg>
+                <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+            </label>
+        </section>
+    </header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">Menu</label>
+<aside id="sidenav" class="phpdocumentor-column -four phpdocumentor-sidebar">&nbsp;</aside>
+
+<div class="phpdocumentor-column -eight phpdocumentor-content">
+    <article class="phpdocumentor-element -file">
+        <h2 class="phpdocumentor-content__title">Utils.php</h2>
+        <p class="phpdocumentor-summary">This contain all functions that do not fit into other Wizard&rsquo;s Toolkit libraries.</p>
+
+    <section class="phpdocumentor-description"><p>All rights reserved.</p>
+<p>The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</section>
+
+<h5 class="phpdocumentor-tag-list__heading" id="tags">Tags
+    <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+</h5>
+<dl class="phpdocumentor-tag-list">
+    <div>
+        <div class="phpdoc-tag">author</div>
+        <div class="phpdoc-descrip">Programming Labs</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">license</div>
+        <div class="phpdoc-descrip">All rights reserved</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">version</div>
+        <div class="phpdoc-descrip">2.0</div>
+    </div>
+    <div>
+        <div class="phpdoc-tag">website</div>
+        <div class="phpdoc-descrip">
+            <a href="https://wizardstoolkit.com" target="_blank">https://wizardstoolkit.com</a>
+        </div>
+    </div>
+</dl>
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkTimeTrack">wtkTimeTrack()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Time Track is a debug method</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkShowTimeTracks">wtkShowTimeTracks()</a>
+        <span> &nbsp;: <abbr title="\echoes">echoes</abbr>    </span>
+    </dt>
+    <dd>Show Time Tracks</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkProtoType">wtkProtoType()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>This takes passed HTML and writes it to /tst/ folder for HTML/CSS debugging</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkAddUserHistory">wtkAddUserHistory()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>This function saves to User History how long it took to generate page.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkLogError">wtkLogError()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Easy error logging</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkInsFailedAttempt">wtkInsFailedAttempt()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>If there is a failed attack on server it will save information into wtkFailedAttempts table</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkErrorHandler">wtkErrorHandler()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Custom Error Handling</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkExceptionHandler">wtkExceptionHandler()</a>
+        <span> &nbsp;: <abbr title="\html">html</abbr>    </span>
+    </dt>
+    <dd>Custom Exception Handling</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkCheckForFatal">wtkCheckForFatal()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Trap fatal errors</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSetCookie">wtkSetCookie()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Set Cookie</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetCookie">wtkGetCookie()</a>
+        <span> &nbsp;: string    </span>
+    </dt>
+    <dd>Get Cookie - returns either the cookie value or a blank &#039;&#039; value</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkDeleteCookie">wtkDeleteCookie()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Delete Cookie</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkParseCurrencyToNumber">wtkParseCurrencyToNumber()</a>
+        <span> &nbsp;: <abbr title="\number">number</abbr>    </span>
+    </dt>
+    <dd>Changes Currency into simple Number</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkRedirect">wtkRedirect()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Redirect to passed URL regardless of whether headers have been sent or not</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkRemoveStyle">wtkRemoveStyle()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>This will remove HTML encoding from the value passed in.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkLoadInclude">wtkLoadInclude()</a>
+        <span> &nbsp;: <abbr title="\file">file</abbr>    </span>
+    </dt>
+    <dd>Load and return include file contents</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkReplace">wtkReplace()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Similar to str_replace except it replaces values within arrays.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetEnviron">wtkGetEnviron()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Get Environ</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetParam">wtkGetParam()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Returns GET if it exists, otherwise returns POSTed value.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetGet">wtkGetGet()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Get $_GET[] of passed parameter.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetPost">wtkGetPost()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Get $_POST[]</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetServer">wtkGetServer()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Get $_SERVER[]</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSetSession">wtkSetSession()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>Set $_SESSION variable.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetSession">wtkGetSession()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Get $_SESSION value or &#039;&#039; blank if not set.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkDeleteSession">wtkDeleteSession()</a>
+        <span> &nbsp;: null</span>
+    </dt>
+    <dd>unset($_SESSION[$fncSessVariable])</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkFormatPercent">wtkFormatPercent()</a>
+        <span> &nbsp;: <abbr title="\value">value</abbr>    </span>
+    </dt>
+    <dd>Format passed number as a percent.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkFormatCurrency">wtkFormatCurrency()</a>
+        <span> &nbsp;: mixed </span>
+    </dt>
+    <dd>Format passed number as currency.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkFormatDateTime">wtkFormatDateTime()</a>
+        <span> &nbsp;: <abbr title="\formatted">formatted</abbr> </span>
+    </dt>
+    <dd>Format passed value for Date and Time</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkHtmlEncode">wtkHtmlEncode()</a>
+        <span> &nbsp;: <abbr title="\encoded">encoded</abbr> </span>
+    </dt>
+    <dd>HTML Encode using htmlentities($fncString, ENT_QUOTES)</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkHtmlDecode">wtkHtmlDecode()</a>
+        <span> &nbsp;: <abbr title="\decoded">decoded</abbr> </span>
+    </dt>
+    <dd>HTML Decode</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkInsertSpaces">wtkInsertSpaces()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Insert Spaces</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkTruncate">wtkTruncate()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>wtkTruncate</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkGetIPaddress">wtkGetIPaddress()</a>
+        <span> &nbsp;: mixed </span>
+    </dt>
+    <dd>wtkGetIPaddress</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSecondsToDays">wtkSecondsToDays()</a>
+        <span> &nbsp;: string </span>
+    </dt>
+    <dd>Pass in number of seconds and returns value like: "3 Days 8 Hours 38 Minutes"</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkTimeZoneAdjust">wtkTimeZoneAdjust()</a>
+        <span>
+     &nbsp;: string </span>
+    </dt>
+    <dd>Checks server&#039;s time-zone and if different than passed time-zone, converts time.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkDeadPage">wtkDeadPage()</a>
+        <span>&nbsp;: <abbr title="\html">html</abbr> </span>
+    </dt>
+    <dd>Call this function to show a dead-end page.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkIsWindows">wtkIsWindows()</a>
+        <span> &nbsp;: bool </span>
+    </dt>
+    <dd>Is Windows - determines whether servers is a Windows server</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkIsSSL">wtkIsSSL()</a>
+        <span> &nbsp;: bool </span>
+    </dt>
+    <dd>This detects whether current URL is SSL or not.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkConvertLinks">wtkConvertLinks()</a>
+        <span> &nbsp;: <abbr title="\properly">properly</abbr> </span>
+    </dt>
+    <dd>Based current URL adjusts link to use similar SSL or not SSL link.</dd>
+</dl>
+
+<section class="phpdocumentor-functions">
+    <h3 class="phpdocumentor-elements__header" id="functions">
+        Functions
+        <a href="wtk-lib-utils.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h3>
+    <article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkTimeTrack">
+        wtkTimeTrack()
+        <a href="#function_wtkTimeTrack" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Time Track is a debug method</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkTimeTrack</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncLocation</span></span><span>)</span>
+            <span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>This debug method allows displaying debug information and then by changing
+the $gloTrackTime flag all debug will stop displaying. It also shows exact time
+for each call so you can check and debug speed issues.</p>
+<code class="prettyprint">
+$gloTrackTime = true;  // defaults to false; set to true to enable debug mode<br><br>
+wtkTimeTrack('just after some code');
+</code>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLocation</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+             <section class="phpdocumentor-description"><p>string $gloTimeTrackCntr</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>array  $gloTimeTrackArray</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkShowTimeTracks">
+        wtkShowTimeTracks()
+        <a href="#function_wtkShowTimeTracks" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Show Time Tracks</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkShowTimeTracks</span><span>(</span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\echoes">echoes</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>This shows everything that was sent to wtkTimeTrack plus all internal Wizard&rsquo;s Toolkit debug logging.
+It is automatically called at end of each WTK library PHP page but will not show anything
+unless $gloTrackTime = true.  You can also call this earlier for debugging if necessary.</p>
+</section>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloTimeTrack</p></section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>array  $gloTimeTrackArray</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\echoes">echoes</abbr></span>
+        &mdash;
+    <section class="phpdocumentor-description"><p>all time tracks</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkProtoType">
+        wtkProtoType()
+        <a href="#function_wtkProtoType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">94</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">This takes passed HTML and writes it to /tst/ folder for HTML/CSS debugging</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkProtoType</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncHtm</span></span><span>)</span>
+            <span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>The generated HTML files can be given to UI/HTML/CSS developers so they can
+work on the UI without needing PHP nor SQL skills.  This should be at bottom of your page.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncHtm</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkAddUserHistory">
+        wtkAddUserHistory()
+        <a href="#function_wtkAddUserHistory" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">117</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">This function saves to User History how long it took to generate page.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkAddUserHistory</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span>[</span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncPageTitle</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>Data is saved to <code class="prettyprint">wtkUserHistory</code> table.
+This is called via wtkBuildDataBrowse, wtkFormWriteUpdField and wtkMergePage.  If it is called more
+than once it only updates the <code class="prettyprint">SecondsTaken</code> instead of making a new data row.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncPageTitle</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>optionally pass Page Title</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkLogError">
+        wtkLogError()
+        <a href="#function_wtkLogError" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">192</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Easy error logging</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkLogError</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncErrType</span></span>
+            <span class="phpdocumentor-signature__argument"><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncErrMsg</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncLineNum</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;NULL&#039;</span>
+            <span> ]</span></span><span>)</span><span> : </span>
+            <span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>Pass in Error Type and Error Message and this inserts that plus additional information into the wtkErrorLog table.
+This includes logged-in user, Current Page, and Referer Page in addition to the Type and Message passed.
+Several functions in Wizard&rsquo;s Toolkit use this so check your wtkErrorLog table any time you have problems.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncErrType</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncErrMsg</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLineNum</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;NULL&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>defaults to NULL</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloUserUID</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkInsFailedAttempt">
+        wtkInsFailedAttempt()
+        <a href="#function_wtkInsFailedAttempt" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">250</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">If there is a failed attack on server it will save information into wtkFailedAttempts table</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkInsFailedAttempt</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncFailCode</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncFailNote</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>Pass in 4-character code that we want to log this failed attempt for.
+This includes logged-in user, IP Address, Browser Type, Current Page,
+and Referer Page in addition to the Message passed.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncFailCode</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>4-character code so you can easily count types of failures</p>
+            </section>
+
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncFailNote</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>optionally mention what caused failure</p>
+            </section>
+
+        </dd>
+    </dl>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloConnected</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloUserUID</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloCurrentPage</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description">
+                <p>string $gloWebBaseURL useful if you have multiple domains saving to same database</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkErrorHandler">
+        wtkErrorHandler()
+        <a href="#function_wtkErrorHandler" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php">
+        <a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">310</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Custom Error Handling</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkErrorHandler</span>
+        <span>(</span><span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncNum</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncStr</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncFile</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLine</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncContext</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>This is called from wtkCheckForFatal.
+This calls wtkExceptionHandler to show the error using the client's GUI templates.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncNum</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncStr</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncFile</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLine</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+                <section class="phpdocumentor-description"></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncContext</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+             = <span class="phpdocumentor-signature__argument__default-value">null</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkExceptionHandler">
+        wtkExceptionHandler()
+        <a href="#function_wtkExceptionHandler" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">324</span>
+
+    </aside>
+
+    <p class="phpdocumentor-summary">Custom Exception Handling</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkExceptionHandler</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span
+                class="phpdocumentor-signature__argument__name">$fncErr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span></code>
+
+    <section class="phpdocumentor-description">
+        <p>Uncaught exception handler set using set_exception_handler.
+            This shows the error using the client's GUI templates after saving the error to the wtkErrorLog table.</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncErr</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description">
+        <p>with error information; if user's SecurityLevel is &gt; 94 then shows additional error-&gt;getMessage()</p>
+    </section>
+    </article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkCheckForFatal">
+            wtkCheckForFatal()
+            <a href="#function_wtkCheckForFatal" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+            : <span class="phpdocumentor-element-found-in__line">375</span>
+        </aside>
+
+        <p class="phpdocumentor-summary">Trap fatal errors</p>
+
+        <code class="phpdocumentor-code phpdocumentor-signature">
+            <span class="phpdocumentor-signature__visibility"></span>
+            <span class="phpdocumentor-signature__name">wtkCheckForFatal</span><span>(</span><span>)</span>
+            <span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+        </code>
+
+        <section class="phpdocumentor-description">
+            <p>This captures fatal errors and calls wtkExceptionHandler to display. This prevents White Screens with no error messaging.
+                This uses $fncError = error_get_last() then if 'type' &gt;= 256 then calls wtkErrorHandler and wtkExceptionHandler.</p>
+            <p>Checks for a fatal error, work around for set_error_handler not working on fatal errors.
+                This is set using register_shutdown_function.</p>
+        </section>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+    </article>
+    <article class="phpdocumentor-element -function">
+        <h4 class="phpdocumentor-element__name" id="function_wtkSetCookie">
+            wtkSetCookie()
+            <a href="#function_wtkSetCookie" class="headerlink"><i class="fas fa-link"></i></a>
+        </h4>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+            : <span class="phpdocumentor-element-found-in__line">405</span>
+        </aside>
+
+        <p class="phpdocumentor-summary">Set Cookie</p>
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSetCookie</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncCookieName</span></span>
+            <span class="phpdocumentor-signature__argument"><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncValue</span></span>
+            <span class="phpdocumentor-signature__argument"><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncExpires</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncPath</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;/&#039;</span><span> ]</span></span>
+            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>For the 'Expires' parameter you can pass in any of these: 1day, 1week, 1month, 1year.
+If you pass nothing the cookie expires at end of session.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCookieName</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncValue</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncExpires</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to &quot;0&quot;. Switch cases: &quot;1day, 1week, 1month, 1year&quot;.
+If numeric value is passed it is added to time() for when to expire.</p>
+</section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncPath</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;/&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to &quot;/&quot;</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetCookie">
+        wtkGetCookie()
+        <a href="#function_wtkGetCookie" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">459</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Get Cookie - returns either the cookie value or a blank &#039;&#039; value</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetCookie</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncCookieName</span></span>
+            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCookieName</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkDeleteCookie">
+        wtkDeleteCookie()
+        <a href="#function_wtkDeleteCookie" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">469</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Delete Cookie</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkDeleteCookie</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncCookieName</span></span>
+            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCookieName</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+        &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkParseCurrencyToNumber">
+        wtkParseCurrencyToNumber()
+        <a href="#function_wtkParseCurrencyToNumber" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">481</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Changes Currency into simple Number</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkParseCurrencyToNumber</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span>[</span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncVal</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;$0&#039;</span>
+        <span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">
+            <abbr title="\number">number</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>For example will change '$12,345.67' into 12345.67</p></section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncVal</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;$0&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\number">number</abbr></span>
+        &mdash;
+        <section class="phpdocumentor-description"><p>from passed currency value</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkRedirect">
+        wtkRedirect()
+        <a href="#function_wtkRedirect" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">510</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Redirect to passed URL regardless of whether headers have been sent or not</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkRedirect</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncURL</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>To prevent redirection errors this will change go-to link
+        to use https: or http: based on what current web page user is on.  Redirects as a 301 but if
+        pass 'N' as second parameter ($fncPermanent) then redirects as 302.</p></section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncURL</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncPermanent</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">defaults to 'Y'</dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkRemoveStyle">
+        wtkRemoveStyle()
+        <a href="#function_wtkRemoveStyle" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">532</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">This will remove HTML encoding from the value passed in.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkRemoveStyle</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncThisValue</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncThisValue</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkLoadInclude">
+        wtkLoadInclude()
+        <a href="#function_wtkLoadInclude" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">570</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Load and return include file contents</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkLoadInclude</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncIncludeFile</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\file">file</abbr></span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncIncludeFile</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\file">file</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>contents</p>
+</section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkReplace">
+        wtkReplace()
+        <a href="#function_wtkReplace" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">601</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Similar to str_replace except it replaces values within arrays.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkReplace</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSubject</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSearchFor</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncReplaceWith</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>Case sensitive search and replace. It does not affect the passed-in value to be searched.
+The parameters are in a more intuitive order.
+It returns the result after replacing all matches even in recursive arrays.  For arrays it replaces values, not keys.
+If array is passed in, array is returned.  If a string is passed in, a string is returned.</p>
+<p>Example:
+<code class="prettyprint">$pgNewStr = wtkReplace($Subject, $SearchFor, $ReplaceWith);</code></p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSubject</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSearchFor</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncReplaceWith</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>or array depending on what was passed in</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetEnviron">
+        wtkGetEnviron()
+        <a href="#function_wtkGetEnviron" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">620</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Get Environ</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetEnviron</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncEnvVariable</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncEnvVariable</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>Returns a variable from ENV or '' if no value</p>
+</section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetParam">
+        wtkGetParam()
+        <a href="#function_wtkGetParam" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">633</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Returns GET if it exists, otherwise returns POSTed value.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetParam</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncParameter</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncDefault</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>wtkGetParam returns default if otherwise would return ''.</p></section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncParameter</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDefault</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>which defaults to '' blank</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetGet">
+        wtkGetGet()
+        <a href="#function_wtkGetGet" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">651</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Get $_GET[] of passed parameter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetGet</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncParameter</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncDefault</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>If not blank, returns stripslashes(urldecode($_GET[$fncParameter])).
+If result is blank, then returns $fncDefault.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncParameter</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDefault</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>which defaults to '' blank</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetPost">
+        wtkGetPost()
+        <a href="#function_wtkGetPost" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">668</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Get $_POST[]</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetPost</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncParameter</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncDefault</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>If result is blank, then returns $fncDefault.</p></section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncParameter</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDefault</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>which defaults to '' blank</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetServer">
+        wtkGetServer()
+        <a href="#function_wtkGetServer" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">682</span>
+
+    </aside>
+
+    <p class="phpdocumentor-summary">Get $_SERVER[]</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetServer</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span
+        class="phpdocumentor-signature__argument__name">$fncParameter</span></span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncParameter</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>returns a variable from SERVER or '' if no value</p>
+</section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSetSession">
+        wtkSetSession()
+        <a href="#function_wtkSetSession" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">696</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Set $_SESSION variable.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSetSession</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSessVariable</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncValue</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>If setting 'UserLevel' then to prevent other sites on same server from sharing UserLevel it prepends $gloAuthStatus</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSessVariable</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncValue</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloAuthStatus</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetSession">
+        wtkGetSession()
+        <a href="#function_wtkGetSession" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">713</span>
+    </aside>
+
+        <p class="phpdocumentor-summary">Get $_SESSION value or &#039;&#039; blank if not set.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetSession</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncSessVariable</span></span><span>)</span>
+            <span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>If retrieving 'UserLevel' then to prevent other sites on same server from sharing UserLevel it prepends $gloAuthStatus</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSessVariable</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloAuthStatus</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>returns a variable from session or '' if no value</p>
+</section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkDeleteSession">
+        wtkDeleteSession()
+        <a href="#function_wtkDeleteSession" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">730</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">unset($_SESSION[$fncSessVariable])</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkDeleteSession</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSessVariable</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>If retrieving 'UserLevel' then to prevent other sites on same server from sharing UserLevel it prepends $gloAuthStatus</p></section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSessVariable</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">global</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>string $gloAuthStatus</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">null</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkFormatPercent">
+        wtkFormatPercent()
+        <a href="#function_wtkFormatPercent" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">750</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Format passed number as a percent.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkFormatPercent</span>
+        <span>(</span><span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncValue</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr>&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncRoundDigits</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">2</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncGroupSep</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncDecimalSep</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;.&#039;</span><span> ]</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncPercentChar</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;after&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\value">value</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>This assumes number needs to be multiplied by 100.  Only first parameter of number is required.</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncValue</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncRoundDigits</span>
+            : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr></span>
+            = <span class="phpdocumentor-signature__argument__default-value">2</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '2'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncGroupSep</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '' blank</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDecimalSep</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;.&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '.'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncPercentChar</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;after&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>Defaults to 'after' to determine whether % should be before or after value</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\value">value</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>with percentage using above passed parameters</p>
+</section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkFormatCurrency">
+        wtkFormatCurrency()
+        <a href="#function_wtkFormatCurrency" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">773</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Format passed number as currency.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkFormatCurrency</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncValue</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr>&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncRoundDigits</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">2</span><span> ]</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncMoneyChar</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;$&#039;</span><span> ]</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncGroupSep</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;,&#039;</span><span> ]</span></span>
+            <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+            <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+            <span class="phpdocumentor-signature__argument__name">$fncDecimalSep</span><span> = </span>
+            <span class="phpdocumentor-signature__argument__default-value">&#039;.&#039;</span><span> ]</span></span>
+            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>This assumes number needs to be multiplied by 100.  Only first parameter of number is required.</p>
+    </section>
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncValue</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncRoundDigits</span>
+            : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr></span>
+            = <span class="phpdocumentor-signature__argument__default-value">2</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '2'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncMoneyChar</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;$&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to '$'</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncGroupSep</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;,&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to blank</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDecimalSep</span>
+            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;.&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkFormatDateTime">
+        wtkFormatDateTime()
+        <a href="#function_wtkFormatDateTime" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">791</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Format passed value for Date and Time</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkFormatDateTime</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncFormat</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr>&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncVal</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        <span> ]</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\formatted">formatted</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>Returns '' if either parameter is null, blank, '0000-00-00', or '00/00/0000'
+otherwise sets date format via: <code class="prettyprint">date($fncFormat, strtotime($fncVal))</code></p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncFormat</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncVal</span>
+            : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr></span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>Defaults to blank</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\formatted">formatted</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>date or ''</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkHtmlEncode">
+        wtkHtmlEncode()
+        <a href="#function_wtkHtmlEncode" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">813</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">HTML Encode using htmlentities($fncString, ENT_QUOTES)</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkHtmlEncode</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncString</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\encoded">encoded</abbr></span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncString</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\encoded">encoded</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>HTML</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkHtmlDecode">
+        wtkHtmlDecode()
+        <a href="#function_wtkHtmlDecode" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">823</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">HTML Decode</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkHtmlDecode</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncString</span></span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\decoded">decoded</abbr></span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncString</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\decoded">decoded</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>HTML</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkInsertSpaces">
+        wtkInsertSpaces()
+        <a href="#function_wtkInsertSpaces" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">838</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Insert Spaces</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkInsertSpaces</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncFieldName</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>This converts under_scored_fields into Under Scored Fields
+and it also converts WordCappedSentences into 'Word Capped Sentences'</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncFieldName</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>with spaces before every capital letter</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkTruncate">
+        wtkTruncate()
+        <a href="#function_wtkTruncate" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">868</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">wtkTruncate</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkTruncate</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncStr</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr>&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSize</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">80</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>This is called by BrowsePDO function to truncate text and add ellipsis.  It makes certain to truncate
+at last space so it doesn't break in middle of word.</p>
+<p>Here is an example:
+<code class="prettyprint">
+$fncThisValue = wtkTruncate($fncThisValue, 80);
+</code></p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncStr</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>string passed in to possibly truncate</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSize</span>
+            : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\numeric">numeric</abbr></span>
+            = <span class="phpdocumentor-signature__argument__default-value">80</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>defaults to 80; if fncStr is greater than this it will be truncated and an ellipsis appended</p>
+            </section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+    <section class="phpdocumentor-description">
+        <p>original value unless too long in which case truncated and ellipsis added</p>
+    </section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkGetIPaddress">
+        wtkGetIPaddress()
+        <a href="#function_wtkGetIPaddress" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">895</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">wtkGetIPaddress</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkGetIPaddress</span><span>(</span><span>)</span>
+        <span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>get IP address of web surfer</p></section>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+        <dt class="phpdocumentor-tag-list__entry">
+            <span class="phpdocumentor-tag__name">returns</span>
+        </dt>
+        <dd class="phpdocumentor-tag-list__definition">
+            <section class="phpdocumentor-description"><p>IP Address or 'no-IP' if no IP address</p></section>
+        </dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkSecondsToDays">
+        wtkSecondsToDays()
+        <a href="#function_wtkSecondsToDays" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">915</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Pass in number of seconds and returns value like: "3 Days 8 Hours 38 Minutes"</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkSecondsToDays</span><span>(</span>
+        <span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncSeconds</span></span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncSeconds</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>like 3 Days 8 Hours 38 Minutes</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkTimeZoneAdjust">
+        wtkTimeZoneAdjust()
+        <a href="#function_wtkTimeZoneAdjust" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">956</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Checks server&#039;s time-zone and if different than passed time-zone, converts time.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkTimeZoneAdjust</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncDateTime</span></span>
+        <span class="phpdocumentor-signature__argument"><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncTimeZone</span></span>
+        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncDateFormat</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>Pass in Date-Time and desired TimeZone to receive adjusted Date-Time in preferred format.
+Uses date_default_timezone_get to determine server's time-zone.</p>
+</section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDateTime</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncTimeZone</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDateFormat</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><ul>
+<li>optionally send your preferred PHP date format</li>
+</ul>
+</section>
+        </dd>
+    </dl>
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    &mdash;
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkDeadPage">
+        wtkDeadPage()
+        <a href="#function_wtkDeadPage" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">1000</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Call this function to show a dead-end page.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkDeadPage</span><span>(</span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description"><p>If the IP Address is known it is shown with a message about &quot;Nefarious Action Detected&quot;.
+This is used internally when user does something that looks like they are trying to hack the web server.</p>
+</section>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>page telling hackers they cannot continue</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkIsWindows">
+        wtkIsWindows()
+        <a href="#function_wtkIsWindows" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">1033</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Is Windows - determines whether servers is a Windows server</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkIsWindows</span><span>(</span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>eturns true if Windows, otherwise returns false</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkIsSSL">
+        wtkIsSSL()
+        <a href="#function_wtkIsSSL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">1042</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">This detects whether current URL is SSL or not.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkIsSSL</span><span>(</span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>true if SSL, else false</p></section>
+</article>
+<article class="phpdocumentor-element -function">
+    <h4 class="phpdocumentor-element__name" id="function_wtkConvertLinks">
+        wtkConvertLinks()
+        <a href="#function_wtkConvertLinks" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Utils.php"><a href="wtk-lib-utils.html"><abbr title="wtk/lib/Utils.php">Utils.php</abbr></a></abbr>
+    : <span class="phpdocumentor-element-found-in__line">1073</span>
+    </aside>
+
+    <p class="phpdocumentor-summary">Based current URL adjusts link to use similar SSL or not SSL link.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__name">wtkConvertLinks</span><span>(</span>
+        <span class="phpdocumentor-signature__argument">
+        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncLinks</span></span><span>)</span><span> : </span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\properly">properly</abbr></span>
+    </code>
+
+    <section class="phpdocumentor-description">
+        <p>This is used by wtkRedirect to determine whether http:// or https:// should be used when redirecting.</p>
+    </section>
+
+    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncLinks</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition"></dd>
+    </dl>
+
+    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\properly">properly</abbr></span>
+    &mdash;
+    <section class="phpdocumentor-description"><p>formed link</p></section>
+</article>
+</section>
+</article>
+<section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+            </div>
+        </div>
+        <a href="wtk-lib-utils.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+    </main>
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

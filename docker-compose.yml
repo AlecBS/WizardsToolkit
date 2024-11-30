@@ -1,0 +1,48 @@
+services:
+    wtk_db_mysql:
+        platform: linux/amd64
+        image: mysql:8.3
+        container_name: wtk_db_mysql
+        restart: always
+        command: --default-authentication-plugin=mysql_native_password --secure-file-priv='/var/lib/mysql' --sql-mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+        environment:
+          MYSQL_ROOT_PASSWORD: 'LowCodeViaWTK'
+          TZ: 'America/Phoenix'
+        ports:
+          - '3306:3306'
+        volumes:
+          - ./Mounts/mydata:/var/lib/mysql
+    web:
+        platform: linux/amd64
+        container_name: nginx_webserver
+        image: nginx:1.22.0-alpine
+        ports:
+            - '80:80'
+            - '443:443'
+        depends_on:
+            - wtk_db_mysql
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./app:/app
+    php:
+        platform: linux/amd64
+        container_name: wtk_php81
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        volumes:
+            - ./app:/app
+        env_file:
+            - ./phpMySQL.env
+    phpmyadmin:
+        image: phpmyadmin
+        container_name: wtk_phpmyadmin
+        restart: always
+        links:
+            - wtk_db_mysql
+        environment:
+            PMA_HOST: wtk_db_mysql
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
+        ports:
+            - 8080:80

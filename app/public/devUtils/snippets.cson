@@ -1,0 +1,422 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+# Atom.io snippets - some general purpose and some especially for Wizard's Toolkit
+'.sql':
+  'SELECT':
+    'prefix': 'S'
+    'body': 'SELECT '
+  'FROM':
+    'prefix': 'F'
+    'body': 'FROM '
+  'LEFT JOIN':
+    'prefix': 'LOJ'
+    'body': 'LEFT OUTER JOIN `${1:tableName}` ON ${2}'
+  'INNER JOIN':
+    'prefix': 'IJ'
+    'body': 'INNER JOIN `${1:tableName}` ${2:alias} ON ${2:alias}.`UID` = $3'
+  'INNER JOIN on wtkUsers':
+    'prefix': 'UIJ'
+    'body': 'INNER JOIN `wtkUsers` u ON u.`UID` = $1.`UserUID`'
+  'INNER JOIN on wtkLookups':
+    'prefix': 'LIJ'
+    'body': 'INNER JOIN `wtkLookups` L ON L.`LookupValue` = `${1:ParentColumn}` AND L.`LookupType` = \'${2}${1}\''
+  'WHERE':
+    'prefix': 'W'
+    'body': 'WHERE '
+  'ORDER BY':
+    'prefix': 'OB'
+    'body': 'ORDER BY '
+  'ORDER BY id DESC':
+    'prefix': 'OBI'
+    'body': 'ORDER BY $1`id` DESC'
+  'ORDER BY UID DESC':
+    'prefix': 'OBU'
+    'body': 'ORDER BY $1`UID` DESC'
+  'GROUP BY':
+    'prefix': 'GB'
+    'body': 'GROUP BY '
+  'AND':
+    'prefix': 'A'
+    'body': 'AND '
+  'COUNT':
+    'prefix': 'C'
+    'body': 'COUNT(*)'
+  'COALESCE':
+    'prefix': 'COA'
+    'body': 'COALESCE(`${1:column_name}`, 0) AS `${1:column_name}`,'
+  'INSERT INTO':
+    'prefix': 'II'
+    'body': 'INSERT INTO ${1} (${2:ColumnNames})'
+  'Trigger Update After':
+    'prefix': 'TUA'
+    'body': 'CREATE DEFINER=`root`@`%` TRIGGER `tua_${1:tableName}`\n\tAFTER UPDATE ON `${1:tableName}`\nFOR EACH ROW\nBEGIN\n\tcall st_wtkReplicate(\'${1:tableName}\',NEW.`UID`);\nEND $$'
+  'Trigger Insert After':
+    'prefix': 'TIA'
+    'body': 'CREATE DEFINER=`root`@`%` TRIGGER `tia_${1:tableName}`\n\tAFTER INSERT ON `${1:tableName}`\nFOR EACH ROW\nBEGIN\n\tcall st_wtkReplicate(\'${1:tableName}\',NEW.`UID`);\nEND $$'
+  'Add Column':
+    'prefix': 'AC'
+    'body': 'ALTER TABLE `${1:TableName}` ADD `${2:ColumnName}` int NULL DEFAULT `${3:SomeDefault}` AFTER `${4:SomeColumn}`;'
+  'Date Format':
+    'prefix': 'DF'
+    'body': 'DATE_FORMAT(`AddDate`, \'%c/%e/%y\') AS `AddDate`'
+  'Date Format Time':
+    'prefix': 'DFT'
+    'body': 'DATE_FORMAT(${1}.`AddDate`, \'$gloSqlDateTime\') AS `${2}Date`'
+  'UPDATE':
+    'prefix': 'UPDATE'
+    'body': 'UPDATE ${1:tableName}\n\tSET ${2:columnName} = ${3:someValue}\nWHERE `UID` = ${4:someValue} ;'
+  'IF':
+    'prefix': 'IF'
+    'body': 'IF (${1:conditional}) THEN\n\t${2}\nEND IF; -- ${1:conditional}'
+  'SQL Loop':
+    'prefix': 'sloop'
+    'body': 'DECLARE fncLastCheck    DATETIME DEFAULT NOW();\nDECLARE cursorFinished  INT DEFAULT 0;\nDECLARE fncUID  INT;\nDECLARE my_sql_cursor CURSOR FOR\n\tSELECT `UID`\n\t  FROM `${1:tableName}`\n\tWHERE ${2:condition}\n\tORDER BY `UID` ASC;\n\nDECLARE CONTINUE HANDLER FOR NOT FOUND SET cursorFinished = 1;\n\nOPEN my_sql_cursor;\n  MyCursorLoop: LOOP\n\tFETCH my_sql_cursor INTO fncUID;\n\tIF (cursorFinished = 1) THEN\n\t\tLEAVE MyCursorLoop;\n\tEND IF;\n\n-- ${3:do something}\n\n\tIF (TIME_TO_SEC(TIMEDIFF(NOW(), fncLastCheck)) > 5) THEN\n\t\tDO SLEEP(1); -- if 5 seconds passed, sleep 1 second so server can do things\n\t\tSET fncLastCheck := NOW();\n\tEND IF;\n\nEND LOOP MyCursorLoop;\nCLOSE my_sql_cursor;'
+  'SEL wtkUsers':
+    'prefix': 'wu'
+    'body': 'SELECT CONCAT(wu.`FirstName`, \' \', COALESCE(wu.`LastName`,\'\')) AS `User`\n
+\tFROM `wtkUsers` wu\n
+WHERE wu.`DelDate` IS NULL AND wu.`SecurityLevel` > 90\n
+\tORDER BY wu.`FirstName` ASC, wu.`LastName` ASC'
+  'First Name':
+    'prefix': 'fn'
+    'body': 'FirstName'
+  'Last Name':
+    'prefix': 'ln'
+    'body': 'LastName'
+  'User Name':
+    'prefix': 'name'
+    'body': 'CONCAT(u.`FirstName`, \' \', COALESCE(u.`LastName`,\'\')) AS `$1User`'
+  'IS NULL':
+    'prefix': 'ISN'
+    'body': 'IS NULL'
+  'IS NOT NULL':
+    'prefix': 'INN'
+    'body': 'IS NOT NULL'
+  'DelDate IS NULL':
+    'prefix': 'DIN'
+    'body': 'DelDate IS NULL'
+  'SQL Debug':
+    'prefix': 'db'
+    'body': "IF (fncDebug = 'Y') THEN \n\tINSERT INTO `wtkDebug` (`DevNote`) VALUES (CONCAT('${1}'));\nEND IF;"
+  'Create Table':
+    'prefix': 'CT'
+    'body': 'CREATE TABLE `${1:tableName}` (\n\t`UID`\t\t\tINT UNSIGNED NOT NULL auto_increment,\n\t`AddDate`\t\ttimestamp NOT NULL default CURRENT_TIMESTAMP,\n\t`DelDate`\t\tdatetime,\n\t`${2:columns}`\t\tvarchar(${3}),\n  PRIMARY KEY (`UID`),\n  KEY `ix_${1:tableName}_${2:columnName}` (`${2:columnName}`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;'
+  'DELETE data':
+    'prefix': 'DW'
+    'body': 'DELETE FROM `${1:tableName}` \n\tWHERE `UID` = ${2}'
+  'varchar()':
+    'prefix': 'VC'
+
+'.php':
+  'Wizards Toolkit':
+    'prefix': 'wtk'
+    'body': 'Wizard&rsquo;s Toolkit'
+  'wtkFormPrimeField':
+      'prefix': 'prime'
+      'body': '$pgHtm .= wtkFormPrimeField(\'${1:tableName}\', \'${2:columnName}UserUID\', ${3:}$gloUserUID);'
+  'wtkLookups SELECT':
+      'prefix': 'lup'
+      'body': '$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = \'${1:SecurityLevel}\' ORDER BY `LookupValue` ASC";'
+  'WTK Form Text Field':
+      'prefix': 'wtt'
+      'body': '$pgHtm .= wtkFormText(\'${1:tableName}\', \'${2:columnName}\');'
+  'WTK Select Droplist':
+      'prefix': 'wsel'
+      'body': '$pgHtm .= wtkFormSelect(\'${1:tableName}\', \'${2:columnName}\', $pgSQL, [], \'${3:LookupDisplay}\', \'${4:LookupValue}\');'
+  'WTK GetSelect Droplist':
+      'prefix': 'gsel'
+      'body': '$pgSelOptions = wtkGetSelectOptions($pgSQL, $pgSqlFilter, \'${1:LookupDisplay}\', \'${2:LookupValue}\', $pgFilterSelect);'
+  'WTK Checkbox':
+      'prefix': 'wtc'
+      'body': '$pgValues = array(\n\t\'checked\' => \'Y\',\n\t\'not\' => \'N\'\n\t);\n$pgHtm .= wtkFormCheckbox(\'${1:tableName}\', \'${2:columnName}\', \'${3:label}\',$pgValues,\'m6 s12\');'
+  'WTK Radio Form Field':
+      'prefix': 'wtr'
+      'body': '$pgValues = array(\n\t\'${1:Display1}\' => \'${2:Value1}\',\n\t\'${3:Display2}\' => \'${4:Value2}\'\n);\n$pgHtm .= wtkFormRadio(\'${5:tableName}\', \'${6:columnName}\', \'\', $pgValues);'
+  'WTK TextArea':
+      'prefix': 'wta'
+      'body': '$pgHtm .= wtkFormTextArea(\'${1:tableName}\', \'${2:columnName}\', \'${3:}\', \'${4:m12 s12}\');'
+  'Hidden Field':
+      'prefix': 'hid'
+      'body': '$pgHtm .= wtkFormHidden(\'${1:fieldName}\', $gloUserUID);'
+  'SQL Loop':
+      'prefix': 'sloop'
+      'body': '$pgPDO = $gloWTKobjConn->prepare($pgSQL);\n$pgPDO->execute($pgSqlFilter);\nwhile ($gloPDOrow = $pgPDO->fetch(PDO::FETCH_ASSOC)):\n\t$pg${1:ColumnName} = $gloPDOrow[\'${1:ColumnName}\'];\nendwhile;\nunset($pgPDO);'
+  'a href with target':
+      'prefix': 'at'
+      'body': '<a target="_blank" href="${1:url}">${2:description}</a>'
+  'DIV card':
+      'prefix': 'card'
+      'body': '<div class="card">\n\t<div class="card-content">\n\t\t<h2>${1:title}</h2>\n\t\t<p>${2:text}</p>\n\t</div>\n</div>'
+  'SQL Filter for PDO':
+      'prefix': 'sf'
+      'body': '$pgSqlFilter = array(\n\t\'${1}UserUID\' => $gloUserUID,\n\t\'${2}SomeVar\' => $pgVar\n);'
+  'Alert Box':
+      'prefix': 'ab'
+      'body': '$pgHtm .= wtkAlertBox(\'${1:content}\', \'${2:warning}\', \'${3:header}\');'
+  'Browse Box':
+      'prefix': 'bb'
+      'body': '$pgHtm .= wtkBuildDataBrowse($pgSQL);'
+  'Comment Box':
+      'prefix': 'co'
+      'body': '// BEGIN ${1:Note}$1\n$2\n//  END  ${1:Note}'
+  'pgHtm':
+    'prefix': 'hh'
+    'body': '$pgHtm .= \'$1\' . "\\\\n";'
+  'HTML template':
+    'prefix': 'ht'
+    'body': "${1}, _WTK_RootPATH . 'html/minibox.htm');"
+  'Get Param':
+    'prefix': 'gp'
+    'body': 'wtkGetParam(${1});'
+  'Replace':
+    'prefix': 'replace'
+    'body': '$pgTmp = wtkReplace($pgTmp, \'$1\',\'$2\');'
+  'Escape String':
+    'prefix': 'esc'
+    'body': 'wtkEscapeStringForDB(\'$1\');'
+  'Error Logging':
+    'prefix': 'err'
+    'body': 'error_reporting(E_ALL | E_STRICT);\nini_set(\'display_errors\', 1);'
+  'JS Init':
+    'prefix': 'jsinit'
+    'body': '$gloJsInit = \'${1}\';'
+  'Header Sort':
+    'prefix': 'hs'
+    'body': 'wtkSetHeaderSort(\'${1:Status}\', \'${2:Status}\');'
+  'HTM VAR':
+    'prefix': 'hvar'
+    'body': '$pgHtm .=<<<htmVAR\n${1:someHTML}\nhtmVAR;'
+  'wtkSqlDateFormat':
+    'prefix': 'sdf'
+    'body': '$pgDate = wtkSqlDateFormat(\'$1`AddDate`\', \'$2Date\', $gloSqlDateTime);'
+  'SQL VAR':
+    'prefix': 'svar'
+    'body': '$pgSQL =<<<SQLVAR\nSELECT ${1:}\n\tFROM \n\tWHERE \nSQLVAR;'
+  'Table Top':
+    'prefix': 'tt'
+    'body'  : '$pgHtm .= wtkHtmTableTop();'
+  'Table Cell':
+    'prefix': 'rtc'
+    'body'  : '$pgHtm .= wtkHtmTableCell(\'${1:prompt}\',\'Label\');'
+  'New Table Row':
+    'prefix': 'nr'
+    'body': '$pgHtm .= wtkHtmNewRow();'
+  'Table End':
+    'prefix': 'te'
+    'body'  : '$pgHtm .= wtkHtmTableEnd();'
+  'Search Replace':
+    'prefix': 'sr'
+    'body': 'wtkSearchReplace(\'${1:search for}\',\'\');'
+  'Value in String':
+      'prefix': 'ip'
+      'body': 'if (strpos($pgTmp, \'$2\') !== false):\n\t$3\nendif;'
+  'End of Line':
+    'prefix': 'eol'
+    'body'  : '. "\\\\n";'
+  'do':
+    'prefix': 'do'
+    'body': 'do {\n\t$2\n} while (${1:true});'
+  'condition ? true : false':
+    'prefix': 'tern'
+    'body': '${1:condition} ? ${2:true} : ${3:false}'
+  'IF Mgr level':
+    'prefix': 'iu'
+    'body': 'if ($gloUserSecLevel >= 50): // Manager level\n${1:statement}\nendif;  // BB Staff level'
+  'IF Programmer level':
+    'prefix': 'ip'
+    'body': 'if ($gloUserSecLevel == 99): // Programmer level\n${1:statement}\nendif;  // Programmer level'
+  'IF WhichApp':
+    'prefix': 'ia'
+    'body': 'if ($gloWhichApp == \'${1:Tenant}\'):\n\t$2\nendif;  // App = ${1:Tenant}'
+  'if':
+    'prefix': 'if'
+    'body': 'if (${1:Tmp} == \'$2\'):\n\t$3\nendif;'
+  'if not blank':
+    'prefix': 'ifn'
+    'body': 'if (${1:Tmp} != \'\'):\n\t$2\nendif;'
+  'if else':
+    'prefix': 'ie'
+    'body': 'if (${1:Tmp} == \'$2\'):\n\t$3\nelse:\n\t$4\nendif;'
+  'if too long':
+    'prefix': 'itl'
+    'body': 'if (strlen(${1:Tmp}) > $2):\n\t${1:Tmp} = substr(${1:Tmp}, 0, $2);\nendif;'
+  'else':
+    'prefix': 'else'
+    'body': 'else:\n\t'
+  'switch':
+    'prefix': 'switch'
+    'body': 'switch (${1:variable}):\n\tcase \'${2:value1}\':\n\t\t${3:code}\n\t\tbreak;\n\tcase \'${4:value1}\':\n\t\t${5:code}\n\t\tbreak;\n\tdefault:\n\t\t${6:code}\n\t\tbreak;\nendswitch;'
+  'DivCols':
+    'prefix': 'dvv'
+    'body': '$pgHtm .= \'<div class="row">\' . "\\\\n";\n$pgHtm .= \'\t<div class="col-md-offset-1 col-md-10 col-sm-12">\' . "\\\\n";\n
+\n$pgHtm .= \'\t</div>\' . "\\\\n";\n$pgHtm .= \'</div>\' . "\\\\n";'
+  'GetParam value to PHP Variable':
+    'prefix': 'pp'
+    'body'  : '$pg${1:ColumnName} = wtkGetParam(\'${1:ColumnName}\');'
+  'SQL value':
+    'prefix': 'sv'
+    'body'  : 'wtkSqlValue(\'${1:ColumnName}\')'
+  'SQL value to PHP Variable':
+    'prefix': 'pv'
+    'body'  : '$pg${1:ColumnName} = wtkSqlValue(\'${1:ColumnName}\');'
+  'Get One SQL result':
+    'prefix': 'g1'
+    'body'  : 'wtkSqlGetOneResult(${1:$pgSQL}, $pgSqlFilter);'
+  'Get One COUNT':
+    'prefix': 'g1c'
+    'body'  : 'wtkSqlGetOneResult(\'SELECT COUNT(*) FROM `${1:wtkUsers}` WHERE `UID` = ?\', [${2:$gloUserUID}]);'
+  'Get One SQL row':
+    'prefix': 'g1r'
+    'body'  : 'wtkSqlGetRow(${1:$pgSQL}, $pgSqlFilter);'
+  'Value in Text':
+    'prefix': 'vt'
+    'body': '$pgPos = strpos($${1:someVar}, \'${2:text}\');\nif ($pgPos !== false):\n\t${3:doSomething};\nendif; // pgPos !== false'
+  'Column Alignment':
+    'prefix': 'ca'
+    'body': '$gloColumnAlignArray = array (\n\t\'Priority\' => \'center\'\n);'
+  'More Buttons':
+    'prefix': 'mo'
+    'body': '$gloMoreButtons = array (\n\t\'${1:Send Invite}\' => array(\n\t\t\'act\' => \'${2:/admin/sendInvite}\',\n\t\t\'img\' => \'${3:send}\',\n\t\t\'mode\' => \'$4\'\n\t)\n);'
+  'Total Array':
+    'prefix': 'ta'
+    'body': '$gloTotalArray = array (\n\t\'TotalInvoiced\' => \'DSUM\'\n);'
+  'Delete Page for browse':
+    'prefix': 'wdel'
+    'body': "$gloDelPage = _WTK_RootPATH . 'wtkDelete.php?UG=UID&DelDate=Y&T=' . wtkEncode('${1}') . '&ID1=';";
+  'Space for HTML':
+    'prefix': 'sp'
+    'body': 'wtkHtmSpace(${1})'
+  'wtkSqlPrep':
+    'prefix': 'prep'
+    'body': '${1:$pgSQL} = wtkSqlPrep(${1:$pgSQL});'
+  'SQL Exec':
+    'prefix': 'exec'
+    'body': 'wtkSqlExec($pgSQL, $pgSqlFilter);'
+  'Time Track ON':
+    'prefix': 'ttt'
+    'body': '$gloTrackTime = true;'
+  'Time Track':
+    'prefix': 'tte'
+    'body': 'wtkTimeTrack(\'${1} = \' . ${2});'
+  'Show Time Track':
+    'prefix': 'stt'
+    'body': 'wtkShowTimeTracks();'
+  'Apostrophe':
+    'prefix': 'rs'
+    'body': '${1}&rsquo;'
+  'echo value':
+    'prefix': 'ev'
+    'body': "echo '<br>${1:variableName}: value = ' . ${1:variableName} . \"\\\\n\";"
+  'echo prep code':
+    'prefix': 'pc'
+    'body': "echo \"<br><pre><code>${1:variableName}</code></pre>\" . \"\\\\n\";"
+  'print_r':
+    'prefix': 'pr'
+    'body': "print_r($1);"
+  'SQL CONCAT Link':
+    'prefix': 'ac'
+    'body':'CONCAT(\'<a class="btn-floating" onClick="JavaScript:${1:jsFuncName}(\', `UID`, \')"><i class="material-icons">${2:announcement}</i></a>\') AS `${3:Add}`'
+  'INNER JOIN on wtkLookups':
+      'prefix': 'lij'
+      'body': 'INNER JOIN `wtkLookups` L ON L.`LookupValue` = `${1:ParentColumn}` AND L.`LookupType` = \'${2}${1}\''
+  'script for JS':
+      'prefix': 'script'
+      'body': '<script type="text/javascript">\n${1}\n</script>'
+  'icon in MaterializeCSS':
+      'prefix': 'ic'
+      'body': '<i class="material-icons">${1}</i>'
+  'JS var setting from input':
+      'prefix': 'jsv'
+      'body': 'let fnc${1:InputID} = $(\'#${1}\').val();'
+  'JS removeClass':
+      'prefix': 'jrs'
+      'body': "$('#${1:ElementId}').removeClass('${2}hide');"
+  'jQuery element change':
+      'prefix': 'jq'
+      'body': "$('#${1:ElementId}').${2}(${3});"
+  'onclick JavaScript':
+      'prefix': 'onc'
+      'body': 'onclick="JavaScript:${1}()"'
+  'Toast':
+      'prefix': 'toast'
+      'body': "M.toast({html: '${1:Message}', classes: 'rounded ${2}green'});"
+
+'.htm':
+  'Apostrophe':
+    'prefix': 'rs'
+    'body': '${1}&rsquo;'
+  'Wizards Toolkit':
+    'prefix': 'wtk'
+    'body': 'Wizard&rsquo;s Toolkit'
+  'JS var setting from input':
+      'prefix': 'jsv'
+      'body': 'let fnc${1:InputID} = $(\'#${1}\').val();'
+  'JS removeClass':
+      'prefix': 'jrs'
+      'body': "$('#${1:ElementId}').removeClass('${2:hide}');"
+  'jQuery element change':
+      'prefix': 'jq'
+      'body': "$('#${1:ElementId}').${2}(${3});"
+  'onclick JavaScript':
+      'prefix': 'onc'
+      'body': 'onclick="JavaScript:${1}()"'
+  'AJAX':
+      'prefix': 'ajax'
+      'body': "waitLoad('on');\nlet fncFormData = $('#wtkForm').serialize();\n$.ajax({\n\ttype: 'POST',\n\turl: 'ajx${1:pageName}.php',\n\tdata: { apiKey: pgApiKey, id: fncId },\n\tsuccess: function(data) {\n\t\twaitLoad('off');\n\t\tlet fncJSON = $.parseJSON(data);\n\t}\n})"
+
+'.html':
+  'Apostrophe':
+    'prefix': 'rs'
+    'body': '${1}&rsquo;'
+  'Wizards Toolkit':
+    'prefix': 'wtk'
+    'body': 'Wizard&rsquo;s Toolkit'
+  'JS var setting from input':
+      'prefix': 'jsv'
+      'body': 'let fnc${1:InputID} = $(\'#${1}\').val();'
+  'JS removeClass':
+      'prefix': 'jrs'
+      'body': "$('#${1:ElementId}').removeClass('${2:hide}');"
+  'jQuery element change':
+      'prefix': 'jq'
+      'body': "$('#${1:ElementId}').${2}(${3});"
+  'onclick JavaScript':
+      'prefix': 'onc'
+      'body': 'onclick="JavaScript:${1}()"'
+  'AJAX':
+      'prefix': 'ajax'
+      'body': "waitLoad('on');\nlet fncFormData = $('#wtkForm').serialize();\n$.ajax({\n\ttype: 'POST',\n\turl: 'ajx${1:pageName}.php',\n\tdata: (fncFormData),\n\tsuccess: function(data) {\n\t\twaitLoad('off');\n\t\tlet fncJSON = $.parseJSON(data);\n\t}\n})"
+
+'.js':
+  'JS var setting from input':
+      'prefix': 'jsv'
+      'body': 'let fnc${1:InputID} = $(\'#${1}\').val();'
+  'JS removeClass':
+      'prefix': 'jrs'
+      'body': "$('#${1:ElementId}').removeClass('${2:hide}');"
+  'jQuery element change':
+      'prefix': 'jq'
+      'body': "$('#${1:ElementId}').${2}(${3});"
+  'AJAX':
+      'prefix': 'ajax'
+      'body': "waitLoad('on');\nlet fncFormData = $('#wtkForm').serialize();\n$.ajax({\n\ttype: 'POST',\n\turl: 'ajx${1:pageName}.php',\n\tdata: (fncFormData),\n\tsuccess: function(data) {\n\t\twaitLoad('off');\n\t\tlet fncJSON = $.parseJSON(data);\n\t}\n})"
