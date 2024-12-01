@@ -87,79 +87,80 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
     <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
 </h3>
 <dl class="phpdocumentor-table-of-contents">
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSetHeaderSort">wtkSetHeaderSort()</a>
+        <span>&nbsp;: void</span>
+    </dt>
+    <dd>Declare Columns to be sortable in browse list.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkFilterRequest">wtkFilterRequest()</a>
+        <span>&nbsp;: string</span>
+    </dt>
+    <dd>This function manages Filter requests on browse boxes.</dd>
+
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkFillSuppressArray">wtkFillSuppressArray()</a>
+        <span>&nbsp;: void</span>
+    </dt>
+    <dd>Fill Suppress Array</dd>
     <dt class="phpdocumentor-table-of-contents__entry -function">
         <a href="#function_wtkSearchReplaceRow">wtkSearchReplaceRow()</a>
         <span>&nbsp;: mixed</span>
     </dt>
-    <dd></dd>
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkSearchCounter">wtkSearchCounter()</a>
-    <span>&nbsp;: string</span>
-</dt>
-<dd>Number of values to replace in a data row</dd>
+    <dd>Search and replace for each row returned</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBuildDataBrowse">wtkBuildDataBrowse()</a>
+        <span>&nbsp;: string</span>
+    </dt>
+    <dd>Build Data Browse in HTML table with sortable columns and option to show add, edit and delete button/features.</dd>
 
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkFillSuppressArray">wtkFillSuppressArray()</a>
-    <span>&nbsp;: void</span>
-</dt>
-<dd>Fill Suppress Array</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkFillBrowsePage">wtkFillBrowsePage()</a>
+        <span>&nbsp;: string</span>
+    </dt>
+    <dd>Fill Browse Page: this uses any SQL SELECT statement to build a full page showing the result set.</dd>
 
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkColSuppressed">wtkColSuppressed()</a>
-    <span>&nbsp;: bool</span>
-</dt>
-<dd>Pass in Column Name to see if it is suppressed due to wtkFillSuppressArray</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBrowseExport">wtkBrowseExport()</a>
+        <span>&nbsp;: <abbr title="\html">html</abbr></span>
+    </dt>
+    <dd>This will export the results to CSV and show a download option instead of showing SQL as a browse result set.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBrowseExportXML">wtkBrowseExportXML()</a>
+        <span>&nbsp;: <abbr title="\html">html</abbr>    </span>
+    </dt>
+    <dd>This will export the results to XML and show a download option instead of showing SQL as a browse result set.</dd>
 
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkFilterRequest">wtkFilterRequest()</a>
-    <span>&nbsp;: string</span>
-</dt>
-<dd>This function manages Filter requests on browse boxes.</dd>
+    <hr>
+    <h4>Below functions only used internally <small>these should never be called directly</small></h4>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkModifyOrderBy">wtkModifyOrderBy()</a>
+        <span>&nbsp;: string</span>
+    </dt>
+    <dd>Alter ORDER BY based on header sort options.</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkSearchCounter">wtkSearchCounter()</a>
+        <span>&nbsp;: string</span>
+    </dt>
+    <dd>Number of values to replace in a data row</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkColSuppressed">wtkColSuppressed()</a>
+        <span>&nbsp;: bool</span>
+    </dt>
+    <dd>Pass in Column Name to see if it is suppressed due to wtkFillSuppressArray</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBuildColHeader">wtkBuildColHeader()</a>
+        <span>&nbsp;: string</span>
+    </dt>
+    <dd>Build Column Header</dd>
+    <dt class="phpdocumentor-table-of-contents__entry -function">
+        <a href="#function_wtkBuildFooter">wtkBuildFooter()</a>
+        <span>&nbsp;: string</span>
+    </dt>
+    <dd>Build Footer</dd>
 
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkModifyOrderBy">wtkModifyOrderBy()</a>
-    <span>&nbsp;: string</span>
-</dt>
-<dd>Alter ORDER BY based on header sort options.</dd>
 
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkFillBrowsePage">wtkFillBrowsePage()</a>
-    <span>&nbsp;: string</span>
-</dt>
-<dd>Fill Browse Page: this uses any SQL SELECT statement to build a full page showing the result set.</dd>
-
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkBuildDataBrowse">wtkBuildDataBrowse()</a>
-    <span>&nbsp;: string</span>
-</dt>
-<dd>Build Data Browse in HTML table with sortable columns and option to show add, edit and delete button/features.</dd>
-
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkBuildFooter">wtkBuildFooter()</a>
-    <span>&nbsp;: string</span>
-</dt>
-<dd>Build Footer</dd>
-
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkSetHeaderSort">wtkSetHeaderSort()</a>
-    <span>&nbsp;: void</span>
-</dt>
-<dd>Declare Columns to be sortable in browse list.</dd>
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkBuildColHeader">wtkBuildColHeader()</a>
-    <span>&nbsp;: string</span>
-</dt>
-<dd>Build Column Header</dd>
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkBrowseExport">wtkBrowseExport()</a>
-    <span>&nbsp;: <abbr title="\html">html</abbr></span>
-</dt>
-<dd>This will export the results to CSV and show a download option instead of showing SQL as a browse result set.</dd>
-<dt class="phpdocumentor-table-of-contents__entry -function">
-    <a href="#function_wtkBrowseExportXML">wtkBrowseExportXML()</a>
-    <span>&nbsp;: <abbr title="\html">html</abbr>    </span>
-</dt>
-<dd>This will export the results to XML and show a download option instead of showing SQL as a browse result set.</dd>
 </dl>
 
     <section class="phpdocumentor-functions">
@@ -167,996 +168,1006 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
             Functions
             <a href="wtk-lib-browse.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+
         <article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkSearchReplaceRow">
-        wtkSearchReplaceRow()
-        <a href="#function_wtkSearchReplaceRow" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a>
-        </abbr>
-        : <span class="phpdocumentor-element-found-in__line">83</span>
-    </aside>
+            <h4 class="phpdocumentor-element__name" id="function_wtkSetHeaderSort">
+                wtkSetHeaderSort()
+                <a href="#function_wtkSetHeaderSort" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">1118</span>
+            </aside>
 
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkSearchReplaceRow</span>
-        <span>(</span><span class="phpdocumentor-signature__argument">
-            <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncSearch</span></span>
-            <span class="phpdocumentor-signature__argument"><span>, </span>
-            <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncReplace</span></span>
-        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+            <p class="phpdocumentor-summary">Declare Columns to be sortable in browse list.</p>
 
-    <section class="phpdocumentor-description"></section>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSetHeaderSort</span>
+                <span>(</span><span class="phpdocumentor-signature__argument">
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncColumn</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncColHeader</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncColSort</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+                <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span>
+            </code>
 
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSearch</span>
-            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncReplace</span>
-            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-    &mdash;
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkSearchCounter">
-        wtkSearchCounter()
-        <a href="#function_wtkSearchCounter" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">98</span>
-
-    </aside>
-
-    <p class="phpdocumentor-summary">Number of values to replace in a data row</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkSearchCounter</span>
-        <span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-             <section class="phpdocumentor-description"><p>string $pgSearchReplaceRowCntr</p></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-        &mdash;
-        <section class="phpdocumentor-description">
-            <p>$pageSearchReplaceRowCntr which holds count for managing $gloRowChangeArray values</p>
+            <section class="phpdocumentor-description"><p>Before calling wtkBuildDataBrowse use this function to declare which columns should be sortable.
+        Pass in one, two or three parameters.  The first parameter is the SQL column name.  The second parameter
+        is the alias or column header you wish to show; if this is ommitted then it will use the column name.
+        If the value is not sortable, for example a formatted date, then for the third parameter pass the actual
+        column name you want to sort on.</p>
+        <p>For example, for formatted dates pass in the third parameter of actual date field name and in
+        the SELECT use an alias. For example call might be:  wtkSetHeaderSort(&quot;FormattedBDay&quot;, &quot;Birthday&quot;, 'date_of_birth');
+        when your SELECT statement has something like:
+        SELECT <code class="prettyprint">first_name</code>, DATE_FORMAT(<code class="prettyprint">date_of_birth</code>, '%M %d, %Y') FROM <code class="prettyprint">friend_list</code></p>
         </section>
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkFillSuppressArray">
-        wtkFillSuppressArray()
-        <a href="#function_wtkFillSuppressArray" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">117</span>
-    </aside>
 
-    <p class="phpdocumentor-summary">Fill Suppress Array</p>
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncColHeader</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncColSort</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+            </dl>
 
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkFillSuppressArray</span>
-        <span>(</span><span class="phpdocumentor-signature__argument">
-            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncColumnName</span></span>
-            <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span>
-    </code>
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                     <section class="phpdocumentor-description"><p>array $gloColHeaderArray holds passed parameters</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                    <section class="phpdocumentor-description"><p>wtkInsertSpaces to add spaces for column name</p></section>
+                </dd>
+            </dl>
 
-    <section class="phpdocumentor-description"><p>Add columns to this array that you do not want to show in Browse result list.
-        This can be useful for sort order functionality.</p>
-    </section>
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">void</span>
+                &mdash;
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkFilterRequest">
+                wtkFilterRequest()
+                <a href="#function_wtkFilterRequest" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">170</span>
+            </aside>
 
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncColumnName</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-    </dl>
+            <p class="phpdocumentor-summary">This function manages Filter requests on browse boxes.</p>
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-             <section class="phpdocumentor-description"><p>array $gloSuppressColumnArray</p></section>
-        </dd>
-    </dl>
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-        &mdash;
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkColSuppressed">
-        wtkColSuppressed()
-        <a href="#function_wtkColSuppressed" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">132</span>
-    </aside>
-    <p class="phpdocumentor-summary">Pass in Column Name to see if it is suppressed due to wtkFillSuppressArray</p>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkFilterRequest</span><span>(</span>
+                <span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncFilterName</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncPage</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+                <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+            </code>
 
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkColSuppressed</span><span>(</span>
-        <span class="phpdocumentor-signature__argument">
-            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncColumnName</span></span>
-        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+            <section class="phpdocumentor-description"><p>Browse Data pages often have filter options.
+            Pass in to this function the name of the form field that contains the filter and optionally the Page name.
+            A session variable is created using a combination Page name and Filter name.</p>
+        <p>If the page was called with Reset=Y then it clears the session variable for this filter.
+         Otherwise it checks to see if the filter has just been set.  If so it saves the information in a session variable
+         for the same name as the filter form field and returns the value that was chosen.
+         If the filter was not just set, this function checks the session variable of same name to see if it was
+         previously set and if so uses that value. This way the AJAX calls for page navigation and header sorts will
+         retain prior filter settings.</p>
+         <p>Note: if $fncPage is not set, then it uses Server variable PHP_SELF.
+         If this is '/wtk/lib/Save.php', then assumes page is being redirected here from the Save.php
+         and therefore it uses the page you set in the wtkGoToURL hidden input field.</p>
+         <p>By passing the same FilterName and PageName on multiple pages, the filter preference
+         can be shared across multiple pages.</p>
+        <p>Here is an example:<br>
+        <code class="prettyprint">
+            $pgProjUID = wtkFilterRequest('wtkProjectsUID','pageName');<br>
+            if ($pgProjUID != ''):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;$pgSQL .= ' AND p.UID = ' . $pgProjUID;<br>
+            endif;<br>
+        </code></p>
+        </section>
 
-    <section class="phpdocumentor-description"><p>This function is called from wtkBuildDataBrowse, wtkBrowseExport and wtkBrowseExportXML.
- If column is suppressed it will not be shown.</p></section>
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncFilterName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncPage</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>which defaults to PHP_SELF</p></section>
+                </dd>
+            </dl>
 
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncColumnName</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-    </dl>
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+            <section class="phpdocumentor-description"><p>$fncResult containing filter value</p></section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkFillSuppressArray">
+                wtkFillSuppressArray()
+                <a href="#function_wtkFillSuppressArray" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">117</span>
+            </aside>
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-             <section class="phpdocumentor-description"><p>array $gloSuppressColumnArray</p></section>
-        </dd>
-    </dl>
+            <p class="phpdocumentor-summary">Fill Suppress Array</p>
 
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-        &mdash;
-        <section class="phpdocumentor-description"><p>true if column is in $gloSuppressColumnArray array</p></section>
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkFilterRequest">
-        wtkFilterRequest()
-        <a href="#function_wtkFilterRequest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">170</span>
-    </aside>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkFillSuppressArray</span>
+                <span>(</span><span class="phpdocumentor-signature__argument">
+                    <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncColumnName</span></span>
+                    <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span>
+            </code>
 
-    <p class="phpdocumentor-summary">This function manages Filter requests on browse boxes.</p>
+            <section class="phpdocumentor-description"><p>Add columns to this array that you do not want to show in Browse result list.
+                This can be useful for sort order functionality.</p>
+            </section>
 
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkFilterRequest</span><span>(</span>
-        <span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncFilterName</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncPage</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
-        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncColumnName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+            </dl>
 
-    <section class="phpdocumentor-description"><p>Browse Data pages often have filter options.
-    Pass in to this function the name of the form field that contains the filter and optionally the Page name.
-    A session variable is created using a combination Page name and Filter name.</p>
-<p>If the page was called with Reset=Y then it clears the session variable for this filter.
-Otherwise it checks to see if the filter has just been set.  If so it saves the information in a session variable
-for the same name as the filter form field and returns the value that was chosen.
-If the filter was not just set, this function checks the session variable of same name to see if it was
-previously set and if so uses that value. This way the AJAX calls for page navigation and header sorts will
-retain prior filter settings.
-By passing same FilterName and PageName on multiple pages, can share filter across multiple pages.</p>
-<p>Here is an example:<br>
-<code class="prettyprint">
-    $pgProjUID = wtkFilterRequest('wtkProjectsUID','pageName');<br>
-    if ($pgProjUID != ''):<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;$pgSQL .= ' AND p.UID = ' . $pgProjUID;<br>
-    endif;<br>
-</code></p>
-</section>
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                     <section class="phpdocumentor-description"><p>array $gloSuppressColumnArray</p></section>
+                </dd>
+            </dl>
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">void</span>
+                &mdash;
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkSearchReplaceRow">
+                wtkSearchReplaceRow()
+                <a href="#function_wtkSearchReplaceRow" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a>
+                </abbr>
+                : <span class="phpdocumentor-element-found-in__line">83</span>
+            </aside>
 
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncFilterName</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncPage</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-             = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>which defaults to PHP_SELF</p></section>
-        </dd>
-    </dl>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSearchReplaceRow</span>
+                <span>(</span><span class="phpdocumentor-signature__argument">
+                    <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncSearch</span></span>
+                    <span class="phpdocumentor-signature__argument"><span>, </span>
+                    <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncReplace</span></span>
+                <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span>
+            </code>
 
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+            <section class="phpdocumentor-description">
+                <p>Search &amp; Replace for data rows. Pass to this function the values
+                    you want to search for and what you want it replaced with.</p>
+                <p>This will affect each row of data returned during the result set
+                    creation from wtkFillBrowsePage and wtkBuildDataBrowse.</p>
+            </section>
+
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSearch</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncReplace</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-    <section class="phpdocumentor-description"><p>$fncResult containing filter value</p></section>
+        </article>
 
-</article
-    <article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkModifyOrderBy">
-        wtkModifyOrderBy()
-        <a href="#function_wtkModifyOrderBy" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">215</span>
-    </aside>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkBuildDataBrowse">
+                wtkBuildDataBrowse()
+                <a href="#function_wtkBuildDataBrowse" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">357</span>
+            </aside>
 
-    <p class="phpdocumentor-summary">Alter ORDER BY based on header sort options.</p>
+            <p class="phpdocumentor-summary">Build Data Browse in HTML table with sortable columns and option to show add, edit and delete button/features.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkModifyOrderBy</span>
-        <span>(</span><span class="phpdocumentor-signature__argument">
-            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
-            <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
-        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBuildDataBrowse</span><span>(</span>
+                <span class="phpdocumentor-signature__argument">
+                    <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncTableId</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span>
+                <span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncURL</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span><span> ]</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+            </code>
 
-    <section class="phpdocumentor-description"><p>This is called by wtkBuildDataBrowse, wtkBrowseExport and wtkBrowseExportXML and should not be called directly.</p>
- <p>wtkSetHeaderSort is used to make sortable headers in browse list generated by wtkBuildDataBrowse.
- When the header is clicked, it calls a JavaScript function which passes parameters to a PHP page
- and this function is used to adjust the ORDER BY.</p></section>
-
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>SQL query for wtkBuildDataBrowse</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-        &mdash;
-    <section class="phpdocumentor-description"><p>$fncSQL sends back SQL query with adjusted ORDER BY</p>
-</section>
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkFillBrowsePage">
-        wtkFillBrowsePage()
-        <a href="#function_wtkFillBrowsePage" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">267</span>
-    </aside>
-
-    <p class="phpdocumentor-summary">Fill Browse Page: this uses any SQL SELECT statement to build a full page showing the result set.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkFillBrowsePage</span><span>(</span>
-        <span class="phpdocumentor-signature__argument">
-            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncTableId</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span><span> ]</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncURL</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span><span> ]</span></span>
-        <span class="phpdocumentor-signature__argument__name">[, string $fncHTMLtemplate</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
-        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    <section class="phpdocumentor-description"><p>The function is just a wrapper for wtkBuildDataBrowse and includes a call to wtkMergePage.  Thus this function
- can be called when needing to display a single browse list in a single page
- (not to be used for Single Page App navigation).</p></section>
-
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>SQL Query that will retrieve list of data</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
-            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-             = <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-                <section class="phpdocumentor-description"><p>default value of 'wtkBr'</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncURL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-             = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>when browse requires a different URL here for the AJAX to use for page navigation</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-            = <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>If pass 'P' for $fncModalEdit the Add and Edit buttons will use ajaxGo but $gloMoreButtons will use wtkModal</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncHTMLtemplate</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-             = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>.htm page to use for HTML template; if blank defaults to /wtk/htm/mpa.htm</p></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-             <section class="phpdocumentor-description"><p>wtkMergePage</p></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-    &mdash;
-    <section class="phpdocumentor-description"><p>entire web page</p></section>
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkBuildDataBrowse">
-        wtkBuildDataBrowse()
-        <a href="#function_wtkBuildDataBrowse" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">308</span>
-    </aside>
-
-    <p class="phpdocumentor-summary">Build Data Browse in HTML table with sortable columns and option to show add, edit and delete button/features.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkBuildDataBrowse</span><span>(</span>
-        <span class="phpdocumentor-signature__argument">
-            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncTableId</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span>
-        <span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncURL</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span><span> ]</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    <section class="phpdocumentor-description"><p>Pass in a SELECT statement and this returns an HTML table with an AJAX-driven result set.
- Use this instead of wtkFillBrowsePage when multiple browses are needed on a page or you want to position a browse on a form page.
- The default 'wtkBr' will work as the TableID if there is only 1 browse on page.  Each browse on a page must have
- a unique TableID in order for the AJAX data-set navigation to work.</p>
-</section>
-
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
-            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-            = <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>Default value (&quot;wtkBr&quot;) will only work if 1 browse on page</p>
-            </section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncURL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-            = <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>defaults to 'N' and edit links go to page as normal; if set to 'Y' then uses modalEdi</p>
-            </section>
-        </dd>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>special feature to choose PHP date format for a Date column value</p>
-            </section>
-        </dd>
-    </dl>
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-            <section class="phpdocumentor-description"><p>wtkSearchReplace</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-            <section class="phpdocumentor-description"><p>wtkTimeTrack</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-            <section class="phpdocumentor-description"><p>wtkConnectToDB</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-            <section class="phpdocumentor-description"><p>wtkRowFunction</p></section>
-        </dd>
-    </dl>
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-        &mdash;
-    <section class="phpdocumentor-description"><p>entire browse list table</p></section>
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkBuildFooter">
-        wtkBuildFooter()
-        <a href="#function_wtkBuildFooter" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">1013</span>
-    </aside>
-
-    <p class="phpdocumentor-summary">Build Footer</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkBuildFooter</span>
-        <span>(</span><span class="phpdocumentor-signature__argument">
-            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
-            <span class="phpdocumentor-signature__argument"><span>, </span>
-            <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-            <span class="phpdocumentor-signature__argument__name">$fncURL</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-        <section class="phpdocumentor-description"><p>This builds the footer information that goes at the bottom of the browse result set and allows for page navigation.
-This is called from wtkBuildDataBrowse and should not be called directly.</p>
-</section>
-
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncURL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-    </dl>
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-             <section class="phpdocumentor-description"><p>wtkTimeTrack</p></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-        &mdash;
-    <section class="phpdocumentor-description"><p>html footer for browse box navigation</p></section>
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkSetHeaderSort">
-        wtkSetHeaderSort()
-        <a href="#function_wtkSetHeaderSort" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">1118</span>
-    </aside>
-
-    <p class="phpdocumentor-summary">Declare Columns to be sortable in browse list.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkSetHeaderSort</span>
-        <span>(</span><span class="phpdocumentor-signature__argument">
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncColumn</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncColHeader</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
-        <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncColSort</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
-        <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    <section class="phpdocumentor-description"><p>Before calling wtkBuildDataBrowse use this function to declare which columns should be sortable.
-Pass in one, two or three parameters.  The first parameter is the SQL column name.  The second parameter
-is the alias or column header you wish to show; if this is ommitted then it will use the column name.
-If the value is not sortable, for example a formatted date, then for the third parameter pass the actual
-column name you want to sort on.</p>
-<p>For example, for formatted dates pass in the third parameter of actual date field name and in
-the SELECT use an alias. For example call might be:  wtkSetHeaderSort(&quot;FormattedBDay&quot;, &quot;Birthday&quot;, 'date_of_birth');
-when your SELECT statement has something like:
-SELECT <code class="prettyprint">first_name</code>, DATE_FORMAT(<code class="prettyprint">date_of_birth</code>, '%M %d, %Y') FROM <code class="prettyprint">friend_list</code></p>
-</section>
-
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncColumn</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncColHeader</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-             = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncColSort</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-             = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-    </dl>
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-             <section class="phpdocumentor-description"><p>array $gloColHeaderArray holds passed parameters</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-            <section class="phpdocumentor-description"><p>wtkInsertSpaces to add spaces for column name</p></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-        &mdash;
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkBuildColHeader">
-        wtkBuildColHeader()
-        <a href="#function_wtkBuildColHeader" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
-            <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-        : <span class="phpdocumentor-element-found-in__line">1143</span>
-    </aside>
-
-    <p class="phpdocumentor-summary">Build Column Header</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkBuildColHeader</span><span>(</span>
-        <span class="phpdocumentor-signature__argument">
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncColumn</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncURL</span></span><span>)</span>
-        <span> : </span><span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    <section class="phpdocumentor-description">
-        <p>This uses the values you passed in by calling wtkSetHeaderSort to make columns sortable in the browse results.
-            It is called by wtkBuildDataBrowse and should not be called directly.</p>
-    </section>
-
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncColumn</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-            <p>Column name to be shown in header of list.  Will be sortable if previously declared by calling wtkSetHeaderSort.</p>
-            </section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>by each browse list having different Table Ids sorts and page navigation know which browse to update</p>
-            </section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncURL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>this determines what URL to call to update browse list</p></section>
-        </dd>
-    </dl>
-
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-        &mdash;
-        <section class="phpdocumentor-description">
-            <p>column header including sortable JavaScript function call to sort if necessary</p>
+            <section class="phpdocumentor-description"><p>Pass in a SELECT statement and this returns an HTML table with an AJAX-driven result set.
+         Use this instead of wtkFillBrowsePage when multiple browses are needed on a page or you want to position a browse on a form page.
+         The default 'wtkBr' will work as the TableID if there is only 1 browse on page.  Each browse on a page must have
+         a unique TableID in order for the AJAX data-set navigation to work.</p>
         </section>
-</article>
 
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkBrowseExport">
-        wtkBrowseExport()
-        <a href="#function_wtkBrowseExport" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">1207</span>
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    = <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>Default value (&quot;wtkBr&quot;) will only work if 1 browse on page</p>
+                    </section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncURL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    = <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>Pass Y, P or N (default) showing whether should use popup modal window for edit.
+                        <br>If pass 'P' for $fncModalEdit the Add and Edit buttons will use ajaxGo
+                         but $gloMoreButtons will use wtkModal.</p>
+                    </section>
+                </dd>
+            </dl>
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                    <section class="phpdocumentor-description"><p>wtkSearchReplace</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                    <section class="phpdocumentor-description"><p>wtkTimeTrack</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                    <section class="phpdocumentor-description"><p>wtkConnectToDB</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                    <section class="phpdocumentor-description"><p>wtkRowFunction</p></section>
+                </dd>
+            </dl>
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">string</span>
+                &mdash;
+            <section class="phpdocumentor-description"><p>entire browse list table</p></section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkFillBrowsePage">
+                wtkFillBrowsePage()
+                <a href="#function_wtkFillBrowsePage" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">267</span>
+            </aside>
 
-    </aside>
+            <p class="phpdocumentor-summary">Fill Browse Page: this uses any SQL SELECT statement to build a full page showing the result set.</p>
 
-        <p class="phpdocumentor-summary">This will export the results to CSV and show a download option instead of showing SQL as a browse result set.</p>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkFillBrowsePage</span><span>(</span>
+                <span class="phpdocumentor-signature__argument">
+                    <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncTableId</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span><span> ]</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncURL</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+                <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span><span> ]</span></span>
+                <span class="phpdocumentor-signature__argument__name">[, string $fncHTMLtemplate</span><span> = </span>
+                <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
+                <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+            </code>
 
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkBrowseExport</span><span>(</span>
-        <span class="phpdocumentor-signature__argument">
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
-        <span>)</span><span> : </span>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
-    </code>
+            <section class="phpdocumentor-description"><p>The function is just a wrapper for wtkBuildDataBrowse and includes a call to wtkMergePage.  Thus this function
+         can be called when needing to display a single browse list in a single page
+         (not to be used for Single Page App navigation).</p></section>
 
-    <section class="phpdocumentor-description"><p>If $fncTableId is 'modal' then returns HTML to display in a modal, otherwise uses wtk/htm/mcbox.htm and returns entire
-page.  Result has HTML tags removed and is saved to ../exports folder and this returns link to download the file.
-File is named based on $gloPageTitle (wtk if blank) . date('hms',time()) . '.csv'</p>
-</section>
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>SQL Query that will retrieve list of data</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;wtkBr&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                        <section class="phpdocumentor-description"><p>default value of 'wtkBr'</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncURL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>when browse requires a different URL here for the AJAX to use for page navigation</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncModalEdit</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    = <span class="phpdocumentor-signature__argument__default-value">&#039;N&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>If pass 'P' for $fncModalEdit the Add and Edit buttons will use ajaxGo but $gloMoreButtons will use wtkModal</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncHTMLtemplate</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>.htm page to use for HTML template; if blank defaults to /wtk/htm/mpa.htm</p></section>
+                </dd>
+            </dl>
 
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
-            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"></section>
-        </dd>
-    </dl>
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                     <section class="phpdocumentor-description"><p>wtkMergePage</p></section>
+                </dd>
+            </dl>
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description"><p>string $gloWTKobjConn</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description"><p>string $gloPageTitle this is displayed to describe export</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description">
-                <p>string $gloFormMsg this will be displayed below $gloPageTitle and above download link</p>
-            </section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description"><p>string $gloTotalArray</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description"><p>string $glowRowChangeArray</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-            <section class="phpdocumentor-description"><p>wtkRemoveStyle to remove HTML styles from values</p></section>
-        </dd>
-    </dl>
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>entire web page</p></section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkBrowseExport">
+                wtkBrowseExport()
+                <a href="#function_wtkBrowseExport" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">1207</span>
 
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
-        &mdash;
-        <section class="phpdocumentor-description"><p>to allow downloading CSV file</p></section>
-</article>
-<article class="phpdocumentor-element -function">
-    <h4 class="phpdocumentor-element__name" id="function_wtkBrowseExportXML">
-        wtkBrowseExportXML()
-        <a href="#function_wtkBrowseExportXML" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">1357</span>
+            </aside>
 
-    </aside>
-    <p class="phpdocumentor-summary">This will export the results to XML and show a download option instead of showing SQL as a browse result set.</p>
+                <p class="phpdocumentor-summary">This will export the results to CSV and show a download option instead of showing SQL as a browse result set.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__name">wtkBrowseExportXML</span>
-        <span>(</span><span class="phpdocumentor-signature__argument">
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
-        <span class="phpdocumentor-signature__argument"><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
-        <span>)</span><span> : </span>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
-    </code>
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBrowseExport</span><span>(</span>
+                <span class="phpdocumentor-signature__argument">
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
+                <span>)</span><span> : </span>
+                <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+            </code>
 
-    <section class="phpdocumentor-description"><p>If $fncTableId is 'modal' then returns HTML to display in a modal,
-        otherwise uses wtk/htm/mcbox.htm and returns entire
+            <section class="phpdocumentor-description"><p>If $fncTableId is 'modal' then returns HTML to display in a modal, otherwise uses wtk/htm/mcbox.htm and returns entire
         page.  Result has HTML tags removed and is saved to ../exports folder and this returns link to download the file.
-        File is named based on $gloPageTitle (wtk if blank) . date('hms',time()) . '.xml'</p>
-    </section>
+        File is named based on $gloPageTitle (wtk if blank) . date('hms',time()) . '.csv'</p>
+        </section>
 
-    <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition"></dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
-            : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"></section>
-        </dd>
-    </dl>
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+                </dd>
+            </dl>
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-             <section class="phpdocumentor-description"><p>string $gloWTKobjConn</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description"><p>string $gloPageTitle this is displayed to describe export</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description">
-                <p>string $gloFormMsg this will be displayed below $gloPageTitle and above download link</p>
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description"><p>string $gloWTKobjConn</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description"><p>string $gloPageTitle this is displayed to describe export</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>string $gloFormMsg this will be displayed below $gloPageTitle and above download link</p>
+                    </section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description"><p>string $gloTotalArray</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description"><p>string $glowRowChangeArray</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                    <section class="phpdocumentor-description"><p>wtkRemoveStyle to remove HTML styles from values</p></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+                &mdash;
+                <section class="phpdocumentor-description"><p>to allow downloading CSV file</p></section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkBrowseExportXML">
+                wtkBrowseExportXML()
+                <a href="#function_wtkBrowseExportXML" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">1357</span>
+
+            </aside>
+            <p class="phpdocumentor-summary">This will export the results to XML and show a download option instead of showing SQL as a browse result set.</p>
+
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBrowseExportXML</span>
+                <span>(</span><span class="phpdocumentor-signature__argument">
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
+                <span>)</span><span> : </span>
+                <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+            </code>
+
+            <section class="phpdocumentor-description"><p>If $fncTableId is 'modal' then returns HTML to display in a modal,
+                otherwise uses wtk/htm/mcbox.htm and returns entire
+                page.  Result has HTML tags removed and is saved to ../exports folder and this returns link to download the file.
+                File is named based on $gloPageTitle (wtk if blank) . date('hms',time()) . '.xml'</p>
             </section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description"><p>string $gloTotalArray</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">global</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <section class="phpdocumentor-description"><p>string $glowRowChangeArray</p></section>
-        </dd>
-        <dt class="phpdocumentor-tag-list__entry">
-            <span class="phpdocumentor-tag__name">uses</span>
-        </dt>
-        <dd class="phpdocumentor-tag-list__definition">
-            <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
-            <section class="phpdocumentor-description"><p>wtkRemoveStyle to remove HTML styles from values</p></section>
-        </dd>
-    </dl>
 
-    <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
-        &mdash;
-    <section class="phpdocumentor-description"><p>to allow downloading XML file</p></section>
-</article>
-</section>
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                     <section class="phpdocumentor-description"><p>string $gloWTKobjConn</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description"><p>string $gloPageTitle this is displayed to describe export</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>string $gloFormMsg this will be displayed below $gloPageTitle and above download link</p>
+                    </section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description"><p>string $gloTotalArray</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <section class="phpdocumentor-description"><p>string $glowRowChangeArray</p></section>
+                </dd>
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                    <section class="phpdocumentor-description"><p>wtkRemoveStyle to remove HTML styles from values</p></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
+                &mdash;
+            <section class="phpdocumentor-description"><p>to allow downloading XML file</p></section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkModifyOrderBy">
+                wtkModifyOrderBy()
+                <a href="#function_wtkModifyOrderBy" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">215</span>
+            </aside>
+
+            <p class="phpdocumentor-summary">Alter ORDER BY based on header sort options.</p>
+
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkModifyOrderBy</span>
+                <span>(</span><span class="phpdocumentor-signature__argument">
+                    <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span></span>
+                    <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
+                <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+            </code>
+
+            <section class="phpdocumentor-description"><p>This is called by wtkBuildDataBrowse,
+                wtkBrowseExport and wtkBrowseExportXML and should not be called directly.</p>
+         <p>wtkSetHeaderSort is used to make sortable headers in browse list generated by wtkBuildDataBrowse.
+         When the header is clicked, it calls a JavaScript function which passes parameters to a PHP page
+         and this function is used to adjust the ORDER BY.</p></section>
+
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncSQL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>SQL query for wtkBuildDataBrowse</p></section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">string</span>
+                &mdash;
+            <section class="phpdocumentor-description">
+                <p>$fncSQL sends back SQL query with adjusted ORDER BY</p>
+            </section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkSearchCounter">
+                wtkSearchCounter()
+                <a href="#function_wtkSearchCounter" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php"><a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">98</span>
+
+            </aside>
+
+            <p class="phpdocumentor-summary">Number of values to replace in a data row</p>
+
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkSearchCounter</span>
+                <span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+            </code>
+
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                     <section class="phpdocumentor-description"><p>string $pgSearchReplaceRowCntr</p></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">string</span>
+                &mdash;
+                <section class="phpdocumentor-description">
+                    <p>$pageSearchReplaceRowCntr which holds count for managing $gloRowChangeArray values</p>
+                </section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkColSuppressed">
+                wtkColSuppressed()
+                <a href="#function_wtkColSuppressed" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">132</span>
+            </aside>
+            <p class="phpdocumentor-summary">Pass in Column Name to see if it is suppressed due to wtkFillSuppressArray</p>
+
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkColSuppressed</span><span>(</span>
+                <span class="phpdocumentor-signature__argument">
+                    <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncColumnName</span></span>
+                <span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span>
+            </code>
+
+            <section class="phpdocumentor-description"><p>This function is called from wtkBuildDataBrowse, wtkBrowseExport and wtkBrowseExportXML.
+         If column is suppressed it will not be shown.</p></section>
+
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncColumnName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+            </dl>
+
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">global</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                     <section class="phpdocumentor-description"><p>array $gloSuppressColumnArray</p></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">bool</span>
+                &mdash;
+                <section class="phpdocumentor-description"><p>true if column is in $gloSuppressColumnArray array</p></section>
+        </article>
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkBuildColHeader">
+                wtkBuildColHeader()
+                <a href="#function_wtkBuildColHeader" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">1143</span>
+            </aside>
+
+            <p class="phpdocumentor-summary">Build Column Header</p>
+
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBuildColHeader</span><span>(</span>
+                <span class="phpdocumentor-signature__argument">
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncColumn</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
+                <span class="phpdocumentor-signature__argument"><span>, </span>
+                <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                <span class="phpdocumentor-signature__argument__name">$fncURL</span></span><span>)</span>
+                <span> : </span><span class="phpdocumentor-signature__response_type">string</span>
+            </code>
+
+            <section class="phpdocumentor-description">
+                <p>This uses the values you passed in by calling wtkSetHeaderSort to make columns sortable in the browse results.
+                    It is called by wtkBuildDataBrowse and should not be called directly.</p>
+            </section>
+
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description">
+                    <p>Column name to be shown in header of list.  Will be sortable if previously declared by calling wtkSetHeaderSort.</p>
+                    </section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description">
+                        <p>by each browse list having different Table Ids sorts and page navigation know which browse to update</p>
+                    </section>
+                </dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncURL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>this determines what URL to call to update browse list</p></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">string</span>
+                &mdash;
+                <section class="phpdocumentor-description">
+                    <p>column header including sortable JavaScript function call to sort if necessary</p>
+                </section>
+        </article>
+
+        <article class="phpdocumentor-element -function">
+            <h4 class="phpdocumentor-element__name" id="function_wtkBuildFooter">
+                wtkBuildFooter()
+                <a href="#function_wtkBuildFooter" class="headerlink"><i class="fas fa-link"></i></a>
+            </h4>
+            <aside class="phpdocumentor-element-found-in">
+                <abbr class="phpdocumentor-element-found-in__file" title="wtk/lib/Browse.php">
+                    <a href="wtk-lib-browse.html"><abbr title="wtk/lib/Browse.php">Browse.php</abbr></a></abbr>
+                : <span class="phpdocumentor-element-found-in__line">1013</span>
+            </aside>
+
+            <p class="phpdocumentor-summary">Build Footer</p>
+
+            <code class="phpdocumentor-code phpdocumentor-signature">
+                <span class="phpdocumentor-signature__visibility"></span>
+                <span class="phpdocumentor-signature__name">wtkBuildFooter</span>
+                <span>(</span><span class="phpdocumentor-signature__argument">
+                    <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span></span>
+                    <span class="phpdocumentor-signature__argument"><span>, </span>
+                    <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
+                    <span class="phpdocumentor-signature__argument__name">$fncURL</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+                <section class="phpdocumentor-description"><p>This builds the footer
+        information that goes at the bottom of the browse result set and allows for page navigation.
+        This is called from wtkBuildDataBrowse and should not be called directly.</p>
+                </section>
+
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+            <dl class="phpdocumentor-argument-list">
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncTableId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+                <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fncURL</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                </dt>
+                <dd class="phpdocumentor-argument-list__definition"></dd>
+            </dl>
+
+            <h5 class="phpdocumentor-tag-list__heading" id="tags">
+                Tags
+                <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+            </h5>
+            <dl class="phpdocumentor-tag-list">
+                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">uses</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                    <span class="phpdocumentor-tag-link"><abbr title="\function">function</abbr></span>
+                     <section class="phpdocumentor-description"><p>wtkTimeTrack</p></section>
+                </dd>
+            </dl>
+
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+            <span class="phpdocumentor-signature__response_type">string</span>
+                &mdash;
+            <section class="phpdocumentor-description"><p>html footer for browse box navigation</p></section>
+        </article>
+    </section>
 </article>
 <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
     <section class="phpdocumentor-search-results__dialog">
