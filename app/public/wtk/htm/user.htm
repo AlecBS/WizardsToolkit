@@ -1,0 +1,49 @@
+<div class="container">
+    <form id="profileForm" name="profileForm">
+    <div class="center">
+        <br><br><br>
+        <div class="card content b-shadow">
+            <div class="card-content">
+                <div style="margin-top: -115px;">
+                    <img src="@imgPreview@" id="imgPreview" class="circle responsive-img">
+                </div>
+                <h6>@FirstName@ @LastName@</h6>
+                <span>@Email@</span>
+               <br><br>
+               <a class="btn waves-effect waves-light center" onclick="Javascript:ajaxGo('userEdit')">Edit</a>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <p>Phone: @Phone@</p>
+                    <p>Cell: @CellPhone@</p>
+                </div>
+            </div><br>
+        </div>
+    </div>
+    <br>
+    <div class="card b-shadow">
+        <div class="card-content">
+            <h5>Notifications</h6>
+            <ul>
+                <li><strong>SMS Text notifications</strong></li>
+                <li>
+                    <div class="switch right">
+                        <label>
+                            <input type="checkbox" value="Y" id="SMSEnabled" name="SMSEnabled" >
+                            <span class="lever" onclick="JavaScript:saveSMSchoice()"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <p>Notifications are always sent via Email.
+               Text notification is optional and disabled for this demo.</p>
+        </div>
+    </div>
+    </form>
+    <!--@Extra@-->
+    <div class="center">
+        <br>
+        <a onclick="JavaScript:wtkModal('wtk/deleteAccount','DEL')" class="btn red waves-effect waves-light">Delete My Account</a>
+        <br><br>
+    </div>
+</div>

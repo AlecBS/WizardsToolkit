@@ -1,0 +1,46 @@
+/*
+MIT License
+
+Copyright 2021-2024 Wizard's Toolkit
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+----------------------------------------------------------------
+This file was created using Wizard's Toolkit CSS Maker
+https://WizardsToolkit.com
+Wizard's Toolkit is a low-code development library for PHP, SQL and JavaScript
+
+This file to be used with these files in this order:
+materialize.min.css
+{this file}
+wtkLight.css or wtkDark.css
+wtkGlobal.css
+*/
+:root {
+    --gradient-left: #5856D6;
+    --gradient-right: #C644FC;
+    --gradient-color: linear-gradient(to right, var(--gradient-left), var(--gradient-right));
+    --btn-border-color: #422A72;
+    --btn-color: #7552E0;
+    --btn-hover: #8D73FF;
+    --href-link: #9235E8;
+    --active-label: #9924E3;
+    --light-theme-focus: #7552E0;
+    --dark-theme-focus: #9924E3;
+    --bg-second-color: #9DA4FF;
+}

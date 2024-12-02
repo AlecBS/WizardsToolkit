@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@PageTitle@</title>
+	<link rel="stylesheet" href="@wtkPath@css/materialIcons.css"/>
+	<link rel="stylesheet" href="@wtkPath@css/materialize.min.css"/>
+	<link rel="stylesheet" href="@wtkPath@css/animate.min.css">
+	<link rel="stylesheet" href="@wtkPath@css/wtkBlue.css">
+	<link rel="stylesheet" href="@wtkPath@css/wtkLight.css">
+	<link rel="stylesheet" href="@wtkPath@css/wtkGlobal.css">
+	<link rel="stylesheet" href="@wtkPath@css/owl.carousel.min.css">
+    <link rel="stylesheet" href="@wtkPath@css/owl.theme.default.min.css">
+	<link rel="shortcut icon" href="@rootPath@imgs/favicon/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="@rootPath@imgs/favicon/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="@rootPath@imgs/favicon/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="@rootPath@imgs/favicon/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="@rootPath@imgs/favicon/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="@rootPath@imgs/favicon/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="@rootPath@imgs/favicon/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="@rootPath@imgs/favicon/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="@rootPath@imgs/favicon/apple-touch-icon-152x152.png" />
+	<script type="text/javascript" src="@wtkPath@js/wtkUtils.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/jquery.min.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/materialize.min.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkPaths.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkColors.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/chart382.min.js" defer></script>
+</head>
+<body class="bg-second" onload="JavaScript:wtkStartMaterializeCSS()">
+	<!-- preloader -->
+	<div id="loaderDiv1" class="wrapper-load active">
+		<div id="loaderDiv2" class="preloader-wrapper big">
+			<div class="spinner-layer spinner-custom">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end preloader -->
+	<div id="myNavbar" class="hide">
+<!-- @wtkMenu@ -->
+	</div>
+	<!-- sign in -->
+<div id="fullPage">
+	<div id="loginPage" class="full-page valign-wrapper">
+		<div class="middle-box">
+			<div class="card b-shadow">
+				<div class="gradient-header center">
+					<h2 id="langWelcome">Welcome</h2>
+					<h4>to @CompanyName@</h4>
+				</div>
+				<br><div id="LoginErrMsg" class="center"></div>
+				<form class="card-content">
+					<div class="input-field">
+						<i class="material-icons prefix">mail_outline</i>
+						<input id="myEmail" name="myEmail" type="email" value="@myEmail@">
+						<label for="myEmail" id="langEmail1">Email</label>
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">lock_outline</i>
+						<input id="myPassword" name="myPassword" type="password" value="@myPW@">
+						<label for="myPassword" id="langPW1">Password</label>
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">save</i>
+						<label for="rememberMe">
+							<input type="checkbox" value="Y" id="rememberMe" name="rememberMe" @rememberMe@>
+							<span id="langRemember">Remember Me</span>
+						</label>
+					</div>
+					<div class="center">
+						<br><br><br>
+						<button id="btnLogin" class="btn b-shadow waves-effect waves-light" onclick="JavaScript:wtkLoginForm('')" type="button">Sign in</button>
+					</div>
+					<br>
+					<ul>
+						<li>
+							<a onclick="JavaScript:showForgotPW('loginPage')">Forgot password?</a>
+						</li>
+						<li>
+						  <a onclick="JavaScript:showRegister('loginPage');" id="langCreateAcct1">Create account</a>
+						</li>
+					</ul>
+					<div style="max-width: 144px">
+							<select id="selLangList" onchange="JavaScript:wtkLangUpdate(this.value)">
+							<option value="eng">English</option>
+							<option value="esp">Espa&ntilde;ol</option>
+							<option value="hin">हिन्दी</option>
+						</select>
+					</div>
+				</form><!-- endloginForm -->
+			</div>
+		</div><!-- endloginMidBox -->
+	</div><!-- end sign in -->
+	<div id="mainPage" class="hide">@wtkContent@</div>
+	<div id="dashboard" class="hide">
+		<div id="widgetDIV"></div>
+	</div>
+
+	<div id="reportBug" class="hide">
+		<div class="container"><br><br>
+			<div class="card b-shadow">
+				<div class="card-content">
+					<div class="content-form">
+						<h5 id="langBugRpt">Problem? Idea?</h5>
+						<br>
+						<p id="langBugMsg">Is there a problem with our app?<br>
+						Or do you have ideas on how to make it better?</p>
+						<br>
+						<form>
+							<textarea id="bugMsg" class="materialize-textarea"></textarea>
+							<label for="bugMsg" id="langBugLabel">Let us know your thoughts.</label>
+						</form>
+						<div class="right-align">
+							<a class="btn waves-effect waves-light" onclick="Javascript:sendBug();" id="btnBugSave"><span id="langSend">Send</span><i class="material-icons white-text">send</i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="bugSent" class="hide">
+		<div class="container"><br><br>
+			<div class="card b-shadow">
+				<div class="card-content">
+					<h5 id="langBugSent">Message Delivered</h5>
+					<br>
+					<p id="langBugThanks">Thank you for your feedback.<br>
+					Your message has been sent to tech support.</p>
+				</div>
+			</div><br>
+			<div align="center">
+				<a class="btn waves-effect waves-light" onclick="JavaScript:goHome();" id="langGoHome">Return Home</a>
+			</div>
+		</div>
+	</div>
+	<div id="forgotPW" class="hide full-page valign-wrapper">
+		<div class="middle-box">
+			<div class="card b-shadow">
+				<div class="gradient-header center">
+					<h4 id="langForgotPW1">Forgot password?</h4>
+				</div>
+				<div class="card-content"><p id="langForgotMsg">Enter the email
+					address you have on file with us and we will send you a link where you can type in a new password.</p><br>
+					<div class="content-form">
+						<div id="forgotMsg"></div>
+						<form>
+							<div class="input-field">
+								<input type="email" value="" name="emailForgot" id="emailForgot" placeholder="your email" class="validate">
+								<label for="emailForgot" id="langEmail2">Email</label>
+								<span class="helper-text" data-error="enter a valid email address"></span>
+								<div class="center">
+									<button id="btnResetPW" type="button" onclick="JavaScript:wtkForgotPW()" class="btn waves-effect waves-light">Reset Password</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<p><span id="langRememberPW">Remembered your password?</span> <a onclick="JavaScript:showSignIn('forgotPW')">Login</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="resetPWdiv" class="hide full-page valign-wrapper">
+		<div class="middle-box">
+			<div class="card b-shadow">
+				<div class="gradient-header center">
+					<h4 id="langEmailSent">Email Sent</h4>
+				</div>
+				<div class="card-content"><p id="langEmailMsg">An email has
+					been sent with a link to reset your password.</p>
+					<br>
+					<div class="center">
+						<button type="button" class="btn b-shadow waves-effect waves-light center" onclick="JavaScript:showSignIn('resetPWdiv')" id="langSignIn">Back to Sign In</button>
+					</div>
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="registerPage" class="hide full-page valign-wrapper">
+		<div class="middle-box">
+			<div class="card b-shadow">
+				<div class="gradient-header center">
+					<h4 id="langCreateAcct2">Create Account</h4>
+				</div>
+				<form id="wtkRegisterForm" name="wtkRegisterForm" class="card-content">
+					<div class="input-field">
+						<input type="text" name="wtkwtkUsersFirstName" id="wtkwtkUsersFirstName">
+						<label for="wtkwtkUsersFirstName" id="langFN">First Name</label>
+					</div>
+					<div class="input-field">
+						<input type="text" name="wtkwtkUsersLastName" id="wtkwtkUsersLastName">
+						<label for="wtkwtkUsersLastName" id="langLN">Last Name</label>
+					</div>
+					<div class="input-field">
+						<input type="email" name="wtkwtkUsersEmail" id="wtkwtkUsersEmail" placeholder="used as login">
+						<label for="wtkwtkUsersEmail" id="langEmail3">Email</label>
+					</div>
+					<div class="input-field">
+						<input type="password" name="wtkwtkUsersWebPassword" id="wtkwtkUsersWebPassword">
+						<label for="wtkwtkUsersWebPassword" id="langPW2">Password</label>
+					</div>
+					<div class="input-field">
+						<input type="password" name="rePW" id="rePW">
+						<label for="rePW" id="langRetypePW">Retype Password</label>
+					</div>
+					<div class="center">
+						<button id="btnSignUp" class="btn b-shadow waves-effect waves-light" onclick="JavaScript:wtkRegister();" type="button">Sign Up</button>
+					</div>
+					<br>
+					<p id="langHaveAcct">Have an account?
+						<a onclick="JavaScript:showSignIn('registerPage')" id="langLogin">Login</a>
+					</p>
+					<p id="regForgot" class="hide">
+						<a onclick="JavaScript:showForgotPW('registerPage')" id="langForgotPW2">Forgot password?</a>
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="wrongApp" class="hide">
+		<br><br>
+		<div class="row">
+			<div class="col m4 offset-m4 s12">
+				<div class="card center" style="max-width: 450px">
+				    <div class="card-content">
+				        <h2 id="langWrongApp">Wrong App</h2>
+						<p id="langWrongAppMsg">It appears you have logged in to the wrong app.</p>
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="logoutPage" class="hide full-page valign-wrapper">
+		<div class="container">
+			<div class="card middle-box b-shadow">
+				<div class="card-content">
+					<p>Put your logo and tag-line here.</p>
+					<a class="btn b-shadow waves-effect waves-light" onclick="JavaScript:showSignIn('logoutPage')">Log In</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div id="modalAlert" class="modal">
+		<div class="modal-content card center">
+			<i id="modIcon" class="material-icons large red-text text-darken-1">warning</i>
+			<h4 id="modHdr">Oops!</h4>
+			<p id="modText"></p>
+			<a class="btn b-shadow modal-close waves-effect" id="langClose">Close</a>
+		</div>
+	</div>
+	<div id="modalWTK" class="modal content">
+		<div class="modal-content card">
+			this is example of html you should return to fill modalWTK when called via wtkModal JS function
+		</div>
+		<div id="modFooter" class="modal-footer right">
+			<button type="button" class="btn-small black b-shadow waves-effect waves-light modal-close">Close</button>
+			&nbsp;&nbsp;
+			<button type="button" class="btn-primary btn-small b-shadow waves-effect waves-light" onclick="Javascript:modalSave('yourSavePage','yourDiv')">Save</button>
+		</div>
+	</div>
+	<!-- page bottom -->
+	<script type="text/javascript" src="@wtkPath@js/wtkLibrary.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkClientVars.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkChart.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkFileUpload.js" defer></script>
+	<script type="text/javascript" src="https://unpkg.com/@paypal/paypal-js@4.1.0/dist/iife/paypal-js.min.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@PageTitle@</title>
+	<link rel="stylesheet" href="@wtkPath@css/materialIcons.css"/>
+	<link rel="stylesheet" href="@wtkPath@css/materialize.min.css"/>
+	<link rel="stylesheet" href="@wtkPath@css/wtkBlue.css">
+	<link rel="stylesheet" href="@wtkPath@css/wtkLight.css">
+	<link rel="stylesheet" href="@wtkPath@css/wtkGlobal.css">
+	<link rel="stylesheet" href="@wtkPath@css/Chart.min.css">
+	<link rel="shortcut icon" href="/imgs/favicon/favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="@wtkPath@js/wtkUtils.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/jquery.min.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/materialize.min.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkPaths.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkColors.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/chart382.min.js" defer></script>
+</head>
+<body onload="Javascript:wtkStartMaterializeCSS()">
+	<!-- preloader -->
+	<div id="loaderDiv1" class="wrapper-load active">
+		<div id="loaderDiv2" class="preloader-wrapper big">
+			<div class="spinner-layer spinner-custom">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="mainPage">
+		<br>
+		<div class="container">
+			@wtkContent@
+		</div>
+	</div>
+	<script type="text/javascript" src="@wtkPath@js/wtkLibrary.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkClientVars.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkChart.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkFileUpload.js" defer></script>
+</body>
+</html>

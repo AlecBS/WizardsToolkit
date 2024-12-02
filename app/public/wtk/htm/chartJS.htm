@@ -1,0 +1,98 @@
+<script type="text/javascript">
+wtkChartLabels = [@chartLabels@];
+wtkBarData = [@wtkBarData@];
+wtkLineData = [@wtkLineData@];
+wtkAreaData = [@wtkAreaData@];
+wtkPieData = [@wtkPieData@];
+
+wtkBarConfig = {
+    type: 'bar',
+    data: {
+        labels: wtkChartLabels,
+        datasets:
+         wtkBarData
+    },
+    options: {responsive: true,
+		plugins: {
+			tooltip: {
+				callbacks: {
+					label: function(context) {
+						let fncLabel = context.dataset.label || '';
+						let fncPercent = '';
+						if (context.parsed.y !== null) {
+							fncLabel += ': ' + context.parsed.y;
+							let fncSum = context.dataset.data.reduce((a, b) => a + b);
+							fncPercent = ((context.parsed.y / fncSum)*100).toFixed(1) + '%';
+						}
+						return [fncLabel, fncPercent];
+					}
+				}
+			}
+		}
+    }
+};
+wtkLineConfig = {
+    type: 'line',
+    data: {
+        labels: wtkChartLabels,
+        datasets:
+         wtkLineData
+    },
+    options: {responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let fncLabel = context.dataset.label || '';
+                        let fncPercent = '';
+                        if (context.parsed.y !== null) {
+                            fncLabel += ': ' + context.parsed.y;
+                            let fncSum = context.dataset.data.reduce((a, b) => a + b);
+                            fncPercent = ((context.parsed.y / fncSum)*100).toFixed(1) + '%';
+                        }
+                        return [fncLabel, fncPercent];
+                    }
+                }
+            }
+        }
+    }
+};
+wtkAreaConfig = {
+    type: 'line',
+    data: {
+        labels: wtkChartLabels,
+        datasets:
+         wtkAreaData
+    },
+    options: {responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let fncLabel = context.dataset.label || '';
+                        let fncPercent = '';
+                        if (context.parsed.y !== null) {
+                            fncLabel += ': ' + context.parsed.y;
+                            let fncSum = context.dataset.data.reduce((a, b) => a + b);
+                            fncPercent = ((context.parsed.y / fncSum)*100).toFixed(1) + '%';
+                        }
+                        return [fncLabel, fncPercent];
+                    }
+                }
+            }
+        }
+    }
+};
+wtkPieConfig = {
+    type: 'pie',
+    data: {
+        labels: wtkChartLabels,
+        datasets:
+         wtkPieData
+    },
+    options: {responsive: true, aspectRatio: 3}
+};
+
+gloLastTab[0] = 'regRpt';
+// gloChartExists[0] = false;
+</script>
