@@ -12,13 +12,21 @@ SELECT `UID`, `LookupType`, `LookupValue`, `LookupDisplay`
 ORDER BY `LookupType` ASC, `LookupValue` ASC
 SQLVAR;
 
+$gloHideUID = false;  // this allows `UID` to be seen; by default it will be supressed
+
+$gloEditPage = 'lookupEdit';
+// $gloPrinting = true; // this will hide add/edit/delete buttons
+// optionally set next to columns and edit button
+// will only appear when LookupType value is 'Canada'
+$gloEditCondCol     = 'LookupType';
+$gloEditCondition   = 'Canada';
+
 $gloColumnAlignArray = array (
 	'LookupValue' => 'center'
 );
 wtkSetHeaderSort('LookupType', 'Type');     // Makes column sortable by clicking header
 wtkSetHeaderSort('LookupValue', 'Value');   // Makes column sortable by clicking header
 
-$gloEditPage = 'lookupEdit';
 $pgList = wtkBuildDataBrowse($pgSQL); // Creates list with AJAX navigation
 /*
 wtkBuildDataBrowse($fncSQL, $fncSqlFilter = [], $fncTableId = '', $fncURL = '', $fncModalEdit = 'N') {
