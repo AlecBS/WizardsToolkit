@@ -5,6 +5,27 @@
 [![MySQL Version](https://img.shields.io/badge/MySQL-8.3-blue.svg)](https://www.mysql.com)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org)
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Quick Start with Docker](#quick-start-with-docker)
+  - [Prerequisites](#prerequisites)
+  - [Basic Setup](#basic-setup)
+  - [Access Points](#access-points)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+  - [Local Development Setup](#local-development-setup)
+  - [Database Configuration](#database-configuration)
+- [Development Tools](#development-tools)
+  - [Utility Scripts](#utility-scripts)
+  - [Database Management](#database-management)
+- [Documentation & Resources](#documentation--resources)
+- [License](#license)
+- [Troubleshooting](#troubleshooting)
+  - [Common Issues](#common-issues)
+- [Security](#security)
+
 ## Overview
 
 Wizard's Toolkit (WTK) is a powerful full-stack development framework combining PHP, SQL, JavaScript, and MaterializeCSS. Originally created in 2009 and continuously maintained, WTK streamlines the development of data-driven websites and mobile applications. The framework has evolved through multiple PHP versions and is currently optimized for PHP 8.1 while maintaining compatibility with earlier versions.
