@@ -4,6 +4,16 @@
 [![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net)
 [![MySQL Version](https://img.shields.io/badge/MySQL-8.3-blue.svg)](https://www.mysql.com)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlecBS/WizardsToolkit/graphs/commit-activity)
+
+> 🚀 A powerful, production-ready full-stack development framework for building modern web applications. Enterprise-grade, Docker-ready, and continuously maintained since 2009.
+
+<p align="center">
+  <a href="https://wizardstoolkit.com/docs/">📚 Documentation</a> •
+  <a href="https://wizardstoolkit.com/tutorials.htm">🎓 Tutorials</a> •
+  <a href="https://wizardstoolkit.com/wtk.php">🔥 Live Demo</a> •
+  <a href="#quick-start-with-docker">⚡ Quick Start</a>
+</p>
 
 ## Table of Contents
 
@@ -39,7 +49,7 @@ It provides a comprehensive solution for building and maintaining full-featured 
 - **Full-Stack Solution**: Integrated PHP, SQL, JavaScript, and MaterializeCSS
 - **Database Flexibility**: Seamless support for both MySQL 8.3 and PostgreSQL
 - **Docker-Ready**: Complete development environment setup in under 2 minutes
-- **Modern Stack**: 
+- **Modern Stack**:
   - Nginx with Alpine for lightweight performance
   - PHP 8.1 with PDO support
   - MySQL 8.3 or PostgreSQL latest
@@ -53,6 +63,7 @@ It provides a comprehensive solution for building and maintaining full-featured 
 ### Prerequisites
 
 1. **For Windows Users**:
+
    - WSL2 with Ubuntu 20.04 LTS
    - Docker Desktop
    - Docker Hub account (free)
@@ -64,17 +75,20 @@ It provides a comprehensive solution for building and maintaining full-featured 
 ### Basic Setup
 
 1. **Clone the Repository**:
+
    ```bash
    git clone https://github.com/AlecBS/WizardsToolkit.git
    cd WizardsToolkit
    ```
 
 2. **Initialize Environment**:
+
    ```bash
    ./WTK.sh
    ```
 
 3. **Choose and Setup Database**:
+
    - For MySQL:
      ```bash
      ./SETUP_MYSQL.sh
@@ -91,10 +105,10 @@ It provides a comprehensive solution for building and maintaining full-featured 
 ### Access Points
 
 - **Main Application**: http://127.0.0.1/ or http://dev.wtk.com/
-- **Database Admin**: 
+- **Database Admin**:
   - MySQL: http://127.0.0.1:8080/ (phpMyAdmin)
   - PostgreSQL: Use [DBeaver](https://dbeaver.io/) (recommended)
-- **Default Admin**: 
+- **Default Admin**:
   - Email: admin@email.com
   - Set password: /wtk/passwordReset.php?u=needToSet
 
@@ -116,6 +130,7 @@ WizardsToolkit/
 ### Local Development Setup
 
 1. **Host Configuration** (Optional but recommended):
+
    ```
    # Add to /etc/hosts
    127.0.0.1   dev.wtk.com
@@ -133,11 +148,13 @@ WizardsToolkit/
 Choose your preferred database:
 
 **MySQL (Default)**:
+
 - Use existing configuration
 - Data location: `/Mounts/mydata`
 - Access via phpMyAdmin or CLI
 
 **PostgreSQL**:
+
 - Rename `docker-composePG.yml` to `docker-compose.yml`
 - Data location: `/Mounts/pgdata`
 - Connect using DBeaver or preferred client
@@ -163,13 +180,16 @@ Choose your preferred database:
 ### Database Management
 
 #### MySQL (via phpMyAdmin)
+
 Access phpMyAdmin at http://127.0.0.1:8080/ or http://dev.wtk.com:8080/
 
 1. **Login**:
+
    - Username: root
    - Password: (see docker-compose.yml)
 
 2. **Basic Operations**:
+
    - Select `wiztools` database from the left sidebar
    - Browse tables and data using the GUI interface
    - Execute SQL queries using the "SQL" tab
@@ -182,7 +202,9 @@ Access phpMyAdmin at http://127.0.0.1:8080/ or http://dev.wtk.com:8080/
    - Backup database: Export → "Quick" or "Custom"
 
 #### PostgreSQL
+
 Connection Details:
+
 - Database: pgwiztools
 - Username: wizdba
 - Password: (see docker-compose.yml)
@@ -209,12 +231,14 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ### Common Issues
 
 1. **Docker Build Failure**:
+
    ```bash
    export DOCKER_BUILDKIT=0
    ./WTK.sh  # Retry build
    ```
 
 2. **Database Reset**:
+
    ```bash
    ./STOP_CONTAINERS.sh
    rm -rf /Mounts/mydata  # For MySQL
@@ -224,12 +248,14 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
    ./SETUP_MYSQL.sh  # MySQL only
    ```
 
-3. **Port Conflicts**: 
+3. **Port Conflicts**:
+
    - Ensure ports 80 and 443 are available
    - Stop any running web servers (Apache, Nginx)
    - Choose between MAMP or Docker, not both
 
 4. **First-Time Setup**:
+
    - Database initialization takes ~1-2 minutes
    - Monitor progress in DockerDesktop
    - Wait for database container to be fully ready
