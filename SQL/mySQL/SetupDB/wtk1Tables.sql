@@ -81,7 +81,7 @@ CREATE TABLE `wtkAds` (
   `AdName` varchar(60),
   `AdVendor` varchar(60),
   `AdType` varchar(1),
-  `AdText` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `AdText` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `AdNote` text,
   `VisitCounter` int UNSIGNED DEFAULT 0,
   `LastVisitDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -276,7 +276,7 @@ CREATE TABLE `wtkCompanySettings` (
 CREATE TABLE `wtkDebug` (
   `UID`     INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate`   timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `DevNote`   VARCHAR(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `DevNote`   VARCHAR(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
@@ -362,7 +362,7 @@ CREATE TABLE `wtkErrorLog` (
   `FromPage` varchar(120),
   `ReferralPage` varchar(120),
   `ErrType` varchar(20),
-  `ErrMsg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `ErrMsg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `ErrNotes` varchar(100),
   `DevID` varchar(3),
   `DelDate` datetime,
@@ -894,8 +894,8 @@ CREATE TABLE `wtkUpdateLog` (
   `UserUID` int UNSIGNED,
   `OtherUID` int UNSIGNED,
   `TableName` varchar(30),
-  `FullSQL` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ChangeInfo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `FullSQL` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ChangeInfo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `DevNote` varchar(200),
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkUpdateLog_UserUID`
