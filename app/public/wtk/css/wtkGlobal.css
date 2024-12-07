@@ -806,6 +806,9 @@ textarea.materialize-textarea:disabled+label {
   margin-top: -15px;
 }
 
+.hidden-link {
+    display: none;
+}
 /*NAVBAR*/
 .navbar.navbar-home {
   background: var(--gradient-color);

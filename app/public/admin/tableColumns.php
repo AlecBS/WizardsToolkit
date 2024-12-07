@@ -33,7 +33,12 @@ $pgUpload .= wtkFormHidden('wtkfRefreshDIV', 'csvImporter'); // this tells JS to
 
 $pgSQL =<<<SQLVAR
 SELECT c.`COLUMN_NAME` AS `ColumnName`, c.`COLUMN_TYPE` AS `ColumnType`,
-    c.`COLLATION_NAME` AS `Collation`
+    IF (c.`IS_NULLABLE` = 'NO' AND c.`COLUMN_DEFAULT` IS NULL AND c.`EXTRA` <> 'auto_increment',
+        '<span class="red-text">Yes</span>', 'No') AS `Required`,
+    c.`COLLATION_NAME` AS `Collation`,
+    CONCAT('<a draggable="true" ondragover="wtkDragOver(event)"',
+        ' ondrop="importDropName(\'',c.`COLUMN_NAME`,
+        '\')" class="btn btn-floating hidden-link"><i class="material-icons">insert_link</i></a>') AS `Link`
  FROM `information_schema`.`COLUMNS` c
   INNER JOIN `information_schema`.`TABLES` t ON t.`TABLE_NAME` = c.`TABLE_NAME`
 WHERE c.`TABLE_SCHEMA` = :TABLE_SCHEMA AND c.`TABLE_NAME` = :TABLE_NAME
@@ -44,35 +49,96 @@ $pgSqlFilter = array(
     'TABLE_SCHEMA' => $gloDb1,
     'TABLE_NAME' => $pgTableName
 );
+$gloColumnAlignArray = array (
+    'Required' => 'center',
+	'Link' => 'center'
+);
+$pgTableDef = wtkBuildDataBrowse($pgSQL, $pgSqlFilter, 'columnList');
 
 $pgHtm =<<<htmVAR
-<div class="container">
-    <h4>$pgTableName Data Table</h4>
-    <div class="wtk-list card b-shadow" id="csvDIV">
-    <br>
-    <p class="center">
-        <form id="wtkForm" name="wtkForm" method="post">
-            <div class="row">
-            $pgUpload
-            </div>
-        </form>
-    </p>
-    <div id="displayFileDIV">data will show here</div>
-htmVAR;
+<div class="row">
+    <div id="verifyImport" class="col s12 hide"></div>
+    <div id="tableDef" class="col m6 s12">
+        <h4>$pgTableName Data Table
+            <small id="importBtn" class="right hide">
+                <a class="btn" onclick="JavaScript:wtkImport('verify')">Review Import</a>
+            </small>
+        </h4>
+        <div class="wtk-list card b-shadow">
+            $pgTableDef
+        </div>
+    </div>
+    <div id="csvDIV" class="col m6 s12">
+        <h4>CSV Columns to Import</h4>
+        <div class="wtk-list card b-shadow" id="csvColCard">
+            <br>
+                <form id="wtkForm" name="wtkForm" method="post">
+                    <div class="row">
+                    $pgUpload
+                    </div>
+                </form>
+            <div id="displayFileDIV"></div>
+        </div>
+    </div>
+</div>
 
-$pgHtm .= wtkBuildDataBrowse($pgSQL, $pgSqlFilter, 'columnList');
-$pgHtm .= '</div></div>' . "\n";
-
-$pgHtm .=<<<htmVAR
 <script type="text/javascript">
-
 function csvFileUpload(){
+    $('#tableDef').addClass('hide');
+    $('#csvDIV').removeClass('m6');
     $('#wtkForm').addClass('hide');
     wtkfFileUpload('','wtkAffiliates');
+    $('#columnList').addClass('hide');
 }
 
+function showLinks() {
+    let fncLinks = document.querySelectorAll('.hidden-link');
+    fncLinks.forEach(function(fncLink) {
+        fncLink.style.display = 'block';
+    });
+}
+
+function mapCSVcolumns(fncFileName){
+    $('#csvDIV').addClass('m6');
+    $('#tableDef').removeClass('hide');
+
+    $('#columnList').removeClass('hide');
+    $('#displayFileDIV').addClass('hide');
+    $('#csvColCard').html($('#csvColumns').html());
+    showLinks();
+}
+
+var pgImportArray = {};
+function importDropName(fncColName){
+    pgImportArray[fncColName] = pgFromDragId;
+    $('#importBtn').removeClass('hide');
+}
+
+function wtkImport(fncStep) {
+    if (pgImportArray) {
+        let fncColMap = JSON.stringify(pgImportArray)
+        let fncCSVfile = $('#csvFileLocation').val();
+        let fncTableName = $('#TableName').val();
+        waitLoad('on');
+        $.ajax({
+            type: 'POST',
+            url: 'ajxImportData.php',
+            data: { apiKey: pgApiKey, step: fncStep, tableName: fncTableName,
+                    csvFile: fncCSVfile, colMap: fncColMap},
+            success: function(data) {
+                waitLoad('off');
+                $('#tableDef').addClass('hide');
+                $('#csvDIV').addClass('hide');
+                $('#verifyImport').html(data);
+                $('#verifyImport').removeClass('hide');
+            }
+        })
+    }
+}
 </script>
 htmVAR;
+$pgHtm .= wtkFormHidden('csvFileLocation', '');
+$pgHtm .= wtkFormHidden('TableName', $pgTableName);
 
 echo $pgHtm;
 exit;

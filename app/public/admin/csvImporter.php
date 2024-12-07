@@ -33,11 +33,15 @@ $pgHtm =<<<htmVAR
 <div class="card">
     <div class="card-content">
         <h4>Top 10 rows in CSV file</h4>
-        <p>Verify these look correct.</p>
+        <p>Once you have verified these look correct,
+        click to <a onclick="JavaScript:mapCSVcolumns('$pgUploadedFile')" class="btn">Map Columns</a></p>
 htmVAR;
 
-$pgCsvTable = '<table class="border"><thead>';
+$pgCsvTable = '<table class="border white"><thead>';
+$pgCsvCols  = '<table id="csvHeaders" class="striped">' . "\n";
+$pgCsvCols .= '<thead><th>&nbsp;</th><th>Column Name</th></thead><tbody>';
 $pgCntr = 0;
+$pgColCntr = 0;
 foreach ($pgCSVarray as $row){
     $pgCntr ++;
     if ($pgCntr == 2):
@@ -47,19 +51,32 @@ foreach ($pgCSVarray as $row){
     endif;
     $pgCsvTable .= '<tr>' . "\n";
     foreach ($row as $cell) {
-        $pgCsvTable .= '  <td>' . htmlspecialchars($cell) . '</td>' . "\n";
+        $pgColName = htmlspecialchars($cell);
+        $pgCsvTable .= '  <td>' . $pgColName . '</td>' . "\n";
+        if ($pgCntr == 1):
+            $pgCsvCols .= '<tr><td>' . "\n";
+            $pgCsvCols .= ' <a draggable="true" ondragstart="wtkDragStart(' . $pgColCntr . ',0);" ondragover="wtkDragOver(event)" class="btn btn-floating">' . "\n";
+            $pgCsvCols .= '<i class="material-icons" alt="drag to link where to import" title="drag to link where to import">drag_handle</i></a></td>' . "\n";
+            $pgCsvCols .= '<td>' . $pgColName . '</td></tr>' . "\n";
+            $pgColCntr ++;
+        endif;
     }
     $pgCsvTable .= '</tr>' . "\n";
     if ($pgCntr == 10):
         break;
     endif;
 }
+$pgCsvCols  .= '</tbody></table>' . "\n";
 $pgCsvTable .= '</tbody></table>' . "\n";
 
 $pgHtm .=<<<htmVAR
         $pgCsvTable
+        <div id="csvColumns" class="hide">$pgCsvCols</div>
     </div>
 </div>
+<script type="text/javascript">
+$('#csvFileLocation').val('$pgUploadedFile');
+</script>
 htmVAR;
 //  File Name: $pgUploadedFile
 echo $pgHtm;
