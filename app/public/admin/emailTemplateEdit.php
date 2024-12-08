@@ -54,10 +54,12 @@ $pgHtm .=<<<htmVAR
                 <div class="col s12">
                     <p>The following tokens will automatically be converted to actual values:
                         <ul>
-                            <li>@CompanyName@ will become <strong>$gloCoName</strong></li>
+                            <li>@CompanyName@ will become <strong>$gloCoName</strong>
+                                <br>&nbsp;&nbsp;&nbsp; if sending to Affiliates, this will be their company name</li>
                             <li>@website@ will become <strong>$gloWebBaseURL</strong></li>
                             <li>@Date@ will become today&rsquo;s date like this: <strong>$pgDate</strong></li>
                             <li>@CurrentYear@ will become <strong>$pgCurrentYr</strong></li>
+                            <li>@ProspectName@ if sending to Prospects will become the prospect&rsquo;s company name</li>
                         </ul>
                     </p>
                 </div>

@@ -7,9 +7,9 @@ date_default_timezone_set('America/Los_Angeles'); // equivalent to MySQL 'US/Pac
 
 $pgEmailType = wtkGetPost('Mode');
 if ($pgEmailType == 'P'):
-    $pgEmailJSFunction = 'emailProspects';
+    $pgEmailGroup = 'Prospects';
 else:
-    $pgEmailJSFunction = 'emailAffiliates';
+    $pgEmailGroup = 'Affiliates';
 endif;
 
 $pgSQL =<<<SQLVAR
@@ -30,8 +30,20 @@ $pgSQL  = wtkSqlPrep($pgSQL);
 $pgSqlFilter = array('EmailType' => $pgEmailType);
 $gloWTKmode = 'ADD';
 $pgForm  = wtkFormSelect('wtkEmailTemplate', 'EmailCode', $pgSQL, $pgSqlFilter, 'Subject', 'EmailCode', 'Pick Email Template', 's12');
-$pgForm  = wtkReplace($pgForm, 'wtkwtkEmailTemplateEmailCode','EmailCode');
-$pgForm .= wtkFormHidden('HasSelect', 'Y');
+$pgDrop1 = wtkReplace($pgForm, 'wtkwtkEmailTemplateEmailCode','EmailCode');
+
+// BEGIN allow choosing HTML template
+$pgSQL =<<<SQLVAR
+SELECT `LookupValue`, `LookupDisplay`
+ FROM `wtkLookups`
+WHERE `LookupType` = :LookupType
+ORDER BY `LookupDisplay` ASC
+SQLVAR;
+$pgSqlFilter = array('LookupType' => 'EmailHTM');
+$pgForm  = wtkFormSelect('wtkEmailTemplate', 'EmailHTM', $pgSQL, $pgSqlFilter, 'LookupDisplay', 'LookupValue', 'Pick HTML Template', 's12');
+$pgDrop2 = wtkReplace($pgForm, 'wtkwtkEmailTemplateEmailHTM','EmailHTM');
+//  END  allow choosing HTML template
+
 if ($gloDbConnection == 'Live'):
     $pgDevNote = '';
 else:
@@ -55,11 +67,13 @@ endif;
 $pgHtm =<<<htmVAR
 <div class="modal-content">
     <form id="FemailResults" name="FemailResults" class="card content b-shadow">
+        <input type="hidden" id="HasSelect" name="HasSelect" value="Y">
         <div class="row">
             <div class="col s12">
                 <p>Choose from any email template that has Email Type "$pgTemplateType".</p>
             </div>
-            $pgForm
+            $pgDrop1
+            $pgDrop2
             <div class="col s12">
                 $pgBulkMsg
                 $pgDevNote
@@ -69,36 +83,8 @@ $pgHtm =<<<htmVAR
 </div>
 <div id="modFooter" class="modal-footer right">
     <a class="btn-small black b-shadow waves-effect waves-light modal-close">Close</a> &nbsp;&nbsp;
-    <a class="btn-primary btn-small b-shadow waves-effect waves-light modal-close" onclick="JavaScript:$pgEmailJSFunction($gloId,'$gloRNG')">Send</a>
+    <a class="btn-primary btn-small b-shadow waves-effect waves-light modal-close" onclick="JavaScript:adminEmailing('$pgEmailGroup',$gloId,'$gloRNG')">Send</a>
 </div>
-<script type="text/javascript">
-function emailProspects(fncId, fncMode){
-    waitLoad('on');
-    let fncEmailCode = $('#EmailCode').val();
-    $.ajax({
-        type: 'POST',
-        url: '/admin/emailProspects.php',
-        data: { apiKey: pgApiKey, id: fncId, emailCode: fncEmailCode, Mode: fncMode },
-        success: function(data) {
-            waitLoad('off');
-            M.toast({html: 'Email sent', classes: 'rounded green'});
-        }
-    })
-}
-function emailAffiliates(fncId, fncMode){
-    waitLoad('on');
-    let fncEmailCode = $('#EmailCode').val();
-    $.ajax({
-        type: 'POST',
-        url: '/admin/emailAffiliates.php',
-        data: { apiKey: pgApiKey, id: fncId, emailCode: fncEmailCode, Mode: fncMode },
-        success: function(data) {
-            waitLoad('off');
-            M.toast({html: 'Email sent', classes: 'rounded green'});
-        }
-    })
-}
-</script>
 htmVAR;
 
 echo $pgHtm;

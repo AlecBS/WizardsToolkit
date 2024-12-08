@@ -1,5 +1,6 @@
 <?PHP
 require('incEmailPrep.php');
+$pgTemplate = wtkGetPost('EmailHTM','email' . $gloDarkLight);
 
 switch ($pgMode):
     case 'SendOne':
@@ -22,7 +23,7 @@ SQLVAR;
         $pgBody = wtkTokenToValue($pgBody);
         $pgBody = wtkReplace($pgBody, '@WebPasscode@', wtkSqlValue('WebPasscode'));
         $pgSaveArray['OtherUID'] = $gloId;
-        $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'','email' . $gloDarkLight . '.htm');
+        $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'',$pgTemplate . '.htm');
         $pgHtm =<<<htmVAR
 <div class="row">
     <div class="col s12"><br>
@@ -78,7 +79,7 @@ SQLVAR;
             $pgBody = wtkReplace($pgBody, '@WebPasscode@', $pgRow['WebPasscode']);
             $pgBody = wtkTokenToValue($pgBody);
 
-            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'','email' . $gloDarkLight . '.htm');
+            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'',$pgTemplate . '.htm');
             if ($pgCnt < 20):
                 if (strlen($pgToEmail) > 18):
                     $pgList .= '<div class="col m4 s6">';
@@ -96,6 +97,7 @@ SQLVAR;
             $pgAddS = '';
         endif;
         $pgForm  = wtkFormHidden('id', $gloRNG);
+        $pgForm .= wtkFormHidden('EmailHTM', $pgTemplate);
         $pgPageTime = round(microtime(true) - $gloPageStart,4);
         $pgHtm =<<<htmVAR
 <br>
@@ -110,7 +112,7 @@ SQLVAR;
               $pgList
           </div>
           <div class="center">
-              <a class="btn" onclick="JavaScript:ajaxGo('emailProspects','$pgEmailTemplate','SendAll')">Bulk Email</a>
+              <a class="btn" onclick="JavaScript:adminEmailing('Affiliates','$pgEmailTemplate','SendAll')">Bulk Email</a>
           </div>
         </div>
     	<div class="card-action">Finished sending $pgCnt email$pgAddS in $pgPageTime seconda.</div>
@@ -128,7 +130,7 @@ WHERE a.`UID` = :UID
 SQLVAR;
         $pgSqlFilter = array('UID' => $gloId );
         wtkSqlGetRow($pgSQL, $pgSqlFilter);
-        $pgBody = wtkLoadInclude(_RootPATH . 'wtk/htm/email' . $gloDarkLight . '.htm');
+        $pgBody = wtkLoadInclude(_RootPATH . 'wtk/htm/' . $pgTemplate . '.htm');
         $pgBody = wtkReplace($pgBody, '@wtkContent@', $pgEmailBody);
         $pgBody = wtkReplace($pgBody, '@CompanyName@', wtkSqlValue('CompanyName'));
         $pgBody = wtkReplace($pgBody, '@ContactName@', wtkSqlValue('ContactName'));

@@ -1,11 +1,14 @@
 <?PHP
 require('incEmailPrep.php');
+$pgTemplate = wtkGetPost('EmailHTM','email' . $gloDarkLight);
 
 switch ($pgMode):
     case 'SendOne':
         $pgSQL =<<<SQLVAR
-SELECT CRC32(s.`UID`) AS `Hash`, s.`ProspectUID`, s.`Email`, s.`FirstName`, s.`LastName`
+SELECT CRC32(s.`UID`) AS `Hash`, s.`ProspectUID`, s.`Email`, s.`FirstName`,
+    s.`LastName`, COALESCE(p.`CompanyName`,'') AS `ProspectName`
  FROM `wtkProspectStaff` s
+   INNER JOIN `wtkProspects` p ON p.`UID` = s.`ProspectUID`
 WHERE s.`UID` = :UID
 SQLVAR;
         $pgSqlFilter = array('UID' => $gloId );
@@ -14,13 +17,14 @@ SQLVAR;
         $pgProspectUID = wtkSqlValue('ProspectUID');
         $pgFirstName = wtkSqlValue('FirstName');
         $pgLastName = wtkSqlValue('LastName');
-        $pgBody = wtkReplace($pgEmailBody, '@FirstName@', $pgFirstName);
+        $pgBody = wtkReplace($pgEmailBody, '@ProspectName@', wtkSqlValue('ProspectName'));
+        $pgBody = wtkReplace($pgBody, '@FirstName@', $pgFirstName);
         $pgBody = wtkReplace($pgBody, '@LastName@', $pgLastName);
         $pgBody = wtkReplace($pgBody, '@FullName@', $pgFirstName . ' ' . $pgLastName);
         $pgBody = wtkReplace($pgBody, '@hash@', wtkSqlValue('Hash'));
         $pgBody = wtkTokenToValue($pgBody);
         $pgSaveArray['OtherUID'] = $gloId;
-        $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'','email' . $gloDarkLight . '.htm');
+        $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'', $pgTemplate . '.htm');
         $pgUpdSQL =<<<SQLVAR
 UPDATE `wtkProspectStaff`
   SET `EmailsSent` = (`EmailsSent` + 1)
@@ -50,6 +54,7 @@ htmVAR;
     case 'SendAll':
         $pgSQL =<<<SQLVAR
 SELECT s.`UID`, CRC32(s.`UID`) AS `Hash`, s.`ProspectUID`, s.`Email`,
+    COALESCE(p.`CompanyName`,'') AS `ProspectName`,
     COALESCE(s.`FirstName`,'') AS `FirstName`,
     COALESCE(s.`LastName`,'') AS `LastName`
   FROM `wtkProspectStaff` s
@@ -113,11 +118,12 @@ SQLVAR;
             $pgUserUID = $pgRow['UID'];
             $pgUpdSqlFilter['UID'] = $pgUserUID;
             $pgSaveArray['OtherUID'] = $pgUserUID;
-            $pgBody = wtkReplace($pgEmailBody, '@FirstName@', $pgRow['FirstName']);
+            $pgBody = wtkReplace($pgEmailBody, '@ProspectName@', $pgRow['ProspectName']);
+            $pgBody = wtkReplace($pgBody, '@FirstName@', $pgRow['FirstName']);
             $pgBody = wtkReplace($pgBody, '@LastName@', $pgRow['LastName']);
             $pgBody = wtkReplace($pgBody, '@hash@', $pgRow['Hash']);
             $pgBody = wtkTokenToValue($pgBody);
-            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'','email' . $gloDarkLight . '.htm');
+            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'', $pgTemplate . '.htm');
             wtkSqlExec($pgUpdSQL, $pgUpdSqlFilter);
             $pgProspectUID = $pgRow['ProspectUID'];
             $pgProFilter['ProUID'] = $pgProspectUID;
@@ -138,6 +144,7 @@ SQLVAR;
             $pgAddS = '';
         endif;
         $pgForm  = wtkFormHidden('id', $gloRNG);
+        $pgForm .= wtkFormHidden('EmailHTM', $pgTemplate);
 //        $pgForm .= wtkFormHidden('Mode', 'SendOne');
         $pgPageTime = round(microtime(true) - $gloPageStart,4);
         $pgHtm =<<<htmVAR
@@ -153,13 +160,15 @@ SQLVAR;
               $pgList
           </div>
           <div class="center">
-              <a class="btn" onclick="JavaScript:ajaxGo('emailProspects','$pgEmailTemplate','SendAll')">Bulk Email</a>
+              <a class="btn" onclick="JavaScript:adminEmailing('Prospects','$pgEmailTemplate','SendAll')">Bulk Email</a>
+
           </div>
         </div>
     	<div class="card-action">Finished sending $pgCnt email$pgAddS in $pgPageTime seconds.</div>
     </div>
 </div>
 htmVAR;
+// <a class="btn" onclick="JavaScript:ajaxGo('emailProspects','$pgEmailTemplate','SendAll')">Bulk Email</a>
         break;
     default: // View
         $pgSQL =<<<SQLVAR

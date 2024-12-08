@@ -145,27 +145,30 @@ function adminValidateEmail(){
         fncSendEmail = 'Y';
     }
     if (fncSendEmail == 'Y'){
-        modalSave('sendEmail','emailResults');
+        modalSave('/admin/sendEmail','emailResults');
         let fncId = document.getElementById('modalWTK');
         let fncModal = M.Modal.getInstance(fncId);
         fncModal.close();
         M.toast({html: 'The email has been sent.', classes: 'green rounded'});
     }
 }
-// emailProspects
-function emailProspect(fncId){
+// pickEmailTemplate
+function adminEmailing(fncEmailGroup, fncId, fncMode = 'SendOne'){
     waitLoad('on');
     let fncEmailCode = $('#EmailCode').val();
+    let fncEmailHTM = $('#EmailHTM').val();
     $.ajax({
         type: 'POST',
-        url: '/admin/emailProspects.php',
-        data: { apiKey: pgApiKey, id: fncId, emailCode: fncEmailCode, Mode: 'SendOne' },
+        url: '/admin/email' + fncEmailGroup + '.php',
+        data: { apiKey: pgApiKey, id: fncId, emailCode: fncEmailCode,
+                Mode: fncMode, EmailHTM: fncEmailHTM },
         success: function(data) {
             waitLoad('off');
             M.toast({html: 'Email sent', classes: 'rounded green'});
         }
     })
 }
+
 // affiliateEdit
 function resetAffiliate(fncID){
     $.ajax({
