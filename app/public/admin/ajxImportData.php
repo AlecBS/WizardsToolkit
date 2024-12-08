@@ -7,6 +7,7 @@ $pgStep = wtkGetPost('step');
 $pgTableName = wtkGetPost('tableName');
 $pgCsvFile = wtkGetPost('csvFile');
 $pgJColMap = wtkGetPost('colMap');
+$pgInsMsg = '';
 
 $pgColMap  = json_decode($pgJColMap,true);
 $pgCntr = 0;
@@ -38,6 +39,21 @@ else:
     endforeach;
     $pgSQL .= ')' . "\n";
     $pgSQL .= ' VALUES ';
+
+    if ($pgTableName == 'wtkProspects'):
+        $pgInsMsg =<<<SQLVAR
+<p>If you do not have <strong>Prospect Staff</strong> to import,
+ run the following on your SQL DB.</p>
+<pre><code>
+INSERT INTO `wtkProspectStaff` (`ProspectUID`,`Email`,`DirectPhone`,`InternalNote`)
+SELECT p.`UID`, p.`MainEmail`, p.`MainPhone`, 'copied from Prospects file'
+ FROM `wtkProspects` p
+   LEFT OUTER JOIN `wtkProspectStaff` s ON s.`ProspectUID` = p.`UID`
+WHERE s.`UID` IS NULL
+ORDER BY p.`UID` ASC
+</code></pre>
+SQLVAR;
+    endif;
 endif;
 
 // import CSV and loop through to fill VALUES to insert
@@ -89,6 +105,7 @@ switch ($pgStep):
     <div class="card">
         <div class="card-content">
             <br><h2>$pgRowCount rows Imported!</h2><br>
+            $pgInsMsg
         </div>
     </div>
 htmVAR;
@@ -100,13 +117,12 @@ htmVAR;
         <div class="card-content">
             <br><h2>SQL Insert</h2><br>
             <br><pre><code>$pgSQL</code></pre>
+            $pgInsMsg
         </div>
     </div>
 htmVAR;
         break;
 endswitch;
 echo $pgHtm;
-// echo '<br>$pgCsvFile: value = ' . $pgCsvFile . "\n";
-// print_r($pgColMap);
 exit;
 ?>

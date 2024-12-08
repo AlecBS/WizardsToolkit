@@ -17,7 +17,7 @@ SELECT s.`UID`,
     p.`CompanySize`, p.`AnnualSales`,
     CONCAT(COALESCE(p.`City`,''), ', ', COALESCE(p.`State`,'')) AS `City`,
     s.`FirstName`, s.`LastName`,
-    `fncContactIcons`(s.`Email`,COALESCE(s.`DirectPhone`,p.`Phone`,''),0,0,'Y',s.`UID`,'N','N','') AS `Contact`,
+    `fncContactIcons`(s.`Email`,COALESCE(s.`DirectPhone`,p.`MainPhone`,''),0,0,'Y',s.`UID`,'N','N','') AS `Contact`,
     s.`LinksClicked`,
     CONCAT('<a class="btn btn-floating " onclick="JavaScript:ajaxGo(\'/admin/prospectEdit\',',
         s.`ProspectUID`, ',0);"><i class="material-icons">edit</i></a>') AS `Edit`

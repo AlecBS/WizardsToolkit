@@ -53,6 +53,7 @@ $gloColumnAlignArray = array (
     'Required' => 'center',
 	'Link' => 'center'
 );
+$gloRowsPerPage = 100;
 $pgTableDef = wtkBuildDataBrowse($pgSQL, $pgSqlFilter, 'columnList');
 
 $pgHtm =<<<htmVAR

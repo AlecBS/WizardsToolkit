@@ -62,7 +62,7 @@ $pgHtm =<<<htmVAR
                 onclick="JavaScript:wtkModal('pickEmailTemplate','Af',0,'SendAll')">Bulk Email</a>
         </small>
     </h4>
-    <p>Bulk Emailing will send to the next 50 prospects which have not been notified before.</p>
+    <p>Bulk Emailing will send to the next 50 affiliates which have not been notified before.</p>
     <h5>Quick Filters <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('affiliateList','wtkAffiliates','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>

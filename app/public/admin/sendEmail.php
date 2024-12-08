@@ -6,6 +6,10 @@ if ($gloId == ''):
     $gloId = wtkGetGet('id'); // for View call
 endif;
 
+if (preg_match("/^'\d+'$/", $gloId)):
+    $gloId = trim($gloId, "'");
+endif;
+
 $pgSQL =<<<SQLVAR
 SELECT `Subject`, `EmailBody`
  FROM `wtkEmailTemplate`
@@ -95,7 +99,7 @@ htmVAR;
         break;
     case 'SendOne':
         $pgUserOrEmail = wtkGetPost('UserOrEmail');
-        $pgTemplate = wtkGetParam('Template','emailLight.htm');
+        $pgTemplate = wtkGetParam('Template','email' . $gloDarkLight . '.htm');
         if ($pgUserOrEmail == 'Email'):
             $pgToEmail = wtkGetPost('ToEmail');
             $pgEmailBody = wtkReplace($pgEmailBody, '@FirstName@', $pgToEmail);
@@ -290,7 +294,7 @@ $('#modFooter').addClass('hide');
 htmVAR;
         break;
     default: // View
-        $pgTemplate = wtkGetParam('Template','emailLight');
+        $pgTemplate = wtkGetParam('Template','email' . $gloDarkLight);
     //  $pgHtm = wtkLoadInclude(_RootPATH . 'wtk/htm/email' . $gloDarkLight . '.htm');
         $pgHtm = wtkLoadInclude(_RootPATH . 'wtk/htm/' . $pgTemplate . '.htm');
 //        if ($gloId == 3):

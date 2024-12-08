@@ -164,6 +164,8 @@ INSERT INTO `wtkLookups` (`LookupType`, `LookupValue`, `LookupDisplay`)
    ('EmailType', 'P', 'Prospect'),
    ('EmailType', 'C', 'Customer'),
    ('EmailType', 'S', 'Staff'),
+   ('EmailHTM', 'emailLight', 'emailLight'),
+   ('EmailHTM', 'emailDark', 'emailDark'),
    ('AudienceType', 'All', 'All'),
    ('AudienceType', 'Cust', 'Customer'),
    ('AudienceType', 'Staf', 'Staff'),

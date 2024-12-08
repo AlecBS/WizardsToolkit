@@ -11,12 +11,14 @@ if ($gloRNG > 0):
     $gloId = $gloRNG;
     $gloWTKmode = 'EDIT';
 endif;
-
 $pgSQL =<<<SQLVAR
-SELECT p.`UID`, p.`CompanyName`, p.`Website`, p.`CompanySize`, p.`AnnualSales`,p.`Phone`, p.`Website`,
-    p.`Address1`,p.`Address2`, p.`City`, p.`State`, p.`Zipcode`, p.`ProspectStatus`,p.`InternalNote`
+SELECT `UID`, `CompanyName`, `Website`, `CompanySize`, `AnnualSales`,
+    `MainPhone`, `Website`, `Address1`,`Address2`, `City`, `State`, `Zipcode`,
+    `FundingDate`,`FundingAmount`,`FundingType`,`SICCode`,`B2BorB2C`,
+    `LinkedIn`,`OtherSocial`,`MainEmail`,`TimeZone`,
+    `ProspectStatus`, `InternalNote`, `Description`
   FROM `wtkProspects` p
-WHERE p.`UID` = ?
+WHERE `UID` = ?
 SQLVAR;
 $pgSQL = wtkSqlPrep($pgSQL);
 if ($gloWTKmode != 'ADD'):
@@ -44,11 +46,23 @@ $pgHtm .= wtkFormText('wtkProspects', 'Address2');
 $pgHtm .= wtkFormText('wtkProspects', 'City', 'text', 'City', 'm5 s12');
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'USAstate' ORDER BY `LookupDisplay` ASC";
 $pgHtm .= wtkFormSelect('wtkProspects', 'State', $pgSQL, [], 'LookupDisplay', 'LookupValue','State','m4 s12');
-$pgHtm .= wtkFormText('wtkProspects', 'Zipcode', 'number', 'Zipcode', 'm3 s12');
-$pgHtm .= wtkFormText('wtkProspects', 'Phone', 'tel', 'Phone', 'm4 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'Zipcode', 'text', 'Zipcode', 'm3 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'MainPhone', 'tel', 'Main Phone', 'm4 s12');
 $pgHtm .= wtkFormText('wtkProspects', 'Website', 'text', '', 'm8 s12');
 
+$pgHtm .= wtkFormText('wtkProspects', 'LinkedIn');
+$pgHtm .= wtkFormText('wtkProspects', 'OtherSocial');
+
+$pgHtm .= wtkFormText('wtkProspects', 'FundingType','text','','m4 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'FundingDate', 'date','','m4 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'FundingAmount','text','','m4 s12');
+
+$pgHtm .= wtkFormText('wtkProspects', 'B2BorB2C','text','B2B or B2C','m4 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'SICCode','text','SIC Code','m4 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'TimeZone','text','','m4 s12');
+
 $pgHtm .= wtkFormTextArea('wtkProspects', 'InternalNote');
+$pgHtm .= wtkFormTextArea('wtkProspects', 'Description');
 
 $pgHtm .= wtkFormHidden('ID1', $gloId);
 $pgHtm .= wtkFormHidden('UID', wtkEncode('UID'));

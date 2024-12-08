@@ -15,7 +15,7 @@ SELECT p.`UID`,
         END
     ) AS `Company`,
     p.`CompanySize`, p.`AnnualSales`, p.`City`, p.`State`,
-    `fncContactIcons`(NULL,p.`Phone`,0,0,'Y',p.`UID`,'N','N','') AS `Phone`,
+    `fncContactIcons`(NULL,p.`MainPhone`,0,0,'Y',p.`UID`,'N','N','') AS `Phone`,
     L.`LookupDisplay` AS `ProspectStatus`
   FROM `wtkProspects` p
    LEFT OUTER JOIN `wtkLookups` L ON L.`LookupType` = 'ProspectStatus' AND L.`LookupValue` = p.`ProspectStatus`
