@@ -54,7 +54,15 @@ INSERT INTO "wtkPages" ("PageName", "FileName", "Path")
 ('Broadcast List', 'broadcastList', '/admin/'),
 ('Widget Groups', 'widgetGroupList', '/admin/'),
 ('Widgets', 'widgetList', '/admin/'),
-('Revenue', 'revenueList', '/admin/');
+('Revenue', 'revenueList', '/admin/'),
+('Feedback', 'bugList', '/admin/'),
+('Visitors', 'visitorStats', '/admin/'),
+('Ecom Providers', 'ecomList', '/admin/'),
+('Money Stats', 'moneyStats', '/admin/'),
+('Affiliates', 'affiliateList', '/admin/'),
+('Prospects', 'prospectList', '/admin/'),
+('Prospect Staff', 'prospectStaffList', '/admin/'),
+('CSV Importer', 'pickDataTable', '/admin/');
 
 INSERT INTO "wtkMenuSets" ("MenuName", "Description")
   VALUES ('WTK-Admin', 'administration of Wizards Toolkit');
@@ -92,6 +100,7 @@ INSERT INTO "wtkMenuItems" ("MenuGroupUID", "Priority", "PgUID")
   (4, 70, 3),
   (4, 80, 17),
   (4, 90, 13),
+  (4, 100, 39),
   (5, 10, 4),
   (5, 20, 11),
   (5, 30, 5),

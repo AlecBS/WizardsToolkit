@@ -26,9 +26,9 @@ $pgUpload .= wtkFormHidden('UserUID', $gloUserUID);
 $pgUpload .= wtkFormHidden('wtkMode', 'ADD');
 $pgUpload .= wtkFormHidden('tabRel', 'csv');
 $pgUpload  = wtkReplace($pgUpload, 'width="144px"','width="245px"');
-$pgUpload  = wtkReplace($pgUpload, 'JavaScript:wtkfFileUpload(','JavaScript:csvFileUpload(');
+$pgUpload  = wtkReplace($pgUpload, 'JavaScript:wtkfFileUpload(', 'JavaScript:csvFileUpload(');
 $pgUpload .= wtkFormHidden('wtkfRefreshDIV', 'csvImporter'); // this tells JS to refresh uploadFileDIV DIV by calling this page
-
+// $pgUpload .= wtkFormHidden('wtkfColPath', '/exports');
 // $pgTableName = wtkGetParam('TableName');
 
 $pgSQL =<<<SQLVAR
@@ -36,7 +36,7 @@ SELECT c.`COLUMN_NAME` AS `ColumnName`, c.`COLUMN_TYPE` AS `ColumnType`,
     IF (c.`IS_NULLABLE` = 'NO' AND c.`COLUMN_DEFAULT` IS NULL AND c.`EXTRA` <> 'auto_increment',
         '<span class="red-text">Yes</span>', 'No') AS `Required`,
     c.`COLLATION_NAME` AS `Collation`,
-    CONCAT('<a draggable="true" ondragover="wtkDragOver(event)"',
+    CONCAT('<a id="', c.`COLUMN_NAME`, 'Link" draggable="true" ondragover="wtkDragOver(event)"',
         ' ondrop="importDropName(\'',c.`COLUMN_NAME`,
         '\')" class="btn btn-floating hidden-link"><i class="material-icons">insert_link</i></a>') AS `Link`
  FROM `information_schema`.`COLUMNS` c
@@ -59,18 +59,32 @@ $pgTableDef = wtkBuildDataBrowse($pgSQL, $pgSqlFilter, 'columnList');
 $pgHtm =<<<htmVAR
 <div class="row">
     <div id="verifyImport" class="col s12 hide"></div>
-    <div id="tableDef" class="col m6 s12">
+    <div id="dataHeader" class="col m6 s12">
         <h4>$pgTableName Data Table
             <small id="importBtn" class="right hide">
                 <a class="btn" onclick="JavaScript:wtkImport('verify')">Review Import</a>
             </small>
         </h4>
+    </div>
+    <div id="csvHeader" class="col m6 s12">
+        <h4>CSV Columns to Import</h4>
+    </div>
+</div>
+<div class="row">
+    <div id="mappingDIV" class="col m6 offset-m3 s12 hide">
+        <div class="card">
+            <div class="card-content">
+                <h5 class="center">Current Mapping for Import</h5>
+                <ul id="mappingCSVul" class="collection with-header"></ul>
+            </div>
+        </div>
+    </div>
+    <div id="tableDef" class="col m6 s12">
         <div class="wtk-list card b-shadow">
             $pgTableDef
         </div>
     </div>
     <div id="csvDIV" class="col m6 s12">
-        <h4>CSV Columns to Import</h4>
         <div class="wtk-list card b-shadow" id="csvColCard">
             <br>
                 <form id="wtkForm" name="wtkForm" method="post">
@@ -84,11 +98,11 @@ $pgHtm =<<<htmVAR
 </div>
 
 <script type="text/javascript">
-function csvFileUpload(){
+function csvFileUpload(fncFormId,fncTableName){
     $('#tableDef').addClass('hide');
     $('#csvDIV').removeClass('m6');
     $('#wtkForm').addClass('hide');
-    wtkfFileUpload('','wtkAffiliates');
+    wtkfFileUpload('wtkForm',fncTableName);
     $('#columnList').addClass('hide');
 }
 
@@ -102,24 +116,31 @@ function showLinks() {
 function mapCSVcolumns(fncFileName){
     $('#csvDIV').addClass('m6');
     $('#tableDef').removeClass('hide');
-
+    $('#mappingDIV').removeClass('hide');
     $('#columnList').removeClass('hide');
     $('#displayFileDIV').addClass('hide');
     $('#csvColCard').html($('#csvColumns').html());
     showLinks();
 }
 
-var pgImportArray = {};
+var gloImportObject = {};
+var gloCsvArray = [];
+
 function importDropName(fncColName){
-    pgImportArray[fncColName] = pgFromDragId;
+    gloImportObject[fncColName] = pgFromDragId;
+    $('#' + fncColName + 'Link').addClass('hide');
     $('#importBtn').removeClass('hide');
+    showMappings();
 }
 
 function wtkImport(fncStep) {
-    if (pgImportArray) {
-        let fncColMap = JSON.stringify(pgImportArray)
+    if (gloImportObject) {
+        let fncColMap = JSON.stringify(gloImportObject)
         let fncCSVfile = $('#csvFileLocation').val();
         let fncTableName = $('#TableName').val();
+        $('#mappingDIV').addClass('hide');
+        $('#dataHeader').addClass('hide');
+        $('#csvHeader').addClass('hide');
         waitLoad('on');
         $.ajax({
             type: 'POST',
@@ -136,14 +157,49 @@ function wtkImport(fncStep) {
         })
     }
 }
-</script>
+function unLinkCSV2Table(fncColName){
+    // remove from object then wipe out and rebuild mappingCSVul
+    delete gloImportObject[fncColName];
+    $('#' + fncColName + 'Link').removeClass('hide');
+    showMappings();
+}
+
 htmVAR;
+$pgTmp =<<<htmVAR
+function showMappings(){
+   let fncUL = $('#mappingCSVul');
+   fncUL.empty(); // Clear existing list items
+   let fncTmp = '';
+   let fncLIstart = '<li class="collection-item"><table class="table-basic" width="100%"><tr><td width="35%" class="center">';
+   let fncLImiddle = '</td><td width="20%" class="center"><i class="material-icons small btn light-blue white-text" style="padding-top:4px">compare_arrows</i></td>';
+   fncLImiddle += '<td width="35%" class="center"">';
+   let fncLImid2 = '</td><td width="10%"><a onclick="JavaScript:unLinkCSV2Table(\'';
+   let fncLIend = '\')" class="secondary-content"><i class="material-icons red-text small">remove_circle</i></a></div></li></td></tr></li>';
+   $.each(gloImportObject, function(key, value) {
+       fncTmp = fncLIstart + key + fncLImiddle + gloCsvArray[value] + fncLImid2 + key + fncLIend;
+       fncUL.append(fncTmp);
+   });
+}
+htmVAR;
+$pgTmp = wtkReplace($pgTmp, 'fncUL','$fncUL');
+$pgHtm .= $pgTmp . "\n" . '</script>';
 $pgHtm .= wtkFormHidden('csvFileLocation', '');
 $pgHtm .= wtkFormHidden('TableName', $pgTableName);
 
 echo $pgHtm;
 exit;
 /*
+<li class="collection-item"><table class="default-table" width="100%"><tr><td width="35%" class="center">
+City
+</td><td width="20%"><i class="material-icons small btn light-blue white-text" style="padding-top:4px">compare_arrows</i></td>
+<td width="35%">Town</td><td width="10%"><a onclick="JavaScript:unLinkCSV2Table('City
+')" class="secondary-content"><i class="material-icons red-text small">remove_circle</i></a></div></li></td></tr>
+
+let fncLIstart = '<li class="collection-item"><div class="center">';
+let fncLImiddle = '<i class="material-icons small btn light-blue white-text" style="padding-top:4px">compare_arrows</i>';
+let fncLIend = ' class="secondary-content"><i class="material-icons red-text small">remove_circle</i></a></div></li>';
+
+
 function chooseCSVfile(){
     $('#modalWTK').html($('#pickFileModal').html());
 

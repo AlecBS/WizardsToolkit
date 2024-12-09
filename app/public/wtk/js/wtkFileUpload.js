@@ -214,7 +214,7 @@ function wtkfFileUpload(fncFormId = '', fncId = '') {
    };
 
    fr.onload = function(evt) {
-//     wtkDebugLog(evt);
+       wtkDebugLog('wtkfFileUpload fr.onload fncId = ' + fncId);
        let fncPath = $('#wtkfColPath' + fncId).val();
        if (typeof pgMPAvsSPA === 'undefined') {
            var pgMPAvsSPA = 'MPA';

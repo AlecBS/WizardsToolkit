@@ -5,6 +5,28 @@ if (!isset($gloConnected)):
     require('../wtk/wtkLogin.php');
 endif;
 
+// BEGIN pull in data table columns to compare to CSV column names
+$pgSQL =<<<SQLVAR
+SELECT c.`COLUMN_NAME` AS `ColumnName`
+ FROM `information_schema`.`COLUMNS` c
+  INNER JOIN `information_schema`.`TABLES` t ON t.`TABLE_NAME` = c.`TABLE_NAME`
+WHERE c.`TABLE_SCHEMA` = :TABLE_SCHEMA AND c.`TABLE_NAME` = :TABLE_NAME
+ORDER BY c.`ORDINAL_POSITION` ASC
+SQLVAR;
+$pgSqlFilter = array(
+    'TABLE_SCHEMA' => $gloDb1,
+    'TABLE_NAME' => $gloRNG
+);
+
+$pgDataColArray = [];
+$pgPDO = $gloWTKobjConn->prepare($pgSQL);
+$pgPDO->execute($pgSqlFilter);
+while ($gloPDOrow = $pgPDO->fetch(PDO::FETCH_ASSOC)):
+    $pgDataColArray[strtolower($gloPDOrow['ColumnName'])] = $gloPDOrow['ColumnName'];
+endwhile;
+unset($pgPDO);
+//  END  pull in data table columns to compare to CSV column names
+
 $pgSQL =<<<SQLVAR
 SELECT CONCAT(`FilePath`, `NewFileName`) AS `UploadedFile`
  FROM `wtkFiles`
@@ -14,27 +36,22 @@ SQLVAR;
 $pgSqlFilter = array('UserUID' => $gloUserUID);
 $pgUploadedFile = wtkSqlGetOneResult($pgSQL, $pgSqlFilter);
 
-wtkSetSession('csvUpload', $pgUploadedFile);
-
 $pgCSVarray = [];
-
 // Open the CSV file for reading
-if (($handle = fopen('../' . $pgUploadedFile, 'r')) !== false):
+if (($pgHandle = fopen('../' . $pgUploadedFile, 'r')) !== false):
     // Loop through each line in the file
-    while (($data = fgetcsv($handle, 1000, ',')) !== false):
-        // Add the line to the array
-        $pgCSVarray[] = $data;
+    while (($pgData = fgetcsv($pgHandle, 1000, ',')) !== false):
+        $pgCSVarray[] = $pgData;  // Add the line to the array
     endwhile;
-    // Close the file
-    fclose($handle);
+    fclose($pgHandle);  // Close the file
 endif;
 
 $pgHtm =<<<htmVAR
 <div class="card">
     <div class="card-content">
         <h4>Top 10 rows in CSV file</h4>
-        <p>Once you have verified these look correct,
-        click to <a onclick="JavaScript:mapCSVcolumns('$pgUploadedFile')" class="btn">Map Columns</a></p>
+        <p>Once you have verified these look correct, click to
+            <a onclick="JavaScript:mapCSVcolumns('$pgUploadedFile')" class="btn">Map Columns</a></p>
 htmVAR;
 
 $pgCsvTable = '<table class="border white"><thead>';
@@ -42,7 +59,9 @@ $pgCsvCols  = '<table id="csvHeaders" class="striped">' . "\n";
 $pgCsvCols .= '<thead><th>&nbsp;</th><th>Column Name</th></thead><tbody>';
 $pgCntr = 0;
 $pgColCntr = 0;
-foreach ($pgCSVarray as $row){
+$pgExactMatches = '';
+$pgCSVjsArray = '';
+foreach ($pgCSVarray as $row):
     $pgCntr ++;
     if ($pgCntr == 2):
         $pgCsvTable = wtkReplace($pgCsvTable, 'td>','th>');
@@ -50,22 +69,30 @@ foreach ($pgCSVarray as $row){
         $pgCsvTable .= '<tbody>' . "\n";
     endif;
     $pgCsvTable .= '<tr>' . "\n";
-    foreach ($row as $cell) {
+    foreach ($row as $cell):
         $pgColName = htmlspecialchars($cell);
         $pgCsvTable .= '  <td>' . $pgColName . '</td>' . "\n";
         if ($pgCntr == 1):
+            $pgCSVjsArray .= "gloCsvArray.push('$pgColName');" . "\n";
+            // BEGIN check for exact match with data table
+            if (array_key_exists(strtolower($pgColName), $pgDataColArray)):
+                $pgDataColName = $pgDataColArray[strtolower($pgColName)];
+                $pgExactMatches .= "gloImportObject['$pgDataColName'] = $pgColCntr;" . "\n";
+                $pgExactMatches .= "$('#" . $pgDataColName . "Link').addClass('hide');" . "\n";
+            endif;
+            //  END  check for exact match with data table
             $pgCsvCols .= '<tr><td>' . "\n";
             $pgCsvCols .= ' <a draggable="true" ondragstart="wtkDragStart(' . $pgColCntr . ',0);" ondragover="wtkDragOver(event)" class="btn btn-floating">' . "\n";
             $pgCsvCols .= '<i class="material-icons" alt="drag to link where to import" title="drag to link where to import">drag_handle</i></a></td>' . "\n";
             $pgCsvCols .= '<td>' . $pgColName . '</td></tr>' . "\n";
             $pgColCntr ++;
         endif;
-    }
+    endforeach;
     $pgCsvTable .= '</tr>' . "\n";
     if ($pgCntr == 10):
         break;
     endif;
-}
+endforeach;
 $pgCsvCols  .= '</tbody></table>' . "\n";
 $pgCsvTable .= '</tbody></table>' . "\n";
 
@@ -76,9 +103,13 @@ $pgHtm .=<<<htmVAR
 </div>
 <script type="text/javascript">
 $('#csvFileLocation').val('$pgUploadedFile');
+
+$pgExactMatches
+$pgCSVjsArray
+
+showMappings();
 </script>
 htmVAR;
-//  File Name: $pgUploadedFile
 echo $pgHtm;
 exit;
 ?>
