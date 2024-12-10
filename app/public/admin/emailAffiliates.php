@@ -38,6 +38,7 @@ SQLVAR;
 htmVAR;
         break;
     case 'SendAll':
+        $gloBulkEmailing = true;
         $pgSQL =<<<SQLVAR
 SELECT a.`UID`, fncWTKhash(a.`UID`) AS `Hash`, a.`Email`,
     COALESCE(a.`CompanyName`, a.`ContactName`, a.`Email`) AS `ToName`,

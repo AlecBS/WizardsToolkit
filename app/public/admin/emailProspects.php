@@ -52,6 +52,7 @@ SQLVAR;
 htmVAR;
         break;
     case 'SendAll':
+        $gloBulkEmailing = true;
         $pgSQL =<<<SQLVAR
 SELECT s.`UID`, CRC32(s.`UID`) AS `Hash`, s.`ProspectUID`, s.`Email`,
     COALESCE(p.`CompanyName`,'') AS `ProspectName`,
