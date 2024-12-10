@@ -51,7 +51,6 @@ $pgHtm =<<<htmVAR
     <div class="card-content">
         <h4>Top 10 rows in CSV file</h4>
         <p>Once you have verified these look correct, click to
-            <a onclick="JavaScript:mapCSVcolumns('$pgUploadedFile')" class="btn">Map Columns</a></p>
 htmVAR;
 
 $pgCsvTable = '<table class="border white"><thead>';
@@ -96,7 +95,15 @@ endforeach;
 $pgCsvCols  .= '</tbody></table>' . "\n";
 $pgCsvTable .= '</tbody></table>' . "\n";
 
+if ($pgExactMatches != ''):
+    $pgHasMatches = 'Y';
+else:
+    $pgHasMatches = 'N';
+endif;
+
 $pgHtm .=<<<htmVAR
+        <a onclick="JavaScript:mapCSVcolumns('$pgUploadedFile','$pgHasMatches')" class="btn">Map Columns</a></p>
+
         $pgCsvTable
         <div id="csvColumns" class="hide">$pgCsvCols</div>
     </div>
