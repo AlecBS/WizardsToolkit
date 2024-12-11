@@ -121,6 +121,7 @@ if (($pgHandle = fopen('../' . $pgCsvFile, 'r')) !== false):
             break;
         endif;
     endwhile;
+    $pgRowCount = ($pgRowCount - 1);
     fclose($pgHandle);
 endif;
 
@@ -129,8 +130,40 @@ switch ($pgStep):
         $pgHtm .= '</tbody></table></div>' . "\n";
         break;
     case 'import':
-        $pgRowCount = ($pgRowCount - 1);
-        $pgHtm =<<<htmVAR
+        $pgError = '';
+        try {
+            $pgReady = $gloWTKobjConn->prepare($pgSQL);
+            try {
+                $pgReady->execute();
+            } catch (PDOException $e) {
+            // Handle the error gracefully or ignore it
+                $pgError = $e;
+            }
+        } catch (PDOException $e) {
+            // Handle the error gracefully or ignore it
+            wtkExceptionHandler($e);
+        }
+        if ($pgError != ''):
+            $pgBeforeRowPos = stripos($pgError, "' at row ");
+            $pgPos = stripos($pgError, 'in /app/public/admin/');
+            $pgRowOfFailure = trim(substr($pgError, ($pgBeforeRowPos + 8), ($pgPos - ($pgBeforeRowPos + 8))));
+            $pgError = substr($pgError, 0, $pgPos - 1);
+            $pgError = wtkReplace($pgError, 'PDOException: SQLSTATE[HY000]:','');
+            $pgError = wtkReplace($pgError, 'PDOException: SQLSTATE[22001]:','');
+            $pgError = wtkReplace($pgError, 'PDOException: SQLSTATE[22007]:','');
+            $pgError = wtkReplace($pgError, 'PDOException:','');
+            $pgHtm =<<<htmVAR
+<div class="card">
+    <div class="card-content">
+        <br><h2>SQL Error</h2><br>
+        <p>$pgError</p>
+        <p>Problem is in your CSV file on row $pgRowOfFailure </p>
+        <p>$pgRowCount rows in CSV to import.</p>
+    </div>
+</div>
+htmVAR;
+        else:
+            $pgHtm =<<<htmVAR
     <div class="card">
         <div class="card-content">
             <br><h2>$pgRowCount rows Imported!</h2><br>
@@ -138,7 +171,7 @@ switch ($pgStep):
         </div>
     </div>
 htmVAR;
-        wtkSqlExec($pgSQL, []);
+        endif;
         break;
     default: // makeSQL
         $pgHtm =<<<htmVAR
