@@ -13,7 +13,7 @@ ORDER BY `LookupType` ASC, `LookupValue` ASC
 SQLVAR;
 
 $gloHideUID = false;  // this allows `UID` to be seen; by default it will be supressed
-
+$gloLineNumbers = true;  // this is false by default; when true will show line count
 $gloEditPage = 'lookupEdit';
 // $gloPrinting = true; // this will hide add/edit/delete buttons
 // optionally set next to columns and edit button
