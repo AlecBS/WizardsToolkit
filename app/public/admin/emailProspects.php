@@ -62,9 +62,11 @@ SELECT s.`UID`, CRC32(s.`UID`) AS `Hash`, s.`ProspectUID`, s.`Email`,
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`OtherUID` = s.`UID` AND e.`EmailUID` = :EmailUID
     INNER JOIN `wtkProspects` p ON p.`UID` = s.`ProspectUID`
   WHERE s.`DoNotContact` = 'N' AND e.`UID` IS NULL
-    AND s.`EmailsSent` = :EmailsSent
-    AND p.`ProspectStatus` = 'new'
+    AND p.`ProspectStatus` IN ('new','email')
 SQLVAR;
+        // BEGIN add if you want to limit number of emails sent:
+        // AND s.`EmailsSent` = {max number of emails sent}
+        //  END  add if you want to limit number of emails sent:
         if ($pgTimeZone != ''):
             $pgSQL .= " AND (p.`TimeZone` IS NULL OR p.`TimeZone` = '$pgTimeZone')";
         endif;
@@ -75,25 +77,8 @@ SQLVAR;
         else:
             $pgSQL .= ' LIMIT 1' . "\n";
         endif;
-
-    /* testing
-        $pgSQL =<<<SQLVAR
-SELECT s.`UID`, CRC32(s.`UID`) AS `Hash`, s.`ProspectUID`, s.`Email`,
-    COALESCE(s.`FirstName`,'') AS `FirstName`,
-    COALESCE(s.`LastName`,'') AS `LastName`
-FROM `wtkProspectStaff` s
-LEFT OUTER JOIN `wtkEmailsSent`e ON e.`OtherUID` = s.`UID` AND e.`EmailUID` = :EmailUID
-WHERE s.`DoNotContact` = 'N'
---  AND e.`UID` IS NULL
-  AND s.`EmailsSent` > :EmailsSent
-  AND s.`ProspectUID` = 32768
-GROUP BY s.`ProspectUID`
-ORDER BY s.`UID` ASC LIMIT 1
-SQLVAR;
-*/
         $pgSqlFilter = array (
-            'EmailUID' => $pgEmailUID,
-            'EmailsSent' => 0
+            'EmailUID' => $pgEmailUID
         );
 
         $pgSQL = wtkSqlPrep($pgSQL);
