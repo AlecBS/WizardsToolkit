@@ -397,6 +397,9 @@ WHERE wu.`DelDate` IS NULL AND wu.`SecurityLevel` > 90\n
   'JS var setting from input':
       'prefix': 'jsv'
       'body': 'let fnc${1:InputID} = $(\'#${1}\').val();'
+  'JS addClass':
+      'prefix': 'jas'
+      'body': "$('#${1:ElementId}').addClass('${2}hide');"
   'JS removeClass':
       'prefix': 'jrs'
       'body': "$('#${1:ElementId}').removeClass('${2:hide}');"
@@ -414,6 +417,9 @@ WHERE wu.`DelDate` IS NULL AND wu.`SecurityLevel` > 90\n
   'JS var setting from input':
       'prefix': 'jsv'
       'body': 'let fnc${1:InputID} = $(\'#${1}\').val();'
+  'JS addClass':
+      'prefix': 'jas'
+      'body': "$('#${1:ElementId}').addClass('${2}hide');"
   'JS removeClass':
       'prefix': 'jrs'
       'body': "$('#${1:ElementId}').removeClass('${2:hide}');"
