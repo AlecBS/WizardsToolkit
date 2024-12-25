@@ -381,7 +381,7 @@ SQLVAR;
         'PageTitle' => $fncPageTitle,
         'PageURL' => $gloCurrentPage
     );
-    wtkSqlExec($fncSQL, $fncSqlFilter);
+    wtkSqlExec($fncSQL, $fncSqlFilter, false);
 
     // BEGIN Calculate time between this page and prior page
     if (!$fncFirstTime):
