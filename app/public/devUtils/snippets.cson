@@ -121,6 +121,9 @@ WHERE wu.`DelDate` IS NULL AND wu.`SecurityLevel` > 90\n
   'Create Table':
     'prefix': 'CT'
     'body': 'CREATE TABLE `${1:tableName}` (\n\t`UID`\t\t\tINT UNSIGNED NOT NULL auto_increment,\n\t`AddDate`\t\ttimestamp NOT NULL default CURRENT_TIMESTAMP,\n\t`DelDate`\t\tdatetime,\n\t`${2:columns}`\t\tvarchar(${3}),\n  PRIMARY KEY (`UID`),\n  KEY `ix_${1:tableName}_${2:columnName}` (`${2:columnName}`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;'
+  'Constraint':
+    'prefix': 'CONSTRAINT'
+    'body': 'CONSTRAINT `fk_${1:tableName}_`\n\tFOREIGN KEY (`${2}UserUID`) REFERENCES ${3}wtkUsers(`UID`)'
   'DELETE data':
     'prefix': 'DW'
     'body': 'DELETE FROM `${1:tableName}` \n\tWHERE `UID` = ${2}'
