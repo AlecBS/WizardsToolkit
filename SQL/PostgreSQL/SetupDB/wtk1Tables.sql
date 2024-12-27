@@ -2,7 +2,7 @@ CREATE TABLE "wtkUsers" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
   "DelDate" timestamp without time zone,
-  "Title" varchar(20),
+  "Title" varchar(40),
   "FirstName" varchar(30),
   "LastName" varchar(35),
   "Address" varchar(45),

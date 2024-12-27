@@ -30,7 +30,7 @@ CREATE TABLE `wtkUsers` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `DelDate` datetime,
-  `Title` varchar(20),
+  `Title` varchar(40),
   `FirstName` varchar(30),
   `LastName` varchar(35),
   `Address` varchar(45),
