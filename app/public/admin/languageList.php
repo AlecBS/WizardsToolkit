@@ -9,7 +9,7 @@ $pgSQL =<<<SQLVAR
 SELECT l.`UID`, l.`PrimaryText` AS `English`, o.`LookupDisplay` AS `ConvertTo`,
     l.`NewText` AS `OtherLanguage`
 FROM `wtkLanguage` l
-  LEFT OUTER JOIN `wtkLookups` o ON o.`LookupType` = 'Language' AND o.`LookupValue` = l.`Language`
+  LEFT OUTER JOIN `wtkLookups` o ON o.`LookupType` = 'LangPref' AND o.`LookupValue` = l.`Language`
 SQLVAR;
 
 $pgHideReset = ' class="hide"';
@@ -46,7 +46,7 @@ $gloDelPage  = 'wtkLanguage'; // have DelDate at end if should DelDate instead o
 $pgSelSQL =<<<SQLVAR
 SELECT `LookupValue`, `LookupDisplay`
  FROM `wtkLookups`
-WHERE `LookupType` = 'Language'
+WHERE `LookupType` = 'LangPref'
 ORDER BY `LookupDisplay` ASC
 SQLVAR;
 $pgSelOptions = wtkGetSelectOptions($pgSelSQL, [], 'LookupDisplay', 'LookupValue', $pgFilter2Value);

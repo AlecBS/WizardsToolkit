@@ -26,7 +26,7 @@ htmVAR;
 $pgSelSQL =<<<SQLVAR
 SELECT `LookupValue`, `LookupDisplay`
  FROM `wtkLookups`
-WHERE `LookupType` = 'Language'
+WHERE `LookupType` = 'LangPref'
 ORDER BY `LookupDisplay` ASC
 SQLVAR;
 
