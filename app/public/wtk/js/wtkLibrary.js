@@ -1324,6 +1324,7 @@ function wtkGoBack() {
         let fncCurInfo = pgPageArray[pgPageArray.length - 1];
         let fncCurArray = fncCurInfo.split('~');
         let fncCurrent = fncCurArray[2];
+        fncCurrent = fncCurrent.replaceAll('../','');
         wtkDebugLog('wtkGoBack hiding ' + fncPriorPage + ' and showing ' + fncCurrent + '; fncCurInfo = ' + fncCurInfo + '; pgPageArray.length = ' + pgPageArray.length);
         if (pgPageArray.length == 1) {
             $('#backBtn').addClass('hide');
@@ -1352,6 +1353,13 @@ function wtkGoBack() {
             pageTransition(fncPriorPage, 'mainPage');
             if (fncCurrent == '../reports') {
                 fncCurrent = '/wtk/reports'
+            } else {
+                let fncPath = gloFilePath[fncCurrent]; // gloFilePath defined in wtkPaths.js
+                if (fncPath == undefined) {
+                    fncPath = '';
+                }
+                fncCurrent = fncPath + fncCurrent;
+                wtkDebugLog('wtkGoBack adjusted for Path: ' + fncPath + ' for ' + fncCurrent);
             }
             ajaxGo(fncCurrent, fncCurArray[0], fncCurArray[1], 'N');
         }
