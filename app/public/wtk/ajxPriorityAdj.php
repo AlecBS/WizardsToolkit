@@ -59,9 +59,13 @@ wtkSqlExec($pgSQL, $pgSqlFilter);
 $pgSqlFilter = array (
     'UID' => $pgFromId
 );
-wtkSqlExec("UPDATE `$pgTable` SET `$pgColumn` = $pgToPriority WHERE `UID` = :UID", $pgSqlFilter);
+$pgSQL = "UPDATE `$pgTable` SET `$pgColumn` = $pgToPriority WHERE `UID` = :UID";
+wtkSqlExec($pgSQL, $pgSqlFilter);
 
 $pgJSON = '{"result":"ok"}';
+
+$pgSQL  = wtkReplace($pgSQL, ':UID',$pgFromId);
+//$pgJSON = '{"result":"ok","sql":"' . $pgSQL . '"}';
 echo $pgJSON;
 exit;
 ?>

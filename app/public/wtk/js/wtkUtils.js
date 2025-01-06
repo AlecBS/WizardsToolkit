@@ -931,19 +931,20 @@ function wtkDragStart(fncId,fncPos) {
 function wtkDragOver(ev) {
     ev.preventDefault(); // necessary
 }
-function wtkDropId(fncToId, fncToPos) {
-    wtkDebugLog('wtkDropId called: FromId = ' + pgFromDragId + '; ToId = ' + fncToId);
-    let fncTable = $('#wtkDragTable').val();
-    let fncColumn = $('#wtkDragColumn').val();
-    let fncFilter = $('#wtkDragFilter').val();
+function wtkDropId(fncToId, fncToPos, fncSet = '') {
+    wtkDebugLog('wtkDropId called: Set = ' + fncSet + '; FromId = ' + pgFromDragId + '; ToId = ' + fncToId);
+    let fncTable = $('#wtkDragTable' + fncSet).val();
+    let fncColumn = $('#wtkDragColumn' + fncSet).val();
+    let fncFilter = $('#wtkDragFilter' + fncSet).val();
+    wtkDebugLog('wtkDropId called: Set = ' + fncSet + '; FromId = ' + pgFromDragId + '; ToId = ' + fncToId + '; fncTable = ' + fncTable);
     $.ajax({
         type: 'POST',
         url:  '/wtk/ajxPriorityAdj.php',
         data: { apiKey: pgApiKey, tbl: fncTable, col: fncColumn, filter: fncFilter,
             fromId: pgFromDragId, toId: fncToId, fromPos: pgFromDragPos, toPos: fncToPos},
             success: function(data) {
-                let fncURL = $('#wtkDragRefresh').val();
-                if ($('#wtkDragLocation').val() == 'table') {
+                let fncURL = $('#wtkDragRefresh' + fncSet).val();
+                if ($('#wtkDragLocation' + fncSet).val() == 'table') {
                     wtkBrowseReset(fncURL, fncTable, fncFilter);
                 } else {
                     wtkModalUpdate(fncURL, 0, fncFilter);
