@@ -168,9 +168,10 @@ $gloSelectExist = false;
 $gloDatePickExist = false;
 $gloHasImage = false;
 $gloHasTextArea = '';
+$gloHasFileUploads = '';
 function wtkFormWriteUpdField() {
     global $gloUpdateFieldsArray, $gloSelectExist, $gloDatePickExist,
-      $gloTimePickExist, $gloHasTextArea, $gloHasImage;
+      $gloTimePickExist, $gloHasTextArea, $gloHasImage, $gloHasFileUploads;
     $fncTableList = '';
     $fncHiddenFields = '';
     for ($i = 1; $i < (sizeof($gloUpdateFieldsArray) + 1); ++$i):
@@ -195,6 +196,9 @@ function wtkFormWriteUpdField() {
     endif;
     if ($gloHasTextArea != ''):
         $fncHiddenFields .= wtkFormHidden('HasTextArea', $gloHasTextArea);
+    endif;
+    if ($gloHasFileUploads != ''):
+        $fncHiddenFields .= wtkFormHidden('wtkUploadFiles', $gloHasFileUploads);
     endif;
     if ($gloHasImage == true):
         $fncHiddenFields .= wtkFormHidden('HasImage', 'Y');

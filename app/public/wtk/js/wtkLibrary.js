@@ -835,10 +835,20 @@ function afterPageLoad(fncPage) {
     }
     if ($('#wtkUpload').val() !== undefined) {
         // all File-Upload related functions are in wtkFileUpload.js
-        wtkDebugLog('about to set EventListner for wtkUpload to do wtkFileChanged');
+        wtkDebugLog('about to set EventListener for wtkUpload to do wtkFileChanged');
         document.getElementById('wtkUpload').addEventListener('change', (e) => {
             wtkFileChanged();
         })
+    }
+    if ($('#wtkUploadFiles').val() !== undefined) {
+        let fncFileIDs = $('#wtkUploadFiles').val();
+        let fncFileUpArray = fncFileIDs.split(',');
+        for (let i = 0; i < fncFileUpArray.length; i++){
+            wtkDebugLog('set wtkFileChanged for wtkUpload' + fncFileUpArray[i]);
+            document.getElementById('wtkUpload' + fncFileUpArray[i]).addEventListener('change', (e) => {
+                wtkFileChanged(fncFileUpArray[i]);
+            })
+        }
     }
     // BEGIN For Quick Filters make Enter Key act to Submit filter
     if (elementExist('wtkFilter') && elementExist('wtkFilterBtn')){
@@ -1119,12 +1129,12 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                     fncEncType = 'multipart/form-data';
                 } else {
                     fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-                    if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
-                        if (elementExist('FileUploaded')) {
-                            $('#FileUploaded').val('Y');
-                        }
-                        wtkfFileUpload(fncPost,$('#ID1').val());
-                    }
+                    // if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
+                    //     if (elementExist('FileUploaded')) {
+                    //         $('#FileUploaded').val('Y');
+                    //     }
+                    //     wtkfFileUpload(fncPost,$('#ID1').val());
+                    // }
                 }
             }
         } // pgAccessMethod != 'ios'
@@ -1141,6 +1151,19 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
             document.getElementById(fncPost).submit();
         } else {
             wtkDebugLog('ajaxPost: pgMPAvsSPA = SPA');
+            // upload images
+            if ($('#wtkUploadFiles').val() !== undefined) {
+                if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
+                    if (elementExist('FileUploaded')) {
+                        $('#FileUploaded').val('Y');
+                    }
+                    let fncFileIDs = $('#wtkUploadFiles').val();
+                    let fncFileUpArray = fncFileIDs.split(',');
+                    for (let i = 0; i < fncFileUpArray.length; i++){
+                        wtkfUploadFile(fncFileUpArray[i]);
+                    }
+                }
+            }
             waitLoad('on');
             $.ajax({
                 method: 'POST',

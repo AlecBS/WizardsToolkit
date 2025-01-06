@@ -97,8 +97,16 @@ endif;
 //  END  Debugging
 
 $pgFileName = $pgJSON['fileName'];
-$pgColPath = 'FilePath';
-$pgColFile = 'NewFileName';
+if (array_key_exists('colPath', $pgJSON)):
+    $pgColPath = $pgJSON['colPath'];
+else:
+    $pgColPath = 'FilePath';
+endif;
+if (array_key_exists('colFile', $pgJSON)):
+    $pgColFile = $pgJSON['colFile'];
+else:
+    $pgColFile = 'NewFileName';
+endif;
 switch ($pgTable):
     case 'wtkUsers':
         if ($pgPath == ''):
@@ -112,9 +120,6 @@ switch ($pgTable):
     default:
         if ($pgFrom == 'Xcode'):
             $pgPath = '/imgs/';
-        else:
-            $pgColPath = $pgJSON['colPath'];
-            $pgColFile = $pgJSON['colFile'];
         endif;
         break;
 endswitch;
