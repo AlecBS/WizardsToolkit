@@ -122,7 +122,8 @@ SQLVAR;
         endswitch;
         $fncWidgetDescription = $fncPDOrow['WidgetDescription'];
         if ($fncWidgetDescription == ''):
-            $fncTmp = wtkReplace($fncTmp, ' tooltipped"@Link@ id="ttip@UID@" data-position="bottom" data-tooltip="@WidgetDescription@"', '"');
+            $fncTmp = wtkReplace($fncTmp, ' data-position="bottom" data-tooltip="@WidgetDescription@"', '');
+            $fncTmp = wtkReplace($fncTmp, ' tooltipped"', '"');
         endif;
         $fncTmp = wtkReplace($fncTmp, '@WidgetDescription@', $fncWidgetDescription);
 
