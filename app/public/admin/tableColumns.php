@@ -12,7 +12,8 @@ else:
 endif;
 
 $gloWTKmode = 'ADD';
-$pgUpload  = wtkFormFile('wtkFiles','FilePath','/exports/','NewFileName','Pick File to Upload','s12','','Y','');
+$pgUpload  = wtkFormFile('wtkFiles','FilePath','/exports/','NewFileName','Pick File to Upload','s12','','Y','','Y',1);
+
 // For example, instead of /demo/imgs you could put '../docs/imgs/'
     // and it would find files in a /app/docs/imgs/ folder next to /app/public
 // BEGIN next line ONLY necessary because no other fields are in form
@@ -27,7 +28,7 @@ $pgUpload .= wtkFormHidden('wtkMode', 'ADD');
 $pgUpload .= wtkFormHidden('tabRel', 'csv');
 $pgUpload  = wtkReplace($pgUpload, 'width="144px"','width="245px"');
 $pgUpload  = wtkReplace($pgUpload, 'JavaScript:wtkfFileUpload(', 'JavaScript:csvFileUpload(');
-$pgUpload .= wtkFormHidden('wtkfRefreshDIV', 'csvImporter'); // this tells JS to refresh uploadFileDIV DIV by calling this page
+$pgUpload .= wtkFormHidden('wtkfRefreshDIV1', 'csvImporter'); // this tells JS to refresh uploadFileDIV DIV by calling this page
 // $pgUpload .= wtkFormHidden('wtkfColPath', '/exports');
 // $pgTableName = wtkGetParam('TableName');
 
@@ -92,7 +93,7 @@ $pgHtm =<<<htmVAR
                     $pgUpload
                     </div>
                 </form>
-            <div id="displayFileDIV"></div>
+            <div id="displayFileDIV1"></div>
         </div>
     </div>
 </div>
