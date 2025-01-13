@@ -377,6 +377,7 @@ function wtkRegister() {
                           data: (fncFormData),
                           success: function(data) {
                               $('#mainPage').html(data);
+                              $('body').removeClass('bg-second');
                               pgPageArray.push('0~0~newRegOK');
                               waitLoad('off');
                               $('#backBtn').addClass('hide');

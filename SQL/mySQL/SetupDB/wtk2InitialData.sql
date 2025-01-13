@@ -15,6 +15,7 @@ INSERT INTO `wtkEcommerce` (`PaymentProvider`, `EcomWebsite`)
 
 INSERT INTO `wtkEmailTemplate` (`EmailCode`, `AutomationOnly`, `EmailType`, `Subject`, `EmailBody`, `InternalNote`) VALUES
 ('invite', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Log in at @website@ using your email and password.</p>\r\n<p>If you do not know your password you can request a password reset on our website.</p>', 'this template is called from the User List by clicking the "Send Invite" button'),
+('Welcome', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Thank you for joining our website!</p>', 'this template is called from Registration process'),
 ('WelcomePIN', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Your PIN is: <span style=\"font-family: \'Courier New\';\"><b>@PIN@</b></span></p>\r\n<p>Thank you for joining our website!</p>', 'this template is called from PIN Registration process'),
 ('DelAcct', 'Y', 'A', 'Account Deleted', '<h3>Account Deleted</h3>\r\nAs requested, your account has been deleted and all personally identifiable information (PII) has been removed from our database.\r\n\r\nWe are sorry to see you go.  If you ever want to return, simply register a new account at our website at:\r\n@website@\r\n\r\nSincerely,\r\n@CompanyName@', 'automatically sent when user chooses to delete their account');
 
