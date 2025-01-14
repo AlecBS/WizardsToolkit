@@ -34,8 +34,7 @@ $pgHtm =<<<htmVAR
 <ul class="browser-default">
     <li>Earn Generously: Enjoy a <strong class="green-text">$pgAffiliateRate% commission</strong> on the first-year subscription sales you generate</li>
     <ul class="browser-default">
-        <li>Earn $pgSpecialRate% on special promotions like <a target="_blank" href="startup.php">Startup/MVP Specials</a>
-         and <a target="_blank" href="eoy2024.php">EOY 2024</a> special.</li>
+        <li>Earn $pgSpecialRate% on special promotions like <a target="_blank" href="startup.php">Startup/MVP Specials</a>.</li>
     </ul>
     <li>Clients Perceive Value: Offer your clients an exclusive 10% discount on WTK subscription.</li>
     <li>Enhance Your Portfolio: By recommending WTK, you position your company as a leader in cutting-edge low-code development, showcasing innovation and efficiency to your clients.</li>
