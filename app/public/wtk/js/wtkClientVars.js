@@ -76,6 +76,8 @@ function cliPayPal(fncPage) {
         case 'license':
             let fncDomain = $('#domain').val();
             let fncPaid = $('#amount').val();
+            /*
+// this is just an example of custom code you could write; this is called by wtkLibrary.js
             $.ajax({
                 type: "POST",
                 url:  '/saveLicense.php',
@@ -84,6 +86,7 @@ function cliPayPal(fncPage) {
                         $('#licenseForm').addClass('hide');
                     }
             })
+            */
             break;
         default:
             wtkDebugLog('cliPayPal - fncPage not recognized: ' + fncPage);
