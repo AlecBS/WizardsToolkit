@@ -91,7 +91,7 @@ function wtkPageProtect($fncPagePasscode, $fncHTMLtemplate = '') {
 			<i id="modIcon" class="material-icons large red-text text-darken-1">warning</i>
 			<h4 id="modHdr">Ooops!</h4>
 			<p id="modText"></p>
-			<a class="btn-action-bg b-shadow center modal-close waves-effect" id="langClose">Close</a>
+			<a class="btn b-shadow center modal-close waves-effect" id="langClose">Close</a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/wtk/js/wtkLibrary.js" defer></script>

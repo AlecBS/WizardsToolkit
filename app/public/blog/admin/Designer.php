@@ -157,7 +157,7 @@ adding security to it so it is only accessible by users with a security login.
 			<i id="modIcon" class="material-icons large red-text text-darken-1">warning</i>
 			<h4 id="modHdr">Ooops!</h4>
 			<p id="modText"></p>
-			<a class="btn-action-bg b-shadow center modal-close waves-effect">Close</a>
+			<a class="btn b-shadow center modal-close waves-effect">Close</a>
 		</div>
 	</div>
 </body>
