@@ -3,7 +3,7 @@ $gloLoginRequired = false;
 define('_RootPATH', '../');
 require('wtkLogin.php');
 
-$pgLinkToURL = 'https://wizardstoolkit.com/eoy2024.php?af='; // change this to your pricing page
+$pgLinkToURL = 'https://wizardstoolkit.com/pricing.php?af='; // change this to your pricing page
 
 $pgResult = 'ok';
 $pgExtra  = '';
