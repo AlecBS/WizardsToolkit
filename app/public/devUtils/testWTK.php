@@ -162,9 +162,11 @@ $pgHtm .=<<<htmVAR
 
         <p>For example your setting may look something like this:</p>
         <code class="wtk-code">
-zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20210902/ioncube_loader_lin_8.1.so
+zend_extension = /usr/local/ioncube/ioncube_loader_lin_8.2.so
 ioncube.loader.encoded_paths = "$pgIonCubeFiles"
         </code>
+        <p>Modify for your PHP version the <em>ioncube_loader_lin_8.2.so</em> file name. For example,
+         if you are using PHP 8.1 then it should be ioncube_loader_lin_8.<b>1</b>.so.</p>
         <p>The above <strong>ioncube.loader.encoded_paths</strong> should be correct based on your
          WTK installation.  However if you are using Windows then change colons to semicolons like:<br>
          Encrypt.php<strong class="red-text">:</strong> <br>...to<br>Encrypt.php<strong class="red-text">;</strong></p>

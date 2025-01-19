@@ -71,7 +71,7 @@ CREATE TABLE `wtkUsers` (
   KEY `ix_wtkUsers_Email` (`Email`),
   KEY `ix_wtkUsers_LastNameFirstName` (`LastName`, `FirstName`),
   KEY `ix_wtkUsers_FirstNameLastName` (`FirstName`, `LastName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkAds` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -88,7 +88,7 @@ CREATE TABLE `wtkAds` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkAds_LastModByUserUID`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkAffiliates` (
   `UID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -113,7 +113,7 @@ CREATE TABLE `wtkAffiliates` (
   UNIQUE KEY `ix_wtkAffiliates_AffiliateHash` (`AffiliateHash`),
   KEY `ix_wtkAffiliates_CompanyName` (`CompanyName`),
   KEY `ix_wtkAffiliates_ContactName` (`ContactName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkBackgroundActions` (
   `UID`       INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -127,7 +127,7 @@ CREATE TABLE `wtkBackgroundActions` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkBackgroundActions_ToUserUID`
     FOREIGN KEY (`ToUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkBroadcast` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -151,7 +151,7 @@ CREATE TABLE `wtkBroadcast` (
     FOREIGN KEY (`DeletedByUserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkBroadcast_AddedByUserUID` (`AddedByUserUID`),
   KEY `ix_wtkBroadcast_Dates` (`ShowOnDate`,`ShowUntilDate`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkBroadcast_wtkUsers` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -163,7 +163,7 @@ CREATE TABLE `wtkBroadcast_wtkUsers` (
   CONSTRAINT `fk_wtkBroadcast_wtkUsers_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkBroadcast_wtkUsers` (`UserUID`,`BroadcastUID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkBugReport` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -184,7 +184,7 @@ CREATE TABLE `wtkBugReport` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkBugReport_CreatedByUserUID`
    FOREIGN KEY (`CreatedByUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkChat`(
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -198,7 +198,7 @@ CREATE TABLE `wtkChat`(
   CONSTRAINT `fk_wtkChat_SendToUserUID`
     FOREIGN KEY (`SendToUserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkChat_FromTo` (`SendByUserUID`,`SendToUserUID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkClients` (
   `UID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -218,7 +218,7 @@ CREATE TABLE `wtkClients` (
   `InternalNote` VARCHAR(250),
   PRIMARY KEY (`UID`),
   KEY `ix_wtkClients_ClientName` (`ClientName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkBlog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -244,7 +244,7 @@ CREATE TABLE `wtkBlog` (
   KEY `ix_wtkBlog_Slug` (`Slug`),
   CONSTRAINT `fk_wtkBlog_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkCompanySettings` (
   `UID`     INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -271,14 +271,14 @@ CREATE TABLE `wtkCompanySettings` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkCompanySettings_LastModByUserUID`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkDebug` (
   `UID`     INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate`   timestamp NOT NULL default CURRENT_TIMESTAMP,
   `DevNote`   VARCHAR(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkDownloads` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -288,7 +288,7 @@ CREATE TABLE `wtkDownloads` (
   `FileDescription` text,
   `FileLocation` varchar(240),
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkDownloadTracking` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -298,7 +298,7 @@ CREATE TABLE `wtkDownloadTracking` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkDownloadTracking_DownloadUID`
     FOREIGN KEY (`DownloadUID`) REFERENCES wtkDownloads(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkEcommerce` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -311,7 +311,7 @@ CREATE TABLE `wtkEcommerce` (
   `EcomPayLink` varchar(120),
   `EcomNote` varchar(240),
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkEmailTemplate` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -325,7 +325,7 @@ CREATE TABLE `wtkEmailTemplate` (
   `InternalNote` text,
   PRIMARY KEY (`UID`),
   KEY `ix_wtkEmailTemplate_EmailCode` (`EmailCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkEmailsSent` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -353,7 +353,7 @@ CREATE TABLE `wtkEmailsSent` (
     FOREIGN KEY (`SendToUserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkEmailsSent_EmailType` (`EmailType`,`OtherUID`,`UID`),
   KEY `ix_wtkEmailsSent_EmailMsgId` (`EmailMsgId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkErrorLog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -370,7 +370,7 @@ CREATE TABLE `wtkErrorLog` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkErrorLog_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkFailedAttempts` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -387,7 +387,7 @@ CREATE TABLE `wtkFailedAttempts` (
   CONSTRAINT `fk_wtkFailedAttempts_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkFailedAttempts_FailCode` (`FailCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkFiles` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -411,7 +411,7 @@ CREATE TABLE `wtkFiles` (
   KEY `ix_wtkFiles_ExternalStorage` (`ExternalStorage`),
   CONSTRAINT `fk_wtkFiles_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkForum` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -424,7 +424,7 @@ CREATE TABLE `wtkForum` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkForum_CreatedByUserUID`
     FOREIGN KEY (`CreatedByUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkForumMsgs` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -437,13 +437,13 @@ CREATE TABLE `wtkForumMsgs` (
     FOREIGN KEY (`ForumUID`) REFERENCES wtkForum(`UID`),
   CONSTRAINT `fk_wtkForumMsgs_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkGUID` (
   `GUID` int UNSIGNED NOT NULL auto_increment,
   `TableName` varchar(30),
   PRIMARY KEY (`GUID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkHelp` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT ,
@@ -458,7 +458,7 @@ CREATE TABLE `wtkHelp` (
   KEY `ix_wtkHelp_HelpIndex` (`HelpIndex`),
   CONSTRAINT `fk_wtkHelp_LastModByUserUID`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkLanguage` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -474,7 +474,7 @@ CREATE TABLE `wtkLanguage` (
   KEY `ix_wtkLanguage_MassUpdate` (`MassUpdateId`,`Language`,`PrimaryText`,`NewText`),
   CONSTRAINT `fk_wtkLanguage_LastModByUserUID`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkLinkLogin` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -484,7 +484,7 @@ CREATE TABLE `wtkLinkLogin` (
   `NewPassHash` varchar(120),
   `VisitDate` datetime,
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkLockoutUntil` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -498,7 +498,7 @@ CREATE TABLE `wtkLockoutUntil` (
   KEY `ix_wtkLockoutUntil_IP` (`IPaddress`),
   CONSTRAINT `fk_wtkLockoutUntil_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkLoginLog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -519,7 +519,7 @@ CREATE TABLE `wtkLoginLog` (
   KEY `ix_LoginLog_apiKey` (`apiKey`),
   KEY `ix_LoginLog_Page` (`CurrentPage`,`PassedId`,`LastLogin`),
   KEY `ix_LoginLog_LastLogin` (`LastLogin`,`UserUID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkLookups` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -534,7 +534,7 @@ CREATE TABLE `wtkLookups` (
   CONSTRAINT `fk_wtkLookups_LastModByUserUIDC`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkLookups_LookupType` (`LookupType`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkMenuGroups` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -545,7 +545,7 @@ CREATE TABLE `wtkMenuGroups` (
   `GroupURL` varchar(140),
   `Priority` smallint NOT NULL DEFAULT 10,
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkMenuItems` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -555,7 +555,7 @@ CREATE TABLE `wtkMenuItems` (
   `Priority` smallint NOT NULL DEFAULT 10,
   `PgUID` int UNSIGNED,
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkMenuSets` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -564,7 +564,7 @@ CREATE TABLE `wtkMenuSets` (
   `MenuName` varchar(20),
   `Description` varchar(120),
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 
 CREATE TABLE `wtkNotifications` (
@@ -601,7 +601,7 @@ CREATE TABLE `wtkNotifications` (
     FOREIGN KEY (`AddedByUserUID`) REFERENCES `wtkUsers` (`UID`),
   CONSTRAINT `fk_wtkNotifications_DeletedByUserUID`
     FOREIGN KEY (`DeletedByUserUID`) REFERENCES `wtkUsers` (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `wtkPages` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -611,7 +611,7 @@ CREATE TABLE `wtkPages` (
   `Path` varchar(80),
   `DevNote` varchar(250),
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkPolls` (
   `UID`   INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -622,7 +622,7 @@ CREATE TABLE `wtkPolls` (
   `PollType` varchar(4),
   `Active` enum('Y','N') DEFAULT 'N',
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkPollOptions` (
   `UID`   INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -630,7 +630,7 @@ CREATE TABLE `wtkPollOptions` (
   `PollUID` INT UNSIGNED NOT NULL,
   `OptionText` varchar(200) NOT NULL ,
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkPollResults` (
   `UID`   INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -639,7 +639,7 @@ CREATE TABLE `wtkPollResults` (
   `UserUID` INT UNSIGNED NOT NULL,
   `MyChoice` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkProspects` (
   `UID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -675,7 +675,7 @@ CREATE TABLE `wtkProspects` (
   KEY `ix_wtkProspects_ProspectStatus` (`ProspectStatus`),
   KEY `ix_wtkProspects_Industry` (`Industry`,`ProspectStatus`),
   KEY `ix_wtkProspects_CompanyName` (`CompanyName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkProspectStaff` (
   `UID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -698,7 +698,7 @@ CREATE TABLE `wtkProspectStaff` (
   KEY `ix_wtkProspectStaff_Email` (`Email`),
   KEY `ix_wtkProspectStaff_Contact` (`LinksClicked`,`EmailsOpened`,`DoNotContact`),
   KEY `ix_wtkProspectStaff_DoNotContactEmailsSent` (`DoNotContact`,`EmailsSent`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkReminders` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -724,7 +724,7 @@ CREATE TABLE `wtkReminders` (
     FOREIGN KEY (`DeletedByUserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_Reminders_Dates` (`StartDate`,`DeliveryTime`,`SentDate`),
   KEY `ix_Reminders_ToType` (`ToUID`,`Audience`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkReplicate` (
   `UID`   INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -735,7 +735,7 @@ CREATE TABLE `wtkReplicate` (
   PRIMARY KEY (`UID`),
   KEY `ix_replicatestatus_tablename_tableuid` (`ReplicateStatus`,`TableName`,`TableUID`),
   KEY `ix_tableuid_tablename_replicatestatus` (`TableUID`,`TableName`,`ReplicateStatus`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkReplicateLog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -744,7 +744,7 @@ CREATE TABLE `wtkReplicateLog` (
   `NumberOfRows` INT UNSIGNED DEFAULT NULL,
   `ZipStatus` varchar(20),
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkReplicateTables` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -754,7 +754,7 @@ CREATE TABLE `wtkReplicateTables` (
   `Priority` int NOT NULL DEFAULT 10,
   PRIMARY KEY (`UID`),
   KEY `ix_replicate_tablename` (`TableName`,`Priority`,`PrimaryKey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkReports` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -798,7 +798,7 @@ CREATE TABLE `wtkReports` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkReports_LastModByUserUID`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkReportCntr` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -810,7 +810,7 @@ CREATE TABLE `wtkReportCntr` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkReportCntr_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkRevenue` (
   `UID`         int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -843,7 +843,7 @@ CREATE TABLE `wtkRevenue` (
   CONSTRAINT `fk_wtkRevenue_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),
   INDEX `ix_RevenueAddDate` (`AddDate`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkInboundLog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -857,7 +857,7 @@ CREATE TABLE `wtkInboundLog` (
     FOREIGN KEY (`EcomUID`) REFERENCES wtkEcommerce(`UID`),
   CONSTRAINT `fk_wtkInboundLog_RevenueUID`
     FOREIGN KEY (`RevenueUID`) REFERENCES wtkRevenue(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkShortURL` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -870,7 +870,7 @@ CREATE TABLE `wtkShortURL` (
   `LastVisitDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`UID`),
   INDEX `ix_LinkHash` (`LinkHash`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkSMSsent` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -885,7 +885,7 @@ CREATE TABLE `wtkSMSsent` (
     FOREIGN KEY (`SendByUserUID`) REFERENCES wtkUsers(`UID`),
   CONSTRAINT `fk_wtkSMSsent_SendToUserUID`
     FOREIGN KEY (`SendToUserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkTableTracking` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -894,7 +894,7 @@ CREATE TABLE `wtkTableTracking` (
   `Action` char(3) NOT NULL COMMENT 'INS UPD or DEL',
   PRIMARY KEY (`UID`),
   KEY `ix_wtkTableTracking` (`TableName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkUpdateLog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -909,7 +909,7 @@ CREATE TABLE `wtkUpdateLog` (
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkUpdateLog_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkUserNote` (
   `UID` int NOT NULL auto_increment,
@@ -923,7 +923,7 @@ CREATE TABLE `wtkUserNote` (
   CONSTRAINT `fk_wtkUserNote_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkUserNote_UserUID` (`UserUID`,`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkUserHistory` (
   `UID` int NOT NULL auto_increment,
@@ -940,7 +940,7 @@ CREATE TABLE `wtkUserHistory` (
   KEY `ix_wtkUserHistory_UserUID_PageTitle` (`UserUID`,`PageTitle`),
   KEY `ix_wtkUserHistory_AddDate_UserUID` (`AddDate`,`UserUID`),
   KEY `ix_wtkUserHistory_PageTitle` (`PageTitle`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkUserShortURL` (
   `UID` int NOT NULL auto_increment,
@@ -953,7 +953,7 @@ CREATE TABLE `wtkUserShortURL` (
   CONSTRAINT `fk_wtkUserShortURL_ShortUID`
     FOREIGN KEY (`ShortUID`) REFERENCES wtkShortURL(`UID`),
   KEY `ix_wtkUsershortURL_UserUID` (`UserUID`,`ShortUID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkVisitors` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -985,7 +985,7 @@ CREATE TABLE `wtkVisitors` (
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),
   CONSTRAINT `fk_wtkVisitors_ShortUID`
     FOREIGN KEY (`ShortUID`) REFERENCES wtkShortURL(`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkVisitorHistory` (
   `UID` int NOT NULL auto_increment,
@@ -999,7 +999,7 @@ CREATE TABLE `wtkVisitorHistory` (
     FOREIGN KEY (`VisitorUID`) REFERENCES wtkVisitors(`UID`) ON DELETE CASCADE ON UPDATE RESTRICT,
   KEY `ix_wtkVisitorHistory_VisitorUID` (`VisitorUID`,`UID`),
   KEY `ix_wtkVisitorHistory_PageTitle` (`PageTitle`, `SecondsViewed`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 -- Widget related tables
 CREATE TABLE `wtkWidgetGroup` (
@@ -1011,7 +1011,7 @@ CREATE TABLE `wtkWidgetGroup` (
   `SecurityLevel` smallint DEFAULT 1,
   `UseForDefault` char(1),
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkWidget` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -1029,7 +1029,7 @@ CREATE TABLE `wtkWidget` (
   `PassRNG` VARCHAR(20),
   `WindowModal` enum('Y','N') default 'N',
   PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkWidgetGroup_X_Widget` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -1046,7 +1046,7 @@ CREATE TABLE `wtkWidgetGroup_X_Widget` (
   CONSTRAINT `fk_WidgetGroup_X_Widget_WUID`
     FOREIGN KEY (`WidgetUID`) REFERENCES `wtkWidget`(`UID`),
     KEY `ix_wtkWidgetGroup_X_Widget` (`UserUID`,`WidgetGroupUID`,`WidgetPriority`,`WidgetUID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 
 SET FOREIGN_KEY_CHECKS=1;
