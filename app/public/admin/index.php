@@ -28,7 +28,6 @@ wtkSearchReplace('@myEmail@', $pgEmail);
 wtkSearchReplace('@myPW@', $pgPW);
 wtkSearchReplace('@rememberMe@', $pgChecked);
 wtkSearchReplace("wtkLoginForm(''","wtkLoginForm('','SPA','admin'");
-wtkSearchReplace('wtkAdmin.js','wtkAdmin.js?v1');
 
 if (wtkGetParam('App') == 'new'):
     $pgReplace = '<p id="upgMsg" class="green-text">' . wtkLang('Thank you for upgrading to newest version!') . '</p>';

@@ -56,7 +56,7 @@ $gloTotalArray = array (
 );
 $gloSkipFooter = true;
 $pgChartOps = array('regRpt', 'bar','pie');
-$pgChart1 = wtkRptChart($pgSQL, [], 'dateChart1', '', $pgChartOps, 1);
+$pgChart1 = wtkRptChart($pgSQL, [], $pgChartOps, 1);
 //  END  wtkLoginLog section
 
 $gloTotalArray = array ();
@@ -66,12 +66,12 @@ $pgSQL = wtkReplace($pgSQL, 'wtkLoginLog','wtkUpdateLog');
 $pgSQL = wtkReplace($pgSQL, 'FirstLogin', 'AddDate');
 
 // note 2 as last parameter allows multiple charts on single page
-$pgChart2 = wtkRptChart($pgSQL, [], 'dateChart2', '', $pgChartOps, 2);
+$pgChart2 = wtkRptChart($pgSQL, [], $pgChartOps, 2);
 //  END  UpdateLog chart by User
 // BEGIN UpdateLog chart by User
 // everything is the same except the data table
 $pgSQL = wtkReplace($pgSQL,'wtkUpdateLog', 'wtkUserHistory');
-$pgChart3 = wtkRptChart($pgSQL, [], 'dateChart3', '', $pgChartOps, 3);
+$pgChart3 = wtkRptChart($pgSQL, [], $pgChartOps, 3);
 //  END  UpdateLog chart by User
 
 $pgHtm =<<<htmVAR

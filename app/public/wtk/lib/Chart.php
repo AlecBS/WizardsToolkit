@@ -116,19 +116,20 @@ function wtkGraphValues($fncSQL, $fncSqlFilter, $fncDateFormat = '') {
 *
 * @param string $fncSQL  SQL SELECT
 * @param array  $fncSqlFilter array that has PDO names of fields and their values
-* @param string $fncRptId only need to pass if have more than one report on page
-* @param string $fncDateFormat If first column is a date you can pass in the format you want the date displayed
 * @param array  $fncChartOps If not passed then all chart types will be shown; this allows choosing which charts to show.
 * @param string $fncChartNum defaults to 0 and is used if more than one chart on page
+* @param string $fncDateFormat If first column is a date you can pass in the format you want the date displayed
+* @param string $fncCurrency defaults to 'N'; if set to 'Y' then adds currency formatting
 * @uses function wtkBuildDataBrowse
 * @uses function wtkGraphValues
 * @uses html wtk/htm/chartJS.htm
 * @return html and charts
 */
 $pgHasTabs = false;
-function wtkRptChart($fncSQL, $fncSqlFilter, $fncRptId = 'wtkRpt1', $fncDateFormat = '', $fncChartOps = [], $fncChartNum = 0, $fncCurrency = 'N'){
+function wtkRptChart($fncSQL, $fncSqlFilter = [], $fncChartOps = [], $fncChartNum = 0, $fncDateFormat = '', $fncCurrency = 'N'){
     // pass # to $fncChartNum if more than one chart on a page
     global $gloDeviceType, $gloSiteDesign, $pgHasTabs;
+    $fncRptId = 'wtkRpt' . $fncChartNum;
     $fncOpsCnt = count($fncChartOps);
     if (in_array('regRpt', $fncChartOps) || ($fncOpsCnt == 0)):
         $fncRegRpt = wtkBuildDataBrowse($fncSQL, $fncSqlFilter, $fncRptId, '', 'N', $fncDateFormat);

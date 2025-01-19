@@ -32,7 +32,7 @@ $pgHtm =<<<htmVAR
                     <br>
                     <a target="_blank" href="charts.htm">Demo 1 HTM and JS</a>
                         &nbsp;&nbsp;&nbsp;
-                    <a target="_blank" href="charts.htm">Demo 2 HTM and JS</a>
+                    <a target="_blank" href="charts2.htm">Demo 2 HTM and JS</a>
                     <br>
                     <a onclick="JavaScript:ajaxGo('rptDateRange');">Date Range Chart Analytics</a>
                     <br>

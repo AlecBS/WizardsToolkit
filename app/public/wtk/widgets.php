@@ -191,7 +191,7 @@ SQLVAR;
 //                $fncChartOps = array('regRpt', 'bar','pie');
       // 2FIX if bar,line passed then need to make it into an array
                 $fncChartOps = array($fncChartType);
-                $fncContent = wtkRptChart($fncWidgetSQL, [], 'widgetChart' . $fncUID, '', $fncChartOps, $fncChartNum);
+                $fncContent = wtkRptChart($fncWidgetSQL, [], $fncChartOps, $fncChartNum);
                 $fncChartNum ++;
                 if ($fncChartType == 'pie'):
                     $fncContent = wtkReplace($fncContent, ' class="btn"',' class="hide"');

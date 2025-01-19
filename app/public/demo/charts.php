@@ -23,7 +23,7 @@ $gloColumnAlignArray = array (
     'ReportViews' => 'right',
 	'Updates' => 'right'
 );
-$pgHtm = wtkRptChart($pgSQL, []);
+$pgHtm = wtkRptChart($pgSQL);
 
 wtkProtoType($pgHtm);
 if ($gloSiteDesign == 'SPA'):

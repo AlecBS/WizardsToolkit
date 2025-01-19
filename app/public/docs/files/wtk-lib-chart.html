@@ -193,20 +193,23 @@
         <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
         <span class="phpdocumentor-signature__argument__name">$fncSqlFilter</span></span>
         <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncRptId</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;wtkRpt1&#039;</span>
         <span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
-        <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncDateFormat</span><span> = </span>
-        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
         <span class="phpdocumentor-signature__argument"><span>[</span><span>, </span>
         <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span>
         <span class="phpdocumentor-signature__argument__name">$fncChartOps</span><span> = </span>
         <span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span>
         <span class="phpdocumentor-signature__argument"><span>, </span>
+
+        <span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span>
+        <span class="phpdocumentor-signature__argument__name">$fncChartNum,</span>
+
+        <span class="phpdocumentor-signature__argument__name">$fncDateFormat</span><span> = </span>
+        <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span>
         <span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span>
-        <span class="phpdocumentor-signature__argument__name">$fncChartNum</span></span><span>)</span>
+
+        </span>
+        <span>)</span>
+
         <span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\html">html</abbr></span>
     </code>
 
@@ -234,24 +237,6 @@ $pgHtm .= wtkRptChart($pgSQL, $pgSqlFilter, $pgRpt . 'Rpt', '', $pgChartOps, $pg
             <section class="phpdocumentor-description"><p>array that has PDO names of fields and their values</p></section>
         </dd>
         <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncRptId</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-             = <span class="phpdocumentor-signature__argument__default-value">&#039;wtkRpt1&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description"><p>only need to pass if have more than one report on page</p></section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
-            <span class="phpdocumentor-signature__argument__name">$fncDateFormat</span>
-            : <span class="phpdocumentor-signature__argument__return-type">string</span>
-            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
-        </dt>
-        <dd class="phpdocumentor-argument-list__definition">
-            <section class="phpdocumentor-description">
-                <p>If first column is a date you can pass in the format you want the date displayed</p>
-            </section>
-        </dd>
-        <dt class="phpdocumentor-argument-list__entry">
             <span class="phpdocumentor-signature__argument__name">$fncChartOps</span>
             : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
             = <span class="phpdocumentor-signature__argument__default-value">[]</span>
@@ -267,6 +252,24 @@ $pgHtm .= wtkRptChart($pgSQL, $pgSqlFilter, $pgRpt . 'Rpt', '', $pgChartOps, $pg
         </dt>
         <dd class="phpdocumentor-argument-list__definition">
             <section class="phpdocumentor-description"><p>defaults to 0 and is used if more than one chart on page</p></section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncDateFormat</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+            = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description">
+                <p>If first column is a date you can pass in the format you want the date displayed</p>
+            </section>
+        </dd>
+        <dt class="phpdocumentor-argument-list__entry">
+            <span class="phpdocumentor-signature__argument__name">$fncCurrency</span>
+            : <span class="phpdocumentor-signature__argument__return-type">string</span>
+             = <span class="phpdocumentor-signature__argument__default-value">&#039;fncCurrency&#039;</span>
+        </dt>
+        <dd class="phpdocumentor-argument-list__definition">
+            <section class="phpdocumentor-description"><p>defaults to 'N'; if set to 'Y' then adds currency formatting</p></section>
         </dd>
     </dl>
 

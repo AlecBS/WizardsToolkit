@@ -132,7 +132,7 @@ $gloSkipFooter = true;
 $pgChartOps = array('regRpt', 'bar','area');
 $pgTableID = wtkGetGet('TableID');
 if ($pgTableID == ''):
-    $pgChart = wtkRptChart($pgSQL, $pgSqlFilter, 'moneyChart', '', $pgChartOps, 1);
+    $pgChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 1);
     if (wtkGetParam('p') == 'dwmyChart'):
         $pgHtm  = "<h3>Income Earned $pgTitle</h3>" . "\n";
         $pgHtm .= "<p>$pgMsg</p>" . "\n" . $pgTabBar;
@@ -166,7 +166,7 @@ $gloColumnAlignArray = array (
     'Count' => 'center',
 	'Amount' => 'center'
 );
-$pgPayChart = wtkRptChart($pgSQL, $pgSqlFilter, 'payChart', '', $pgChartOps, 2);
+$pgPayChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 2);
 if ($pgTableID == 'payChart'):
     echo $pgPayChart;
     exit;
@@ -199,7 +199,7 @@ $gloTotalArray = array (
     'Count'  => 'SUM',
 	'Amount' => 'DSUM'
 );
-$pgProviderChart = wtkRptChart($pgSQL, $pgSqlFilter, 'providerChart', '', $pgChartOps, 3);
+$pgProviderChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 3);
 if ($pgTableID == 'providerChart'):
     echo $pgProviderChart;
     exit;
