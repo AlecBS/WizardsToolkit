@@ -9,12 +9,6 @@ $pgMsg = wtkGetPost('msg');
 if (($pgFromEmail != '') || ($pgMsg != '')):
     $pgIPaddress = wtkGetIPaddress();
 /*
-    $pgSQL =<<<SQLVAR
-INSERT INTO `wtkEmailsSent` (`EmailAddress`, `Subject`, `InternalNote`, `EmailBody`)
-  VALUES (:EmailAddress, :Subject, :InternalNote, :EmailBody)
-SQLVAR;
-    wtkSqlExec($pgSQL);
-
     $pgSQL = 'INSERT INTO `wtkDebug` (`DevNote`) VALUES (:DevNote)';
     $pgSqlFilter = array (
         'DevNote' => $pgFromEmail

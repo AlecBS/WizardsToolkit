@@ -109,10 +109,10 @@ function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warnin
         fncLastIconColor = fncColor;
     }
     $('#modIcon').text(fncIcon);
-    let fncId = document.getElementById('modalAlert');
-    let fncModal = M.Modal.getInstance(fncId);
     $('#modHdr').text(fncHdr);
     $('#modText').html(fncText);
+    let fncId = document.getElementById('modalAlert');
+    let fncModal = M.Modal.getInstance(fncId);
     fncModal.open();
     wtkDebugLog('mobAlert called: ' + fncText);
 } // wtkAlert
