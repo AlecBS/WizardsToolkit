@@ -18,7 +18,7 @@ $pgHtm =<<<htmVAR
             </div>
             <div class="input-field col m12 s12">
                 <textarea id="msg" name="msg" class="materialize-textarea"></textarea>
-                <label for="note">Message</label>
+                <label for="msg">Message</label>
             </div>
             <div class="input-field col m12 s12">
                 <a class="btn waves-effect waves-light right" onclick="Javascript:sendMail('N');">Send<i class="material-icons right">send</i></a>
