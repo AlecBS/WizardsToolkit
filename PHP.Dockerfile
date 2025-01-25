@@ -1,7 +1,7 @@
 # FROM php:7.4-fpm
 FROM php:8.1-fpm
 
-# Make sure apt is up to date
+# make sure apt is up to date
 RUN apt-get update --fix-missing
 RUN apt-get install -y curl
 RUN apt-get install -y build-essential libssl-dev zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev
@@ -23,4 +23,4 @@ RUN rm -rf /tmp/*
 COPY config/php.ini /usr/local/etc/php/
 
 # ioncube loader
-COPY config/ioncube_loader_lin_8.1.so /usr/local/lib/php/extensions/no-debug-non-zts-20210902/
+COPY config/ioncube_loader_lin_8.1.so /usr/local/ioncube/
