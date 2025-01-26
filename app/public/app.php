@@ -55,7 +55,7 @@ $pgNavBar =<<<htmVAR
     </div>
     <!-- end sidebar -->
 htmVAR;
-if ($gloDeviceType == 'phone'):
+if (($gloDeviceType == 'phone') || ($pgMobile != '')):
     $pgNavBar = wtkReplace($pgNavBar, '<h4 style="padding-top:12px">WTK Demo</h4>','<h5 style="padding-top:12px">WTK Demo</h5>');
 endif;
 wtkSearchReplace('<!-- @wtkMenu@ -->', $pgNavBar);
@@ -142,6 +142,7 @@ htmVAR;
 endif;
 
 if (($gloDeviceType == 'phone') || ($pgMobile == 'ios')):
+    wtkSearchReplace('"width=device-width, initial-scale=1.0"','"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"');
     wtkSearchReplace('id="loginPage" class="full-page valign-wrapper"','id="loginPage" class="white" style="height:100%"');
     wtkSearchReplace('class="card b-shadow"','');
     wtkSearchReplace('"bg-second"','""');

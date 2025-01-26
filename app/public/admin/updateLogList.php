@@ -5,6 +5,7 @@ if (!isset($gloConnected)):
     require('../wtk/wtkLogin.php');
 endif;
 
+// using wtkSqlDateFormat makes this work for both MySQL and PostgreSQL
 $pgSQL  = 'SELECT l.`UID`, ' . wtkSqlDateFormat('l.`AddDate`', 'OBAddDate') . ', l.`TableName`,' . "\n";
 $pgSQL .= ' l.`AddDate` AS `LogAddDate`,' . "\n";  // to allow date sorting without ambiguous column name error
 $pgSQL .= "CONCAT(COALESCE(u.`FirstName`,''), ' ', COALESCE(u.`LastName`,'')) AS `WhoChanged`," . "\n";
@@ -12,36 +13,26 @@ $pgSQL .= ' l.`ChangeInfo`' . "\n";
 $pgSQL .= ' FROM `wtkUpdateLog` l' . "\n";
 $pgSQL .= ' LEFT OUTER JOIN `wtkUsers` u' . "\n";
 $pgSQL .= ' ON u.`UID` = l.`UserUID`' . "\n";
-$pgWhere = '';
+//$pgSQL .= ' WHERE l.`DelDate` IS NULL' . "\n";
+$pgSQL .= "  WHERE (l.`TableName` <> 'wtkUpdateLog' AND l.`ChangeInfo` <> 'Deleted this row ')" . "\n";
 
 $pgHideReset = ' class="hide"';
 $pgFilter3Value = wtkFilterRequest('wtkFilter3');
 if ($pgFilter3Value != ''):
-    $pgWhere = " WHERE lower(l.`ChangeInfo`) LIKE lower('%" . $pgFilter3Value . "%')";
+    $pgSQL .= " AND lower(l.`ChangeInfo`) LIKE lower('%" . $pgFilter3Value . "%')";
     $pgHideReset = '';
 endif;  // $pgFilter3Value != ''
 $pgFilter2Value = wtkFilterRequest('wtkFilter2');
 if ($pgFilter2Value != ''):
-    if ($pgWhere == ''):
-        $pgWhere = 'WHERE';
-    else:
-        $pgWhere .= ' AND';
-    endif;
-    $pgWhere .= " l.`TableName` = '$pgFilter2Value' ";
+    $pgSQL .= " AND l.`TableName` = '$pgFilter2Value' ";
     $pgHideReset = '';
 endif;  // $pgFilterValue != ''
 
 $pgFilterValue = wtkFilterRequest('wtkFilter');
 if ($pgFilterValue != ''):
-    if ($pgWhere == ''):
-        $pgWhere = 'WHERE';
-    else:
-        $pgWhere .= ' AND';
-    endif;
-    $pgWhere .= " l.`UserUID` = $pgFilterValue ";
+    $pgSQL .= " AND l.`UserUID` = $pgFilterValue ";
     $pgHideReset = '';
 endif;  // $pgFilterValue != ''
-$pgSQL .= $pgWhere;
 $pgSQL .= ' ORDER BY l.`UID` DESC';
 
 $gloEditPage = 'updateLogView';

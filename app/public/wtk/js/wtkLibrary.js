@@ -845,7 +845,7 @@ function afterPageLoad(fncPage) {
     }
     if ($('#wtkUpload').val() !== undefined) {
         // all File-Upload related functions are in wtkFileUpload.js
-        wtkDebugLog('about to set EventListener for wtkUpload to do wtkFileChanged');
+        wtkDebugLog('afterPageLoad: about to set EventListener for wtkUpload to do wtkFileChanged');
         document.getElementById('wtkUpload').addEventListener('change', (e) => {
             wtkFileChanged();
         })
@@ -854,10 +854,15 @@ function afterPageLoad(fncPage) {
         let fncFileIDs = $('#wtkUploadFiles').val();
         let fncFileUpArray = fncFileIDs.split(',');
         for (let i = 0; i < fncFileUpArray.length; i++){
-            wtkDebugLog('set wtkFileChanged for wtkUpload' + fncFileUpArray[i]);
-            document.getElementById('wtkUpload' + fncFileUpArray[i]).addEventListener('change', (e) => {
-                wtkFileChanged(fncFileUpArray[i]);
-            })
+            wtkDebugLog('afterPageLoad: set wtkFileChanged for wtkUpload' + fncFileUpArray[i]);
+            if (elementExist('wtkUpload' + fncFileUpArray[i])) {
+                document.getElementById('wtkUpload' + fncFileUpArray[i]).addEventListener('change', (e) => {
+                    wtkFileChanged(fncFileUpArray[i]);
+                })
+            } else {
+                wtkDebugLog('afterPageLoad: wtkUpload' + fncFileUpArray[i] + ' does not exist');
+            }
+            wtkDebugLog('after set EventListener for wtkUpload to do wtkFileChanged');
         }
     }
     // BEGIN For Quick Filters make Enter Key act to Submit filter
