@@ -34,7 +34,7 @@ $pgHtm =<<<htmVAR
 <ul class="browser-default">
     <li>Earn Generously: Enjoy a <strong class="green-text">$pgAffiliateRate% commission</strong> on the first-year subscription sales you generate</li>
     <ul class="browser-default">
-        <li>Earn $pgSpecialRate% on special promotions like <a target="_blank" href="startup.php">Startup/MVP Specials</a>.</li>
+        <li>Earn $pgSpecialRate% on special promotions like <a target="_blank" href="services.php">Startup/MVP Specials</a>.</li>
     </ul>
     <li>Clients Perceive Value: Offer your clients an exclusive 10% discount on WTK subscription.</li>
     <li>Enhance Your Portfolio: By recommending WTK, you position your company as a leader in cutting-edge low-code development, showcasing innovation and efficiency to your clients.</li>
@@ -53,7 +53,7 @@ $pgHtm =<<<htmVAR
     <li>Increase Client Satisfaction: Deliver faster, smarter solutions that
         meet the evolving needs of your clients.</li>
     <li>Mobile App Ready: Wizard&rsquo;s Toolkit websites have JavaScript built-in to work with
-        Xcode and Swift to make <a target="_blank" href="/mobile.php">iPhone apps</a>!
+        Xcode and Swift to make <a target="_blank" href="mobile-app.php">iPhone apps</a>!
          Almost no effort at all and you can provide your clients with a mobile app.</li>
 </ul>
 <br>
