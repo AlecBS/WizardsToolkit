@@ -1481,13 +1481,16 @@ function wtkSendEmail(fncModalId = '', fncURL = '/wtk/ajxSendEmail', fncFormName
             let fncFormData = $('#' + fncFormName).serialize();
             fncFormData = fncFormData + '&formName=' + fncFormName ;
             $.ajax({
-              type: 'POST',
-              url: fncAjaxURL,
-              data: (fncFormData),
+                type: 'POST',
+                url: fncAjaxURL,
+                data: (fncFormData),
                 success: function(data) {
 					let fncJSON = $.parseJSON(data);
 					if (fncJSON.result == 'OK'){
 						M.toast({html: "Your message has been sent.", classes: "green rounded"});
+                        if (elementExist('thanksMsg')) {
+                            $('#thanksMsg').removeClass('hide');
+                        }
                         if (fncModalId == '') {
                             $('#' + fncFormName).addClass('hide');
                         } else {
