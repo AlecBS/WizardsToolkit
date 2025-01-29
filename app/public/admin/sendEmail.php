@@ -168,8 +168,13 @@ htmVAR;
         else:
             $pgSaveBtn = ' &nbsp;&nbsp;' . "\n";
             $pgFormattedCount = number_format($pgCount);
+            $pgExtraMsg = '';
+            if ($pgCount > 50):
+                $pgExtraMsg = '(50 at a time)';
+            endif;
             $pgFooter =<<<htmVAR
-    <div class="left" style="margin-left: 27px"><strong>Are you ready to send $pgFormattedCount emails?</strong></div>
+    <div class="left" style="margin-left: 27px"><strong>Are you ready to
+        send $pgFormattedCount $pgExtraMsg emails?</strong></div>
     <div class="right">
         <a class="btn-small black b-shadow waves-effect waves-light modal-close">Cancel</a>
          &nbsp;&nbsp;
@@ -251,6 +256,7 @@ SELECT u.`UID`, u.`Email`, COALESCE(u.`FirstName`,u.`Email`) AS `FirstName`,
     AND u.`OptInEmails` = :OptInEmails
     AND COALESCE(u.`Email`,'') <> ''
   ORDER BY u.`UID` ASC
+  LIMIT 50
 SQLVAR;
         $pgSqlFilter = array (
             'EmailUID' => $gloId,

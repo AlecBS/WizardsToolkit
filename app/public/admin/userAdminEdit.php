@@ -6,7 +6,7 @@ require('../wtk/wtkLogin.php');
 $pgSQL =<<<SQLVAR
 SELECT `FirstName`, `LastName`, `Email`, `City`, `Phone`, `CellPhone`, `WebPassword`,
     `SecurityLevel`, `StaffRole`, `FilePath`, `NewFileName`,
-    `CanPrint`, `CanExport`, `CanEditHelp`, `UseSkype`, `SMSEnabled`
+    `CanPrint`, `CanExport`, `CanEditHelp`, `UseSkype`, `SMSEnabled`,`OptInEmails`
   FROM `wtkUsers`
 WHERE `UID` = ?
 SQLVAR;
@@ -53,8 +53,9 @@ $pgValues = array(
 $pgHtm .= wtkFormCheckbox('wtkUsers', 'CanPrint', 'Allowed to Print', $pgValues, 'm4 s12');
 $pgHtm .= wtkFormCheckbox('wtkUsers', 'CanExport', 'Allowed to Export', $pgValues, 'm4 s12');
 $pgHtm .= wtkFormCheckbox('wtkUsers', 'CanEditHelp', 'Allowed to Edit Help', $pgValues, 'm4 s12');
-$pgHtm .= wtkFormCheckbox('wtkUsers', 'UseSkype', 'Use Skype for calls', $pgValues);
-$pgHtm .= wtkFormCheckbox('wtkUsers', 'SMSEnabled', 'Allow SMS to Cell Phone', $pgValues);
+$pgHtm .= wtkFormCheckbox('wtkUsers', 'UseSkype', 'Use Skype for calls', $pgValues, 'm4 s12');
+$pgHtm .= wtkFormCheckbox('wtkUsers', 'SMSEnabled', 'Allow SMS to Cell Phone', $pgValues, 'm4 s12');
+$pgHtm .= wtkFormCheckbox('wtkUsers', 'OptInEmails', 'Email Opt-In', $pgValues, 'm4 s12');
 
 $pgHtm .= wtkFormFile('wtkUsers','FilePath','/imgs/user/','NewFileName','User Photo','m6 s12');
 
