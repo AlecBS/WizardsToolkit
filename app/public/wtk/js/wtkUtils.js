@@ -251,9 +251,9 @@ function wtkGoToURL(fncPage, fncId='', fncRNG='', fncTarget='') {
     fncForm.submit();
 }
 
-function wtkOpenPage(fncPage, fncId, fncRng){
+function wtkOpenPage(fncPage, fncId, fncRNG){
     // used for SPA pages to be able to open other SPA pages in a new tab
-    let fncParams = 'apiKey=' + pgApiKey + '&p=ok&id=' + fncId + '&rng=' + fncRng;
+    let fncParams = 'apiKey=' + pgApiKey + '&p=ok&id=' + fncId + '&rng=' + fncRNG;
     window.open(fncPage + '.php?' + fncParams );
 }
 
