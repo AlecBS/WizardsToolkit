@@ -91,6 +91,31 @@ function generatePromoCodes(){
 
 }
 
+// wtkBuilder
+function ajaxWTKbuild() {
+    let fncBrFile = $('#wtkRFBBrPHPfilename').val();
+    let fncUpFile = $('#wtkRFBUpPHPfilename').val();
+//    if ((fncBrFile == undefined) && (fncUpFile == undefined)){
+    if ((fncBrFile == '') && (fncUpFile == '')){
+        wtkAlert('Enter the name of the List and/or Form PHP page you wish to create.');
+    } else {
+        let fncFormData = $('#wtkBuild').serialize();
+        fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
+        waitLoad('on');
+        $.ajax({
+            type: 'POST',
+            url:  'wtkBuilder.php',
+            data: (fncFormData),
+            success: function(data) {
+                M.toast({html: 'Your file has been created!', classes: 'rounded'});
+                $('#buildMsg').html(data);
+                waitLoad('off');
+                wtkFixSideNav();
+            }
+        })
+    }
+} // ajaxWTKbuild
+
 // reportEdit
 function hideRptFields(fncValue){
     if (fncValue == ''){

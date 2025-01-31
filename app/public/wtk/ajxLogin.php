@@ -107,6 +107,9 @@ SQLVAR;
                 'WhichApp' => $pgWhichApp
             );
             wtkSqlExec(wtkSqlPrep($pgSQL), $pgFilter);
+            if ($gloSiteDesign == 'MPA'):
+                wtkSetSession('apiKey',$pgApiKey);
+            endif;
             // END  add logic from wtkLogin.php so can skip posting to index.php
         endif; // password is valid
     else: // called from Forgot Password

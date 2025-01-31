@@ -1,5 +1,6 @@
 "use strict";
 /* site-specific functions */
+var pgMPAvsSPA = 'SPA'; // set to SPA or MPA
 var pgApiKey = '';
 let pgSecLevel = 0;
 let pgHasPhoto = 'Y'; // Can be used to force user to add photo before using app
@@ -169,7 +170,7 @@ function saveSMSchoice() {
         }
     })
 }
-var pgMPAvsSPA = 'SPA';
+
 function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
     $('#LoginErrMsg').html('');
     wtkDisableBtn('btnLogin');
@@ -202,11 +203,6 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                             pgMPAvsSPA = fncMPAvsSPA;
                             if (fncMPAvsSPA == 'MPA') {
                                 let fncGoToURL = $('#goToUrl').val();
-                                if (fncGoToURL.includes('?')) {
-                                    fncGoToURL = fncGoToURL + '&apiKey=' + pgApiKey;
-                                } else {
-                                    fncGoToURL = fncGoToURL + '?apiKey=' + pgApiKey;
-                                }
                                 window.location.replace(fncGoToURL); // redirect
                             } else {
                                 // need to do next lines at Dashboard
@@ -1154,31 +1150,40 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
             }
         } // pgAccessMethod != 'ios'
         let fncFormData = '';
-        if (fncContentType == false) {
-            fncFormData = new FormData($('#' + fncPost)[0]);
-            fncFormData.append('apiKey', pgApiKey);
-        } else {
-            fncFormData = $('#' + fncPost).serialize();
-            fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
+        // upload images
+        if ($('#wtkUploadFiles').val() !== undefined) {
+            if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
+                wtkDebugLog('ajaxPost: wtkUploadFiles going to upload');
+                if (elementExist('FileUploaded')) {
+                    $('#FileUploaded').val('Y');
+                }
+                let fncFileIDs = $('#wtkUploadFiles').val();
+                let fncFileUpArray = fncFileIDs.split(',');
+                for (let i = 0; i < fncFileUpArray.length; i++){
+                    wtkfUploadFile(fncFileUpArray[i]);
+                }
+            } else {
+                wtkDebugLog('ajaxPost: wtkUploadFiles NOT pgFileToUpload = ' + pgFileToUpload + '; pgFileSizeOK = ' + pgFileSizeOK);
+            }
         }
         if (pgMPAvsSPA == 'MPA') {
             wtkDebugLog('ajaxPost: pgMPAvsSPA = MPA');
-            document.getElementById(fncPost).submit();
+            fncFormData = document.getElementById(fncPost);
+            fncFormData.setAttribute('method', 'post');
+            fncFormData.setAttribute('action', fncPage + '.php');
+            let fncFormMPA = new FormData(fncFormData);
+            // Append the apiKey to the FormData
+            fncFormMPA.append('apiKey', pgApiKey);
+            fncFormData.submit();
         } else {
-            wtkDebugLog('ajaxPost: pgMPAvsSPA = SPA');
-            // upload images
-            if ($('#wtkUploadFiles').val() !== undefined) {
-                if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
-                    if (elementExist('FileUploaded')) {
-                        $('#FileUploaded').val('Y');
-                    }
-                    let fncFileIDs = $('#wtkUploadFiles').val();
-                    let fncFileUpArray = fncFileIDs.split(',');
-                    for (let i = 0; i < fncFileUpArray.length; i++){
-                        wtkfUploadFile(fncFileUpArray[i]);
-                    }
-                }
+            if (fncContentType == false) {
+                fncFormData = new FormData($('#' + fncPost)[0]);
+                fncFormData.append('apiKey', pgApiKey);
+            } else {
+                fncFormData = $('#' + fncPost).serialize();
+                fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
             }
+            wtkDebugLog('ajaxPost: pgMPAvsSPA = SPA');
             waitLoad('on');
             $.ajax({
                 method: 'POST',
@@ -1247,31 +1252,6 @@ function ajaxCopy(fncPage, fncPost) {
         }
     })
 } // ajaxCopy
-
-function ajaxWTKbuild() {
-    // called from admin/wtkBuilder.php
-    let fncBrFile = $('#wtkRFBBrPHPfilename').val();
-    let fncUpFile = $('#wtkRFBUpPHPfilename').val();
-//    if ((fncBrFile == undefined) && (fncUpFile == undefined)){
-    if ((fncBrFile == '') && (fncUpFile == '')){
-        wtkAlert('Enter the name of the List and/or Form PHP page you wish to create.');
-    } else {
-        let fncFormData = $('#wtkBuild').serialize();
-        fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
-        waitLoad('on');
-        $.ajax({
-            type: 'POST',
-            url:  'wtkBuilder.php',
-            data: (fncFormData),
-            success: function(data) {
-                M.toast({html: 'Your file has been created!', classes: 'rounded'});
-                $('#buildMsg').html(data);
-                waitLoad('off');
-                wtkFixSideNav();
-            }
-        })
-    }
-} // ajaxWTKbuild
 
 var pgLastDashboard = 'widgTD1';
 function ajaxFillDiv(fncPage, fncParam, fncDiv, fncRNG = 0) {

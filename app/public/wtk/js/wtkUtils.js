@@ -99,6 +99,9 @@ function wtkStartMaterializeCSS() {
         }
         wtkDebugLog('wtkStartMaterializeCSS successful: pgSite: ' + pgSite + '; pgAccessMethod: ' + pgAccessMethod);
     });
+    if (pgMPAvsSPA == 'MPA') {
+        afterPageLoad();
+    }
 } // wtkStartMaterializeCSS
 
 var fncLastIconColor = 'red';
