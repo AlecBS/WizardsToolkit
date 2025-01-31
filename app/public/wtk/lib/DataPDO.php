@@ -155,18 +155,19 @@ function wtkSqlGetOneResult($fncSQL, $fncSqlFilter, $fncDefault = '', $fncForceW
 function wtkSqlGetRow($fncSQL, $fncSqlFilter) {
     global $gloServer1,$gloServerRO,$gloWTKobjConn,$gloWTKobjConnRO,$gloPDOrow;
     $fncSQL = wtkSqlPrep($fncSQL);
+    wtkConnectToDB(true);
     if ($gloServer1 == $gloServerRO): // no difference so use main connection
         $fncPDO = $gloWTKobjConn->prepare($fncSQL);
     else:
-        wtkConnectToDB(true);
         $fncPDO = $gloWTKobjConnRO->prepare($fncSQL);
     endif;
+    // wtkTimeTrack('wtkSqlGetRow: $fncSQL = ' . $fncSQL);
+    // wtkTimeTrack($fncSqlFilter);
     $fncPDO->execute($fncSqlFilter);
     $gloPDOrow = $fncPDO->fetch(PDO::FETCH_ASSOC);
     if (!is_array($gloPDOrow)):
         return 'no data';
     endif;
-// 2ENHANCE: for no rows returned
 }  // end of wtkSqlGetRow
 
 /**

@@ -39,6 +39,9 @@ $pgHtm .= wtkFormHidden('ID1', $gloId);
 $pgHtm .= wtkFormHidden('rng', $gloRNG);
 $pgHtm .= wtkFormHidden('wtkGoToURL', '../../demo/petEdit.php');
 $pgHtm .= wtkFormWriteUpdField();
+if ($gloSiteDesign == 'MPA'):
+    $pgHtm .= wtkFormHidden('ForceSPA', 'Y');
+endif;
 
 $pgBtns = wtkModalUpdateBtns('../wtk/lib/Save','petNoteList');
 

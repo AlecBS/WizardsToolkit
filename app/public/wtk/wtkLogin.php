@@ -45,7 +45,7 @@ if ($gloLoginRequired == true):
         wtkMergePage('', 'Login', _WTK_RootPATH . 'htm/login.htm');
     else:
         $pgLoginSQL =<<<SQLVAR
-SELECT COALESCE(L.`UID`,0) AS `UID`,L.`UserUID`, c.`EnableLockout`,
+SELECT COALESCE(L.`UID`,0) AS `UID`, L.`UserUID`, c.`EnableLockout`,
     COALESCE(u.`LoginCode`,'') AS `LoginCode`, u.`UseSkype`,
     L.`WhichApp`, L.`AccessMethod`,
     u.`SecurityLevel`, L.`AppVersion`, c.`AppVersion` AS `mAppVersion`
@@ -56,6 +56,9 @@ WHERE L.`apiKey` = :apiKey
 ORDER BY L.`UID` DESC LIMIT 1
 SQLVAR;
 // 2ENHANCE so times out after 24 hours and/or checks to see if logged-out
+        if (($gloSiteDesign == 'MPA') && ($pgApiKey == '')):
+            $pgApiKey = wtkGetSession('apiKey');
+        endif;
         $pgSqlFilter = array (
             'apiKey' => $pgApiKey,
             'cUID' => 1

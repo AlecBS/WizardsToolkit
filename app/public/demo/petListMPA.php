@@ -1,15 +1,16 @@
 <?PHP
 $pgSecurityLevel = 1;
-if (!isset($gloConnected)):
+$gloSiteDesign  = 'MPA'; // MPA or SPA for Multi-Page App or Single Page App; usually set in wtkServerInfo.php
+// next IF statement only needed for SPA methodology
+// if (!isset($gloConnected)):
     define('_RootPATH', '../');
     require('../wtk/wtkLogin.php');
-endif;
+//endif;
 /*
 run /SQL/demoMySQL.sql script to generate table and supporting data
 
-must have $gloSiteDesign set to 'SPA' in wtk/wtkServerInfo.php for this
-to work or manually set it here and in petEdit.php like:
-$gloSiteDesign = 'SPA';
+must have $gloSiteDesign set to 'MPA' in wtk/wtkServerInfo.php for this to work
+$gloSiteDesign = 'MPA';
 */
 
 $pgSQL =<<<SQLVAR
@@ -136,7 +137,7 @@ endif;  // $pgFilter2Value != ''
 $pgSQL .= ' ORDER BY `PetName` ASC';
 $pgSQL = wtkSqlPrep($pgSQL);
 
-$gloEditPage = '/demo/petEdit';
+$gloEditPage = '/demo/petEditMPA';
 $gloAddPage  = $gloEditPage;
 $gloDelPage  = 'petsDelDate'; // have DelDate at end if should DelDate instead of DELETE
 
@@ -189,11 +190,10 @@ $pgHtm =<<<htmVAR
     <div class="wtk-list card b-shadow">
 htmVAR;
 
-$pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'pets', '/demo/petList.php', 'P');
+$pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'pets', '/demo/petListMPA.php', 'P');
 
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no pets yet');
 $pgHtm .= '</div></div>' . "\n";
 
-echo $pgHtm;
-exit;
+wtkMergePage($pgHtm, $gloCoName, '../wtk/htm/mpa.htm');
 ?>

@@ -26,8 +26,10 @@ $pgHtm =<<<htmVAR
                     <a onclick="JavaScript:ajaxGo('wtkFileListModal');">List Files with Modal Upload Edit Page</a>
                     <br><hr>
                     <a onclick="JavaScript:ajaxGo('petList');">Pet List, Edit and Modal Notes Demo</a>
-                    <br>[requires running SQL scripts<br>in demo/petList.php before accessing]
-                    <br><hr>
+                    <br>requires wtkServerInfo.php to set<br><code>&dollar;gloSiteDesign = 'SPA';</code><br>
+                        and wtkLibrary.js to set<br><code>var pgMPAvsSPA = 'SPA';</code>
+                    <p>Must set up test data by running SQL scripts in demo/petList.php before accessing.</p>
+                    <hr>
                     <a onclick="JavaScript:ajaxGo('charts');">Charts from single SQL SELECT</a>
                     <br>
                     <a target="_blank" href="charts.htm">Demo 1 HTM and JS</a>
@@ -71,6 +73,11 @@ $pgHtm =<<<htmVAR
                     <br>
                     <a href="list3demo.php" target="_blank">3 Lists on Same Page</a>
                     <br><hr>
+                    <a href="petListMPA.php" target="_blank">Pet List, Edit and Modal Notes Demo</a>
+                    <br>requires wtkServerInfo.php to set<br><code>&dollar;gloSiteDesign = 'MPA';</code><br>
+                        and wtkLibrary.js to set<br><code>var pgMPAvsSPA = 'MPA';</code>
+                    <p>Also must set up test data by running SQL scripts in demo/petListMPA.php before accessing.</p>
+                    <hr>
                     <a href="PayPalSubscribe.php" target="_blank">PayPal Subscribe Button</a>
                     <br><hr>
                     <a href="imageUploadDisplay.php" target="_blank">Image Upload Display</a>

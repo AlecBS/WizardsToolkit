@@ -98,10 +98,10 @@ function wtkStartMaterializeCSS() {
             };
         }
         wtkDebugLog('wtkStartMaterializeCSS successful: pgSite: ' + pgSite + '; pgAccessMethod: ' + pgAccessMethod);
+        if (pgMPAvsSPA == 'MPA') {
+            afterPageLoad();
+        }
     });
-    if (pgMPAvsSPA == 'MPA') {
-        afterPageLoad();
-    }
 } // wtkStartMaterializeCSS
 
 var fncLastIconColor = 'red';
@@ -208,51 +208,16 @@ function wtkLangUpdate(fncLanguage) {
 		});
 	});
 } // wtkLangUpdate
+
 function wtkGoToURL(fncPage, fncId='', fncRNG='', fncTarget='') {
     // WTK Browse pages call this instead of ajaxGo when using MPA
-    let fncGoToURL = fncPage;
-    let fncParams = new FormData();
-    if (!fncGoToURL.includes('.')) {
-        fncGoToURL += '.php';
-    }
-    var fncForm = document.createElement('form');
-    fncForm.setAttribute('method', 'post');
-    fncForm.setAttribute('action', fncGoToURL);
+    let fncGoToURL = fncPage + '.php?id=' + fncId + '&rng=' + fncRNG;
     if (fncTarget == 'targetBlank') {
-        fncForm.setAttribute('target', 'ViewFile');
-    }
-    if (fncId != '') {
-        fncParams.append('id', fncId);
-        let fncHiddenField = document.createElement('input');
-        fncHiddenField.setAttribute('type', 'hidden');
-        fncHiddenField.setAttribute('name', 'id');
-        fncHiddenField.setAttribute('value', fncId);
-        fncForm.appendChild(fncHiddenField);
-    }
-    if (fncRNG != '') {
-        let fncHiddenField = document.createElement('input');
-        fncHiddenField.setAttribute('type', 'hidden');
-        fncHiddenField.setAttribute('name', 'rng');
-        fncHiddenField.setAttribute('value', fncRNG);
-        fncForm.appendChild(fncHiddenField);
-    }
-    if (typeof pgApiKey !== 'undefined' && pgApiKey !== '') {
-        let fncHiddenField = document.createElement('input');
-        fncHiddenField.setAttribute('type', 'hidden');
-        fncHiddenField.setAttribute('name', 'apiKey');
-        fncHiddenField.setAttribute('value', pgApiKey);
-        fncForm.appendChild(fncHiddenField);
-    }
-    document.body.appendChild(fncForm);
-
-    if (fncTarget == 'targetBlank') {
-        window.open('', 'ViewFile');
+        window.open(fncGoToURL, 'ViewFile');
     } else {
-    //  window.open('');
-    //  window.location.href = fncGoToURL; // redirect
+        window.location.href = fncGoToURL; // redirect
     }
-    fncForm.submit();
-}
+} // wtkGoToURL BB version
 
 function wtkOpenPage(fncPage, fncId, fncRNG){
     // used for SPA pages to be able to open other SPA pages in a new tab
