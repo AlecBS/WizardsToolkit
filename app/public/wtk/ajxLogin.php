@@ -37,8 +37,8 @@ else:
 //          $pgMoreResult  = ',"debug":"' . $pgUserPW .'"';
         else:
             $pgResult = 'success';
-            if ($pgRemember == 'Y'):  // 2verify
-                wtkSetCookie('rememberMe', 'Y', '1year'); // ABS 03/06/20 added 1year
+            if ($pgRemember == 'Y'):
+                wtkSetCookie('rememberMe', 'Y', '1year');
             else:
                 wtkSetCookie('rememberMe', 'N', '1year');
             endif;
@@ -49,7 +49,7 @@ else:
                 if (($pgRemember == 'N') && wtkGetCookie('UserEmail') != ''):
                     wtkDeleteCookie('UserEmail');
                     wtkDeleteCookie('UserPW');
-                endif;    // SAC 06/11/13  delete cookie if it exists and the checkbox is unchecked
+                endif;    // delete cookie if it exists and the checkbox is unchecked
             endif;  // isset(wtkGetPost('wtkwtkUsersEmail'))
 
             $pgSQL =<<<SQLVAR

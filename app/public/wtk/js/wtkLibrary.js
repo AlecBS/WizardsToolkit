@@ -1669,7 +1669,7 @@ function wtkSaveHelp(fncId) {
 var pgModalColor = '';
 var pgLastModal = '';
 var pgClearBottomModal = true;
-function wtkModal(fncUrl, fncMode, fncId=0, fncRNG=0, fncColor='') {
+function wtkModal(fncUrl, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissable = 'Y') {
     waitLoad('on');
     $.ajax({
         type: 'POST',
@@ -1683,18 +1683,17 @@ function wtkModal(fncUrl, fncMode, fncId=0, fncRNG=0, fncColor='') {
             $('#modalWTK').html(data);
             waitLoad('off');
 
+            let fncOptions = {};
             let fncModalId = document.getElementById('modalWTK');
             if ($(data).find('input#HasModalTinyMCE').length > 0) {
-                wtkDebugLog("The input field with ID 'HasTinyMCE' exists!");
-                let fncOptions = {
-                    onCloseStart: wtkRemoveModalTinyMCE
-                };
-                var fncModal = M.Modal.init(fncModalId, fncOptions);
-            } else {
-                wtkDebugLog("There is no input field with ID of HasTinyMCE");
-                var fncModal = M.Modal.getInstance(fncModalId);
+                wtkDebugLog("wtkModal: The input field with ID 'HasTinyMCE' exists!");
+                fncOptions.onCloseStart = wtkRemoveModalTinyMCE;
             }
-
+            if (fncDismissable == 'N') {
+                wtkDebugLog('wtkModal: added fncDismissable to modal window');
+                fncOptions.dismissible = false;
+            }
+            let fncModal = M.Modal.init(fncModalId, fncOptions);
             if (pgModalColor != '') {
                 $('#modalWTK').removeClass(pgModalColor);
             }

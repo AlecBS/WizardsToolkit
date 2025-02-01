@@ -211,13 +211,58 @@ function wtkLangUpdate(fncLanguage) {
 
 function wtkGoToURL(fncPage, fncId='', fncRNG='', fncTarget='') {
     // WTK Browse pages call this instead of ajaxGo when using MPA
-    let fncGoToURL = fncPage + '.php?id=' + fncId + '&rng=' + fncRNG;
-    if (fncTarget == 'targetBlank') {
-        window.open(fncGoToURL, 'ViewFile');
+    let fncGoToURL = fncPage;
+    if (pgMPAvsSPA == 'MPA') {
+        fncGoToURL = fncPage + '.php?id=' + fncId + '&rng=' + fncRNG;
+        if (fncTarget == 'targetBlank') {
+            window.open(fncGoToURL, 'ViewFile');
+        } else {
+            window.location.href = fncGoToURL; // redirect
+        }
     } else {
-        window.location.href = fncGoToURL; // redirect
+        let fncParams = new FormData();
+        if (!fncGoToURL.includes('.')) {
+            fncGoToURL += '.php';
+        }
+        var fncForm = document.createElement('form');
+        fncForm.setAttribute('method', 'post');
+        fncForm.setAttribute('action', fncGoToURL);
+        if (fncTarget == 'targetBlank') {
+            fncForm.setAttribute('target', 'ViewFile');
+        }
+        if (fncId != '') {
+            fncParams.append('id', fncId);
+            let fncHiddenField = document.createElement('input');
+            fncHiddenField.setAttribute('type', 'hidden');
+            fncHiddenField.setAttribute('name', 'id');
+            fncHiddenField.setAttribute('value', fncId);
+            fncForm.appendChild(fncHiddenField);
+        }
+        if (fncRNG != '') {
+            let fncHiddenField = document.createElement('input');
+            fncHiddenField.setAttribute('type', 'hidden');
+            fncHiddenField.setAttribute('name', 'rng');
+            fncHiddenField.setAttribute('value', fncRNG);
+            fncForm.appendChild(fncHiddenField);
+        }
+        if (typeof pgApiKey !== 'undefined' && pgApiKey !== '') {
+            let fncHiddenField = document.createElement('input');
+            fncHiddenField.setAttribute('type', 'hidden');
+            fncHiddenField.setAttribute('name', 'apiKey');
+            fncHiddenField.setAttribute('value', pgApiKey);
+            fncForm.appendChild(fncHiddenField);
+        }
+        document.body.appendChild(fncForm);
+
+        if (fncTarget == 'targetBlank') {
+            window.open('', 'ViewFile');
+        } else {
+        //  window.open('');
+        //  window.location.href = fncGoToURL; // redirect
+        }
+        fncForm.submit();
     }
-} // wtkGoToURL BB version
+} // wtkGoToURL
 
 function wtkOpenPage(fncPage, fncId, fncRNG){
     // used for SPA pages to be able to open other SPA pages in a new tab
@@ -886,6 +931,19 @@ function wtkLabelSetActive(fncID){
     }
 }
 
+function wtkEnterGo(event, fncGoTo = '') {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        if (fncGoTo != ''){
+            if (fncGoTo == 'sendPWreset'){
+                sendPWreset();
+            } else {
+                ajaxGo(fncGoTo);
+            }
+        }
+    }
+} // wtkEnterGo
+
 // BEGIN Drag and Drop functionality
 // used by /admin/widgetMgr.php and possibly other files for UI method of changing Priorities within data
 var pgFromDragId = 0;
@@ -910,14 +968,14 @@ function wtkDropId(fncToId, fncToPos, fncSet = '') {
         url:  '/wtk/ajxPriorityAdj.php',
         data: { apiKey: pgApiKey, tbl: fncTable, col: fncColumn, filter: fncFilter,
             fromId: pgFromDragId, toId: fncToId, fromPos: pgFromDragPos, toPos: fncToPos},
-            success: function(data) {
-                let fncURL = $('#wtkDragRefresh' + fncSet).val();
-                if ($('#wtkDragLocation' + fncSet).val() == 'table') {
-                    wtkBrowseReset(fncURL, fncTable, fncFilter);
-                } else {
-                    wtkModalUpdate(fncURL, 0, fncFilter);
-                }
+        success: function(data) {
+            let fncURL = $('#wtkDragRefresh' + fncSet).val();
+            if ($('#wtkDragLocation' + fncSet).val() == 'table') {
+                wtkBrowseReset(fncURL, fncTable, fncFilter);
+            } else {
+                wtkModalUpdate(fncURL, 0, fncFilter);
             }
+        }
     })
 }
 //  END  Drag and Drop functionality

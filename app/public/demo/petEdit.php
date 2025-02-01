@@ -1,5 +1,5 @@
 <?PHP
-$gloLoginRequired = false;
+$pgSecurityLevel = 1;
 if (!isset($gloConnected)):
     define('_RootPATH', '../');
     require('../wtk/wtkLogin.php');
