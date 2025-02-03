@@ -1670,6 +1670,12 @@ var pgModalColor = '';
 var pgLastModal = '';
 var pgClearBottomModal = true;
 function wtkModal(fncUrl, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissable = 'Y') {
+    // First check and close any existing open modals
+    let fncExistingModal = M.Modal.getInstance(document.getElementById('modalWTK'));
+    if (fncExistingModal) {
+        fncExistingModal.close();
+        fncExistingModal.destroy();
+    }
     waitLoad('on');
     $.ajax({
         type: 'POST',
