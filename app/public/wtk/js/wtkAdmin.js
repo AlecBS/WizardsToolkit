@@ -180,6 +180,7 @@ function adminValidateEmail(){
 // pickEmailTemplate
 function adminEmailing(fncEmailGroup, fncId, fncMode = 'SendOne'){
     waitLoad('on');
+    wtkDisableBtn('adminSendBtn');
     let fncEmailCode = $('#EmailCode').val();
     let fncEmailHTM = $('#EmailHTM').val();
     $.ajax({
@@ -188,6 +189,8 @@ function adminEmailing(fncEmailGroup, fncId, fncMode = 'SendOne'){
         data: { apiKey: pgApiKey, id: fncId, emailCode: fncEmailCode,
                 Mode: fncMode, EmailHTM: fncEmailHTM },
         success: function(data) {
+            $('#techNote').addClass('hide');
+            $('#emailResults').html(data);
             waitLoad('off');
             M.toast({html: 'Email sent', classes: 'rounded green'});
         }

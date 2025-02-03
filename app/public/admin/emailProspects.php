@@ -57,11 +57,13 @@ htmVAR;
         break;
     case 'SendAll':
         $gloBulkEmailing = true;
-        $pgSQL =<<<SQLVAR
+        $pgSQLstart =<<<SQLVAR
 SELECT s.`UID`, CRC32(s.`UID`) AS `Hash`, s.`ProspectUID`, s.`Email`,
     COALESCE(p.`CompanyName`,'') AS `ProspectName`,
     COALESCE(s.`FirstName`,'') AS `FirstName`,
     COALESCE(s.`LastName`,'') AS `LastName`
+SQLVAR;
+        $pgSQL =<<<SQLVAR
   FROM `wtkProspectStaff` s
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`OtherUID` = s.`UID` AND e.`EmailUID` = :EmailUID
     INNER JOIN `wtkProspects` p ON p.`UID` = s.`ProspectUID`
@@ -74,19 +76,19 @@ SQLVAR;
         if ($pgTimeZone != ''):
             $pgSQL .= " AND (p.`TimeZone` IS NULL OR p.`TimeZone` = '$pgTimeZone')";
         endif;
-        $pgSQL .= ' GROUP BY s.`ProspectUID`' . "\n";
-        $pgSQL .= ' ORDER BY s.`UID` ASC' . "\n";
+        $pgSQLend = ' GROUP BY s.`ProspectUID`' . "\n";
+        $pgSQLend .= ' ORDER BY s.`UID` ASC' . "\n";
         if ($gloDbConnection == 'Live'):
-            $pgSQL .= ' LIMIT 50' . "\n";
+            $pgSQLend .= ' LIMIT 50' . "\n";
         else:
-            $pgSQL .= ' LIMIT 1' . "\n";
+            $pgSQLend .= ' LIMIT 1' . "\n";
         endif;
         $pgSqlFilter = array (
             'EmailUID' => $pgEmailUID
         );
 
-        $pgSQL = wtkSqlPrep($pgSQL);
-        $pgPDO = $gloWTKobjConn->prepare($pgSQL);
+        $pgSelSQL = wtkSqlPrep($pgSQLstart . $pgSQL . $pgSQLend);
+        $pgPDO = $gloWTKobjConn->prepare($pgSelSQL);
         $pgPDO->execute($pgSqlFilter);
         $pgUpdSQL =<<<SQLVAR
 UPDATE `wtkProspectStaff`
@@ -125,44 +127,41 @@ SQLVAR;
             $pgProspectUID = $pgRow['ProspectUID'];
             $pgProFilter['ProUID'] = $pgProspectUID;
             wtkSqlExec($pgUpdProSQL, $pgProFilter);
-            if ($pgCnt < 20):
-                if (strlen($pgToEmail) > 18):
+            if ($pgCnt < 21):
+                // if (strlen($pgToEmail) > 18):
                     $pgList .= '<div class="col m4 s6">';
-                else:
-                    $pgList .= '<div class="col m3 s4">';
-                endif;
+                // else:
+                //     $pgList .= '<div class="col m3 s4">';
+                // endif;
                 $pgList .= $pgUserUID . ': ' . $pgToEmail . '</div>' . "\n";
             endif;
         endwhile;
         $pgAddS = 's';
-        if ($pgCnt > 20):
+        if ($pgCnt > 21):
             $pgList .= '<div class="col m3 s4">and more...</div>' . "\n";
         elseif ($pgCnt == 1):
             $pgAddS = '';
         endif;
-        $pgForm  = wtkFormHidden('id', $gloRNG);
-        $pgForm .= wtkFormHidden('EmailHTM', $pgTemplate);
-//        $pgForm .= wtkFormHidden('Mode', 'SendOne');
         $pgPageTime = round(microtime(true) - $gloPageStart,4);
+        $pgRemainingCount = wtkSqlGetOneResult('SELECT COUNT(DISTINCT(s.`ProspectUID`)) ' . $pgSQL, $pgSqlFilter);
+        if ($pgRemainingCount == 0):
+            $pgAfterMsg = '<p>All eligible emails have been sent.</p>';
+        else:
+            $pgAfterMsg = "<p>There are $pgRemainingCount remaining prospects to email.</p>";
+        endif;
         $pgHtm =<<<htmVAR
-<br>
-<div class="container">
-    <div class="card bg-second">
-        <div class="card-content">
-    	  <h3>"$pgSubject" email sent to:</h3><br>
-          <form id="FemailResults" name="FemailResults">
-          $pgForm
-          </form>
-          <div class="row">
-              $pgList
-          </div>
-          <div class="center">
-              <a class="btn" onclick="JavaScript:adminEmailing('Prospects','$pgEmailTemplate','SendAll')">Bulk Email</a>
-
-          </div>
-        </div>
-    	<div class="card-action">Finished sending $pgCnt email$pgAddS in $pgPageTime seconds.</div>
+<div class="card bg-second">
+    <div class="card-content">
+      <p>Using <strong>$pgTemplate</strong> template</p>
+	  <h5>"$pgSubject" <small><br>email sent to:</small></h5><br>
+      <div class="row">
+          $pgList
+      </div>
+      <div class="center">
+          $pgAfterMsg
+      </div>
     </div>
+	<div class="card-action">Finished sending $pgCnt email$pgAddS in $pgPageTime seconds.</div>
 </div>
 htmVAR;
 // <a class="btn" onclick="JavaScript:ajaxGo('emailProspects','$pgEmailTemplate','SendAll')">Bulk Email</a>

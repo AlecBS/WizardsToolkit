@@ -39,12 +39,15 @@ htmVAR;
         break;
     case 'SendAll':
         $gloBulkEmailing = true;
-        $pgSQL =<<<SQLVAR
+        $pgSQLstart =<<<SQLVAR
 SELECT a.`UID`, fncWTKhash(a.`UID`) AS `Hash`, a.`Email`,
     COALESCE(a.`CompanyName`, a.`ContactName`, a.`Email`) AS `ToName`,
     COALESCE(a.`CompanyName`, a.`ContactName`) AS `CompanyName`,
     COALESCE(a.`ContactName`, a.`CompanyName`) AS `ContactName`,
     a.`WebPasscode`
+SQLVAR;
+
+        $pgSQL =<<<SQLVAR
  FROM `wtkAffiliates` a
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`OtherUID` = a.`UID` AND e.`EmailUID` = :EmailUID
 WHERE e.`UID` IS NULL AND a.`DelDate` IS NULL
@@ -52,18 +55,18 @@ SQLVAR;
         if ($pgTimeZone != ''):
             $pgSQL .= " AND (a.`TimeZone` IS NULL OR a.`TimeZone` = '$pgTimeZone')";
         endif;
-        $pgSQL .= ' GROUP BY a.`UID`' . "\n";
-        $pgSQL .= ' ORDER BY a.`UID` ASC';
+        $pgSQLend = ' GROUP BY a.`UID`' . "\n";
+        $pgSQLend .= ' ORDER BY a.`UID` ASC';
         if ($gloDbConnection == 'Live'):
-            $pgSQL .= ' LIMIT 50' . "\n";
+            $pgSQLend .= ' LIMIT 50' . "\n";
         else:
-            $pgSQL .= ' LIMIT 1' . "\n";
+            $pgSQLend .= ' LIMIT 3' . "\n";
         endif;
         $pgSqlFilter = array (
             'EmailUID' => $pgEmailUID
         );
-        $pgSQL = wtkSqlPrep($pgSQL);
-        $pgPDO = $gloWTKobjConn->prepare($pgSQL);
+        $pgSelSQL = wtkSqlPrep($pgSQLstart . $pgSQL . $pgSQLend);
+        $pgPDO = $gloWTKobjConn->prepare($pgSelSQL);
         $pgPDO->execute($pgSqlFilter);
         $pgCnt = 0;
         $pgList = '';
@@ -80,44 +83,42 @@ SQLVAR;
             $pgBody = wtkReplace($pgBody, '@WebPasscode@', $pgRow['WebPasscode']);
             $pgBody = wtkTokenToValue($pgBody);
 
-            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'',$pgTemplate . '.htm');
-            if ($pgCnt < 20):
-                if (strlen($pgToEmail) > 18):
+//2FIX            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'',$pgTemplate . '.htm');
+            if ($pgCnt < 21):
+                // if (strlen($pgToEmail) > 18):
                     $pgList .= '<div class="col m4 s6">';
-                else:
-                    $pgList .= '<div class="col m3 s4">';
-                endif;
+                // else:
+                //     $pgList .= '<div class="col m3 s4">';
+                // endif;
                 $pgList .= $pgUserUID . ': ' . $pgToEmail . '</div>' . "\n";
-//                $pgList .= $pgToEmail . '</div>' . "\n";
             endif;
         endwhile;
         $pgAddS = 's';
-        if ($pgCnt > 20):
+        if ($pgCnt > 21):
             $pgList .= '<div class="col m3 s4">and more...</div>' . "\n";
         elseif ($pgCnt == 1):
             $pgAddS = '';
         endif;
-        $pgForm  = wtkFormHidden('id', $gloRNG);
-        $pgForm .= wtkFormHidden('EmailHTM', $pgTemplate);
         $pgPageTime = round(microtime(true) - $gloPageStart,4);
+        $pgRemainingCount = wtkSqlGetOneResult('SELECT COUNT(DISTINCT(a.`UID`)) ' . $pgSQL, $pgSqlFilter);
+        if ($pgRemainingCount == 0):
+            $pgAfterMsg = '<p>All eligible emails have been sent.</p>';
+        else:
+            $pgAfterMsg = "<p>There are $pgRemainingCount remaining prospects to email.</p>";
+        endif;
         $pgHtm =<<<htmVAR
-<br>
-<div class="container">
-    <div class="card bg-second">
-        <div class="card-content">
-    	  <h3>"$pgSubject" email sent to:</h3><br>
-          <form id="FemailResults" name="FemailResults">
-          $pgForm
-          </form>
-          <div class="row">
-              $pgList
-          </div>
-          <div class="center">
-              <a class="btn" onclick="JavaScript:adminEmailing('Affiliates','$pgEmailTemplate','SendAll')">Bulk Email</a>
-          </div>
+<div class="card bg-second">
+    <div class="card-content">
+        <p>Using <strong>$pgTemplate</strong> template</p>
+        <h5>"$pgSubject" <small><br>email sent to:</small></h5><br>
+        <div class="row">
+            $pgList
         </div>
-    	<div class="card-action">Finished sending $pgCnt email$pgAddS in $pgPageTime seconda.</div>
+        <div class="center">
+            $pgAfterMsg
+        </div>
     </div>
+	<div class="card-action">Finished sending $pgCnt email$pgAddS in $pgPageTime seconda.</div>
 </div>
 htmVAR;
         break;

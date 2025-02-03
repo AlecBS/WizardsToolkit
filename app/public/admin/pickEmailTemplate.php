@@ -47,7 +47,7 @@ $pgDrop2 = wtkReplace($pgForm, 'wtkwtkEmailTemplateEmailHTM','EmailHTM');
 if ($gloDbConnection == 'Live'):
     $pgDevNote = '';
 else:
-    $pgDevNote  = '<p class="blue-text">Since DB connection is ' . $gloDbConnection;
+    $pgDevNote  = '<p id="techNote" class="blue-text">Since DB connection is ' . $gloDbConnection;
     $pgDevNote .= ' this will be sent to<br><b>' . $gloTechSupport . '</b> ($gloTechSupport)';
     if ($gloId == 0): // Bulk Emailing
         $pgDevNote .= '<br>and limited to sending only 1 email';
@@ -79,11 +79,12 @@ $pgHtm =<<<htmVAR
                 $pgDevNote
             </div>
         </div>
+        <div id="emailResults"></div>
     </form>
 </div>
 <div id="modFooter" class="modal-footer right">
     <a class="btn-small black b-shadow waves-effect waves-light modal-close">Close</a> &nbsp;&nbsp;
-    <a class="btn-primary btn-small b-shadow waves-effect waves-light modal-close" onclick="JavaScript:adminEmailing('$pgEmailGroup',$gloId,'$gloRNG')">Send</a>
+    <a id="adminSendBtn" class="btn-primary btn-small b-shadow waves-effect waves-light" onclick="JavaScript:adminEmailing('$pgEmailGroup',$gloId,'$gloRNG')">Send</a>
 </div>
 htmVAR;
 

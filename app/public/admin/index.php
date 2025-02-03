@@ -38,6 +38,13 @@ $pgHtm  = '';
 // $pgHtm .= wtkFormHidden('pgDebugVar', 'Y');  // uncomment to turn on JavaScript debugging
 $pgHtm .= wtkFormHidden('pgSiteVar', 'admin');
 
+$pgVersion = 1; // makes preventing cache when update JS very easy
+wtkSearchReplace('wtkAdmin.js','wtkAdmin.js?v=' . $pgVersion);
+wtkSearchReplace('wtkLibrary.js','wtkLibrary.js?v=' . $pgVersion);
+wtkSearchReplace('wtkUtils.js','wtkUtils.js?v=' . $pgVersion);
+wtkSearchReplace('wtkImporter.js','wtkImporter.js?v=' . $pgVersion);
+wtkSearchReplace('wtkFileUpload.js','wtkFileUpload.js?v=' . $pgVersion);
+
 wtkSPArestart($pgHtm); // only triggered when returning from outside APIs
 wtkMergePage($pgHtm, $gloCoName, '../wtk/htm/spaAdmin.htm');
 ?>
