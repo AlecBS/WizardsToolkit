@@ -41,7 +41,7 @@ SELECT c.`COLUMN_NAME` AS `ColumnName`, c.`COLUMN_TYPE` AS `ColumnType`,
         ' ondrop="importDropName(\'',c.`COLUMN_NAME`,
         '\')" class="btn btn-floating hidden-link"><i class="material-icons">insert_link</i></a>') AS `Link`
  FROM `information_schema`.`COLUMNS` c
-  INNER JOIN `information_schema`.`TABLES` t ON t.`TABLE_NAME` = c.`TABLE_NAME`
+  INNER JOIN `information_schema`.`TABLES` t ON t.`TABLE_SCHEMA` = c.`TABLE_SCHEMA` AND t.`TABLE_NAME` = c.`TABLE_NAME`
 WHERE c.`TABLE_SCHEMA` = :TABLE_SCHEMA AND c.`TABLE_NAME` = :TABLE_NAME
 ORDER BY c.`ORDINAL_POSITION` ASC
 SQLVAR;
