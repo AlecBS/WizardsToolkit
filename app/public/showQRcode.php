@@ -10,7 +10,7 @@ SQLVAR;
 $pgSQL = wtkSqlPrep($pgSQL);
 $pgURL = wtkSqlGetOneResult($pgSQL, [$gloUserUID]);
 
-$pgQRimage  = '<img src="/makeQRCode.php?pw=LowCodeOrDie&amp;url=' . $pgURL . '"';
+$pgQRimage  = '<img src="/makeQRcode.php?pw=LowCodeOrDie&amp;url=' . $pgURL . '"';
 $pgQRimage .= ' class="responsive-img transparent">';
 
 $pgHtm = '<h3 class="center">Scan QR Code</h3><br>' . "\n";
