@@ -1108,7 +1108,6 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                 if (elementExist('wtkGoToURL') && (pgMPAvsSPA == 'SPA')) {
                     let fncGoTo = $('#wtkGoToURL').val();
                     fncGoTo = fncGoTo.replace('.php','');
-//                  pgPageArray.push('p~0~' + fncGoTo);
                     let fncRNG = 0;
                     if (elementExist('rng')) {
                         fncRNG = $('#rng').val();
@@ -1342,7 +1341,6 @@ function wtkGoBack() {
         let fncCurInfo = pgPageArray[pgPageArray.length - 1];
         let fncCurArray = fncCurInfo.split('~');
         let fncCurrent = fncCurArray[2];
-        fncCurrent = fncCurrent.replaceAll('../','');
         wtkDebugLog('wtkGoBack hiding ' + fncPriorPage + ' and showing ' + fncCurrent + '; fncCurInfo = ' + fncCurInfo + '; pgPageArray.length = ' + pgPageArray.length);
         if (pgPageArray.length == 1) {
             $('#backBtn').addClass('hide');
@@ -1372,6 +1370,7 @@ function wtkGoBack() {
             if (fncCurrent == '../reports') {
                 fncCurrent = '/wtk/reports'
             } else {
+                wtkDebugLog('wtkGoBack fncCurrent before set with gloFilePath: ' + fncCurrent);
                 let fncPath = gloFilePath[fncCurrent]; // gloFilePath defined in wtkPaths.js
                 if (fncPath == undefined) {
                     fncPath = '';
