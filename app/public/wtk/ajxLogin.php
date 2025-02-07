@@ -6,6 +6,7 @@ $pgUserEmail = wtkGetPost('em');
 $pgRemember = wtkGetPost('rem');
 $pgForgot = wtkGetPost('fpw');
 $pgMenu = wtkGetPost('menu');
+$pgMpaOrSpa = wtkGetPost('MpaOrSpa');
 $pgWhichApp = wtkGetPost('app');
 $pgAccessMethod = wtkGetPost('AccessMethod','website'); // default to website
 if ($pgAccessMethod == 'N'):
@@ -107,7 +108,7 @@ SQLVAR;
                 'WhichApp' => $pgWhichApp
             );
             wtkSqlExec(wtkSqlPrep($pgSQL), $pgFilter);
-            if ($gloSiteDesign == 'MPA'):
+            if (($gloSiteDesign == 'MPA') || ($pgMpaOrSpa == 'MPA')):
                 wtkSetSession('apiKey',$pgApiKey);
             endif;
             // END  add logic from wtkLogin.php so can skip posting to index.php

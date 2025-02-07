@@ -31,7 +31,7 @@ $gloColumnAlignArray = array (
 );
 wtkSetHeaderSort('PageTitle');
 
-$gloEditPage = 'Writer.php';
+$gloEditPage = 'Writer';
 $gloAddPage = $gloEditPage ; // . '?Mode=ADD';
 $gloDelPage  = 'wtkBlogDelDate'; // have DelDate at end if should DelDate instead of DELETE
 
@@ -39,6 +39,10 @@ $pgHtm  = '<h2>Blog List' . "\n";
 $pgHtm .= '<a class="btn blue tooltipped" href="Designer.php" data-tooltip="Change Blog colors and font">Blog Designer</a>' . "\n";
 $pgHtm .= '</h2>' . "\n";
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkBlog');
+
+$pgVersion = 1; // makes preventing cache when update JS very easy
+wtkSearchReplace('wtkLibrary.js','wtkLibrary.js?v=' . $pgVersion);
+wtkSearchReplace('wtkUtils.js','wtkUtils.js?v=' . $pgVersion);
 
 wtkSearchReplace('m4 offset-m4 s12','m10 offset-m1 s12'); // for minibox adjustment
 wtkMergePage($pgHtm, $gloCoName, '../../wtk/htm/minibox.htm');

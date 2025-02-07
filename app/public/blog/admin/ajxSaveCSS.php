@@ -20,7 +20,7 @@ $pgHtm =<<<htmVAR
 /*
 MIT License
 
-Copyright 2023 Wizard's Toolkit
+Copyright 2025 Wizard's Toolkit
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -71,27 +71,38 @@ header, footer {
 header {
     background-color: var(--wtk-blog-header);
 }
+header a {
+	color: var(--wtk-blog-footer);
+}
 nav, main {
     margin: 0px;
     border: 0px;
 }
 nav {
+	background-color: initial;
+	box-shadow: initial;
+	-webkit-box-shadow: initial;
+}
+nav ul a {
+	font-weight: bold;
+	color: var(--wtk-blog-footer);
+}
+/*
+nav {
     min-height: 110vh;
     width: 30%;
     padding: 0px 18px;
     background-color: var(--wtk-blog-nav) !important;
+    color: var(--wtk-blog-footer) !important;
     vertical-align: top;
     display: inline-block;
     box-shadow: inherit;
 }
-main {
-    min-height: 100% !important;
-    width: 70%;
-    padding: 0px 30px;
-    background-color: var(--wtk-blog-main) !important;
-    box-sizing: border-box !important;
-    float: right;
+nav a {
+	color: var(--wtk-blog-footer) !important;
 }
+*/
+
 footer {
     background: var(--wtk-blog-footer);
     color: #efedf0;
@@ -99,6 +110,35 @@ footer {
     height: 50px;
     top: calc( 100vh - 50px );
 }
+footer a {
+	color: #efedf0;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.3rem; }
+h6 { font-size: 1.1rem; }
+.brand-logo {
+    max-height: 54px;
+	padding-left: 18px;
+    margin-top: 9px;
+    position: relative;
+    z-index: 1;
+}
+.blog-link {
+	color: var(--wtk-blog-footer) !important;
+}
+.blog-link:hover {
+	text-decoration: underline;
+}
+.blog-main {
+    min-height: 100% !important;
+    padding: 0px 30px;
+    background-color: var(--wtk-blog-main) !important;
+    box-sizing: border-box !important;
+}
+
 .w72 {
     width: 72px !important;
 }

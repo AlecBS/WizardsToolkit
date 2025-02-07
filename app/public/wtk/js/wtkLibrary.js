@@ -193,7 +193,7 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                 $.ajax({
                     type: 'POST',
                     url:  '/wtk/ajxLogin.php',
-                    data: { em: fncEmail, pw: fncPW, rem: fncRemember, menu: fncMenu, app: fncWhichApp, AccessMethod: pgAccessMethod},
+                    data: { em: fncEmail, pw: fncPW, rem: fncRemember, menu: fncMenu, app: fncWhichApp, AccessMethod: pgAccessMethod, MpaOrSpa: fncMPAvsSPA},
                     success: function(data) {
                         waitLoad('off');
                         let fncJSON = $.parseJSON(data);
@@ -201,6 +201,7 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                             $('body').removeClass('bg-second');
                             pgApiKey = fncJSON.apiKey;
                             pgMPAvsSPA = fncMPAvsSPA;
+                            wtkDebugLog('wtkLoginForm successful: pgMPAvsSPA: ' + pgMPAvsSPA);
                             if (fncMPAvsSPA == 'MPA') {
                                 let fncGoToURL = $('#goToUrl').val();
                                 window.location.replace(fncGoToURL); // redirect
