@@ -169,7 +169,7 @@ CREATE TABLE `wtkBugReport` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `CreatedByUserUID` int UNSIGNED DEFAULT NULL,
-  `IPaddress` varchar(15),
+  `IPaddress` varchar(40),
   `OpSystem` varchar(25),
   `Browser` varchar(20),
   `BrowserVer` varchar(12),
@@ -294,7 +294,7 @@ CREATE TABLE `wtkDownloadTracking` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `DownloadUID` int UNSIGNED,
-  `IPaddress` varchar(15),
+  `IPaddress` varchar(40),
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkDownloadTracking_DownloadUID`
     FOREIGN KEY (`DownloadUID`) REFERENCES wtkDownloads(`UID`)
@@ -378,7 +378,7 @@ CREATE TABLE `wtkFailedAttempts` (
   `DelDate` datetime,
   `FailCode` varchar(4) NOT NULL,
   `UserUID` int UNSIGNED,
-  `IPaddress` varchar(15),
+  `IPaddress` varchar(40),
   `FailNote` varchar(250),
   `OpSystem` varchar(25),
   `Browser` varchar(20),
@@ -491,7 +491,7 @@ CREATE TABLE `wtkLockoutUntil` (
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `FailCode` varchar(4) NOT NULL,
   `UserUID` int UNSIGNED,
-  `IPaddress` varchar(15),
+  `IPaddress` varchar(40),
   `LockUntil` date,
   `BlockedCount` INT UNSIGNED DEFAULT 0,
   PRIMARY KEY (`UID`),
@@ -848,7 +848,7 @@ CREATE TABLE `wtkRevenue` (
 CREATE TABLE `wtkInboundLog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `IPaddress` varchar(15),
+  `IPaddress` varchar(40),
   `EcomUID` INT UNSIGNED,
   `RevenueUID` INT UNSIGNED,
   `InboundText` text COMMENT 'entire POST received',
@@ -958,7 +958,7 @@ CREATE TABLE `wtkUserShortURL` (
 CREATE TABLE `wtkVisitors` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `IPaddress` varchar(15),
+  `IPaddress` varchar(40),
   `Referer` varchar(240),
   `ReferDomain` varchar(80),
   `AdUID` int UNSIGNED,
