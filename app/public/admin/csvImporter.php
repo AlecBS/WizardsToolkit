@@ -81,7 +81,7 @@ foreach ($pgCSVarray as $row):
             endif;
             //  END  check for exact match with data table
             $pgCsvCols .= '<tr><td>' . "\n";
-            $pgCsvCols .= ' <a draggable="true" ondragstart="wtkDragStart(' . $pgColCntr . ',0);" ondragover="wtkDragOver(event)" class="btn btn-floating">' . "\n";
+            $pgCsvCols .= ' <a draggable="true" data-id="' . $pgColCntr . '" ondragstart="wtkDragStart(this);" ondragover="wtkDragOver(event)" class="btn btn-floating wtkdrag">' . "\n";
             $pgCsvCols .= '<i class="material-icons" alt="drag to link where to import" title="drag to link where to import">drag_handle</i></a></td>' . "\n";
             $pgCsvCols .= '<td>' . $pgColName . '</td></tr>' . "\n";
             $pgColCntr ++;

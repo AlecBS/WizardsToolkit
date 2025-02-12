@@ -23,9 +23,10 @@ SELECT x.`UID`, w.`WidgetName`, w.`WidgetDescription`,
         WHEN 'Chart' THEN CONCAT(w.`ChartType`, ' Chart')
         ELSE w.`WidgetType`
     END AS `WidgetType`,
-    CONCAT('<a draggable="true" ondragstart="wtkDragStart(', x.`UID`,
-        ',', ROW_NUMBER() OVER(ORDER BY x.`WidgetPriority`),');" ondrop="wtkDropId(', x.`UID`,
-        ',', ROW_NUMBER() OVER(ORDER BY x.`WidgetPriority`),')" ondragover="wtkDragOver(event)" class="btn btn-floating ">',
+    CONCAT('<a class="btn btn-floating wtkdrag" draggable="true"',
+        ' data-id="', x.`UID`, '"',
+        ' data-pos="', ROW_NUMBER() OVER(ORDER BY x.`WidgetPriority`), '"',
+        ' ondragstart="wtkDragStart(this);" ondrop="wtkDropId(this)" ondragover="wtkDragOver(event)">',
         '<i class="material-icons" alt="drag to change priorty" title="drag to change priorty">drag_handle</i></a>')
         AS `Prioritize`
   FROM `wtkWidgetGroup_X_Widget` x

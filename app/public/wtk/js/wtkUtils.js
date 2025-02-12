@@ -949,20 +949,24 @@ function wtkEnterGo(event, fncGoTo = '') {
 var pgFromDragId = 0;
 var pgFromDragPos = 0;
 
-function wtkDragStart(fncId,fncPos) {
-    pgFromDragId = fncId;
-    pgFromDragPos = fncPos;
-    wtkDebugLog('wtkDragStart called: pgFromDragId = ' + pgFromDragId );
+function wtkDragStart(fncElement) {
+    pgFromDragId = fncElement.getAttribute('data-id');
+    pgFromDragPos = fncElement.getAttribute('data-pos');
+    wtkDebugLog('wtkDragStart called: pgFromDragId = ' + pgFromDragId + ' and ' + pgFromDragPos);
 }
 function wtkDragOver(ev) {
     ev.preventDefault(); // necessary
 }
-function wtkDropId(fncToId, fncToPos, fncSet = '') {
+function wtkDropId(fncElement) {
+    const fncToId  = fncElement.getAttribute('data-id');
+    const fncToPos = fncElement.getAttribute('data-pos');
+    let fncSet     = fncElement.getAttribute('data-set');
+    fncSet = fncSet !== null ? fncSet : '';
     wtkDebugLog('wtkDropId called: Set = ' + fncSet + '; FromId = ' + pgFromDragId + '; ToId = ' + fncToId);
+
     let fncTable = $('#wtkDragTable' + fncSet).val();
     let fncColumn = $('#wtkDragColumn' + fncSet).val();
     let fncFilter = $('#wtkDragFilter' + fncSet).val();
-    wtkDebugLog('wtkDropId called: Set = ' + fncSet + '; FromId = ' + pgFromDragId + '; ToId = ' + fncToId + '; fncTable = ' + fncTable);
     $.ajax({
         type: 'POST',
         url:  '/wtk/ajxPriorityAdj.php',
@@ -979,4 +983,49 @@ function wtkDropId(fncToId, fncToPos, fncSet = '') {
     })
 }
 //  END  Drag and Drop functionality
+
+function wtkInitiatePhoneTouches(){
+    // Initialize touch listeners for each draggable element
+    wtkDebugLog('wtkInitiatePhoneTouches called');
+    $('.wtkdrag').each(function() {
+        // let fncId = $(this).data('id'); // Assuming you have a data-id attribute
+        // let fncPos = $(this).data('pos'); // Assuming you have a data-pos attribute
+        // wtkDebugLog('fncId = ' + fncId + '; fncPos = ' + fncPos);
+        wtkAddTouchListeners(this);
+    });
+}
+
+function wtkAddTouchListeners(element) {
+    element.addEventListener('touchstart', function(event) {
+        wtkDragStart(element);
+    }, false);
+
+    element.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+    }, false);
+
+    element.addEventListener('touchend', function(event) {
+        // Get the touch point coordinates
+        const touch = event.changedTouches[0];
+        const x = touch.clientX;
+        const y = touch.clientY;
+        wtkDebugLog('touchend x = ' + x + '; y = ' + y);
+
+        // Find the element at the touch end position
+        const targetElement = document.elementFromPoint(x, y);
+        wtkDebugLog('Target element:', targetElement);
+        let currentElement = targetElement;
+        while (currentElement && !currentElement.hasAttribute('data-id')) {
+           currentElement = currentElement.parentElement;
+        }
+        if (currentElement) {
+           const fncToId = currentElement.getAttribute('data-id');
+           const fncToPos = currentElement.getAttribute('data-pos');
+           wtkDebugLog('touchend fncToId = ' + fncToId + '; fncToPos = ' + fncToPos);
+           if (fncToId && fncToPos) {
+               wtkDropId(currentElement);
+           }
+        }
+    }, false);
+} // wtkAddTouchListeners
 // -->

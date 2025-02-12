@@ -1,6 +1,5 @@
 <?PHP
 $pgSecurityLevel = 1;
-$gloLoginRequired = false;
 define('_RootPATH', '../');
 require('wtkLogin.php');
 
@@ -14,7 +13,7 @@ $pgToPos = wtkGetPost('toPos');
 
 switch ($pgTable):
     case 'wtkWidgetGroup_X_Widget':
-        $pgExtraWhere  = ' AND `WidgetGroupUID` = ' . $pgFilter . "\n";
+        $pgExtraWhere = ' AND `WidgetGroupUID` = ' . $pgFilter . "\n";
         $pgUserUID = wtkSqlGetOneResult("SELECT `UserUID` FROM `wtkWidgetGroup_X_Widget` WHERE `UID` = ?", [$pgFromId],0);
         if ($pgUserUID == 0):
             $pgExtraWhere .= ' AND `UserUID` IS NULL';
@@ -51,21 +50,16 @@ $pgSqlFilter = array (
     'FromPriority' => $pgFromPriority,
     'ToPriority' => $pgToPriority
 );
-// echo '<br>$pgSQL: value = ' . $pgSQL . "\n\n";
-// print_r($pgSqlFilter);
 wtkSqlExec($pgSQL, $pgSqlFilter);
-// echo '<br><br>';
-// echo "UPDATE `$pgTable` SET `$pgColumn` = $pgToPriority WHERE `UID` = $pgFromId";
 $pgSqlFilter = array (
     'UID' => $pgFromId
 );
-$pgSQL = "UPDATE `$pgTable` SET `$pgColumn` = $pgToPriority WHERE `UID` = :UID";
+$pgSQL = "UPDATE `$pgTable` SET `$pgColumn` = $pgToPriority WHERE `UID` = :UID $pgExtraWhere";
 wtkSqlExec($pgSQL, $pgSqlFilter);
 
 $pgJSON = '{"result":"ok"}';
-
-$pgSQL  = wtkReplace($pgSQL, ':UID',$pgFromId);
-//$pgJSON = '{"result":"ok","sql":"' . $pgSQL . '"}';
+// $pgSQL  = wtkReplace($pgSQL, ':UID',$pgFromId);
+// $pgJSON = '{"result":"ok","sql":"' . $pgSQL . '"}';
 echo $pgJSON;
 exit;
 ?>
