@@ -16,17 +16,17 @@ SQLVAR;
 $pgHideReset = ' class="hide"';
 $pgFilterValue = wtkFilterRequest('wtkFilter');
 if ($pgFilterValue != ''):
-    $pgSQL .= " AND lower(`CompanyName`) LIKE lower('%" . $pgFilterValue . "%')" . "\n";
+    $pgSQL .= " AND lower(`CompanyName`) LIKE lower('%$pgFilterValue%')" . "\n";
     $pgHideReset = '';
 endif;  // $pgFilterValue != ''
 $pgFilter2Value = wtkFilterRequest('wtkFilter2');
 if ($pgFilter2Value != ''):
-    $pgSQL .= " AND lower(`ContactName`) LIKE lower('%" . $pgFilter2Value . "%')" . "\n";
+    $pgSQL .= " AND lower(`ContactName`) LIKE lower('%$pgFilter2Value%')" . "\n";
     $pgHideReset = '';
 endif;  // $pgFilter2Value != ''
 $pgFilter3Value = wtkFilterRequest('wtkFilter3');
 if ($pgFilter3Value != ''):
-    $pgSQL .= " AND lower(`Email`) LIKE lower('%" . $pgFilter3Value . "%')" . "\n";
+    $pgSQL .= " AND lower(`Email`) LIKE lower('%$pgFilter3Value%')" . "\n";
     $pgHideReset = '';
 endif;  // $pgFilter2Value != ''
 $pgSQL .= ' ORDER BY COALESCE(`CompanyName`,`ContactName`) ASC';
@@ -86,7 +86,7 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkAffiliates', '/admin/affiliateList.php', 'P');
-//$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
+$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no affiliates yet');
 $pgHtm .= '</div></div>' . "\n";
 
 echo $pgHtm;

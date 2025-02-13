@@ -9,7 +9,7 @@ SELECT fncWTKhash(a.`UID`) AS `Hash`, a.`Email`,
     COALESCE(a.`CompanyName`, a.`ContactName`, a.`Email`) AS `ToName`,
     COALESCE(a.`CompanyName`, a.`ContactName`) AS `CompanyName`,
     COALESCE(a.`ContactName`, a.`CompanyName`) AS `ContactName`,
-    a.`WebPasscode`
+    a.`WebPasscode`, a.`DiscountPercentage`, a.`AffiliateRate`
  FROM `wtkAffiliates` a
 WHERE a.`UID` = :UID
 SQLVAR;
@@ -20,6 +20,11 @@ SQLVAR;
         $pgBody = wtkReplace($pgBody, '@ContactName@', wtkSqlValue('ContactName'));
         $pgBody = wtkReplace($pgBody, '@ToName@', wtkSqlValue('ToName'));
         $pgBody = wtkReplace($pgBody, '@hash@', wtkSqlValue('Hash'));
+        $pgBody = wtkReplace($pgBody, '@DiscountPercentage@', wtkSqlValue('DiscountPercentage'));
+        $pgAffiliateRate = wtkSqlValue('AffiliateRate');
+        $pgAffiliateRate = wtkReplace($pgAffiliateRate, '.00','');
+        $pgBody = wtkReplace($pgBody, '@AffiliateRate@', $pgAffiliateRate);
+
         $pgBody = wtkTokenToValue($pgBody);
         $pgBody = wtkReplace($pgBody, '@WebPasscode@', wtkSqlValue('WebPasscode'));
         $pgSaveArray['OtherUID'] = $gloId;
@@ -44,7 +49,7 @@ SELECT a.`UID`, fncWTKhash(a.`UID`) AS `Hash`, a.`Email`,
     COALESCE(a.`CompanyName`, a.`ContactName`, a.`Email`) AS `ToName`,
     COALESCE(a.`CompanyName`, a.`ContactName`) AS `CompanyName`,
     COALESCE(a.`ContactName`, a.`CompanyName`) AS `ContactName`,
-    a.`WebPasscode`
+    a.`WebPasscode`, a.`DiscountPercentage`, a.`AffiliateRate`
 SQLVAR;
 
         $pgSQL =<<<SQLVAR
@@ -60,7 +65,7 @@ SQLVAR;
         if ($gloDbConnection == 'Live'):
             $pgSQLend .= ' LIMIT 50' . "\n";
         else:
-            $pgSQLend .= ' LIMIT 3' . "\n";
+            $pgSQLend .= ' LIMIT 1' . "\n";
         endif;
         $pgSqlFilter = array (
             'EmailUID' => $pgEmailUID
@@ -81,9 +86,13 @@ SQLVAR;
             $pgBody = wtkReplace($pgBody, '@ToName@', $pgRow['ToName']);
             $pgBody = wtkReplace($pgBody, '@hash@', $pgRow['Hash']);
             $pgBody = wtkReplace($pgBody, '@WebPasscode@', $pgRow['WebPasscode']);
+            $pgBody = wtkReplace($pgBody, '@DiscountPercentage@', $pgRow['DiscountPercentage']);
+            $pgAffiliateRate = $pgRow['AffiliateRate'];
+            $pgAffiliateRate = wtkReplace($pgAffiliateRate, '.00','');
+            $pgBody = wtkReplace($pgBody, '@AffiliateRate@', $pgAffiliateRate);
             $pgBody = wtkTokenToValue($pgBody);
 
-//2FIX            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'',$pgTemplate . '.htm');
+            $pgTmp = wtkNotifyViaEmail($pgSubject, $pgBody, $pgToEmail, $pgSaveArray,'',$pgTemplate . '.htm');
             if ($pgCnt < 21):
                 // if (strlen($pgToEmail) > 18):
                     $pgList .= '<div class="col m4 s6">';
@@ -104,7 +113,7 @@ SQLVAR;
         if ($pgRemainingCount == 0):
             $pgAfterMsg = '<p>All eligible emails have been sent.</p>';
         else:
-            $pgAfterMsg = "<p>There are $pgRemainingCount remaining prospects to email.</p>";
+            $pgAfterMsg = "<p>There are $pgRemainingCount remaining affiliates to email.</p>";
         endif;
         $pgHtm =<<<htmVAR
 <div class="card bg-second">
@@ -125,8 +134,10 @@ htmVAR;
     default: // View
         $pgSQL =<<<SQLVAR
 SELECT fncWTKhash(a.`UID`) AS `Hash`, a.`Email`,
+    COALESCE(a.`CompanyName`, a.`ContactName`, a.`Email`) AS `ToName`,
     COALESCE(a.`CompanyName`, a.`ContactName`) AS `CompanyName`,
-    COALESCE(a.`ContactName`, a.`CompanyName`) AS `ContactName`
+    COALESCE(a.`ContactName`, a.`CompanyName`) AS `ContactName`,
+    a.`WebPasscode`, a.`DiscountPercentage`, a.`AffiliateRate`
  FROM `wtkAffiliates` a
 WHERE a.`UID` = :UID
 SQLVAR;
@@ -134,11 +145,19 @@ SQLVAR;
         wtkSqlGetRow($pgSQL, $pgSqlFilter);
         $pgBody = wtkLoadInclude(_RootPATH . 'wtk/htm/' . $pgTemplate . '.htm');
         $pgBody = wtkReplace($pgBody, '@wtkContent@', $pgEmailBody);
-        $pgBody = wtkReplace($pgBody, '@CompanyName@', wtkSqlValue('CompanyName'));
+
+        $pgToEmail = wtkSqlValue('Email');
+        $pgBody = wtkReplace($pgEmailBody, '@CompanyName@', wtkSqlValue('CompanyName'));
         $pgBody = wtkReplace($pgBody, '@ContactName@', wtkSqlValue('ContactName'));
-        $pgBody = wtkReplace($pgBody, '@email@', wtkSqlValue('Email')); // urlencode(trim($fncEmail)));
+        $pgBody = wtkReplace($pgBody, '@ToName@', wtkSqlValue('ToName'));
         $pgBody = wtkReplace($pgBody, '@hash@', wtkSqlValue('Hash'));
+        $pgBody = wtkReplace($pgBody, '@DiscountPercentage@', wtkSqlValue('DiscountPercentage'));
+        $pgAffiliateRate = wtkSqlValue('AffiliateRate');
+        $pgAffiliateRate = wtkReplace($pgAffiliateRate, '.00','');
+        $pgBody = wtkReplace($pgBody, '@AffiliateRate@', $pgAffiliateRate);
+
         $pgBody = wtkTokenToValue($pgBody);
+        $pgBody = wtkReplace($pgBody, '@WebPasscode@', wtkSqlValue('WebPasscode'));
         $pgHtm  = $pgBody . "\n";
         break;
 endswitch;

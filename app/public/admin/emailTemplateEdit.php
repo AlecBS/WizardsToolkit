@@ -60,13 +60,15 @@ $pgHtm .=<<<htmVAR
                             <li>@Date@ will become today&rsquo;s date like this: <strong>$pgDate</strong></li>
                             <li>@CurrentYear@ will become <strong>$pgCurrentYr</strong></li>
                             <li>@ProspectName@ if sending to Prospects will become the prospect&rsquo;s company name</li>
-                            <li><strong>Affiliate Emailing</strong> includes these additional tokens:
-                              <ul>
+                            <li><br><strong>Affiliate Emailing</strong> includes these additional tokens:
+                              <ul style="margin-left:18px">
                                 <li>@CompanyName@ will use the affiliate company name, or contact if blank</li>
                                 <li>@ContactName@ will use the affiliate contact name, or company if blank</li>
                                 <li>@ToName@ will use the affiliate company name, or contact, or email (first non-blank)</li>
                                 <li>@hash@ should be used to give them access to their custom page at: affiliate.php?rng=@hash@</li>
                                 <li>@WebPasscode@ is their custom pass code to access their page</li>
+                                <li>@DiscountPercentage@ is the Discount Percentage they offer to prospects</li>
+                                <li>@AffiliateRate@ is the commission percentage they receive on sales</li>
                               </ul>
                             </li>
                         </ul>
