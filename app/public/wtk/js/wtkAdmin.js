@@ -50,7 +50,7 @@ function revenueRptFilter(){
 
     $.ajax({
         type: "POST",
-        url: '/admin/moneyStats.php?TableID=payChart',
+        url: '/admin/moneyStats.php?TableID=wtkRpt2',
         data: (fncFormData),
         success: function(data) {
             $('#payChartSPAN').html(data);
@@ -58,7 +58,7 @@ function revenueRptFilter(){
     })
     $.ajax({
         type: "POST",
-        url: '/admin/moneyStats.php?TableID=providerChart',
+        url: '/admin/moneyStats.php?TableID=wtkRpt3',
         data: (fncFormData),
         success: function(data) {
             $('#provChartSPAN').html(data);

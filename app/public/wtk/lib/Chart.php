@@ -132,7 +132,7 @@ function wtkRptChart($fncSQL, $fncSqlFilter = [], $fncChartOps = [], $fncChartNu
     $fncRptId = 'wtkRpt' . $fncChartNum;
     $fncOpsCnt = count($fncChartOps);
     if (in_array('regRpt', $fncChartOps) || ($fncOpsCnt == 0)):
-        $fncRegRpt = wtkBuildDataBrowse($fncSQL, $fncSqlFilter, $fncRptId, '', 'N', $fncDateFormat);
+        $fncRegRpt = wtkBuildDataBrowse($fncSQL, $fncSqlFilter, $fncRptId, '', 'N');
     else:
         $fncRegRpt = '';
     endif;

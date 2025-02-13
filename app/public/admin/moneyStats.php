@@ -101,6 +101,7 @@ $pgTabBar = wtkReplace($pgTabBar,"onclick=\"JavaScript:ajaxFillDiv('/admin/money
 if ($gloDriver1 == 'pgsql'):
     $pgSQL =<<<SQLVAR
 SELECT $pgSelDates ,
+    COUNT(`UID`) AS `Count`,
     SUM(`GrossAmount`) AS `Income`
   FROM `wtkRevenue`
 GROUP BY $pgGroupBy
@@ -109,6 +110,7 @@ SQLVAR;
 else:
     $pgSQL =<<<SQLVAR
 SELECT $pgSelDates ,
+    COUNT(`UID`) AS `Count`,
     FORMAT(SUM(`GrossAmount`),2) AS `Income`
   FROM `wtkRevenue`
 GROUP BY $pgGroupBy
@@ -167,7 +169,7 @@ $gloColumnAlignArray = array (
 	'Amount' => 'center'
 );
 $pgPayChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 2);
-if ($pgTableID == 'payChart'):
+if ($pgTableID == 'wtkRpt2'):
     echo $pgPayChart;
     exit;
 endif;
@@ -200,11 +202,16 @@ $gloTotalArray = array (
 	'Amount' => 'DSUM'
 );
 $pgProviderChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 3);
-if ($pgTableID == 'providerChart'):
+if ($pgTableID == 'wtkRpt3'):
     echo $pgProviderChart;
     exit;
 endif;
 //  END  Analytics based on PaymentProvider
+
+$pgPhoneBR = '';
+if ($gloDeviceType == 'phone'):
+    $pgPhoneBR = '<br>';
+endif;
 
 $pgHtm =<<<htmVAR
 <div class="row">
@@ -231,11 +238,11 @@ $pgHtm =<<<htmVAR
                 </form>
                 <div class="row">
                     <div class="col m6 s12">
-                        <h3>&nbsp;Payment Status</h3>
+                        $pgPhoneBR<h3>&nbsp;Payment Status</h3>
                         <span id="payChartSPAN">$pgPayChart</span>
                     </div>
                     <div class="col m6 s12">
-                        <h3>&nbsp;Payment Provider</h3>
+                        $pgPhoneBR<h3>&nbsp;Payment Provider</h3>
                         <span id="provChartSPAN">$pgProviderChart</span>
                     </div>
                 </div>
