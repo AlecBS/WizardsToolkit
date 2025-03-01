@@ -1618,11 +1618,14 @@ function wtkGoToNotification(fncId,fncGoToUrl,fncGoToId,fncGoToRng){
     let fncAlertCount = roundToPrecision($('#alertCounter').text());
     if (fncAlertCount == 1) {
         $('#alertCounter').addClass('hide');
+        $('#alertCounter').text(0);
     } else {
         fncAlertCount = (fncAlertCount - 1);
-        $('#alertCounter').text(fncAlertCount);
-        if ($('#alertCounter').hasClass('hide')) {
-            $('#alertCounter').removeClass('hide');
+        if (fncAlertCount >= 0) {
+            $('#alertCounter').text(fncAlertCount);
+            if ($('#alertCounter').hasClass('hide')) {
+                $('#alertCounter').removeClass('hide');
+            }
         }
     }
     if (fncGoToUrl == '@GoToUrl@') {
