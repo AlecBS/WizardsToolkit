@@ -91,7 +91,9 @@ $pgHtm =<<<htmVAR
         <h3>Send Email <span class="right">
         <button type="button" class="btn-small black b-shadow waves-effect waves-light modal-close">Cancel</button>
         &nbsp;&nbsp;
-        <button id="sendEmailBtn" type="button" class="btn-primary btn-small b-shadow waves-effect waves-light modal-close" onclick="Javascript:wtkSendEmail($gloId)">Send</button>
+        <button id="sendEmailBtn" type="button"
+           class="btn-primary btn-small b-shadow waves-effect waves-light"
+           onclick="Javascript:wtkModalSendEmail()">Send</button>
         </span></h3>
         <br>
         <div class="content b-shadow">

@@ -16,7 +16,7 @@ $pgFromEmail = wtkGetPost('FromEmail');
 $pgFromName = wtkGetPost('FromName');
 $pgToName = wtkGetPost('ToName');
 $pgSubject = wtkGetPost('Subject');
-$pgEmailMsg = wtkGetPost('EmailMsg');
+$pgEmailMsg = nl2br(wtkGetPost('EmailMsg'));
 
 $pgSaveArray = array (
 	'EmailAddress' => $pgToEmail,

@@ -1454,9 +1454,13 @@ function ajxEmailTemplate(fncId,fncOtherUID=0){
     }
 } // ajxEmailTemplate
 
-
 function wtkSendEmail(fncModalId = '', fncURL = '/wtk/ajxSendEmail', fncFormName = 'emailForm', fncEmailBtn = 'emailBtn'){
-    let fncEmail = $('#email').val();
+    let fncEmail = '';
+    if (elementInFormExist(fncFormName, 'email')) {
+        fncEmail = $('#email').val();
+    } else {
+        fncEmail = $('#ToEmail').val();
+    }
     if (fncEmail == '') {
         wtkAlert('You must enter an email address.');
     } else {
@@ -1532,7 +1536,7 @@ function sendMail(fncCloseModal = 'Y') {
     }
 } // sendMail
 
-function wtkModalSendEmail(fncId){
+function wtkModalSendEmail(){
     wtkDisableBtn('sendEmailBtn');
     if (elementExist('HasModalTinyMCE')){
         var fncHasTinyMCE = $('#HasModalTinyMCE').val();
@@ -1553,6 +1557,9 @@ function wtkModalSendEmail(fncId){
             data: (fncFormData),
             success: function(data) {
                 M.toast({html: 'Email sent', classes: 'rounded green'});
+                let fncId = document.getElementById('modalWTK');
+                let fncModal = M.Modal.getInstance(fncId);
+                fncModal.close();
                 if (elementExist('wtkEmailsSentDIV') == true) {
                     if ($('#T').val() == '96xh5r45') {
                         ajaxFillDiv('/wtk/ajxEmailList', 'UserUID', 'wtkEmailsSentDIV', $('#ID1').val());
