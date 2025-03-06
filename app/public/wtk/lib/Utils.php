@@ -560,7 +560,7 @@ function wtkRedirect($fncURL, $fncPermanent = 'Y') {
     $fncURL = wtkConvertLinks($fncURL);
     if (!headers_sent()):
         if ($fncPermanent == 'Y'):
-            header("HTTP/1.1 302 Moved Permanently");
+            header("HTTP/1.1 302 Found");
         endif;
         header('Location: ' . $fncURL);
     else:
