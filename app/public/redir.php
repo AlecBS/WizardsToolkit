@@ -1,8 +1,10 @@
 <?php
-function wtkRedirect($fncURL, $fncPermanent = 'Y') {
+function wtkRedirect($fncURL, $fncPermanent = 'N') {
     if (!headers_sent()):
         if ($fncPermanent == 'Y'):
             header("HTTP/1.1 301 Moved Permanently");
+        else:
+            header("HTTP/1.1 302 Found");
         endif;
         header('Location: ' . $fncURL);
     else:
