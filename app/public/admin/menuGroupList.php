@@ -26,7 +26,7 @@ $gloColumnAlignArray = array (
 $gloMoreButtons = array(
     'MenuItems' => array(
             'act' => 'menuItemList',
-            'img' => 'dehaze'
+            'img' => 'list'
             )
     );
 

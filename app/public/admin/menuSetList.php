@@ -19,7 +19,7 @@ $gloDelPage  = 'wtkMenuSetsDelDate'; // have DelDate at end if should DelDate in
 $gloMoreButtons = array(
     'MenuGroups' => array(
             'act' => 'menuGroupList',
-            'img' => 'dehaze'
+            'img' => 'list'
             )
     );
 
