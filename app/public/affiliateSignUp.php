@@ -15,6 +15,15 @@ $pgTmp .= wtkFormText('wtkAffiliates', 'Email', 'email','Contact Email','m6 s12'
 $pgTmp .= wtkFormText('wtkAffiliates', 'WebPasscode','text','Passcode','m4 s12', 'Y','to access affiliate account page');
 $pgTmp .= wtkFormHidden('wtkMode', 'ADD');
 
+/*
+// previously just before: Clients Perceive Value
+
+<li>Earn Generously: Enjoy a <strong class="green-text">$pgAffiliateRate% commission</strong> on the first-year subscription sales you generate</li>
+<ul class="browser-default">
+    <li>Earn $pgSpecialRate% on special promotions like <a target="_blank" href="services.php">Startup/MVP Specials</a>.</li>
+</ul>
+*/
+
 $pgHtm =<<<htmVAR
     <br>
     <div class="card b-shadow">
@@ -32,11 +41,8 @@ $pgHtm =<<<htmVAR
 <br>
 <h4>Why Partner with Wizard&rsquo;s Toolkit?</h4>
 <ul class="browser-default">
-    <li>Earn Generously: Enjoy a <strong class="green-text">$pgAffiliateRate% commission</strong> on the first-year subscription sales you generate</li>
-    <ul class="browser-default">
-        <li>Earn $pgSpecialRate% on special promotions like <a target="_blank" href="services.php">Startup/MVP Specials</a>.</li>
-    </ul>
     <li>Clients Perceive Value: Offer your clients an exclusive 10% discount on WTK subscription.</li>
+    <li>Earn Generously: we are currently changing the compensation plan and will notify you shortly of the new, exciting plan.</li>
     <li>Enhance Your Portfolio: By recommending WTK, you position your company as a leader in cutting-edge low-code development, showcasing innovation and efficiency to your clients.</li>
     <li>Drive Client Success: WTK&rsquo;s low-code solutions accelerate project timelines and reduce costs, making you the hero for your clients.</li>
 </ul>
@@ -66,7 +72,7 @@ $pgHtm =<<<htmVAR
 <br>
 <h4>Join Our Community</h4>
 <ul class="browser-default">
-    <li>Training and Support: We offer comprehensive training for your or your
+    <li>Training and Support: We offer comprehensive training for you or your
      team to master WTK, ensuring smooth implementation and client satisfaction.</li>
     <li>Stay Ahead of the Curve: Be at the forefront of technology, offering
       your clients the latest in development efficiency and innovation.</li>
