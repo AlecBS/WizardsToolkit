@@ -6,11 +6,13 @@ if (!isset($gloConnected)):
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT c.`UID`, c.`ClientName`, L.`LookupDisplay`,
+SELECT c.`UID`, c.`ClientName`, L.`LookupDisplay` AS `ClientStatus`,
+    L2.`LookupDisplay` AS `Country`,
     fncContactIcons(c.`ClientEmail`,c.`ClientPhone`,0,0,'Y',0,'N','N','') AS `Contact`,
     c.`AccountEmail` AS `AccountingEmail`
   FROM `wtkClients` c
-   LEFT OUTER JOIN `wtkLookups` L ON L.`LookupType` = 'Country' AND L.`LookupValue` = c.`CountryCode`
+   LEFT OUTER JOIN `wtkLookups` L ON L.`LookupType` = 'ClientStatus' AND L.`LookupValue` = c.`ClientStatus`
+   LEFT OUTER JOIN `wtkLookups` L2 ON L2.`LookupType` = 'Country' AND L2.`LookupValue` = c.`CountryCode`
 SQLVAR;
 // 2DO add filtering of clients based on CompanyUID of user that is logged in
 $pgHideReset = ' class="hide"';
@@ -19,7 +21,7 @@ if ($pgFilterValue != ''):
     $pgSQL .= " WHERE lower(c.`ClientName`) LIKE lower('%" . $pgFilterValue . "%')" . "\n";
     $pgHideReset = '';
 endif;  // $pgFilterValue != ''
-$pgSQL .= ' ORDER BY c.`ClientName` ASC';
+$pgSQL .= ' ORDER BY c.`ClientStatus` ASC, c.`ClientName` ASC';
 $pgSQL = wtkSqlPrep($pgSQL);
 
 $gloEditPage = '/admin/clientEdit';
@@ -54,7 +56,8 @@ $pgHtm =<<<htmVAR
     <div class="wtk-list card b-shadow">
 htmVAR;
 wtkSetHeaderSort('ClientName', 'Client');
-wtkSetHeaderSort('LookupDisplay', 'Country');
+wtkSetHeaderSort('Country', 'Country');
+wtkSetHeaderSort('ClientStatus', 'Status');
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkClients', '/admin/clientList');
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no clients yet');
