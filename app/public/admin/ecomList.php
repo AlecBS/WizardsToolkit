@@ -47,11 +47,11 @@ $gloMoreButtons = array(
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Payment Processors</h4><br>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Payment Processors
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('ecomList','wtkEcommerce','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">

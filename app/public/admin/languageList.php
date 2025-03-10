@@ -59,12 +59,11 @@ $pgTmp = wtkFormSwitch('', 'Filter3', 'Only Empty', $pgValues, 'm2 s12');
 $pgSwitch = wtkReplace($pgTmp, 'input-field col m2 s12','');
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Language Management</h4><br>
-    <h5>English Quick Filter
+    <h4>Language Management
         <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('languageList','wtkLanguage')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <input type="hidden" id="HasSelect" name="HasSelect" value="Y">

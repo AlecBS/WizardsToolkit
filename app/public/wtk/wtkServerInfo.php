@@ -248,6 +248,7 @@ if (!isset($_SESSION)):
     session_start();
 endif;
 
+// $gloSiteDesign = 'MPA';
 require('lib/Core.php');
 if (!isset($gloSiteDesign)):
     $pgPos = strpos($gloCurrentPage, '/blog/admin/');
@@ -271,7 +272,6 @@ if (!isset($gloSiteDesign)):
         endif;
     endif;
 endif;
-
 if (wtkGetSession('HashPW') == 'passed'):
     $_SESSION['HashPW'] = '';
     $pgSecurityLevel = 0;

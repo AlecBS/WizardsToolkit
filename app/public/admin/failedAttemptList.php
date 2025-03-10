@@ -27,16 +27,16 @@ wtkSetHeaderSort('IPaddress', 'IP Address');
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Failed Access Attempts</h4><br>
-    <h5>IP Address Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Failed Access Attempts
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('failedAttemptList','wtkFailedAttempts')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
            <div class="filter-width">
-              <input type="search" name="wtkFilter" id="wtkFilter" value="$pgFilterValue" placeholder="enter partial value to search for">
+              <input type="search" name="wtkFilter" id="wtkFilter" value="$pgFilterValue" placeholder="enter partial IP Address to search for">
            </div>
            <button onclick="Javascript:wtkBrowseFilter('failedAttemptList','wtkFailedAttempts')" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
         </div>

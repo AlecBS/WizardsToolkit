@@ -74,11 +74,11 @@ endif;
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Update Log</h4><br>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Update Log
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('updateLogList','wtkUpdateLog')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
