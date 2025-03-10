@@ -6,7 +6,9 @@ if (!isset($gloConnected)):
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT c.`UID`, c.`ClientName`, L.`LookupDisplay` AS `Country`, c.`ClientEmail`
+SELECT c.`UID`, c.`ClientName`, L.`LookupDisplay`,
+    fncContactIcons(c.`ClientEmail`,c.`ClientPhone`,0,0,'Y',0,'N','N','') AS `Contact`,
+    c.`AccountEmail` AS `AccountingEmail`
   FROM `wtkClients` c
    LEFT OUTER JOIN `wtkLookups` L ON L.`LookupType` = 'Country' AND L.`LookupValue` = c.`CountryCode`
 SQLVAR;
@@ -51,6 +53,9 @@ $pgHtm =<<<htmVAR
     </form>
     <div class="wtk-list card b-shadow">
 htmVAR;
+wtkSetHeaderSort('ClientName', 'Client');
+wtkSetHeaderSort('LookupDisplay', 'Country');
+
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkClients', '/admin/clientList');
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no clients yet');
 $pgHtm .= '</div>' . "\n";

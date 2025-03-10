@@ -34,20 +34,21 @@ $pgHtm .= wtkFormText('wtkClients', 'ClientName','text','','s12');
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'ClientStatus' ORDER BY `UID` ASC";
 $pgHtm .= wtkFormSelect('wtkClients', 'ClientStatus', $pgSQL, [], 'LookupDisplay', 'LookupValue', '', 'm4 s12');
 $pgHtm .= wtkFormText('wtkClients', 'StartDate', 'date', '', 'm4 s12');
-$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'Country' ORDER BY `LookupDisplay` ASC";
-$pgHtm .= wtkFormSelect('wtkClients', 'CountryCode', $pgSQL, [], 'LookupDisplay', 'LookupValue','','m4 s12','Y');
+$pgHtm .= wtkFormText('wtkClients', 'ClientPhone', 'text', 'Main Phone', 'm4 s12');
 
 $pgHtm .= wtkFormText('wtkClients', 'Address');
 $pgHtm .= wtkFormText('wtkClients', 'Address2');
 
 $pgHtm .= wtkFormText('wtkClients', 'City', 'text', 'City', 'm5 s12');
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'USAstate' ORDER BY `LookupDisplay` ASC";
-$pgHtm .= wtkFormSelect('wtkClients', 'State', $pgSQL, [], 'LookupDisplay', 'LookupValue','State','m4 s12');
+$pgHtm .= wtkFormSelect('wtkClients', 'State', $pgSQL, [], 'LookupDisplay', 'LookupValue','State','m4 s12','Y');
 $pgHtm .= wtkFormText('wtkClients', 'Zipcode', 'number', 'Zipcode', 'm3 s12');
 
-$pgHtm .= wtkFormText('wtkClients', 'ClientPhone', 'text', '', 'm4 s12');
-$pgHtm .= wtkFormText('wtkClients', 'ClientEmail', 'email', '', 'm4 s12');
-$pgHtm .= wtkFormText('wtkClients', 'AccountEmail', 'email', '', 'm4 s12');
+$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'Country' ORDER BY `LookupDisplay` ASC";
+$pgHtm .= wtkFormSelect('wtkClients', 'CountryCode', $pgSQL, [], 'LookupDisplay', 'LookupValue','','m4 s12','Y');
+
+$pgHtm .= wtkFormText('wtkClients', 'ClientEmail', 'email', 'Main Email', 'm4 s12');
+$pgHtm .= wtkFormText('wtkClients', 'AccountEmail', 'email', 'Accounting Email', 'm4 s12');
 
 $pgHtm .= wtkFormTextArea('wtkClients', 'InternalNote', '', 's12');
 
