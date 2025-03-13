@@ -107,3 +107,6 @@ DELIMITER ;
 CALL `GenerateRevenueDemo`();
 
 -- SELECT * FROM `wtkRevenueDemo` ORDER BY `UID` ASC;
+
+-- To manually adjust AddDate
+UPDATE `wtkRevenue` SET `AddDate` = DATE_ADD(`AddDate`, INTERVAL 36 DAY);

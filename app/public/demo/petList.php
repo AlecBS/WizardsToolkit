@@ -143,7 +143,8 @@ $gloDelPage  = 'petsDelDate'; // have DelDate at end if should DelDate instead o
 // put in columns you want sortable here:
 wtkSetHeaderSort('PetName');
 wtkSetHeaderSort('DOB', 'Birth Day', 'BirthDate'); // third parameter is what sort uses
-if ($gloDeviceType == 'phone'):
+if (($gloDeviceType == 'phone') || ($gloAccessMethod == 'ios')):
+    wtkFillSuppressArray('City');
     wtkFillSuppressArray('DOB');
     $pgNameTip = 'pet name';
     $pgOwnerTip = 'owner phone';
@@ -188,8 +189,11 @@ $pgHtm =<<<htmVAR
     </form>
     <div class="wtk-list card b-shadow">
 htmVAR;
-
+wtkSearchReplace('wtk/emailModal','demo/petMailModal');
+wtkSearchReplace('wtk/smsModal','demo/petSmsModal');
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'pets', '/demo/petList.php', 'P');
+$pgHtm  = wtkReplace($pgHtm, 'wtk/emailModal','demo/petMailModal');
+$pgHtm  = wtkReplace($pgHtm, 'wtk/smsModal','demo/petSmsModal');
 
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no pets yet');
 $pgHtm .= '</div></div>' . "\n";
