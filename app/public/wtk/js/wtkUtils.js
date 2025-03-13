@@ -105,7 +105,8 @@ function wtkStartMaterializeCSS() {
 } // wtkStartMaterializeCSS
 
 var fncLastIconColor = 'red';
-function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warning') {
+var fncRequiredFieldId = ''; // set by wtkAlert and used by wtkFocusOnInput
+function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warning', fncReqId = '') {
     if (fncLastIconColor != fncColor) {
         $('#modIcon').removeClass(fncLastIconColor + '-text');
         $('#modIcon').addClass(fncColor + '-text');
@@ -114,11 +115,25 @@ function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warnin
     $('#modIcon').text(fncIcon);
     $('#modHdr').text(fncHdr);
     $('#modText').html(fncText);
-    let fncId = document.getElementById('modalAlert');
-    let fncModal = M.Modal.getInstance(fncId);
+    let fncOptions = {};
+    let fncModalId = document.getElementById('modalAlert');
+    if (fncReqId != '') {
+        fncRequiredFieldId = fncReqId;
+        fncOptions.onCloseEnd = wtkFocusOnInput;
+    }
+    let fncModal = M.Modal.init(fncModalId, fncOptions);
     fncModal.open();
     wtkDebugLog('mobAlert called: ' + fncText);
 } // wtkAlert
+function wtkFocusOnInput() {
+    setTimeout(function() {
+        let fncReqField = document.getElementById(fncRequiredFieldId);
+        if (fncReqField) {
+            wtkDebugLog('wtkFocusOnInput ' + fncRequiredFieldId);
+            fncReqField.focus();
+        }
+    }, 180);
+}
 function wtkChangeRequired(fncId,fncRequired) {
 	let fncTmp = document.getElementById(fncId);
 	if (fncRequired == true) {
@@ -297,9 +312,9 @@ function wtkValidate(fncCaller, fncDataType) {
     fncPointer = fncCaller;
     if (fncPointer.required == true && (!fncPointer.value || fncPointer.value == "")) {
         if (pgLanguage == 'esp') {
-            wtkAlert(fncLabel + ": necesario");
+            wtkAlert(fncLabel + ": necesario",'Necesario','red','warning',fncPointer.id);
         }else{
-            wtkAlert(fncLabel + ": Required field");
+            wtkAlert(fncLabel + ' is a required field','Required Information','red','warning',fncPointer.id);
         }
         fncCaller.Valid = "false";
     } else if (fncPointer.SavedValue != fncPointer.value) {
@@ -314,7 +329,7 @@ function wtkValidate(fncCaller, fncDataType) {
                         fncPointer.value = res;
                         res = true;
                     }else{
-                        wtkAlert(fncLabel + " needs to be a valid zipcode.");
+                        wtkAlert(fncLabel + ' needs to be a valid zipcode.','Invalid Zipcode','red','warning',fncPointer.id);
                         fncCaller.Valid = "false";
                         res = false;
                       }
@@ -335,8 +350,8 @@ function wtkValidate(fncCaller, fncDataType) {
                         fncPointer.value = res;
                         res = true;
                     }else{
-                        wtkAlert(fncLabel + " needs to be a valid phone number.");
-                        fncCaller.Valid = "false";
+                        wtkAlert(fncLabel + ' needs to be a valid phone number.','Invalid Phone #','red','warning',fncPointer.id);
+                        fncCaller.Valid = 'false';
                         res = false;
                     }
                 }
@@ -351,9 +366,9 @@ function wtkValidate(fncCaller, fncDataType) {
                         fncLabel = 'Email';
                     }
                     if (pgLanguage == 'esp') {
-                        wtkAlert("Por favor, introduce una dirección de correo electrónico válida.");
+                        wtkAlert("Por favor, introduce una dirección de correo electrónico válida.",'Email no válido','red','warning',fncPointer.id);
                     }else{
-                        wtkAlert("Please enter a valid email address.");
+                        wtkAlert('Please enter a valid email address.','Invalid Email','red','warning',fncPointer.id);
                     }
                 }
                 return(0);
@@ -381,9 +396,9 @@ function wtkValidate(fncCaller, fncDataType) {
                 let fncNumValue = fncCaller.value.replace(/[,|$]/g, ''); // Remove commas and dollar signs
                 if (isNaN(fncNumValue)) {
 					if (pgLanguage == 'esp') {
-	                    wtkAlert(fncLabel + ': Numerico');
+	                    wtkAlert(fncLabel + ': Numerico','Oops','red','warning',fncPointer.id);
 					}else{
-	                    wtkAlert(fncLabel + ': Numeric field');
+	                    wtkAlert(fncLabel + ': Numeric field','Oops','red','warning',fncPointer.id);
 					}
                     // set to minimum if required
                     if (!isNaN(fncMinVal) && typeof fncMinVal !== 'undefined') {
@@ -400,9 +415,9 @@ function wtkValidate(fncCaller, fncDataType) {
                     if (!isNaN(fncMinVal) && typeof fncMinVal !== 'undefined' && fncNumValue < fncMinVal) {
                         fncCaller.value = fncMinVal;
                         if (pgLanguage == 'esp') {
-    	                    wtkAlert('El valor minimo ' + fncLabel + ': ' + fncMinVal);
+    	                    wtkAlert('El valor minimo ' + fncLabel + ': ' + fncMinVal,'Oops','red','warning',fncPointer.id);
     					}else{
-        	                wtkAlert('Minimum value ' + fncLabel + ': ' + fncMinVal);
+        	                wtkAlert('Minimum value ' + fncLabel + ': ' + fncMinVal,'Oops','red','warning',fncPointer.id);
     					}
                         fncPointer.select();
                         res = false;
@@ -411,9 +426,9 @@ function wtkValidate(fncCaller, fncDataType) {
                     if (!isNaN(fncMaxVal) && typeof fncMaxVal !== 'undefined' && fncNumValue > fncMaxVal) {
                         fncCaller.value = fncMaxVal;
                         if (pgLanguage == 'esp') {
-    	                    wtkAlert('El valor maximo ' + fncLabel + ': ' + fncMaxVal);
+    	                    wtkAlert('El valor maximo ' + fncLabel + ': ' + fncMaxVal,'Oops','red','warning',fncPointer.id);
     					}else{
-        	                wtkAlert('Maximum value ' + fncLabel + ': ' + fncMaxVal);
+        	                wtkAlert('Maximum value ' + fncLabel + ': ' + fncMaxVal,'Oops','red','warning',fncPointer.id);
     					}
                         fncPointer.select();
                         res = false;
@@ -465,13 +480,12 @@ function wtkValidate(fncCaller, fncDataType) {
 	        	}
 				return res;
             case "TIME" :
-              	if(fncPointer.value) {
+              	if (fncPointer.value) {
 	                let d = new Date("07/07/1962 "+fncPointer.value);
 	                 //let t = Date.parse(fncPointer.value);
-	                if(isNaN(d)) {
-	                    wtkAlert(fncLabel + ": Invalid time");
+	                if (isNaN(d)) {
+	                    wtkAlert(fncLabel + ': Invalid time','Oops','red','warning',fncPointer.id);
 	                    fncCaller.Valid = "false";
-	                   	fncPointer.select();
 	                    return false;
 	                }
             	}
@@ -483,7 +497,7 @@ function wtkValidate(fncCaller, fncDataType) {
                 curval = val;
                 // test for numeric entry
                 if (val.length==0) {
-                    wtkAlert(fncLabel + ": CURRENCY field");
+                    wtkAlert(fncLabel + ': CURRENCY field','Oops','red','warning',fncPointer.id);
                  	fncCaller.Valid = "false";
                    // set to minimum if required
                     if (!isNaN(fncMinVal) && typeof fncMinVal !== 'undefined') {
@@ -491,7 +505,6 @@ function wtkValidate(fncCaller, fncDataType) {
                     }else{  // otherwise zero/zed
                         fncPointer.value = "$" + 0;
                     }
-                    fncPointer.select();
                     return(0);
                 }
                 let i;
@@ -515,7 +528,7 @@ function wtkValidate(fncCaller, fncDataType) {
                 ival=curval;
                   // test for numeric entry
                 if (isNaN(ival)) {
-                    wtkAlert(fncLabel + ": Must be CURRENCY($###,###.##)");
+                    wtkAlert(fncLabel + ": Must be CURRENCY($###,###.##)",'Oops','red','warning',fncPointer.id);
 						fncCaller.Valid = "false";
                    // set to minimum if required
                     if (!isNaN(fncMinVal) && typeof fncMinVal !== 'undefined') {
@@ -523,19 +536,18 @@ function wtkValidate(fncCaller, fncDataType) {
                     }else{ // otherwise zero/zed
                         fncPointer.value = "$" + 0;
                     }
-                    fncPointer.select();
                     return(0);
                 }
                 // minimum value
                 if (!isNaN(fncMinVal) && typeof fncMinVal !== 'undefined' && ival < fncMinVal) {
-                    wtkAlert("Minimum value " + fncLabel + ": " + fncMinVal);
+                    wtkAlert("Minimum value " + fncLabel + ": " + fncMinVal,'Oops','red','warning',fncPointer.id);
 					fncCaller.Valid = "false";
                    	fncPointer.value = "$" + fncMinVal ;
                     fncPointer.select();
                 }
                 // maximum value
                 if (!isNaN(fncMaxVal) && typeof fncMaxVal !== 'undefined' && ival > fncMaxVal) {
-                    wtkAlert("Maximum value " + fncLabel + ": " + fncMaxVal);
+                    wtkAlert("Maximum value " + fncLabel + ": " + fncMaxVal,'Oops','red','warning',fncPointer.id);
                     fncPointer.value = "$" + fncMaxVal;
                     fncPointer.select();
                 }

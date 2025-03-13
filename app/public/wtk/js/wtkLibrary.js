@@ -1069,7 +1069,7 @@ function wtkRequiredFieldsFilled(fncFormName) {
     var fncOK = true;
     for (var i = 0; i < fncFieldArray.length; i++){
         if (fncFieldArray[i].required){
-            wtkDebugLog('ajaxPost: required field: ' + fncFieldArray[i].id + '; type: ' + fncFieldArray[i].type);
+            wtkDebugLog('wtkRequiredFieldsFilled: required field: ' + fncFieldArray[i].id + '; type: ' + fncFieldArray[i].type);
             let fncValue = document.getElementById(fncFieldArray[i].id).value;
             if ((fncFieldArray[i].type == 'textarea') && (fncValue == '<br>')) {
                 fncOK = false; // summernote adds this for blank textareas
@@ -1083,8 +1083,7 @@ function wtkRequiredFieldsFilled(fncFormName) {
                 if (fncLabel == '') {
                     fncLabel = fncFieldArray[i].name;
                 }
-                wtkAlert(fncLabel + " is a required field");
-                document.getElementById(fncFieldArray[i].id).select(); // 2FIX
+                wtkAlert(fncLabel + ' is a required field','Required Information','red','warning',fncFieldArray[i].id);
                 break;
             }
         }

@@ -43,7 +43,7 @@ htmVAR;
 
 $pgHtm .= wtkFormText('wtkUsers', 'FirstName');
 $pgHtm .= wtkFormText('wtkUsers', 'LastName');
-$pgHtm .= wtkFormText('wtkUsers', 'Email', 'email');
+$pgHtm .= wtkFormText('wtkUsers', 'Email', 'email', 'Email', 'm6 s12', 'Y');
 $pgTmpMode = $gloWTKmode;
 $gloWTKmode = 'ADD';
 $pgTmp = wtkFormText('wtkUsers', 'WebPassword', 'password');

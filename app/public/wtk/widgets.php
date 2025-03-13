@@ -87,7 +87,11 @@ SQLVAR;
                 else:
                     $fncHtm = '<h4 class="center">';
                 endif;
-                $fncHtm .= $fncPDOrow['WidgetGroupName'] . ' Dashboard';
+                $fncDashboardName = $fncPDOrow['WidgetGroupName'];
+                if ($fncDashboardName == 'Personal - leave blank, autofilled'):
+                    $fncDashboardName = 'Personal';
+                endif;
+                $fncHtm .= $fncDashboardName . ' Dashboard';
                 if ($fncGroupUID == 1):
                     $fncHtm .= ' <a onclick="JavaScript:wtkModal(\'/admin/widgetMgr\',0,0,' . $fncGroupUID . ')";>';
                     $fncHtm .= '<i class="material-icons">widgets</i></a>';
