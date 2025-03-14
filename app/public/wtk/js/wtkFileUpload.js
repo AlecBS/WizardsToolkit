@@ -65,14 +65,17 @@ function wtkSetProgress(e) {
     }
 }
 
-function wtkChangeStatus(fncStatus){
-    if (elementExist('uploadStatus')) {
-        $('#uploadStatus').text('Upload Progress: ' + fncStatus);
+function wtkChangeStatus(fncStatus, fncFormId = ''){
+    if (fncFormId == '') {
+        fncFormId = pgFormId;
+    }
+    if (elementExist('uploadStatus' + fncFormId)) {
+        $('#uploadStatus' + fncFormId).text('Upload Progress: ' + fncStatus);
     }
 }
 
 function wtkLoaded(e){
-    wtkDebugLog('wtkLoaded top');
+    wtkDebugLog('wtkLoaded top: pgFormId = ' + pgFormId);
     wtkChangeStatus('File load complete');
     pgFileToUpload = 'Y';
 //  console.log(e);
@@ -81,8 +84,11 @@ function wtkLoaded(e){
     if (elementExist('imgPreview' + pgFormId)) {
         if (pgFileSize < gloMaxFileSize){
             pgFileSizeOK = 'Y';
-            let fncShowImg = document.querySelector('#imgPreview' + pgFormId);
+            var fncShowImg = document.querySelector('#imgPreview' + pgFormId);
             fncShowImg.src = fncImg;
+            wtkDebugLog('wtkLoaded: Size OK: pgFileSize = ' + pgFileSize + '; gloMaxFileSize = ' + gloMaxFileSize);
+        } else {
+            wtkDebugLog('wtkLoaded: too Big: pgFileSize = ' + pgFileSize + '; gloMaxFileSize = ' + gloMaxFileSize);
         }
         if (elementExist('wtkfRefresh' + pgFormId)) {
             let fncRefresh = $('#wtkfRefresh' + pgFormId).val();
@@ -164,6 +170,10 @@ function wtkfErrorHandler(e){
 async function wtkfUploadFile(fncId) {
   wtkDebugLog('wtkfUploadFile top: ' + fncId);
   wtkDisableBtn('wtkfBtn' + fncId); // will re-enable 3600
+  /*
+  if value in wtkfRefresh+fncId is the id of an <img> on the page, it will be filled with image;
+ otherwise it will be assumed to be a PHP page to refresh the displayFileDIV with file list after upload
+  */
   if (elementExist('wtkfRefresh' + fncId)) { // update image on website
       let fncRefresh = $('#wtkfRefresh' + fncId).val();
       if (fncRefresh != '') {
@@ -193,7 +203,7 @@ async function wtkfUploadFile(fncId) {
 async function wtkfPostFile(fncId, fncFileData) {
   const fileName = wtkGetValue('wtkfOrigName' + fncId);
 
-  wtkChangeStatus('Uploading...');
+  wtkChangeStatus('Uploading...', fncId);
   // generate post data
   const id = wtkGetValue('wtkfID' + fncId);
   const uid = wtkGetValue('wtkfUID' + fncId);
@@ -229,14 +239,17 @@ async function wtkfPostFile(fncId, fncFileData) {
     });
 
     const result = await response.json();
-    wtkChangeStatus('Upload Complete'); //  + JSON.stringify(result)
+    wtkChangeStatus('Upload Complete',fncId); //  + JSON.stringify(result)
   } catch (error) {
-    wtkChangeStatus('Upload Failed: ' + error.message);
+    wtkChangeStatus('Upload Failed: ' + error.message, fncId);
   }
 } // wtkfPostFile
 
 function wtkfFileUpload(fncFormId = '', fncId = '') {
    wtkDebugLog('wtkfFileUpload: fncFormId = ' + fncFormId + '; fncId = ' + fncId);
+   if (elementInFormExist(fncFormId,'wtkfDelBtn' + fncId)) {
+       $('#wtkfDelBtn' + fncId).addClass('hide');
+   }
    let fr = new FileReader();
    let xhr = new XMLHttpRequest();
 
@@ -269,8 +282,8 @@ function wtkfFileUpload(fncFormId = '', fncId = '') {
        if (this.readyState == 4 && this.status == 200) {
            pgFileToUpload = 'N';
 //         if (elementInFormExist(fncFormId,'wtkfRefresh' + fncFormId + 'DIV')) {
-           if (elementInFormExist(fncFormId,'wtkfRefreshDIV' + fncId)) {
-               let fncRefreshDIV = $('#wtkfRefreshDIV' + fncId).val();
+           if (elementInFormExist(fncFormId,'wtkfRefresh' + fncId)) {
+               let fncRefreshDIV = $('#wtkfRefresh' + fncId).val();
                if (fncRefreshDIV != ''){
                    let fncParameter = 'photos';
                    if (elementInFormExist(fncFormId,'imgDescription')) {
@@ -363,6 +376,7 @@ function wtkfFileUpload(fncFormId = '', fncId = '') {
 } // wtkfFileUpload
 
 function wtkfDelFile(fncId, fncFormId = '') {
+    $('#wtkfUploadBtn' + fncFormId).addClass('hide');
     let fncTbl = wtkGetValue('wtkfTable' + fncFormId);
     let fncColPath = wtkGetValue('wtkfColPath' + fncFormId);
     let fncColFile = wtkGetValue('wtkfColFile' + fncFormId);
@@ -423,14 +437,14 @@ function wtkfDelFileOld(fncFormId) {
         data: { apiKey: pgApiKey, colPath: fncColPath, colFile: fncColFile, t: fncTbl,
                 uid: fncUID, id: fncId, path: fncPath, del: fncDel, wtkDesign: pgMPAvsSPA},
         success: function(data) {
-            if (elementExist('imgPreview')) {
-                var fncShowImg = document.querySelector('#imgPreview');
+            if (elementExist('imgPreview' + fncFormId)) {
+                var fncShowImg = document.querySelector('#imgPreview' + fncFormId);
                 fncShowImg.src = '/wtk/imgs/noPhotoSmall.gif';
             } else {
-                if (elementExist('filePreview')) {
-                    var fncShowFile = document.querySelector('#filePreview');
+                if (elementExist('filePreview' + fncFormId)) {
+                    var fncShowFile = document.querySelector('#filePreview' + fncFormId);
                     fncShowFile.href = '';
-                    $('#filePreview').addClass('hide');
+                    $('#filePreview' + fncFormId).addClass('hide');
                 }
             }
             $('#wtkfDelBtn').addClass('hide');
@@ -452,9 +466,11 @@ function wtkfDelFileOld(fncFormId) {
 } // wtkfDelFileOld
 
 function wtkfRevertImg() {
-    let fncShowImg = document.querySelector('#imgPreview');
     let fncPastImg = $('#wtkfOrigPhoto').val();
-    fncShowImg.src = fncPastImg;
+    if (elementExist('imgPreview' + pgFormId)) {
+        let fncShowImg = document.querySelector('#imgPreview' + pgFormId);
+        fncShowImg.src = fncPastImg;
+    }
     if (fncPastImg == '/wtk/imgs/noPhotoSmall.gif') {
         $('#wtkfPhotoDIV').addClass('hide');
     } else {
@@ -473,13 +489,13 @@ function wtkfPhoto(fncFormId) {
     pgFileToUpload = 'N';
 }
 
-function wtkShowImageUpload(){
-    $('#uploadFileBtn').addClass('hide');
-    $('#uploadFileDIV').removeClass('hide');
-    $('#uploadFileSize').text('');
-    $('#uploadProgress').text('');
-    if (elementExist('imgPreview')) {
-        var fncShowImg = document.querySelector('#imgPreview');
+function wtkShowImageUpload(fncId = ''){
+    $('#uploadFileBtn' + fncId).addClass('hide');
+    $('#uploadFileDIV' + fncId).removeClass('hide');
+    $('#uploadFileSize' + fncId).text('');
+    $('#uploadProgress' + fncId).text('');
+    if (elementExist('imgPreview' + fncId)) {
+        var fncShowImg = document.querySelector('#imgPreview' + fncId);
         fncShowImg.src = '/wtk/imgs/noPhotoSmall.gif';
     }
 }// used in conjunction with wtkFormFile PHP function

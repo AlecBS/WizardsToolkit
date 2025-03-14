@@ -929,7 +929,7 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
         if ($fncViewLink == ''):
             $fncViewLink = 0;
         endif;
-        $fncShowFile  = '<a id="filePreview" target="_blank"';
+        $fncShowFile  = '<a id="filePreview' . $fncFormId . '" target="_blank"';
         if ($gloWTKmode == 'ADD'):
             $fncShowFile .= ' class="hide"';
         else:
@@ -987,12 +987,10 @@ htmVAR;
     <input type="hidden" id="wtkfDelete$fncFormId" value="$fncFile">
     <input type="hidden" id="wtkfRefresh$fncFormId" value="$fncRefresh">
     <input type="hidden" id="wtkfOrigName$fncFormId" value="">
-htmVAR;
-    $fncHtm .=<<<htmVAR
-        <div id="photoProgressDIV$fncFormId" class="progress hide">
-            <div id="photoProgress$fncFormId" class="determinate" style="width: 25%"></div>
-        </div>
-        <div id="uploadStatus$fncFormId"></div>
+    <div id="photoProgressDIV$fncFormId" class="progress hide">
+        <div id="photoProgress$fncFormId" class="determinate" style="width: 25%"></div>
+    </div>
+    <div id="uploadStatus$fncFormId"></div>
         <span id="uploadFileSize$fncFormId"></span>
         <span id="uploadProgress$fncFormId"></span>
     </div>

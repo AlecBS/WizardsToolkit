@@ -12,7 +12,7 @@ else:
 endif;
 
 $gloWTKmode = 'ADD';
-$pgUpload  = wtkFormFile('wtkFiles','FilePath','/exports/','NewFileName','Pick File to Upload','s12','','Y','','Y',1);
+$pgUpload  = wtkFormFile('wtkFiles','FilePath','/exports/','NewFileName','Pick File to Upload','s12','csvImporter','Y','','Y',1);
 
 // For example, instead of /demo/imgs you could put '../docs/imgs/'
     // and it would find files in a /app/docs/imgs/ folder next to /app/public
@@ -28,9 +28,6 @@ $pgUpload .= wtkFormHidden('wtkMode', 'ADD');
 $pgUpload .= wtkFormHidden('tabRel', 'csv');
 $pgUpload  = wtkReplace($pgUpload, 'width="144px"','width="245px"');
 $pgUpload  = wtkReplace($pgUpload, 'JavaScript:wtkfFileUpload(', 'JavaScript:csvFileUpload(');
-$pgUpload .= wtkFormHidden('wtkfRefreshDIV1', 'csvImporter'); // this tells JS to refresh uploadFileDIV DIV by calling this page
-// $pgUpload .= wtkFormHidden('wtkfColPath', '/exports');
-// $pgTableName = wtkGetParam('TableName');
 
 $pgSQL =<<<SQLVAR
 SELECT c.`COLUMN_NAME` AS `ColumnName`, c.`COLUMN_TYPE` AS `ColumnType`,

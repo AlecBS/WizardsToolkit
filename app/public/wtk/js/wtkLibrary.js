@@ -1073,6 +1073,10 @@ function wtkRequiredFieldsFilled(fncFormName) {
             let fncValue = document.getElementById(fncFieldArray[i].id).value;
             if ((fncFieldArray[i].type == 'textarea') && (fncValue == '<br>')) {
                 fncOK = false; // summernote adds this for blank textareas
+            } else if (fncFieldArray[i].type == 'file') {  // Check if a file is selected
+               if (fncFieldArray[i].files.length === 0) {
+                   fncOK = false;
+               }
             } else {
                 if (!fncFieldArray[i].value || fncFieldArray[i].value == "") {
                     fncOK = false;
