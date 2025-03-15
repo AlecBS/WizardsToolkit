@@ -50,11 +50,12 @@ $pgHtm =<<<htmVAR
 //     &dollar;pgSecurityLevel = 1;
 // endif;
             </code></pre>
-        <br><h5>Photos
+        <h5>Photos
             <small id="uploadFileBtn1" class="right">
                 <a onclick="JavaScript:wtkShowImageUpload(1)" class="btn btn-primary btn-floating waves-effect waves-light"><i class="material-icons">add</i></a>
             </small>
         </h5>
+        <br>
         <div id="uploadFileDIV1" class="hide">
             <form id="wtkForm" name="wtkForm" method="post">
                 $pgUpload

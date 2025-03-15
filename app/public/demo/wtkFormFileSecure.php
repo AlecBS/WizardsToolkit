@@ -48,6 +48,16 @@ $pgHtm =<<<htmVAR
         <p>This uses the wtkFormFile to upload file to a folder on the server that
             is not accessible to web pages. The link goes to /wtk/viewFile.php which pulls the file
             from the secure location and displays it directly to the browser.</p>
+        <p>By default with WTK file uploads require the user is logged in.
+            For this page to demo upload without requiring logging in,
+            change /wtk/fileUpload.php by uncommenting this code near the top.</p>
+            <pre><code>
+// if (&dollar;pgApiKey == ''): // comment this out for production server; should not allow file uploads without an account
+//     &dollar;gloLoginRequired = false;
+// else:
+//     &dollar;pgSecurityLevel = 1;
+// endif;
+            </code></pre>
         <br><h5>Photos
             <small id="uploadFileBtn1" class="right">
                 <a onclick="JavaScript:wtkShowImageUpload(1)" class="btn btn-primary btn-floating waves-effect waves-light"><i class="material-icons">add</i></a>
@@ -64,6 +74,5 @@ htmVAR;
 $pgHtm .= $pgFileList . "\n";
 $pgHtm .= '</div></div></div>' . "\n";
 
-wtkProtoType($pgHtm);
 wtkMergePage($pgHtm, $gloCoName, '../wtk/htm/mpa.htm');
 ?>

@@ -1105,7 +1105,6 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
         $('#' + fncTextArea).val(fncNewValue);
     }
     //  END  if TinyMCE is used, copy into original textarea form fields
-
     if (wtkRequiredFieldsFilled(fncPost)) { // check to see if any fields are required
         if (fncAddPageQ == 'Y') {
             if (fncPage == '/wtk/lib/Save') {
@@ -1127,15 +1126,16 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
             wtkDebugLog('ajaxPost: not pushing to pgPageArray ' + fncPage);
         }
         wtkDisableBtn('btnSave');
-        var fncEncType = 'application/x-www-form-urlencoded';
-        var fncContentType = false;
+
+        let fncWtkMode = 'ADD';
+        let fncEncType = 'application/x-www-form-urlencoded';
+        let fncContentType = false;
         if (pgAccessMethod == 'ios') {
             wtkUploadFile($('#ID1').val());
         } else {
-            if (elementExist('wtkUpload') == false) { // upload does not exist
+            if ((elementExist('wtkUpload') == false) && (elementInFormExist(fncPost,'wtkUploadFiles') === false)) { // upload does not exist
                 fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
             } else {
-                let fncWtkMode = 'ADD';
                 if (elementInFormExist(fncPost,'wtkMode') == true) { // because page may have more than one
                     fncWtkMode = $('#' + fncPost + ' input[type=hidden][id=wtkMode]').val();
                 }
@@ -1143,32 +1143,30 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                     fncEncType = 'multipart/form-data';
                 } else {
                     fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-                    // if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
-                    //     if (elementExist('FileUploaded')) {
-                    //         $('#FileUploaded').val('Y');
-                    //     }
-                    //     wtkfFileUpload(fncPost,$('#ID1').val());
-                    // }
                 }
             }
         } // pgAccessMethod != 'ios'
+
         let fncFormData = '';
         // upload images
-        if ($('#wtkUploadFiles').val() !== undefined) {
-            if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
-                wtkDebugLog('ajaxPost: wtkUploadFiles going to upload');
-                if (elementExist('FileUploaded')) {
-                    $('#FileUploaded').val('Y');
+        if (fncWtkMode != 'ADD') {
+            if ($('#wtkUploadFiles').val() !== undefined) {
+                if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
+                    wtkDebugLog('modalSave: wtkUploadFiles going to upload');
+                    if (elementExist('FileUploaded')) {
+                        $('#FileUploaded').val('Y');
+                    }
+                    let fncFileIDs = $('#wtkUploadFiles').val();
+                    let fncFileUpArray = fncFileIDs.split(',');
+                    for (let i = 0; i < fncFileUpArray.length; i++){
+                        wtkfUploadFile(fncFileUpArray[i]);
+                    }
+                } else {
+                    wtkDebugLog('modalSave: wtkUploadFiles NOT pgFileToUpload = ' + pgFileToUpload + '; pgFileSizeOK = ' + pgFileSizeOK);
                 }
-                let fncFileIDs = $('#wtkUploadFiles').val();
-                let fncFileUpArray = fncFileIDs.split(',');
-                for (let i = 0; i < fncFileUpArray.length; i++){
-                    wtkfUploadFile(fncFileUpArray[i]);
-                }
-            } else {
-                wtkDebugLog('ajaxPost: wtkUploadFiles NOT pgFileToUpload = ' + pgFileToUpload + '; pgFileSizeOK = ' + pgFileSizeOK);
             }
-        }
+        } // fncWtkMode != 'ADD'
+
         if (pgMPAvsSPA == 'MPA') {
             wtkDebugLog('ajaxPost: pgMPAvsSPA = MPA');
             fncFormData = document.getElementById(fncPost);
@@ -1251,7 +1249,7 @@ function ajaxCopy(fncPage, fncPost) {
             $('#copyBtn').text('Add & Repeat');
             M.toast({html: 'Your data has been saved. Ready to modify your copy?', classes: 'rounded'});
             wtkFixSideNav();
-//              afterPageLoad(fncPage);
+//          afterPageLoad(fncPage);
         }
     })
 } // ajaxCopy

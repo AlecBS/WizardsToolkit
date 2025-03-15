@@ -974,19 +974,19 @@ htmVAR;
     $fncHtm .= '</td></tr>' . "\n" . '</table>' . "\n";
     $fncEncodedTable = wtkEncode($fncTable);
     $fncEncodedUID = wtkEncode('UID'); // 2ENHANCE make Global variable
-    // change debugLogDIVtst to debugLogDIV to enable debugging
+    // add this line to enable debugging
+    // <div id="debugLogDIV"></div>
     $fncHtm .=<<<htmVAR
-    <div id="debugLogDIVtst"></div>
-    <input type="hidden" id="wtkfMode$fncFormId" value="$gloWTKmode">
-	<input type="hidden" id="wtkfTable$fncFormId" value="$fncEncodedTable">
-	<input type="hidden" id="wtkfUID$fncFormId" value="$fncEncodedUID">
-	<input type="hidden" id="wtkfID$fncFormId" value="$gloId">
-	<input type="hidden" id="wtkfPath$fncFormId" value="$fncFilePath">
-	<input type="hidden" id="wtkfColPath$fncFormId" value="$fncColPath">
-	<input type="hidden" id="wtkfColFile$fncFormId" value="$fncFileName">
-    <input type="hidden" id="wtkfDelete$fncFormId" value="$fncFile">
-    <input type="hidden" id="wtkfRefresh$fncFormId" value="$fncRefresh">
-    <input type="hidden" id="wtkfOrigName$fncFormId" value="">
+    <input type="hidden" id="wtkfMode$fncFormId" name="wtkfMode$fncFormId" value="$gloWTKmode">
+	<input type="hidden" id="wtkfTable$fncFormId" name="wtkfTable$fncFormId" value="$fncEncodedTable">
+	<input type="hidden" id="wtkfUID$fncFormId" name="wtkfUID$fncFormId" value="$fncEncodedUID">
+	<input type="hidden" id="wtkfID$fncFormId" name="wtkfID$fncFormId" value="$gloId">
+	<input type="hidden" id="wtkfPath$fncFormId" name="wtkfPath$fncFormId" value="$fncFilePath">
+	<input type="hidden" id="wtkfColPath$fncFormId" name="wtkfColPath$fncFormId" value="$fncColPath">
+	<input type="hidden" id="wtkfColFile$fncFormId" name="wtkfColFile$fncFormId" value="$fncFileName">
+    <input type="hidden" id="wtkfDelete$fncFormId" name="wtkfDelete$fncFormId" value="$fncFile">
+    <input type="hidden" id="wtkfRefresh$fncFormId" name="wtkfRefresh$fncFormId" value="$fncRefresh">
+    <input type="hidden" id="wtkfOrigName$fncFormId" name="wtkfOrigName$fncFormId" value="">
     <div id="photoProgressDIV$fncFormId" class="progress hide">
         <div id="photoProgress$fncFormId" class="determinate" style="width: 25%"></div>
     </div>

@@ -161,5 +161,12 @@ wtkSearchReplace('@myEmail@', $pgEmail);
 wtkSearchReplace('@myPW@', $pgPW);
 wtkSearchReplace('@rememberMe@', $pgChecked);
 //wtkSearchReplace('<div class="col m4 offset-m4 s12">','<div class="col m8 offset-m2 s12">');
+
+$pgVersion = 1; // makes preventing cache when update JS very easy
+wtkSearchReplace('wtkLibrary.js','wtkLibrary.js?v=' . $pgVersion);
+wtkSearchReplace('wtkUtils.js','wtkUtils.js?v=' . $pgVersion);
+wtkSearchReplace('wtkFileUpload.js','wtkFileUpload.js?v=' . $pgVersion);
+wtkSearchReplace('wtkClientVars.js','wtkClientVars.js?v=' . $pgVersion);
+
 wtkMergePage('', $gloCoName, '../wtk/htm/spa.htm'); // minibox
 ?>

@@ -126,15 +126,15 @@ function wtkLoaded(e){
                 $('#wtkf2btns').removeClass('hide');
             }
         }
+        if (elementExist('wtkfUploadBtn' + pgFormId)) {
+            $('#wtkfUploadBtn' + pgFormId).removeClass('hide');
+        }
     }
     if (elementExist('photoProgressDIV' + pgFormId)) {
         document.getElementById('photoProgress' + pgFormId).style.width = '100%';
         $('#photoProgressDIV' + pgFormId).fadeOut(720);
     }
     $('#uploadStatus' + pgFormId).fadeOut(720);
-    if (elementExist('wtkfUploadBtn' + pgFormId)) {
-        $('#wtkfUploadBtn' + pgFormId).removeClass('hide');
-    }
     setTimeout(function() {
         $('#uploadStatus' + pgFormId).text('');
         if (elementExist('photoProgressDIV' + pgFormId)) {
@@ -149,11 +149,13 @@ function wtkLoaded(e){
         } else {
             let fncPastImg = $('#wtkfOrigPhoto' + pgFormId).val();
             if (fncPastImg != '/wtk/imgs/noPhotoSmall.gif') {
-                if ($('#wtkfDelBtn' + pgFormId).hasClass('hide')) {
-                    $('#wtkfDelBtn' + pgFormId).removeClass('hide');
-                    wtkDebugLog('wtkLoaded removeClass(hide) for wtkfDelBtn' + pgFormId);
-                } else {
-                    wtkDebugLog('wtkLoaded NOT removeClass(hide) because hasClass wtkfDelBtn' + pgFormId);
+                if (pgFileSize < gloMaxFileSize){
+                    if ($('#wtkfDelBtn' + pgFormId).hasClass('hide')) {
+                        $('#wtkfDelBtn' + pgFormId).removeClass('hide');
+                        wtkDebugLog('wtkLoaded removeClass(hide) for wtkfDelBtn' + pgFormId);
+                    } else {
+                        wtkDebugLog('wtkLoaded NOT removeClass(hide) because hasClass wtkfDelBtn' + pgFormId);
+                    }
                 }
             } else {
                 wtkDebugLog('wtkLoaded NOT removeClass(hide) because noPhotoSmall.gif for wtkfDelBtn' + pgFormId);
@@ -212,7 +214,7 @@ async function wtkfPostFile(fncId, fncFileData) {
   const mode = wtkGetValue('wtkfMode' + fncId);
   const colPath = wtkGetValue('wtkfColPath' + fncId);
   const colFile = wtkGetValue('wtkfColFile' + fncId);
-  console.log('wtkfPostFile fncFileData:',fncFileData);
+  wtkDebugLog('wtkfPostFile: pgApiKey: ' + pgApiKey + '; fncFileData:' + fncFileData);
 
   try {
     const response = await fetch('/wtk/fileUpload.php', {
@@ -241,6 +243,7 @@ async function wtkfPostFile(fncId, fncFileData) {
     const result = await response.json();
     wtkChangeStatus('Upload Complete',fncId); //  + JSON.stringify(result)
   } catch (error) {
+    wtkDebugLog('wtkfPostFile: Upload Failed: ' + error.message);
     wtkChangeStatus('Upload Failed: ' + error.message, fncId);
   }
 } // wtkfPostFile

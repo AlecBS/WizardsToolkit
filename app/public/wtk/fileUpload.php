@@ -5,7 +5,7 @@ $pgApiKey = $pgJSON['apiKey'];
 // if ($pgApiKey == ''): // comment this out for production server; should not allow file uploads without an account
 //     $gloLoginRequired = false;
 // else:
-    $pgSecurityLevel = 1;
+//     $pgSecurityLevel = 1;
 // endif;
 define('_RootPATH', '../');
 require('wtkLogin.php');
