@@ -1095,6 +1095,7 @@ function wtkDeadPage($fncType = ''){
     <div align="center"><br><br>
         <h2>Nefarious Action Detected</h2><br>
         $fncTmp
+        <p>If this was a legitimate access, please try again later.</p>
     </div>
 </body>
 </html>
