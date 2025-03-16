@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://wizardstoolkit.com/docs/">📚 Documentation</a> •
-  <a href="https://wizardstoolkit.com/tutorials.htm">🎓 Tutorials</a> •
+  <a href="https://wizardstoolkit.com/tutorials.php">🎓 Tutorials</a> •
   <a href="https://wizardstoolkit.com/wtk.php">🔥 Live Demo</a> •
   <a href="#quick-start-with-docker">⚡ Quick Start</a>
 </p>
@@ -218,9 +218,9 @@ Note: Ensure no local PostgreSQL server is running before starting the Docker co
 - [Official Documentation](https://wizardstoolkit.com/docs/)
 - [Setup Guide](https://wizardstoolkit.com/docs/setup.html)
 - [Wiki](https://wizardstoolkit.com/wiki/)
-- [Tutorials](https://wizardstoolkit.com/tutorials.htm)
+- [Tutorials](https://wizardstoolkit.com/tutorials.php)
 - [Demo Files](/app/public/demo/)
-- [Contact Form](https://wizardstoolkit.com/wtk/contactUs.php)
+- [Contact Form](https://wizardstoolkit.com/contact.php)
 
 ## License
 
@@ -267,7 +267,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Security
 
-For security-related issues, please use our [contact form](https://wizardstoolkit.com/wtk/contactUs.php).
+For security-related issues, please use our
+ [contact form](https://wizardstoolkit.com/contact.php).
 
 ---
 
