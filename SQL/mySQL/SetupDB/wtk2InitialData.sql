@@ -780,7 +780,7 @@ VALUES
 ('hin', 'Your Link', 'आपकी कड़ी', NULL);
 
 INSERT INTO `wtkWidgetGroup` (`WidgetGroupName`, `StaffRole`, `SecurityLevel`, `UseForDefault`)
-  VALUES ('DevOps', 'Tech', 99, 'N'),
+  VALUES ('DevOps', 'Tech', 99, 'Y'),
          ('Personal - leave blank, autofilled','Emp', 1, 'N'),
          ('Marketing','Mgr', 30, 'Y');
 

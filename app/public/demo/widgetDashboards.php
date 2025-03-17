@@ -66,16 +66,14 @@ $pgHtm =<<<htmVAR
         <table class="widget-dashboard centered">
             <tr>
                 <td><h5>Dashboards:</h5></td>
-                <td id="widgTD1" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',1,'widgetDIV')">My Dashboard
-                    <a id="myDashBtn" class="chip green" onclick="JavaScript:wtkModal('/admin/widgetMgr',0,0,1)"><i class="material-icons white-text">edit</i></a>
-                </td>
-                <td id="widgTD0" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',0,'widgetDIV')">Dev Ops</td>
-                <td id="widgTD2" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',2,'widgetDIV')">Marketing</td>
-                <td id="widgTD901" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',901,'widgetDIV')">Management</td>
-                <td id="widgTD902" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',902,'widgetDIV')">Quality Control</td>
+                <td id="widgTD1" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',1,'nonDashWidgetsDIV')">My Dashboard</td>
+                <td id="widgTD0" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',0,'nonDashWidgetsDIV')">Dev Ops</td>
+                <td id="widgTD2" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',2,'nonDashWidgetsDIV')">Marketing</td>
+                <td id="widgTD901" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',901,'nonDashWidgetsDIV')">Management</td>
+                <td id="widgTD902" onclick="JavaScript:ajaxFillDiv('/wtk/widgets',902,'nonDashWidgetsDIV')">Quality Control</td>
             </tr>
         </table><br>
-        <div id="widgetDIV"></div>
+        <div id="nonDashWidgetsDIV"></div>
     </div>
 </div>
 <div class="container">
@@ -91,7 +89,7 @@ $pgHtm =<<<htmVAR
 </div>
 <script type="text/javascript">
 
-ajaxFillDiv('/wtk/widgets',1,'widgetDIV');
+ajaxFillDiv('/wtk/widgets',1,'nonDashWidgetsDIV');
 // in wtk/js/wtkLibrary.js it will automatically call this when you
 // login or go to 'dashboard' if pgWidgets is set to 'Y'.
 // pgWidgets is defined in wtk/js/wtkClientVars.js
@@ -112,7 +110,7 @@ htmVAR;
 // if you are requiring login then you test the user's security level and affect the page
 // below will not work when $gloLoginRequired = false;
 // if ($gloUserSecLevel < 80): // Manager level
-//     $pgHtm = wtkReplace($pgHtm, '<td id="widgTD901" onclick="JavaScript:ajaxFillDiv(\'/wtk/widgets\',901,\'widgetDIV\')">Management</td>','');
+//     $pgHtm = wtkReplace($pgHtm, '<td id="widgTD901" onclick="JavaScript:ajaxFillDiv(\'/wtk/widgets\',901,\'nonDashWidgetsDIV\')">Management</td>','');
 // endif;  // Manager level
 
 echo $pgHtm;

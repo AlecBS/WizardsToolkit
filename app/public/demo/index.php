@@ -160,6 +160,8 @@ endif;
 wtkSearchReplace('@myEmail@', $pgEmail);
 wtkSearchReplace('@myPW@', $pgPW);
 wtkSearchReplace('@rememberMe@', $pgChecked);
+wtkSearchReplace('<div id="widgetDIV"></div>',''); // this demo page handles widget differently
+
 //wtkSearchReplace('<div class="col m4 offset-m4 s12">','<div class="col m8 offset-m2 s12">');
 
 $pgVersion = 1; // makes preventing cache when update JS very easy

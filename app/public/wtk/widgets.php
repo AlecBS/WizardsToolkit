@@ -93,7 +93,7 @@ SQLVAR;
                 endif;
                 $fncHtm .= $fncDashboardName . ' Dashboard';
                 if ($fncGroupUID == 1):
-                    $fncHtm .= ' <a onclick="JavaScript:wtkModal(\'/admin/widgetMgr\',0,0,' . $fncGroupUID . ')";>';
+                    $fncHtm .= ' <a onclick="JavaScript:wtkModal(\'/admin/widgetMgr\',0,0,' . $fncGroupUID . ')" class="btn-floating">';
                     $fncHtm .= '<i class="material-icons">widgets</i></a>';
                 endif;
                 if ($gloDeviceType == 'phone'):
@@ -255,8 +255,8 @@ ORDER BY
     ELSE 'C'
   END ASC, wg.`SecurityLevel` DESC, wg.`UID` DESC LIMIT 1
 SQLVAR;
-        $pgMasterGroupUID = wtkSqlGetOneResult($pgSQL, [$pgUserUID], 0);
-        if ($pgMasterGroupUID > 0):
+        $pgMasterGroupUID = wtkSqlGetOneResult($pgSQL, [$pgUserUID], -1);
+        if ($pgMasterGroupUID >= 0):
             $pgSqlFilter = array (
                 'WUID' => $pgMasterGroupUID,
                 'UserUID' => $pgUserUID

@@ -1256,7 +1256,7 @@ function ajaxCopy(fncPage, fncPost) {
 
 var pgLastDashboard = 'widgTD1';
 function ajaxFillDiv(fncPage, fncParam, fncDiv, fncRNG = 0) {
-    wtkDebugLog('ajaxFillDiv top for fncPage: ' + fncPage);
+    wtkDebugLog('ajaxFillDiv top for fncPage: ' + fncPage + ' to ' + fncDiv);
     if (elementExist('HasTinyMCE')){
         let fncHasTinyMCE = $('#HasTinyMCE').val();
         wtkDebugLog('ajaxFillDiv: HasTinyMCE going to tinymce.remove');
@@ -1268,7 +1268,7 @@ function ajaxFillDiv(fncPage, fncParam, fncDiv, fncRNG = 0) {
         url:  fncPage + '.php',
         data: { apiKey: pgApiKey, p: fncParam, rng: fncRNG },
         success: function(data) {
-            if (fncPage == '/wtk/widgets') {
+            if ((fncPage == '/wtk/widgets') && (fncDiv != 'nonDashWidgetsDIV')) {
                 $('#mainPage').text('... loading ...'); // to prevent conflicts with widgets
             }
             $('#' + fncDiv).html(data);
