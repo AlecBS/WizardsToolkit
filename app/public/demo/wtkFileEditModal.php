@@ -42,8 +42,8 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkFormText('wtkFiles', 'Description');
-//$pgHtm .= wtkFormFile('wtkFiles', 'FilePath','../docs/' . $pgTableRel . '/','NewFileName','Pick File','m6 s12','','N','','N');
-$pgHtm .= wtkFormFile('wtkFiles', 'FilePath','/demo/imgs/','NewFileName','Pick File','m6 s12','','N','accept="image/*"','N');
+$pgHtm .= wtkFormFile('wtkFiles', 'FilePath','/demo/imgs/','NewFileName','Pick File','m6 s12');
+
 // change second-to-last parameter above to accept=".pdf" for PDF-only option
 $pgHtm .= wtkFormPrimeField('wtkFiles', 'UserUID', $gloUserUID);
 $pgHtm .= wtkFormPrimeField('wtkFiles', 'TempDownload', 'Y'); // will copy file to exports for viewing
@@ -53,6 +53,7 @@ if ($gloWTKmode == 'ADD'):
 else:
 	$pgHtm .= wtkFormHidden('wtkwtkFilesTableRelation', $pgTableRel);
 endif;
+//$pgHtm .= wtkFormHidden('Debug', 'Y');
 $pgHtm .= wtkFormHidden('ID1', $gloId);
 $pgHtm .= wtkFormHidden('UID', wtkEncode('UID'));
 $pgHtm .= wtkFormHidden('wtkMode', $gloWTKmode);

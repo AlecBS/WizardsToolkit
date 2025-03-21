@@ -1312,8 +1312,15 @@ textarea.materialize-textarea:disabled+label {
 /* Wizard's Toolkit special styles */
 
 .code-text {
-  font-family: "Courier New";
-  font-size: 14px !important;
+  font-family: "Courier New", monospace !important;
+  font-size: 16px !important;
+  font-weight: bolder !important;
+  color: black !important; /* Ensure text color remains black */
+}
+
+.code-text:focus {
+  background-color: #e0f7fa !important; /* Light cyan background when focused */
+  color: black !important; /* Ensure text color remains black when focused */
 }
 
 .wtk-box {

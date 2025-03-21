@@ -43,10 +43,10 @@ $pgHtm =<<<htmVAR
                     <a onclick="JavaScript:ajaxGo('wtkFormFile');">File Upload</a>
                     <br>
                     <a onclick="JavaScript:ajaxGo('wtkFileUpload');">Alternative File Upload</a>
-                    <br>
-                    <a onclick="JavaScript:ajaxGo('broadcast');">Broadcast Demo</a>
                     <br><hr>
                     <a onclick="JavaScript:ajaxGo('widgetDashboards');">Widget Dashboards</a>
+                    <br>
+                    <a onclick="JavaScript:ajaxGo('broadcast');">Broadcast Demo</a>
                     <br><hr>
                     <a onclick="JavaScript:ajaxGo('/demo/companyEdit');">Save Advanced Options</a>
                 </div>

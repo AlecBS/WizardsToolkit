@@ -304,36 +304,48 @@ $pgHtm =<<<htmVAR
         <div class="row">
 htmVAR;
 
-$pgHtm .= wtkFormText('RFB', 'Table', 'text', 'SQL Table');
+$pgTmp  = wtkFormText('RFB', 'Table', 'text', 'SQL Table');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+
 $pgTmp  = wtkFormText('RFB', 'UniqueID', 'text', 'Primary Key (`UID`, `id`, etc.)', 'm3 s6');
 if ($pgPastUID != ''):
     $pgTmp  = wtkReplace($pgTmp, 'value=""','value="' . $pgPastUID . '"');
     $pgTmp  = wtkReplace($pgTmp, '<label for','<label class="active" for');
 endif;
-$pgHtm .= $pgTmp;
-$pgHtm .= wtkFormText('RFB', 'SecLevel', 'text', 'Security Level', 'm3 s6');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+
+$pgHtm .= wtkFormText('RFB', 'SecLevel', 'number', 'Security Level', 'm3 s6');
 
 $pgHtm .= '</div><div class="row">' . "\n";
 $pgHtm .= '  <div class="col s12"><hr>' . "\n";
 $pgHtm .= '     <br><h5>List Page Settings</h5></div>' . "\n";
 $pgHtm .= wtkFormText('RFB', 'BrowseTitle', 'text', 'Header');
-$pgHtm .= wtkFormText('RFB', 'QuickFilter', 'text', 'Quick Filter Column', 'm3 s12');
-$pgHtm .= wtkFormText('RFB', 'QuickFilter2', 'text', 'Second Filter', 'm3 s12');
-$pgHtm .= wtkFormText('RFB', 'BrSQL', 'text', 'SQL Columns','m12 s12');
+$pgTmp  = wtkFormText('RFB', 'QuickFilter', 'text', 'Quick Filter Column', 'm3 s12');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+$pgTmp  = wtkFormText('RFB', 'QuickFilter2', 'text', 'Second Filter', 'm3 s12');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+$pgTmp  = wtkFormText('RFB', 'BrSQL', 'text', 'SQL Columns','m12 s12');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+
 $pgHtm .= '<div class="col s12">(above should be comma delimited column names without SELECT nor FROM)</div>' . "\n";
 $pgTmp  = wtkFormText('RFB', 'Where', 'text', 'WHERE');
 $pgTmp  = wtkReplace($pgTmp, '<label','<label class="active"');
 $pgTmp  = wtkReplace($pgTmp, 'value=""','value="`DelDate` IS NULL"');
-$pgHtm .= $pgTmp;
-$pgHtm .= wtkFormText('RFB', 'OrderBy', 'text', 'ORDER BY');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+
+$pgTmp  = wtkFormText('RFB', 'OrderBy', 'text', 'ORDER BY');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+
 $pgHtm .= '</div>' . "\n";
 $pgHtm .= '<div class="row">' . "\n";
 $pgHtm .= '  <div class="col s12"><hr>' . "\n";
 $pgHtm .= '     <br><h5>Form Page Settings</h5></div>' . "\n";
 
 $pgHtm .= wtkFormText('RFB', 'FormTitle', 'text', 'Form Title');
-$pgHtm .= wtkFormText('RFB', 'FieldsPerRow', 'text', 'Fields Per Row (max 6)');
-$pgHtm .= wtkFormText('RFB', 'UpSQL', 'text', 'Form SQL Columns','s12');
+$pgHtm .= wtkFormText('RFB', 'FieldsPerRow', 'number', 'Fields Per Row (max 6)');
+$pgTmp  = wtkFormText('RFB', 'UpSQL', 'text', 'Form SQL Columns','s12');
+$pgHtm .= wtkReplace($pgTmp, '<input type','<input class="code-text" type');
+
 $pgHtm .= '</div>' . "\n";
 $pgHtm .= '<div class="row">' . "\n";
 $pgHtm .= '  <div class="col s12"><hr>' . "\n";

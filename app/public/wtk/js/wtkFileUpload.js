@@ -234,6 +234,7 @@ async function wtkfPostFile(fncId, fncFileData) {
         colFile,
         file: fncFileData,
         fileName: fileName,
+        fileSize: pgFileSize,
         del: '',
         userUID: '',
         tabRel: '',
@@ -357,6 +358,7 @@ function wtkfFileUpload(fncFormId = '', fncId = '') {
        data.fileName = pgFileName;
        data.del = wtkGetValue('wtkfDelete' + fncId, fncFormId);
        data.file = evt.target.result;
+       data.fileSize = pgFileSize;
        data.s = gloWtkApiKey;
        if ((typeof pgApiKey === 'undefined') || (pgApiKey == '')){
            const wtkParams = new URLSearchParams(window.location.search);

@@ -6,7 +6,8 @@ if (!isset($gloConnected)):
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT `UID`, `Description`, CONCAT(`FilePath`, `NewFileName`) AS `PathAndFile`,
+SELECT `UID`, `Description`, `OrigFileName` AS `OriginalFileName`,
+    CONCAT(`FilePath`, `NewFileName`) AS `PathAndFile`, `FileSize`,
     CONCAT('<a class="btn btn-floating" onclick="JavaScript:wtkGoToURL(\'/wtk/viewFile\',', CRC32(`UID`),',0,\'targetBlank\')">',
     '<i class="material-icons">visibility</i>') AS `View`
  FROM `wtkFiles`
@@ -17,12 +18,12 @@ if ($gloDriver1 == 'pgsql'):
     $pgSQL = wtkReplace($pgSQL, 'CRC32(`UID`)','CRC32(CAST(`UID` AS VARCHAR))');
 endif;
 $gloColumnAlignArray = array (
+    'FileSize' => 'center',
 	'View' => 'center'
 );
 $gloEditPage = 'wtkFileEditModal';
-//$gloEditPage = '/wtk/fileEdit';  // uncomment to see how works with normal wtk/fileEdit.php
+// $gloEditPage = '/wtk/fileEdit';  // uncomment to see how works with normal wtk/fileEdit.php
 $gloAddPage  = $gloEditPage;
-// maybe not needed in original wtkFileList.php ???
 // $gloRNG = 13; // set to the value you want used for ParentUID by Add page
 
 $pgList = wtkBuildDataBrowse($pgSQL, [], 'wtkFilesDIV', '','Y');

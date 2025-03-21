@@ -96,6 +96,18 @@ if ($pgDebug == 'Y'):
 endif;
 //  END  Debugging
 
+// BEGIN File Size test
+if (array_key_exists('fileSize', $pgJSON)):
+    $pgFileSize = $pgJSON['fileSize'];
+    if ($pgFileSize > $gloMaxFileSize):
+        $pgJSON  = '{"result":"fail","error":"File exceeds maximum allowed for this server",';
+        $pgJSON .= '"fileSize":"' . $pgFileSize . '","maxAllowed":' . $gloMaxFileSize . '}';
+        echo $pgJSON;
+        exit;
+    endif;
+endif;
+//  END  File Size test
+
 $pgFileName = $pgJSON['fileName'];
 if (array_key_exists('colPath', $pgJSON)):
     $pgColPath = $pgJSON['colPath'];
@@ -191,7 +203,6 @@ SQLVAR;
         $pgSQL = wtkReplace($pgSQL, '` (`', '` (`FileExtension`,`FileSize`,`');
         $pgSQL = wtkReplace($pgSQL, 'VALUES (', 'VALUES (:FileExtension, :FileSize, ');
         $pgSqlFilter['FileExtension'] = $pgFileExt;
-        $pgFileSize = filesize($pgUploadFile);
         $pgSqlFilter['FileSize'] = $pgFileSize;
         if (isset($gloExtBucket)):
             if ($gloExtBucket != ''):
@@ -241,7 +252,6 @@ SQLVAR;
             $pgSqlFilter['OrigFileName'] = $pgFileName;
         endif;
         $pgSQL = wtkReplace($pgSQL, '= :FileName', '= :FileName, `FileSize` = :FileSize');
-        $pgFileSize = filesize($pgUploadFile);
         $pgSqlFilter['FileSize'] = $pgFileSize;
     endif;
     wtkSqlExec($pgSQL, $pgSqlFilter);

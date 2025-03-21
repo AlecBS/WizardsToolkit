@@ -148,6 +148,7 @@ $gloConnType = 'PDO'; // PDO is recommended; contact us to use ADO
 
 $gloPHPLocale = 'en_US';  // determines number formatting
 $gloCurrencyCode = 'USD'; // determines currency code in number formatting
+$gloMaxFileSize = 20971520; // 20MB: maximum file size allowed to upload to server - managed in wtk/lib/Save.php and wtk/fileUpload.php
 
 //================= Website Password Seed =======================================
 $gloAuthStatus = 'yourUniqueCode';  // guarantees uniqueness for login security level checks

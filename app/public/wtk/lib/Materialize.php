@@ -856,12 +856,14 @@ htmVAR;
 * @param string $fncShowOneClickUpload defaults to 'N' but if set to 'Y' then adds button to upload using AJAX without needing a 'Save' button
 * @param string $fncAccept defaults to 'accept="image/*"'; you can change this to other document filters like accept=".pdf"
 * @param string $fncThumbnail defaults to 'Y'; if set to 'Y' then adds an <img id="imgPreview" ...> which will show a preview of images
+* @param number $fncFormId usually leave this with default of '1' but if you have more than one file upload on a page, each must have this parameter different
+* @param string $fncAllowDelete defaults to 'Y' which shows a Delete button to delete file on server
 * @return html returns surrounding HTML for input type="file"
 */
 function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
     $fncLabel = '', $fncColSize = 'm6 s12', $fncRefresh = '',
     $fncShowOneClickUpload = 'N', $fncAccept = 'accept="image/*"',
-    $fncThumbnail = 'Y', $fncFormId = '1', $fncNoSave = 'N') {
+    $fncThumbnail = 'Y', $fncFormId = '1', $fncAllowDelete = 'Y') {
 
     global $gloWTKmode, $gloForceRO, $gloHasImage, $gloIsFileUploadForm,
         $gloAccessMethod, $gloId, $gloHasFileUploads;
@@ -884,11 +886,11 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
     if ($fncFile != ''): // 12/22/22 removed white from next line's class
         $fncUpBtn = '<span id="wtkfAddBtn' . $fncFormId . '" class="btn-floating hide"><i class="material-icons">' . $fncIcon . '</i></span>';
         $fncFileLoc = $fncFilePath . $fncFile;
-        if ($fncNoSave == 'Y'):
-            $fncDelBtn = '';
-        else:
+        if ($fncAllowDelete == 'Y'):
             $fncDelBtn  = '&nbsp;&nbsp;&nbsp;<a onclick="JavaScript:wtkfDelFile(\'' . $gloId . '\',\'' . $fncFormId . '\')" title="delete file" id="wtkfDelBtn' . $fncFormId . '" class="btn-floating red">';
             $fncDelBtn .= '<i class="material-icons white-text">delete_forever</i></a>';
+        else:
+            $fncDelBtn = '';
         endif;
     else: // 12/22/22 removed white from next line's class
         $fncUpBtn = '<span class="btn-floating"><i class="material-icons">' . $fncIcon . '</i></span>';
