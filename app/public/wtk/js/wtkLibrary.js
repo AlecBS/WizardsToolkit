@@ -1097,15 +1097,13 @@ function wtkRequiredFieldsFilled(fncFormName) {
 
 function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
     wtkDebugLog('ajaxPost: fncPage = ' + fncPage + '; fncPost = ' + fncPost + '; fncAddPageQ = ' + fncAddPageQ);
-    // BEGIN if TinyMCE is used, copy into original textarea form fields
-    if (elementExist('HasTinyMCE')){ // 2ENHANCE currently will only work for 1 textarea on a page
-        var fncHasTinyMCE = $('#HasTinyMCE').val();
-        let fncTextArea = fncHasTinyMCE.replace('textarea#','');
-        let fncNewValue = tinymce.get(fncTextArea).getContent();
-        $('#' + fncTextArea).val(fncNewValue);
-    }
-    //  END  if TinyMCE is used, copy into original textarea form fields
-    if (wtkRequiredFieldsFilled(fncPost)) { // check to see if any fields are required
+
+    let fncResult = wtkPrepFormPost(fncPost);
+    let fncReady = fncResult.ready;
+    let fncContentType = fncResult.contentType;
+    let fncEncType = fncResult.enctype;
+    if (fncReady == 'Y') {
+        wtkDisableBtn('btnSave');
         if (fncAddPageQ == 'Y') {
             if (fncPage == '/wtk/lib/Save') {
                 if (elementExist('wtkGoToURL') && (pgMPAvsSPA == 'SPA')) {
@@ -1125,48 +1123,7 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
         } else {
             wtkDebugLog('ajaxPost: not pushing to pgPageArray ' + fncPage);
         }
-        wtkDisableBtn('btnSave');
-
-        let fncWtkMode = 'ADD';
-        let fncEncType = 'application/x-www-form-urlencoded';
-        let fncContentType = false;
-        if (pgAccessMethod == 'ios') {
-            wtkUploadFile($('#ID1').val());
-        } else {
-            if ((elementExist('wtkUpload') == false) && (elementInFormExist(fncPost,'wtkUploadFiles') === false)) { // upload does not exist
-                fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-            } else {
-                if (elementInFormExist(fncPost,'wtkMode') == true) { // because page may have more than one
-                    fncWtkMode = $('#' + fncPost + ' input[type=hidden][id=wtkMode]').val();
-                }
-                if (fncWtkMode == 'ADD') {
-                    fncEncType = 'multipart/form-data';
-                } else {
-                    fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-                }
-            }
-        } // pgAccessMethod != 'ios'
-
         let fncFormData = '';
-        // upload images
-        if (fncWtkMode != 'ADD') {
-            if ($('#wtkUploadFiles').val() !== undefined) {
-                if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
-                    wtkDebugLog('modalSave: wtkUploadFiles going to upload');
-                    if (elementExist('FileUploaded')) {
-                        $('#FileUploaded').val('Y');
-                    }
-                    let fncFileIDs = $('#wtkUploadFiles').val();
-                    let fncFileUpArray = fncFileIDs.split(',');
-                    for (let i = 0; i < fncFileUpArray.length; i++){
-                        wtkfUploadFile(fncFileUpArray[i]);
-                    }
-                } else {
-                    wtkDebugLog('modalSave: wtkUploadFiles NOT pgFileToUpload = ' + pgFileToUpload + '; pgFileSizeOK = ' + pgFileSizeOK);
-                }
-            }
-        } // fncWtkMode != 'ADD'
-
         if (pgMPAvsSPA == 'MPA') {
             wtkDebugLog('ajaxPost: pgMPAvsSPA = MPA');
             fncFormData = document.getElementById(fncPost);
@@ -1184,7 +1141,6 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                 fncFormData = $('#' + fncPost).serialize();
                 fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
             }
-            wtkDebugLog('ajaxPost: pgMPAvsSPA = SPA');
             waitLoad('on');
             $.ajax({
                 method: 'POST',
@@ -1196,12 +1152,12 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                 processData: false,
                 data: (fncFormData),
                 success: function(data) {
+                    waitLoad('off');
                     if (elementExist('HasTinyMCE')){
                         wtkDebugLog('ajaxPost: HasTinyMCE going to tinymce.remove');
                         tinymce.remove(fncHasTinyMCE);
                         $('#HasTinyMCE').val('');
                     }
-                    waitLoad('off');
                     if (data == 'goHome') {
                         goHome();
                     } else {
@@ -1680,7 +1636,7 @@ function wtkSaveHelp(fncId) {
 var pgModalColor = '';
 var pgLastModal = '';
 var pgClearBottomModal = true;
-function wtkModal(fncUrl, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissable = 'Y') {
+function wtkModal(fncPage, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissable = 'Y') {
     // First check and close any existing open modals
     let fncExistingModal = M.Modal.getInstance(document.getElementById('modalWTK'));
     if (fncExistingModal) {
@@ -1690,7 +1646,7 @@ function wtkModal(fncUrl, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissabl
     waitLoad('on');
     $.ajax({
         type: 'POST',
-        url:  fncUrl + '.php',
+        url:  fncPage + '.php',
         data: { apiKey: pgApiKey, Mode: fncMode, id: fncId, rng: fncRNG },
         success: function(data) {
             if (pgLastModal == 'reportBug') {
@@ -1739,126 +1695,152 @@ function wtkModalUpdate(fncPage, fncId=0, fncRNG=0) {
     })
 }
 
-function modalSave(fncUrl, fncDiv, fncClose = 'N', fncAppend = 'N') {
-    wtkDebugLog('modalSave: fncDiv = ' + fncDiv + '; pgFileToUpload = ' + pgFileToUpload + '; pgFileSizeOK = ' + pgFileSizeOK);
+function wtkPrepFormPost(fncFormName) {
     // BEGIN if TinyMCE is used, copy into original textarea form fields
-    if (elementExist('HasModalTinyMCE')){ // 2ENHANCE currently will only work for 1 textarea on a page
-        var fncHasTinyMCE = $('#HasModalTinyMCE').val();
+    // 2ENHANCE currently will only work for 1 textarea per form on a page
+    if (elementInFormExist(fncFormName,'HasModalTinyMCE')){
+        let fncHasTinyMCE = $('#HasModalTinyMCE').val();
         let fncTextArea = fncHasTinyMCE.replace('textarea#','');
         let fncNewValue = tinymce.get(fncTextArea).getContent();
         $('#' + fncTextArea).val(fncNewValue);
     }
+    if (elementInFormExist(fncFormName,'HasTinyMCE')){
+        let fnc2HasTinyMCE = $('#HasTinyMCE').val();
+        let fnc2TextArea = fnc2HasTinyMCE.replace('textarea#','');
+        let fnc2NewValue = tinymce.get(fnc2TextArea).getContent();
+        $('#' + fnc2TextArea).val(fnc2NewValue);
+    }
     //  END  if TinyMCE is used, copy into original textarea form fields
-    if (wtkRequiredFieldsFilled('F' + fncDiv)) {
-        waitLoad('on');
-        if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'N')) {
-            wtkAlert('File is too large to upload<br>Maximum size allowed is ' + formatBytes(gloMaxFileSize) + '<br>File will not be uploaded.');
-        } else { // not trying to upload a file that is too large
-            var fncEncType = 'application/x-www-form-urlencoded';
-            var fncContentType = false; // should stay false if file upload
-            let fncFormData = '';
-            let fncWtkMode = 'ADD';
-            if (elementInFormExist('F' + fncDiv,'wtkMode')) { // because page may have more than one
-                fncWtkMode = document.getElementById('F' + fncDiv).wtkMode.value; // because may have one from page calling modal
-            }
-            if (pgAccessMethod == 'ios') {
-                wtkUploadFile($('#ID1').val());
-            } else {
-                if (elementInFormExist('F' + fncDiv,'wtkUploadFiles')) { // check form for upload files
-                    if (fncWtkMode == 'ADD') {
-                        fncEncType = 'multipart/form-data';
-                    } else { // set fncContentType as below because file upload handled in separate post for EDIT
-                        fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-                        if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
-                            // upload files in separate threads
-                            wtkDebugLog('modalSave: wtkUploadFiles going to upload');
-                            if (elementInFormExist('F' + fncDiv,'FileUploaded')) {
-                                $('#FileUploaded').val('Y');
-                            }
-                            let fncFileIDs = wtkGetValue('wtkUploadFiles','F' + fncDiv);
-                            let fncFileUpArray = fncFileIDs.split(',');
-                            for (let i = 0; i < fncFileUpArray.length; i++){
-                                wtkfUploadFile(fncFileUpArray[i]);
-                            }
-                        }
-                    }
-                } else { // not uploading forms
-                    fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-                } // not uploading forms
-            } // pgAccessMethod != 'ios'
+    let fncReady = 'N';
+    let fncContentType = false; // should stay false if file upload
+    let fncEncType = 'application/x-www-form-urlencoded';
 
-            if (fncContentType == false) {
-                wtkDebugLog('modalSave fncContentType == false');
-                fncFormData = new FormData($('#F' + fncDiv)[0]);
-                fncFormData.append('apiKey', pgApiKey);
-                fncFormData.append('append', fncAppend);
-            } else {
-                wtkDebugLog('modalSave fncContentType = ' + fncContentType);
-                fncFormData = $('#F' + fncDiv).serialize();
-                fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
-                fncFormData = fncFormData + '&append=' + fncAppend ;
-            }
-    //      wtkDebugLog('modalSave fncFormData');
-    //      wtkDebugLog(fncFormData);
-            $.ajax({
-                method: 'POST',
-                type: 'POST',
-                url:  fncUrl + '.php',
-                cache: false,
-                contentType: fncContentType,
-                enctype: fncEncType,
-                processData: false,
-                data: (fncFormData),
-                success: function(data) {
-                    waitLoad('off');
-                    pgFileToUpload = 'N';
-                    if (fncDiv != '') {
-                        if (fncDiv == 'widgetRefresh') {
-                            let fncWidgetUID = $('#WidgetUID').val();
-                            $.ajax({
-                                type: 'POST',
-                                url: '/wtk/widgets.php',
-                                data: { apiKey: pgApiKey, wuid: fncWidgetUID },
-                                success: function(data) {
-                                    $('#widget' + fncWidgetUID + 'DIV').html(data);
-                                }
-                            })
-                        } else {
-                            if (fncAppend == 'Y') {
-                                document.getElementById('wtkModalList').innerHTML += data;
-                            } else {
-                                if (fncUrl == 'yourSpecialPage') {
-                                    alert('your function goes here'); // your custom function
-                                } else {
-                                    if (fncDiv == 'mainPage') {
-                                        pageTransition('priorPage', fncDiv);
-                                    }
-                                    if (elementExist(fncDiv) == false) { // div does not exist
-                                        wtkDebugLog('modalSave fncDiv (' + fncDiv + ') does not exist');
-                                    } else {
-                                        $('#' + fncDiv).html(data);
-                                        wtkDebugLog('modalSave filled fncDiv');
-                                    }
-                                }
-                                afterPageLoad(fncDiv);
-                            }
+    if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'N')) {
+        wtkAlert('File is too large to upload<br>Maximum size allowed is ' + formatBytes(gloMaxFileSize) + '<br>File will not be uploaded.');
+    } else { // not trying to upload a file that is too large
+        if (wtkRequiredFieldsFilled(fncFormName)) {
+            fncReady = 'Y';
+        }
+    }
+    if (fncReady == 'Y') {
+        let fncWtkMode = 'ADD';
+        if (elementInFormExist(fncFormName, 'wtkMode')) { // because page may have more than one
+            fncWtkMode = wtkGetValue('wtkMode',fncFormName);
+        }
+        if (pgAccessMethod == 'ios') {
+            wtkUploadFile($('#ID1').val());
+        } else {
+            if (elementInFormExist(fncFormName,'wtkUploadFiles')) { // check form for upload files
+                if (fncWtkMode == 'ADD') {
+                    fncEncType = 'multipart/form-data';
+                } else { // set fncContentType as below because file upload handled in separate post for EDIT
+                    // because Edit, file(s) uploaded in other threads and other saves handled here
+                    fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+                    if ((pgFileToUpload == 'Y') && (pgFileSizeOK == 'Y')) {
+                        // upload files in separate threads
+                        wtkDebugLog('wtkPrepFormPost: going to upload files');
+                        if (elementInFormExist(fncFormName,'FileUploaded')) {
+                            $('#FileUploaded').val('Y');
+                        }
+                        let fncFileIDs = wtkGetValue('wtkUploadFiles',fncFormName);
+                        let fncFileUpArray = fncFileIDs.split(',');
+                        for (let i = 0; i < fncFileUpArray.length; i++){
+                            wtkfUploadFile(fncFileUpArray[i]);
                         }
                     }
-                    if (fncClose == 'Y') {
-                        pgClearBottomModal = false;
-                        let fncId = document.getElementById('modalWTK');
-                        let fncModal = M.Modal.getInstance(fncId);
-                        fncModal.close();
-                        M.toast({html: 'Your data has been saved.', classes: 'green rounded'});
-                    }
-                    wtkFixSideNav();
                 }
-            })
+            } else { // not uploading forms
+                fncContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+            } // not uploading forms
+        } // pgAccessMethod != 'ios'
+    }
+    // Return an object with multiple values
+    return { ready: fncReady, contentType: fncContentType, enctype: fncEncType };
+} // wtkPrepFormPost
+
+function modalSave(fncPage, fncDiv, fncClose = 'N', fncAppend = 'N') {
+    wtkDebugLog('modalSave: fncDiv = ' + fncDiv + '; pgFileToUpload = ' + pgFileToUpload + '; pgFileSizeOK = ' + pgFileSizeOK);
+
+    let fncResult = wtkPrepFormPost('F' + fncDiv);
+    let fncReady = fncResult.ready;
+    let fncContentType = fncResult.contentType;
+    let fncEncType = fncResult.enctype;
+    wtkDebugLog('modalSave: fncReady = ' + fncReady + '; fncContentType = ' + fncContentType + '; fncEncType = ' + fncEncType);
+
+    if (fncReady == 'Y') {
+        let fncFormData = '';
+        if (fncContentType == false) {
+            wtkDebugLog('modalSave fncContentType == false');
+            fncFormData = new FormData($('#F' + fncDiv)[0]);
+            fncFormData.append('apiKey', pgApiKey);
+            fncFormData.append('append', fncAppend);
+        } else {
+            wtkDebugLog('modalSave fncContentType = ' + fncContentType);
+            fncFormData = $('#F' + fncDiv).serialize();
+            fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
+            fncFormData = fncFormData + '&append=' + fncAppend ;
         }
-    } // wtkRequiredFieldsFilled
+//      wtkDebugLog('modalSave fncFormData');
+//      wtkDebugLog(fncFormData);
+        waitLoad('on');
+        $.ajax({
+            method: 'POST',
+            type: 'POST',
+            url:  fncPage + '.php',
+            cache: false,
+            contentType: fncContentType,
+            enctype: fncEncType,
+            processData: false,
+            data: (fncFormData),
+            success: function(data) {
+                waitLoad('off');
+                pgFileToUpload = 'N';
+                if (fncDiv != '') {
+                    if (fncDiv == 'widgetRefresh') {
+                        let fncWidgetUID = $('#WidgetUID').val();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/wtk/widgets.php',
+                            data: { apiKey: pgApiKey, wuid: fncWidgetUID },
+                            success: function(data) {
+                                $('#widget' + fncWidgetUID + 'DIV').html(data);
+                            }
+                        })
+                    } else {
+                        if (fncAppend == 'Y') {
+                            document.getElementById('wtkModalList').innerHTML += data;
+                        } else {
+                            if (fncPage == 'yourSpecialPage') {
+                                alert('your function goes here'); // your custom function
+                            } else {
+                                if (fncDiv == 'mainPage') {
+                                    pageTransition('priorPage', fncDiv);
+                                }
+                                if (elementExist(fncDiv) == false) { // div does not exist
+                                    wtkDebugLog('modalSave fncDiv (' + fncDiv + ') does not exist');
+                                } else {
+                                    $('#' + fncDiv).html(data);
+                                    wtkDebugLog('modalSave filled fncDiv');
+                                }
+                            }
+                            afterPageLoad(fncDiv);
+                        }
+                    }
+                }
+                if (fncClose == 'Y') {
+                    pgClearBottomModal = false;
+                    let fncId = document.getElementById('modalWTK');
+                    let fncModal = M.Modal.getInstance(fncId);
+                    fncModal.close();
+                    M.toast({html: 'Your data has been saved.', classes: 'green rounded'});
+                }
+                wtkFixSideNav();
+            }
+        })
+    } // fncResult == 'Y'
 } // modalSave
 
-function modalSaveDoc(fncUrl, fncDiv) {
+function modalSaveDoc(fncPage, fncDiv) {
     waitLoad('on');
 //    let fncFormData = $('#F' + fncDiv).serialize();
     // Get form
@@ -1869,7 +1851,7 @@ function modalSaveDoc(fncUrl, fncDiv) {
     $.ajax({
         type: 'POST',
         enctype: 'multipart/form-data',
-        url:  fncUrl + '.php',
+        url:  fncPage + '.php',
         data: fncData,
         processData: false,
         contentType: false,

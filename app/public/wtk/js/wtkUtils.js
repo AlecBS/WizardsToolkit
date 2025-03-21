@@ -871,6 +871,10 @@ function getCookie(cname) {
   return '';
 }
 
+function addSpacesBeforeCaps(fncText) {
+    return fncText.replace(/(?!^)([A-Z])/g, ' $1');
+}
+
 function roundToPrecision(inputNum){
     let fncBigNum = (inputNum * 100).toFixed(2); //.toFixed(2) required to prevent .499999997 math failures
     let fncRounded = Math.round(fncBigNum);

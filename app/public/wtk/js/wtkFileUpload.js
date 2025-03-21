@@ -24,13 +24,13 @@ function wtkFileChanged(fncFormId = ''){
            $('#uploadFileSize' + fncFormId).html(fncMsg);
        }
        wtkDebugLog('wtkFileChanged: pgFileName = ' + pgFileName + '; pgFileSize = ' + pgFileSize + '; pgFileSizeOK = ' + pgFileSizeOK);
-       if (elementExist('wtkwtkFilesDescription' + fncFormId)) {
-           if ($('#wtkwtkFilesDescription' + fncFormId).val() == '') {
+       if (elementExist('wtkwtkFilesDescription')) {
+           if ($('#wtkwtkFilesDescription').val() == '') {
                fncFileName = pgFileName.replace(/\.[^/.]+$/, '');
                fncFileName = fncFileName.replaceAll('-',' ');
                fncFileName = fncFileName.replaceAll('_',' ');
-               $('#wtkwtkFilesDescription' + fncFormId).val(fncFileName);
-               $('label[for="wtkwtkFilesDescription' + fncFormId + '"]').addClass('active');
+               $('#wtkwtkFilesDescription').val(addSpacesBeforeCaps(fncFileName));
+               $('label[for="wtkwtkFilesDescription"]').addClass('active');
            }
        }
        wtkProcessFile(fncFileTest);
@@ -135,6 +135,9 @@ function wtkLoaded(e){
         $('#photoProgressDIV' + pgFormId).fadeOut(720);
     }
     $('#uploadStatus' + pgFormId).fadeOut(720);
+    if (elementExist('wtkfUploadBtn' + pgFormId)) {
+        $('#wtkfUploadBtn' + pgFormId).removeClass('hide');
+    }
     setTimeout(function() {
         $('#uploadStatus' + pgFormId).text('');
         if (elementExist('photoProgressDIV' + pgFormId)) {
@@ -204,7 +207,7 @@ async function wtkfUploadFile(fncId) {
 
 async function wtkfPostFile(fncId, fncFileData) {
   const fileName = wtkGetValue('wtkfOrigName' + fncId);
-
+  wtkDebugLog('wtkfPostFile top: fncId = ' + fncId + '; fileName:' + fileName);
   wtkChangeStatus('Uploading...', fncId);
   // generate post data
   const id = wtkGetValue('wtkfID' + fncId);
