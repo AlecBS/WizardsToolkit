@@ -93,7 +93,7 @@ $pgHtm =<<<htmVAR
         <div class="col s12">
             <p>For more about SPA versus MPA, see this video:</p>
             <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/MxgICh0RpZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/qBOG5HZ8cs0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
