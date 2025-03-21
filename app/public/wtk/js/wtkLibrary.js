@@ -200,6 +200,7 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                         if (fncJSON.result == 'success'){
                             $('body').removeClass('bg-second');
                             pgApiKey = fncJSON.apiKey;
+                            gloMaxFileSize = fncJSON.maxFileUploadSize;
                             pgMPAvsSPA = fncMPAvsSPA;
                             wtkDebugLog('wtkLoginForm successful: pgMPAvsSPA: ' + pgMPAvsSPA);
                             if (fncMPAvsSPA == 'MPA') {

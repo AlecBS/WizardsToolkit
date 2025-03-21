@@ -211,7 +211,7 @@ EMAILBODY;
     // ABS 04/12/20   END  called from Forgot Password
 endif;
 
-$pgJSON  = '{"result":"' . $pgResult . '"';
+$pgJSON  = '{"result":"' . $pgResult . '","maxFileUploadSize":' . $gloMaxFileSize;
 $pgJSON .= $pgMoreResult;
 $pgJSON .= '}';
 
