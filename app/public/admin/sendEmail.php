@@ -148,7 +148,8 @@ htmVAR;
 SELECT COUNT(*)
   FROM `wtkUsers` u
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`SendToUserUID` = u.`UID` AND e.`EmailUID` = :EmailUID
-  WHERE e.`UID` IS NULL AND u.`OptInEmails` = :OptInEmails
+  WHERE u.`DelDate` IS NULL
+    AND e.`UID` IS NULL AND u.`OptInEmails` = :OptInEmails
     AND COALESCE(u.`Email`,'') <> ''
 SQLVAR;
         $pgSqlFilter = array (
@@ -187,7 +188,8 @@ htmVAR;
 SELECT u.`UID`, u.`Email`
   FROM `wtkUsers` u
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`SendToUserUID` = u.`UID` AND e.`EmailUID` = :EmailUID
-  WHERE e.`UID` IS NULL
+  WHERE u.`DelDate` IS NULL
+    AND e.`UID` IS NULL
     AND u.`OptInEmails` = :OptInEmails
     AND COALESCE(u.`Email`,'') <> ''
   ORDER BY u.`UID` ASC LIMIT 20
@@ -252,7 +254,8 @@ SELECT u.`UID`, u.`Email`, COALESCE(u.`FirstName`,u.`Email`) AS `FirstName`,
     CONCAT(COALESCE(u.`FirstName`,''), ' ', COALESCE(u.`LastName`,'')) AS `FullName`
   FROM `wtkUsers` u
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`SendToUserUID` = u.`UID` AND e.`EmailUID` = :EmailUID
-  WHERE e.`UID` IS NULL
+  WHERE u.`DelDate` IS NULL
+    AND e.`UID` IS NULL
     AND u.`OptInEmails` = :OptInEmails
     AND COALESCE(u.`Email`,'') <> ''
   ORDER BY u.`UID` ASC
