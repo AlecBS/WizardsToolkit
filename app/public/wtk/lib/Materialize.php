@@ -883,25 +883,27 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
             $fncIcon = 'file_upload';
             break;
     endswitch;
-    if ($fncFile != ''): // 12/22/22 removed white from next line's class
+    if ($fncFile != ''):
+        $fncDelHide = '';
         $fncUpBtn = '<span id="wtkfAddBtn' . $fncFormId . '" class="btn-floating hide"><i class="material-icons">' . $fncIcon . '</i></span>';
         $fncFileLoc = $fncFilePath . $fncFile;
-        if ($fncAllowDelete == 'Y'):
-            $fncDelBtn  = '&nbsp;&nbsp;&nbsp;<a onclick="JavaScript:wtkfDelFile(\'' . $gloId . '\',\'' . $fncFormId . '\')" title="delete file" id="wtkfDelBtn' . $fncFormId . '" class="btn-floating red">';
-            $fncDelBtn .= '<i class="material-icons white-text">delete_forever</i></a>';
-        else:
-            $fncDelBtn = '';
-        endif;
-    else: // 12/22/22 removed white from next line's class
+    else:
+        $fncDelHide = ' hide';
         $fncUpBtn = '<span class="btn-floating"><i class="material-icons">' . $fncIcon . '</i></span>';
         if ($fncAccept == 'accept="image/*"'):
             $fncFileLoc = '/wtk/imgs/noPhotoSmall.gif';
         else:
             $fncFileLoc = '';
         endif;
-        $fncDelBtn  = '<a onclick="JavaScript:wtkfDelFile(\'' . $gloId . '\',\'' . $fncFormId . '\')" title="delete file" id="wtkfDelBtn' . $fncFormId . '" class="btn-floating red hide">';
-        $fncDelBtn .= '<i class="material-icons white-text">delete_forever</i></a>';
     endif;
+    if ($fncAllowDelete == 'Y'):
+        $fncDelBtn = '&nbsp;&nbsp;&nbsp;<a onclick="JavaScript:' . "wtkfDelFile('$gloId','$fncFormId')\"";
+        $fncDelBtn .= ' title="delete file" id="wtkfDelBtn' . $fncFormId . '" class="btn-floating red' . $fncDelHide . '">';
+        $fncDelBtn .= '<i class="material-icons white-text">delete_forever</i></a>';
+    else:
+        $fncDelBtn = '';
+    endif;
+
     $fncWidth = '36px';
     if ($fncAccept == 'accept="image/*"'):
         if ($fncThumbnail == 'Y'):
@@ -943,10 +945,10 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
         $fncShowFile .= '><i class="material-icons small">visibility</i></a>';
     endif;
     $fncHtm =<<<htmVAR
-    <div class="input-field col $fncColSize">
-        <table><tr><td width="$fncWidth">
-            $fncShowFile
-          </td><td width="144px">
+<div class="input-field col $fncColSize">
+    <table><tr><td width="$fncWidth">
+        $fncShowFile
+      </td><td width="144px">
 htmVAR;
     if ($gloForceRO == true):
         $fncHtm .= '&nbsp;';
@@ -955,7 +957,9 @@ htmVAR;
             $fncHtm .= wtkFormPrepUpdField($fncTable, $fncFileName, 'file');
         endif;
         if ($gloAccessMethod == 'ios'):
-            $fncHtm .= ' <a onclick="JavaScript:wtkSelectImage(' . $fncFormId .')" title="upload photo" id="wtkfBtn' . $fncFormId . '" class="btn btn-floating waves-effect waves-light"><i class="material-icons left">file_upload</i>iOS Upload</a>' . "\n";
+            $fncHtm .= ' <a onclick="JavaScript:wtkSelectImage(' . $gloId .')" title="upload photo" id="wtkfBtn' . $gloId . '" class="btn btn-floating waves-effect waves-light"><i class="material-icons left">file_upload</i>iOS Upload</a>' . "\n";
+            // 2ENHANCE current methodology only allows one files per data row, cannot have table with two files stored in single row
+            // this is possible for websites, but not currently in mobile app SDK
             $fncHtm .= $fncDelBtn;
         else:
             $fncHtm .=<<<htmVAR
@@ -978,7 +982,22 @@ htmVAR;
     $fncEncodedUID = wtkEncode('UID'); // 2ENHANCE make Global variable
     // add this line to enable debugging
     // <div id="debugLogDIV"></div>
-    $fncHtm .=<<<htmVAR
+    if ($gloAccessMethod == 'ios'):
+        $fncEncodedTable = wtkEncode($fncTable);
+        $fncEncodedUID = wtkEncode('UID'); // 2ENHANCE make Global variable
+        $fncHtm .=<<<htmVAR
+    <input type="hidden" id="wtkfMode$gloId" name="wtkfMode$gloId" value="$gloWTKmode">
+	<input type="hidden" id="wtkfTable$gloId" name="wtkfTable$gloId" value="$fncEncodedTable">
+	<input type="hidden" id="wtkfUID$gloId" name="wtkfUID$gloId" value="$fncEncodedUID">
+	<input type="hidden" id="wtkfID$gloId" name="wtkfID$gloId" value="$gloId">
+	<input type="hidden" id="wtkfPath$gloId" name="wtkfPath$gloId" value="$fncFilePath">
+	<input type="hidden" id="wtkfColPath$gloId" name="wtkfColPath$gloId" value="$fncColPath">
+	<input type="hidden" id="wtkfColFile$gloId" name="wtkfColFile$gloId" value="$fncFileName">
+    <input type="hidden" id="wtkfDelete$gloId" name="wtkfDelete$gloId" value="$fncFile">
+htmVAR;
+    else:
+
+        $fncHtm .=<<<htmVAR
     <input type="hidden" id="wtkfMode$fncFormId" name="wtkfMode$fncFormId" value="$gloWTKmode">
 	<input type="hidden" id="wtkfTable$fncFormId" name="wtkfTable$fncFormId" value="$fncEncodedTable">
 	<input type="hidden" id="wtkfUID$fncFormId" name="wtkfUID$fncFormId" value="$fncEncodedUID">
@@ -987,15 +1006,18 @@ htmVAR;
 	<input type="hidden" id="wtkfColPath$fncFormId" name="wtkfColPath$fncFormId" value="$fncColPath">
 	<input type="hidden" id="wtkfColFile$fncFormId" name="wtkfColFile$fncFormId" value="$fncFileName">
     <input type="hidden" id="wtkfDelete$fncFormId" name="wtkfDelete$fncFormId" value="$fncFile">
+htmVAR;
+    endif;
+    $fncHtm .=<<<htmVAR
     <input type="hidden" id="wtkfRefresh$fncFormId" name="wtkfRefresh$fncFormId" value="$fncRefresh">
     <input type="hidden" id="wtkfOrigName$fncFormId" name="wtkfOrigName$fncFormId" value="">
     <div id="photoProgressDIV$fncFormId" class="progress hide">
         <div id="photoProgress$fncFormId" class="determinate" style="width: 25%"></div>
     </div>
     <div id="uploadStatus$fncFormId"></div>
-        <span id="uploadFileSize$fncFormId"></span>
-        <span id="uploadProgress$fncFormId"></span>
-    </div>
+    <span id="uploadFileSize$fncFormId"></span>
+    <span id="uploadProgress$fncFormId"></span>
+</div>
 htmVAR;
     if ($gloForceRO == true):
         $fncHtm = wtkReplace($fncHtm, '<label class="fileUpload"','<p>' . $fncLabel . '</p><label class="hide"');
