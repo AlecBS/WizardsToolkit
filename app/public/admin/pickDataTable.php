@@ -23,11 +23,11 @@ $pgSQL = wtkSqlPrep($pgSQL);
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Choose Data Table to Import Into</h4><br>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Choose Data Table to Import Into
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('pickDataTable','pickDataTable','0')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
@@ -42,7 +42,7 @@ htmVAR;
 
 $gloEditPage = 'tableColumns';
 $pgHtm .= wtkBuildDataBrowse($pgSQL, $pgSqlFilter, 'pickDataTable');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

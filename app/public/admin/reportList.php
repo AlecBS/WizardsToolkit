@@ -66,8 +66,7 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkReports', '/admin/reportList.php');
-
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

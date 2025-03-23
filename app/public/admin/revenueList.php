@@ -58,12 +58,11 @@ $pgSelPayOptions = wtkGetSelectOptions($pgSelSQL, [], 'LookupDisplay', 'LookupDi
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Revenue</h4>
-    <br>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Revenue
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('/admin/revenueList','wtkRevenue','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <input type="hidden" id="HasSelect" name="HasSelect" value="Y">
@@ -94,9 +93,8 @@ $gloColumnAlignArray = array (
 	'CurrencyCode' => 'center'
 );
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkRevenue', 'revenueList.php','Y');
-
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

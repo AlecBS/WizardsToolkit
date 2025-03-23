@@ -9,13 +9,26 @@ else: // returning from save of menuGroupEdit
     $pgRefresh = wtkFormHidden('refreshMenu', 'Y');
 endif;
 
+$pgSqlFilter = array('MenuGroupUID' => $gloRNG);
+
+$pgSQL =<<<SQLVAR
+SELECT s.`MenuName`, g.`MenuUID`, g.`GroupName`
+  FROM `wtkMenuGroups` g
+    INNER JOIN `wtkMenuSets` s ON s.`UID` = g.`MenuUID`
+WHERE g.`UID` = :MenuGroupUID
+SQLVAR;
+wtkSqlGetRow($pgSQL, $pgSqlFilter);
+$pgMenuUID  = wtkSqlValue('MenuUID');
+$pgMenuName = wtkSqlValue('MenuName');
+$pgGroupName = wtkSqlValue('GroupName');
+
 $pgSQL =<<<SQLVAR
 SELECT m.`UID`, m.`Priority`, p.`PageName`
  FROM `wtkMenuItems` m
    LEFT OUTER JOIN `wtkPages` p
     ON p.`UID` = m.`PgUID`
 WHERE m.`DelDate` IS NULL
- AND m.`MenuGroupUID` = ?
+ AND m.`MenuGroupUID` = :MenuGroupUID
  ORDER BY m.`Priority` ASC
 SQLVAR;
 
@@ -27,19 +40,16 @@ $gloColumnAlignArray = array (
    'Priority'   => 'center'
 );
 
-$pgGroupName = wtkSqlGetOneResult('SELECT `GroupName` FROM `wtkMenuGroups` WHERE `UID` = ?', [$gloRNG]);
-$pgMenuUID = wtkSqlGetOneResult('SELECT `MenuUID` FROM `wtkMenuGroups` WHERE `UID` = ?', [$gloRNG]);
-
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>$pgGroupName : Menu Items
-        <small><a onclick="JavaScript:ajaxGo('menuGroupList',0,$pgMenuUID)" class="btn btn-small btn-save waves-effect waves-light">return</a></h4>
-    <br>
+    <h4><a onclick="Javascript:ajaxGo('menuSetList');">$pgMenuName</a> >
+            <a onclick="JavaScript:wtkGoBack()">$pgGroupName</a> > Menu Items
+    </h4>
     <div class="wtk-list card b-shadow">
 htmVAR;
-$pgHtm .= wtkBuildDataBrowse($pgSQL, [$gloRNG], 'wtkMenuItems', '/admin/menuItemList.php');
+$pgHtm .= wtkBuildDataBrowse($pgSQL, $pgSqlFilter, 'wtkMenuItems', '/admin/menuItemList.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 $pgHtm .= $pgRefresh . "\n";
 
 echo $pgHtm;

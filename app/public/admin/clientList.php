@@ -33,7 +33,7 @@ endif;  // Mgr level
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Client List
+    <h4>Clients
         <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('clientList','wtkClients')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
@@ -55,7 +55,7 @@ wtkSetHeaderSort('ClientStatus', 'Status');
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkClients', '/admin/clientList');
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no clients yet');
-$pgHtm .= '</div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

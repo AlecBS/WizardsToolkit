@@ -73,7 +73,6 @@ if (wtkGetParam('wtkRFBBrPHPfilename') != ''):
         $pgBrPHP = wtkReplace($pgBrPHP, '@incFilter2Where@', '');
     endif;
     $pgBrPHP = wtkReplace($pgBrPHP, '@SecLevel@', wtkGetParam('wtkRFBSecLevel'));
-    $pgBrPHP = wtkReplace($pgBrPHP, '@BrowseTitle@', wtkGetParam('wtkRFBBrowseTitle'));
     if (strpos($pgWhere, 'DelDate') === false):
         $pgBrPHP = wtkReplace($pgBrPHP, '@Table@DelDate', '@Table@');
     endif;
@@ -96,7 +95,7 @@ if (wtkGetParam('wtkRFBBrPHPfilename') != ''):
         $pgBrTmp = wtkLoadInclude('incWTKfilterBox.php');
         if ($pgBrFilter2 != ''):
             $pgBrTmp = wtkReplace($pgBrTmp, '"filter-width"', '"filter-width-50"');
-            $pgBrTmp = wtkReplace($pgBrTmp, '@FilterTitle@', 'Quick Filters');
+//          $pgBrTmp = wtkReplace($pgBrTmp, '@FilterTitle@', 'Quick Filters');
             $pgBrTmp = wtkReplace($pgBrTmp, 'partial value', 'partial ' . wtkInsertSpaces($pgBrFilter));
             $pgTmp  = '<div class="filter-width-50">' . "\n";
             $pgTmp .= "\t\t\t\t" . '  <input type="search" name="wtkFilter2" id="wtkFilter2" value="$pgFilter2Value" placeholder="enter partial ' . wtkInsertSpaces($pgBrFilter2) . ' to search for">' . "\n";
@@ -104,12 +103,14 @@ if (wtkGetParam('wtkRFBBrPHPfilename') != ''):
             $pgBrTmp = wtkReplace($pgBrTmp, '@filter2@', $pgTmp);
         else:
             $pgBrTmp = wtkReplace($pgBrTmp, '@filter2@', '');
-            $pgBrTmp = wtkReplace($pgBrTmp, '@FilterTitle@', wtkInsertSpaces($pgBrFilter) . ' Quick Filters');
+//          $pgBrTmp = wtkReplace($pgBrTmp, '@FilterTitle@', wtkInsertSpaces($pgBrFilter) . ' Quick Filters');
         endif;
         $pgBrPHP = wtkReplace($pgBrPHP, '@incFilterBox@', $pgBrTmp);
+        $pgBrPHP = wtkReplace($pgBrPHP, '<h4>@BrowseTitle@</h4>', '<h4>@BrowseTitle@');
     else:
         $pgBrPHP = wtkReplace($pgBrPHP, '@incFilterBox@', '');
     endif;
+    $pgBrPHP = wtkReplace($pgBrPHP, '@BrowseTitle@', wtkGetParam('wtkRFBBrowseTitle'));
     $pgBrPHP = wtkReplace($pgBrPHP, '@Table@', wtkGetParam('wtkRFBTable'));
     $pgBrFieldArray = array();
     $pgBrowseSQL = wtkGetParam('wtkRFBBrSQL');

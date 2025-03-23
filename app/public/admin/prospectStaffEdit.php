@@ -4,7 +4,8 @@ define('_RootPATH', '../');
 require('../wtk/wtkLogin.php');
 
 $pgSQL =<<<SQLVAR
-SELECT `FirstName`, `LastName`, `Email`, `StaffRole`, `DirectPhone`, `InternalNote`
+SELECT `FirstName`, `LastName`, `StaffRole`, `Email`,
+    `AllowContact`, `DirectPhone`, `InternalNote`
   FROM `wtkProspectStaff`
 WHERE `UID` = ?
 SQLVAR;
@@ -26,6 +27,12 @@ $pgHtm .= wtkFormText('wtkProspectStaff', 'Email', 'email');
 $pgHtm .= wtkFormText('wtkProspectStaff', 'StaffRole');
 
 $pgHtm .= wtkFormText('wtkProspectStaff', 'DirectPhone', 'tel');
+$pgValues = array(
+    'checked' => 'Y',
+    'not' => 'N'
+    );
+$pgHtm .= wtkFormCheckbox('wtkProspectStaff', 'AllowContact', 'Allow Contact',$pgValues,'m6 s12');
+
 $pgHtm .= wtkFormTextArea('wtkProspectStaff', 'InternalNote');
 
 $pgHtm .= wtkFormPrimeField('wtkProspectStaff', 'ProspectUID', $gloRNG);

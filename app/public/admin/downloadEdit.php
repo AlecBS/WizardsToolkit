@@ -18,7 +18,7 @@ endif;
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h2>Download</h2><br>
+    <h4>Download</h4><br>
     <div class="card content b-shadow">
         <form id="wtkForm" name="wtkForm" method="POST">
             <span id="formMsg" class="red-text">$gloFormMsg</span>
@@ -41,10 +41,11 @@ $pgHtm .= '</form>' . "\n";
 if ($gloWTKmode == 'EDIT'):
     $pgCount = wtkSqlGetOneResult('SELECT COUNT(*) FROM `wtkDownloadTracking` WHERE `DownloadUID` = ?', [$gloId]);
     $pgHtm .=<<<htmVAR
-    <br>
-    <div class="card">
-        <div class="card-content">
-            <h2>$pgCount downloads so far</h2>
+    <div class="row">
+        <div class="col m8 offset-m2 s12">
+            <div class="card">
+                <div class="card-content">
+                    <h5 class="center">$pgCount downloads so far</h5>
 htmVAR;
     if ($pgCount > 0):
         $pgSQL =<<<SQLVAR
@@ -57,6 +58,7 @@ SQLVAR;
         $pgHtm .= wtkBuildDataBrowse($pgSQL, [$gloId], 'wtkDLtrack');
     endif;
     $pgHtm .= '</div></div>' . "\n";
+    $pgHtm .= '<br><br></div></div>' . "\n";
 endif;
 
 $pgHtm .=<<<htmVAR

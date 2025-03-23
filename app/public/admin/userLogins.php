@@ -14,10 +14,10 @@ $pgSQL  = 'SELECT ' . wtkSqlDateFormat('FirstLogin') . ',' . wtkSqlDateFormat('L
 $pgSQL .= ' FROM `wtkLoginLog` WHERE `UserUID` = ? ORDER BY `UID` DESC';
 
 $pgHtm  = '<div class="container">' . "\n";
-$pgHtm .= '  <h4>User: ' . $pgUser . '</h4><br>' . "\n";
+$pgHtm .= '  <h4><a onclick="JavaScript:wtkGoBack()">Users</a> > ' . $pgUser . '</h4>' . "\n";
 $pgHtm .= '<div class="wtk-list card b-shadow">' . "\n";
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [$gloRNG]);
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 wtkProtoType($pgHtm);
 echo $pgHtm;

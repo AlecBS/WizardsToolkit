@@ -20,12 +20,12 @@ $gloDelPage  = 'wtkWidgetGroupDelDate'; // have DelDate at end if should DelDate
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Widget Groups</h4><br>
+    <h4>Widget Groups</h4>
     <div class="wtk-list card b-shadow">
 htmVAR;
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkWidgetGroup', '/admin/widgetGroupList.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

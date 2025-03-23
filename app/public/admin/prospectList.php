@@ -50,7 +50,7 @@ $gloDelPage  = 'wtkProspectsDelDate'; // have DelDate at end if should DelDate i
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Prospect List
+    <h4>Prospects
         <small class="right">
             <a onclick="JavaScript:ajaxGo('prospectStaffList')">Emailing List</a>
             <span id="filterReset"$pgHideReset>
@@ -83,7 +83,8 @@ htmVAR;
 wtkSearchReplace('https://http','http'); // to fix data where website already included http: or https:
 $pgList = wtkBuildDataBrowse($pgSQL, [], 'wtkProspects', '/admin/prospectList', 'P');
 $pgList = wtkReplace($pgList,'https://http','http'); // to fix data where website already included http: or https:
-$pgHtm .= $pgList . '</div>' . "\n";
+$pgHtm .= $pgList;
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

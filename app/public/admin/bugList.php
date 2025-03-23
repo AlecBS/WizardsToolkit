@@ -27,7 +27,7 @@ wtkSearchReplace('edit</i>','remove_red_eye</i>');
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkBugReport', '/admin/bugList.php');
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no unresolved bugs');
 $pgHtm  = wtkReplace($pgHtm, 'edit</i>','remove_red_eye</i>');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

@@ -24,24 +24,28 @@ $gloEditPage = 'downloadEdit';
 $gloAddPage  = $gloEditPage;
 $gloDelPage  = 'wtkDownloadsDelDate'; // have DelDate at end if should DelDate instead of DELETE
 
-$pgHtm  = '<div class="container">' . "\n";
-$pgHtm .= '    <h2>Downloads</h2>' . "\n";
-$pgHtm .= '<br><div class="search-result">' . "\n";
-$pgHtm .= '  <h4>File Name Quick Filters <small id="filterReset"' . $pgHideReset . '>' . "\n";
-$pgHtm .= '<button type="button" class="btn btn-small btn-save waves-effect waves-light right" onclick="JavaScript:wtkBrowseReset(\'downloadList.php\',\'wtkDownloads\',' . $gloRNG . ')">Reset List</button>' . "\n";
-$pgHtm .= '</small></h4>' . "\n";
-$pgHtm .= '  <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search">' . "\n";
-$pgHtm .= wtkFormHidden('Filter', 'Y') . "\n";
-$pgHtm .= '    <div class="input-field">' . "\n";
-$pgHtm .= '        <input type="search" class="input-search" name="wtkFilter" id="wtkFilter" value="' . $pgFilterValue . '" placeholder="enter partial value to search for">' . "\n";
-$pgHtm .= '        <button onclick="Javascript:wtkBrowseFilter(\'downloadList\',\'wtkDownloads\')" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>' . "\n";
-$pgHtm .= '    </div>' . "\n";
-$pgHtm .= '  </form>' . "\n";
-$pgHtm .= '</div>' . "\n";
+$pgHtm =<<<htmVAR
+<div class="container">
+    <h4>Downloads
+        <small id="filterReset"$pgHideReset>
+        <button onclick="JavaScript:wtkBrowseReset('downloadList','wtkDownloads','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+        </small>
+    </h4>
+    <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
+        <input type="hidden" id="Filter" name="Filter" value="Y">
+        <div class="input-field">
+           <div class="filter-width">
+              <input type="search" name="wtkFilter" id="wtkFilter" value="$pgFilterValue" placeholder="enter partial file name to search for">
+           </div>
+           <button onclick="Javascript:wtkBrowseFilter('downloadList','wtkDownloads')" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
+        </div>
+    </form>
+    <div class="wtk-list card b-shadow">
+htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkDownloads', '/admin/downloadList.php');
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no downloads defined yet');
-$pgHtm .= '</div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

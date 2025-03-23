@@ -47,7 +47,7 @@ $gloMoreButtons = array(
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Payment Processors
+    <h4>Ecommmerce / Payment Processors
         <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('ecomList','wtkEcommerce','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
@@ -66,7 +66,7 @@ htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkEcommerce', '/admin/ecomList.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

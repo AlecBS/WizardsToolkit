@@ -45,11 +45,11 @@ $gloDelPage  = 'wtkWidgetDelDate'; // have DelDate at end if should DelDate inst
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Widgets</h4><br>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Widgets
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('/admin/widgetList','wtkWidget','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
@@ -70,7 +70,7 @@ wtkSetHeaderSort('LookupDisplay', 'Security Level');
 wtkSetHeaderSort('WidgetType');
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkWidget', '/admin/widgetList.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

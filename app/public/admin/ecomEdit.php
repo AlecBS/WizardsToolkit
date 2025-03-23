@@ -16,7 +16,7 @@ if ($gloWTKmode != 'ADD'):
     wtkSqlGetRow($pgSQL, [$gloId]);
 endif;
 
-if ($gloWTKmode != 'MODAL'):
+if ($gloWTKmode == 'MODAL'):
     $gloForceRO = true;
     $pgHtm  =<<<htmVAR
 <div class="modal-content">
@@ -43,7 +43,7 @@ $pgHtm .= wtkFormText('wtkEcommerce', 'EcomWebsite','text','Website');
 $pgHtm .= wtkFormText('wtkEcommerce', 'EcomPayLink','text','Payment URL');
 $pgHtm .= wtkFormTextArea('wtkEcommerce', 'EcomNote','Note');
 
-if ($gloWTKmode != 'MODAL'):
+if ($gloWTKmode == 'MODAL'):
     $pgHtm .=<<<htmVAR
             </div>
         </div>

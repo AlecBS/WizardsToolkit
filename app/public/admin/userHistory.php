@@ -99,7 +99,7 @@ wtkSetHeaderSort('SecondsTaken');
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkUserHistory', '/admin/userHistory.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

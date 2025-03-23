@@ -74,7 +74,7 @@ endif;
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Update Log
+    <h4>Update Logs
         <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('updateLogList','wtkUpdateLog')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
@@ -106,7 +106,7 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkUpdateLog', '/admin/updateLogList.php');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 $pgHtm .= wtkFormHidden('HasSelect', 'Y');
 
 echo $pgHtm;

@@ -24,11 +24,11 @@ $gloMoreButtons = array(
     );
 
 $pgHtm  = '<div class="container">' . "\n";
-$pgHtm .= '    <h4>Menu Sets</h4><br>' . "\n";
+$pgHtm .= '    <h4>Menu Sets</h4>' . "\n";
 $pgHtm .= '    <div class="wtk-list card b-shadow">' . "\n";
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkMenuSets', '/admin/menuSetList.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

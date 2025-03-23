@@ -28,7 +28,7 @@ SQLVAR;
         break;
     case 'prospectCEO':
         $pgSQL =<<<SQLVAR
-INSERT INTO `wtkProspectStaff` (`ProspectUID`,`FirstName`,`LastName`,`StaffRole`,`Email`,`DirectPhone`,`InternalNote`)
+INSERT INTO `wtkProspectStaff` (`ProspectUID`,`FirstName`,`LastName`,`Email`,`StaffRole`,`DirectPhone`,`InternalNote`)
   SELECT p.`UID`,p.`CEOFirstName`,p.`CEOLastName`,p.`CEOEmail`,'CEO',p.`MainPhone`,'copied CEOs from Prospects file'
     FROM `wtkProspects` p
       LEFT OUTER JOIN `wtkProspectStaff` s ON s.`ProspectUID` = p.`UID`

@@ -25,12 +25,11 @@ $gloDelPage  = 'wtkHelp'; // have DelDate at end if should DelDate instead of DE
 $pgHelp = wtkHelp('Help');
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Help Management $pgHelp</h4>
-    <br>
-    <h5>Quick Filter <small id="filterReset"$pgHideReset>
+    <h4>Help Management $pgHelp
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('helpList','wtkHelp')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
@@ -45,7 +44,7 @@ htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkHelp', '/admin/helpList.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

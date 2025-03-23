@@ -38,14 +38,15 @@ $gloMoreButtons = array(
             )
     );
 */
-
-$pgHtm  = '<div class="container">' . "\n";
-$pgHtm .= '    <h4>@BrowseTitle@</h4><br>' . "\n";
+$pgHtm =<<<htmVAR
+<div class="container">
+    <h4>@BrowseTitle@</h4>
 @incFilterBox@
-$pgHtm .= '    <div class="wtk-list card b-shadow">' . "\n";
+    <div class="wtk-list card b-shadow">
+htmVAR;
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], '@Table@', '/admin/@FileName@.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

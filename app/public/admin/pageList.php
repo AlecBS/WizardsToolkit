@@ -30,14 +30,14 @@ wtkSetHeaderSort('FileName');
 $pgHtm =<<<htmVAR
 <div class="container">
     <h4>Page List
-        <small><a onclick="JavaScript:wtkMakePageList()">(update website path links)</a></small>
+        <small class="right"><a onclick="JavaScript:wtkMakePageList()">(update website path links)</a>
+            <span id="filterReset"$pgHideReset>
+                &nbsp;&nbsp;
+                <button onclick="JavaScript:wtkBrowseReset('pageList','wtkPages')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+            </span>
+        </small>
     </h4>
     <span id="pageMsg"></span>
-    <br>
-    <h5>Page Name Quick Filter <small id="filterReset"$pgHideReset>
-        <button onclick="JavaScript:wtkBrowseReset('pageList','wtkPages')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
-        </small>
-    </h5>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
@@ -50,7 +50,7 @@ $pgHtm =<<<htmVAR
     <div class="wtk-list card b-shadow">
 htmVAR;
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkPages', '/admin/pageList.php');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 wtkProtoType($pgHtm);
 
 echo $pgHtm;

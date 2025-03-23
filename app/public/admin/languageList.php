@@ -89,7 +89,7 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkLanguage', '/admin/languageList.php');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

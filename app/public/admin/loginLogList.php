@@ -29,7 +29,7 @@ $gloColumnAlignArray = array (
 
 $pgHtm  = '<div class="row">' . "\n";
 $pgHtm .= '    <div class="col m12">' . "\n";
-$pgHtm .= '        <h4>Login Logs</h4><br>' . "\n";
+$pgHtm .= '        <h4>Login Logs</h4>' . "\n";
 $pgHtm .= '        <div class="wtk-list card b-shadow">' . "\n";
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkLoginLog');
 $pgHtm .= '        </div>' . "\n";

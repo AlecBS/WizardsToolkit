@@ -128,12 +128,12 @@ $pgSelOptions = wtkGetSelectOptions($pgSelSQL, $pgSqlFilter, 'LookupDisplay', 'L
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Email History</h4>
-    <br><input type="hidden" id="HasTooltip" name="HasTooltip" value="Y">
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Email History
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('emailHistory','wtkEmailsSent')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
+    <input type="hidden" id="HasTooltip" name="HasTooltip" value="Y">
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow" style="height:162px">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="row input-field">

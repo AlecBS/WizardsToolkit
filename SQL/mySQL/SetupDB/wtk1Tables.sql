@@ -702,15 +702,15 @@ CREATE TABLE `wtkProspectStaff` (
   `EmailsSent` smallint DEFAULT '0',
   `EmailsOpened` smallint DEFAULT '0',
   `LinksClicked` smallint DEFAULT '0',
-  `DoNotContact` char(1) DEFAULT 'N',
+  `AllowContact` char(1) DEFAULT 'Y',
   `InternalNote` text,
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkProspectStaff_ProspectUID`
     FOREIGN KEY (`ProspectUID`) REFERENCES `wtkProspects` (`UID`),
-  KEY `ix_wtkProspectStaff_DoNotContact` (`DoNotContact`,`ProspectUID`),
+  KEY `ix_wtkProspectStaff_AllowContact` (`AllowContact`,`ProspectUID`),
   KEY `ix_wtkProspectStaff_Email` (`Email`),
-  KEY `ix_wtkProspectStaff_Contact` (`LinksClicked`,`EmailsOpened`,`DoNotContact`),
-  KEY `ix_wtkProspectStaff_DoNotContactEmailsSent` (`DoNotContact`,`EmailsSent`)
+  KEY `ix_wtkProspectStaff_Contact` (`LinksClicked`,`EmailsOpened`,`AllowContact`),
+  KEY `ix_wtkProspectStaff_AllowContactEmailsSent` (`AllowContact`,`EmailsSent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkReminders` (

@@ -144,7 +144,7 @@ else: // assume mySQL
 endif;
 $gloDateQuote = "'";
 $gloPhpDateTime = 'M jS, Y';
-$gloConnType = 'PDO'; // PDO is recommended; contact us to use ADO
+$gloConnType = 'PDO'; // PDO is recommended; contact info@wizardstoolkit.com if you want to use ADO
 
 $gloPHPLocale = 'en_US';  // determines number formatting
 $gloCurrencyCode = 'USD'; // determines currency code in number formatting

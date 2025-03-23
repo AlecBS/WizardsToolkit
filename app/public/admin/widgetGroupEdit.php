@@ -137,6 +137,7 @@ endif;
 $pgHtm .=<<<htmVAR
         </div>
     </div>
+    <br>
 </div>
 htmVAR;
 echo $pgHtm;

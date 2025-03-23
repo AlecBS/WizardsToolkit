@@ -50,7 +50,7 @@ $pgHtm =<<<htmVAR
     <div class="wtk-list card b-shadow">
 htmVAR;
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkLookups', '/admin/lookupList.php');
-$pgHtm .= '</div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 wtkProtoType($pgHtm);
 echo $pgHtm;

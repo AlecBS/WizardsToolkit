@@ -61,12 +61,12 @@ $pgSelOptions = wtkGetSelectOptions($pgSelSQL, $pgSqlFilter, 'LookupDisplay', 'L
 
 $pgHtm  =<<<htmVAR
 <div class="container">
-    <h4>Broadcast List</h4>
-    <br>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Broadcasts
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('broadcastList','wtkBroadcast','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
+    <p>These will appear on websites to notify users as needed.</p>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <input type="hidden" id="HasSelect" name="HasSelect" value="Y">
@@ -86,8 +86,7 @@ $pgHtm  =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkBroadcast', '/admin/broadcastList.php');
-//$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

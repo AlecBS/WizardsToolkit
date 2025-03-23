@@ -68,7 +68,7 @@ SQLVAR;
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`OtherUID` = s.`UID` AND e.`EmailUID` = :EmailUID
     INNER JOIN `wtkProspects` p ON p.`UID` = s.`ProspectUID`
   WHERE s.`DelDate` IS NULL AND p.`DelDate` IS NULL
-    AND s.`DoNotContact` = 'N' AND e.`UID` IS NULL
+    AND s.`AllowContact` = 'Y' AND e.`UID` IS NULL
     AND p.`ProspectStatus` IN ('new','email')
 SQLVAR;
         // BEGIN add if you want to limit number of emails sent:

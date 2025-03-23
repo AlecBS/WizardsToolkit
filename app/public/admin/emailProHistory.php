@@ -24,7 +24,7 @@ SQLVAR;
 
 $pgSqlFilter = array (
     'OtherUID' => $gloId,
-    'EmailType' => 'sales'
+    'EmailType' => 'P'
 );
 
 $gloRowsPerPage = 20;

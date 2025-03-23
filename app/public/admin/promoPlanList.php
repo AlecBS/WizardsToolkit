@@ -50,13 +50,12 @@ $gloMoreButtons = array(
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h2>Promotion Plans</h2>
-    <br>
+    <h4>Promotion Plans
+        <small id="filterReset"$pgHideReset>
+        <button onclick="JavaScript:wtkBrowseReset('/admin/promoPlanList','wtkPromoPlans')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+        </small>
+    </h4>
     <div class="filter-area">
-        <h4>Plan Name Quick Filters <small id="filterReset"$pgHideReset>
-            <button onclick="JavaScript:wtkBrowseReset('/admin/promoPlanList','wtkPromoPlans')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
-            </small>
-        </h4>
         <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search">
             <input type="hidden" id="Filter" name="Filter" value="Y">
             <div class="input-field">
@@ -71,7 +70,7 @@ htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkPromoPlans', '/admin/promoPlanList.php');
 //$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

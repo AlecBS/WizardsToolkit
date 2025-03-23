@@ -57,16 +57,17 @@ $gloMoreButtons = array(
 $pgHtm =<<<htmVAR
 <div class="container">
     <h4>Affiliates
-        <small>
-            <a class="btn orange black-text right"
+        <small class="right">
+            <a class="btn orange black-text"
                 onclick="JavaScript:wtkModal('pickEmailTemplate','Af',0,'SendAll')">Bulk Email</a>
+            <span id="filterReset"$pgHideReset>
+                &nbsp;&nbsp;
+                <button onclick="JavaScript:wtkBrowseReset('affiliateList','wtkAffiliates','$gloRNG')"
+                    type="button" class="btn btn-small btn-save waves-effect waves-light">Reset List</button>
+            </span>
         </small>
     </h4>
     <p>Bulk Emailing will send to the next 50 affiliates which have not been notified before.</p>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
-        <button onclick="JavaScript:wtkBrowseReset('affiliateList','wtkAffiliates','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
-        </small>
-    </h5>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
@@ -87,7 +88,7 @@ htmVAR;
 
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkAffiliates', '/admin/affiliateList.php', 'P');
 $pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no affiliates yet');
-$pgHtm .= '</div></div>' . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;

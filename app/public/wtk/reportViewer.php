@@ -20,7 +20,7 @@ htmVAR;
 endif;
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h5>Reports</h5><br>
+    <h4>Reports</h4><br>
     <ul class="collapsible">
 htmVAR;
 

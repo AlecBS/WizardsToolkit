@@ -14,16 +14,16 @@ SELECT s.`UID`,
             ELSE ''
         END
     ) AS `Company`,
-    COALESCE(p.`CompanySize`,p.`NumberOfEmployees`) AS `CompanySize`, p.`AnnualSales`,
+    COALESCE(p.`CompanySize`,p.`NumberOfEmployees`) AS `CompanySize`,
     CONCAT(COALESCE(p.`City`,''), ', ', COALESCE(p.`State`,'')) AS `City`,
-    s.`FirstName`, s.`LastName`,
+    CONCAT(s.`FirstName`, ' ', COALESCE(s.`LastName`,'')) AS `Staff`,
     `fncContactIcons`(s.`Email`,COALESCE(s.`DirectPhone`,p.`MainPhone`,''),0,0,'Y',s.`UID`,'N','N','') AS `Contact`,
     s.`LinksClicked`,
     CONCAT('<a class="btn btn-floating " onclick="JavaScript:ajaxGo(\'/admin/prospectEdit\',',
         s.`ProspectUID`, ',0);"><i class="material-icons">edit</i></a>') AS `Edit`
   FROM `wtkProspectStaff` s
    LEFT OUTER JOIN `wtkProspects` p ON p.`UID` = s.`ProspectUID`
-WHERE s.`DelDate` IS NULL AND s.`DoNotContact` = 'N'
+WHERE s.`DelDate` IS NULL AND s.`AllowContact` = 'Y'
   AND p.`DelDate` IS NULL
 SQLVAR;
 
@@ -61,8 +61,7 @@ else:
 endif;
 $pgSQL .= ' ORDER BY s.`LastName` ASC, s.`FirstName` ASC';
 
-wtkSetHeaderSort('LastName', 'Last Name');
-wtkSetHeaderSort('FirstName', 'First Name');
+wtkSetHeaderSort('Staff');
 wtkSetHeaderSort('LinksClicked');
 $gloColumnAlignArray = array (
     'CompanySize' => 'center',
@@ -96,21 +95,21 @@ $gloMoreButtons = array(
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Prospect Staff List
-        <small>
-            <a class="btn orange black-text right"
+    <h4><a onclick="JavaScript:wtkGoBack()">Prospects</a> > Staff
+        <small class="right">
+            <a class="btn orange black-text"
                 onclick="JavaScript:wtkModal('pickEmailTemplate','P',0,'SendAll')">Bulk Email</a>
+            <span id="filterReset"$pgHideReset>
+                &nbsp;&nbsp;
+                <button onclick="JavaScript:wtkBrowseReset('/admin/prospectStaffList','wtkProspectStaff')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+            </span>
         </small>
     </h4>
     <p>Bulk Emailing will send to the next 50 prospects which have not been notified before.</p>
     <p class="hide">Send follow-up email to those that have clicked link so far:
         <a class="btn" onclick="JavaScript:ajaxGo('emailProspects','sales3fup','FupSales3')">Follow-up Email</a>
     </p>
-    <h5>Quick Filter <small id="filterReset"$pgHideReset>
-        <button onclick="JavaScript:wtkBrowseReset('/admin/prospectStaffList','wtkProspectStaff')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
-        </small>
-    </h5>
-    <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
+    <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow" style="height:162px">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="row">
             <div class="col s12">
@@ -125,14 +124,12 @@ $pgHtm =<<<htmVAR
                        </div>
                    </div>
                    <div class="filter-width-50">
-                       <div class="input-field">
-                           <span>Show only those that filled out landing page</span>
-                           <div class="switch">
-                             <label for="showReplies">No
-                               <input type="checkbox" value="Y" id="showReplies" name="showReplies" $pgShowReplied>
-                               <span class="lever"></span>
-                               Yes</label>
-                           </div>
+                       <span>Show only those that filled out landing page</span>
+                       <div class="switch">
+                         <label for="showReplies">No
+                           <input type="checkbox" value="Y" id="showReplies" name="showReplies" $pgShowReplied>
+                           <span class="lever"></span>
+                           Yes</label>
                        </div>
                    </div>
                    <button onclick="Javascript:wtkBrowseFilter('/admin/prospectStaffList','wtkProspectStaff')" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
@@ -162,7 +159,8 @@ $pgList = wtkBuildDataBrowse($pgSQL, [], 'wtkProspectStaff', '/admin/prospectSta
 $pgList = wtkReplace($pgList,'Edit</th>','&nbsp;</th>');
 $pgList = wtkReplace($pgList,'https://http','http'); // to fix data where website already included http: or https:
 //$pgList = wtkReplace($pgList,"wtkModal('/admin/emailPro", "ajaxGo('/admin/emailPro");
-$pgHtm .= $pgList . '</div>' . "\n";
+$pgHtm .= $pgList . "\n";
+$pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;
 exit;
