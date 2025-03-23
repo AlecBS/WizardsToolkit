@@ -14,12 +14,12 @@ SELECT p.`UID`,
             ELSE ''
         END
     ) AS `Company`,
-    p.`CompanySize`, p.`AnnualSales`, p.`City`, p.`State`,
+    COALESCE(p.`CompanySize`,p.`NumberOfEmployees`) AS `CompanySize`, p.`AnnualSales`, p.`City`, p.`State`,
     `fncContactIcons`(NULL,p.`MainPhone`,0,0,'Y',p.`UID`,'N','N','') AS `Phone`,
     L.`LookupDisplay` AS `ProspectStatus`
   FROM `wtkProspects` p
    LEFT OUTER JOIN `wtkLookups` L ON L.`LookupType` = 'ProspectStatus' AND L.`LookupValue` = p.`ProspectStatus`
-WHERE p.`UID` > 0
+WHERE p.`DelDate` IS NULL
 SQLVAR;
 
 $pgHideReset = ' class="hide"';
@@ -42,7 +42,7 @@ wtkSetHeaderSort('CompanySize', 'Company Size');
 wtkSetHeaderSort('AnnualSales', 'Annual Sales');
 wtkSetHeaderSort('City', 'City');
 $gloColumnAlignArray = array (
-	'LinksClicked' => 'center'
+    'CompanySize' => 'center'
 );
 $gloEditPage = '/admin/prospectEdit';
 $gloAddPage  = $gloEditPage;
@@ -51,13 +51,15 @@ $gloDelPage  = 'wtkProspectsDelDate'; // have DelDate at end if should DelDate i
 $pgHtm =<<<htmVAR
 <div class="container">
     <h4>Prospect List
-        <small class="right"><a onclick="JavaScript:ajaxGo('prospectStaffList')">Emailing List</a></small>
-    </h4><br>
-    <h5>Quick Filter <small id="filterReset"$pgHideReset>
-        <button onclick="JavaScript:wtkBrowseReset('/admin/prospectList','wtkProspects')"
-            type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+        <small class="right">
+            <a onclick="JavaScript:ajaxGo('prospectStaffList')">Emailing List</a>
+            <span id="filterReset"$pgHideReset>
+                &nbsp;&nbsp;
+                <button onclick="JavaScript:wtkBrowseReset('/admin/prospectList','wtkProspects')"
+                    type="button" class="btn btn-small btn-save waves-effect waves-light">Reset List</button>
+            </span>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">

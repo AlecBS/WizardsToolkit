@@ -26,6 +26,19 @@ SQLVAR;
         echo '{"result":"ok"}';
         exit;
         break;
+    case 'prospectCEO':
+        $pgSQL =<<<SQLVAR
+INSERT INTO `wtkProspectStaff` (`ProspectUID`,`FirstName`,`LastName`,`StaffRole`,`Email`,`DirectPhone`,`InternalNote`)
+  SELECT p.`UID`,p.`CEOFirstName`,p.`CEOLastName`,p.`CEOEmail`,'CEO',p.`MainPhone`,'copied CEOs from Prospects file'
+    FROM `wtkProspects` p
+      LEFT OUTER JOIN `wtkProspectStaff` s ON s.`ProspectUID` = p.`UID`
+  WHERE s.`UID` IS NULL
+  ORDER BY p.`UID` ASC
+SQLVAR;
+        wtkSqlExec($pgSQL, []);
+        echo '{"result":"ok"}';
+        exit;
+        break;
     case 'verify':
         $pgHtm =<<<htmVAR
     <h4>Example of Import into $pgTableName</h4>
@@ -68,7 +81,19 @@ SELECT p.`UID`, p.`MainEmail`, p.`MainPhone`, 'copied from Prospects file'
 WHERE s.`UID` IS NULL
 ORDER BY p.`UID` ASC
 </code></pre>
-    <a id="runScriptBtn" onclick="JavaScript:makeProspectStaff()" class="btn">Run Script</a>
+<a id="runScriptBtn" onclick="JavaScript:makeProspectStaff('prospectStaff')" class="btn">Run Script</a>
+<hr>
+<p>If the prospect list has CEO information, you may want to run this script instead.</p>
+<pre><code>
+INSERT INTO `wtkProspectStaff` (`ProspectUID`,`FirstName`,`LastName`,`StaffRole`,`Email`,`DirectPhone`,`InternalNote`)
+SELECT p.`UID`, p.`CEOFirstName`,p.`CEOLastName`,p.`CEOEmail`, 'CEO', p.`MainPhone`, 'copied from Prospects file'
+ FROM `wtkProspects` p
+   LEFT OUTER JOIN `wtkProspectStaff` s ON s.`ProspectUID` = p.`UID`
+WHERE s.`UID` IS NULL
+ORDER BY p.`UID` ASC
+</code></pre>
+<a id="runCEOScriptBtn" onclick="JavaScript:makeProspectStaff('prospectCEO')" class="btn">Run Script</a>
+<hr>
     <div id="successMsg"></div>
     <p>View <a onclick="JavaScript:ajaxGo('prospectList')">Prospect List</a></p>
 SQLVAR;
@@ -107,6 +132,9 @@ if (($pgHandle = fopen('../' . $pgCsvFile, 'r')) !== false):
                     if ($pgColCount > 1):
                         $pgSQL .= ',';
                     endif;
+                    // if ($pgRowCount > 260): // may help debug if bad CSV data
+                    //     echo '<br>RowCount: ' . $pgRowCount . '; ColCount: ' . $pgColCount . '; Data[Value]: ' . $pgData[$pgValue];
+                    // endif;
                     $pgSQL .= "'" . addslashes($pgData[$pgValue]) . "'";
                 endif;
             endforeach;

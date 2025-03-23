@@ -3,16 +3,21 @@ var gloImportObject = {};
 var gloCsvArray = [];
 
 // admin/ajxImportData.php
-function makeProspectStaff(){
+function makeProspectStaff(fncStep = 'prospectStaff'){
     waitLoad('on');
     $.ajax({
         type: 'POST',
         url: 'ajxImportData.php',
-        data: { apiKey: pgApiKey, step: 'prospectStaff' },
+        data: { apiKey: pgApiKey, step: fncStep },
         success: function(data) {
             waitLoad('off');
-            $('#successMsg').html('<h4>Prospect Staff generated</h4>');
+            if (fncStep == 'prospectStaff') {
+                $('#successMsg').html('<h4>Prospect Staff generated</h4>');
+            } else {
+                $('#successMsg').html('<h4>Prospect Staff generated from CEO data</h4>');                
+            }
             $('#runScriptBtn').addClass('hide');
+            $('#runCEOScriptBtn').addClass('hide');
         }
     })
 }

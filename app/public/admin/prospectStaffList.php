@@ -14,7 +14,7 @@ SELECT s.`UID`,
             ELSE ''
         END
     ) AS `Company`,
-    p.`CompanySize`, p.`AnnualSales`,
+    COALESCE(p.`CompanySize`,p.`NumberOfEmployees`) AS `CompanySize`, p.`AnnualSales`,
     CONCAT(COALESCE(p.`City`,''), ', ', COALESCE(p.`State`,'')) AS `City`,
     s.`FirstName`, s.`LastName`,
     `fncContactIcons`(s.`Email`,COALESCE(s.`DirectPhone`,p.`MainPhone`,''),0,0,'Y',s.`UID`,'N','N','') AS `Contact`,
@@ -24,6 +24,7 @@ SELECT s.`UID`,
   FROM `wtkProspectStaff` s
    LEFT OUTER JOIN `wtkProspects` p ON p.`UID` = s.`ProspectUID`
 WHERE s.`DelDate` IS NULL AND s.`DoNotContact` = 'N'
+  AND p.`DelDate` IS NULL
 SQLVAR;
 
 $pgHideReset = ' class="hide"';
@@ -62,7 +63,9 @@ $pgSQL .= ' ORDER BY s.`LastName` ASC, s.`FirstName` ASC';
 
 wtkSetHeaderSort('LastName', 'Last Name');
 wtkSetHeaderSort('FirstName', 'First Name');
+wtkSetHeaderSort('LinksClicked');
 $gloColumnAlignArray = array (
+    'CompanySize' => 'center',
 	'LinksClicked' => 'center'
 );
 $gloAddPage = '/admin/prospectEdit';

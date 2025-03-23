@@ -55,10 +55,10 @@ htmVAR;
 
 $pgCsvTable = '<table class="border white"><thead>';
 $pgCsvCols  = '<table id="csvHeaders" class="striped">' . "\n";
-$pgCsvCols .= '<thead><th>&nbsp;</th><th>Column Name</th></thead><tbody>';
+$pgCsvCols .= '<thead><th>&nbsp;</th><th>Column Name</th><th>First Row of Data</th></thead><tbody>';
 $pgCntr = 0;
-$pgColCntr = 0;
 $pgExactMatches = '';
+$pgDebug = '';
 $pgCSVjsArray = '';
 foreach ($pgCSVarray as $row):
     $pgCntr ++;
@@ -68,14 +68,15 @@ foreach ($pgCSVarray as $row):
         $pgCsvTable .= '<tbody>' . "\n";
     endif;
     $pgCsvTable .= '<tr>' . "\n";
+    $pgColCntr = 0;
     foreach ($row as $cell):
         $pgColName = htmlspecialchars($cell);
         $pgCsvTable .= '  <td>' . $pgColName . '</td>' . "\n";
         if ($pgCntr == 1):
             $pgCSVjsArray .= "gloCsvArray.push('$pgColName');" . "\n";
             // BEGIN check for exact match with data table
-            if (array_key_exists(strtolower($pgColName), $pgDataColArray)):
-                $pgDataColName = $pgDataColArray[strtolower($pgColName)];
+            if (array_key_exists(strtolower(wtkReplace($pgColName,' ','')), $pgDataColArray)):
+                $pgDataColName = $pgDataColArray[strtolower(wtkReplace($pgColName,' ',''))];
                 $pgExactMatches .= "gloImportObject['$pgDataColName'] = $pgColCntr;" . "\n";
                 $pgExactMatches .= "$('#" . $pgDataColName . "Link').addClass('hide');" . "\n";
             endif;
@@ -83,9 +84,14 @@ foreach ($pgCSVarray as $row):
             $pgCsvCols .= '<tr><td>' . "\n";
             $pgCsvCols .= ' <a draggable="true" data-id="' . $pgColCntr . '" ondragstart="wtkDragStart(this);" ondragover="wtkDragOver(event)" class="btn btn-floating wtkdrag">' . "\n";
             $pgCsvCols .= '<i class="material-icons" alt="drag to link where to import" title="drag to link where to import">drag_handle</i></a></td>' . "\n";
-            $pgCsvCols .= '<td>' . $pgColName . '</td></tr>' . "\n";
-            $pgColCntr ++;
+            $pgCsvCols .= '<td>' . $pgColName . '</td>' . "\n"; // column name
+            $pgCsvCols .= '<td>@First' . $pgColCntr . 'Data@</td>' . "\n"; // data from first row
+            $pgCsvCols .= '</tr>' . "\n";
+        elseif ($pgCntr == 2):
+            $pgCsvCols = wtkReplace($pgCsvCols, '@First' . $pgColCntr . 'Data@', $pgColName);
+            $pgDebug .= '@First' . $pgColCntr . 'Data@ replaced with: ' . $pgColName;
         endif;
+        $pgColCntr ++;
     endforeach;
     $pgCsvTable .= '</tr>' . "\n";
     if ($pgCntr == 10):
