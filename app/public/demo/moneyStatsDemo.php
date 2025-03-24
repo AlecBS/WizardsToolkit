@@ -113,7 +113,7 @@ switch ($gloRNG):
             $pgGroupBy = "YEAR(`AddDate`), WEEK(`AddDate`, 1)";
             $pgSelDates = "DATE_FORMAT(DATE_ADD(`AddDate`, INTERVAL (1 - DAYOFWEEK(`AddDate`)) + 7 DAY), '%b %D') AS `WeekEnding`" . "\n";
             $pgOrderBy = 'YEAR(`AddDate`) DESC, WEEK(`AddDate`, 1)';
-            
+
             // $pgGroupBy = "DATE_FORMAT(`AddDate`,'%Y-%u')";
             // $pgSelDates  = "DATE_FORMAT(DATE_ADD(DATE_ADD(DATE_FORMAT(`AddDate`,'%Y-01-01')," . "\n";
             // $pgSelDates .= " INTERVAL DATE_FORMAT(`AddDate`,'%u') WEEK), INTERVAL 1 DAY),'%b %D') AS `WeekEnding`";
@@ -125,10 +125,10 @@ endswitch;
 
 $pgTabBar =<<<htmVAR
 <p>View: &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','d')">Daily</a> &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','w')">Weekly</a> &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','m')">Monthly</a> &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','y')">Yearly</a>
+<a onclick="JavaScript:ajaxFillDiv('/demo/moneyStatsDemo','dwmyChart','dwmyChart','d')">Daily</a> &nbsp;
+<a onclick="JavaScript:ajaxFillDiv('/demo/moneyStatsDemo','dwmyChart','dwmyChart','w')">Weekly</a> &nbsp;
+<a onclick="JavaScript:ajaxFillDiv('/demo/moneyStatsDemo','dwmyChart','dwmyChart','m')">Monthly</a> &nbsp;
+<a onclick="JavaScript:ajaxFillDiv('/demo/moneyStatsDemo','dwmyChart','dwmyChart','y')">Yearly</a>
 </p>
 htmVAR;
 $pgTabBar = wtkReplace($pgTabBar,"onclick=\"JavaScript:ajaxFillDiv('/admin/moneyStats','dwmyChart','dwmyChart','$gloRNG')\"",'disabled class="black-text"');
@@ -308,7 +308,7 @@ function revenueDemoRptFilter(){
     $('#provChartSPAN').text('');
     $.ajax({
         type: "POST",
-        url: 'moneyStatsDemo.php?TableID=wtkRpt2',
+        url: '/demo/moneyStatsDemo.php?TableID=wtkRpt2',
         data: (fncFormData),
         success: function(data) {
             fncDone ++;
@@ -322,7 +322,7 @@ function revenueDemoRptFilter(){
     })
     $.ajax({
         type: "POST",
-        url: 'moneyStatsDemo.php?TableID=wtkRpt3',
+        url: '/demo/moneyStatsDemo.php?TableID=wtkRpt3',
         data: (fncFormData),
         success: function(data) {
             fncDone ++;

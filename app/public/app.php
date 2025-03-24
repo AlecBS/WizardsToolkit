@@ -47,7 +47,7 @@ $pgNavBar =<<<htmVAR
             <li><a class="sidenav-close" onclick="Javascript:ajaxGo('forumList');"><i class="material-icons">forum</i>Forum</a></li>
             <li><a class="sidenav-close" onclick="Javascript:ajaxGo('messageList');"><i class="material-icons">message</i>Message</a></li>
             <li><a class="sidenav-close" onclick="Javascript:ajaxGo('videoList');"><i class="material-icons">ondemand_video</i>Videos</a></li>
-            <li><a class="sidenav-close" onclick="Javascript:ajaxGo('moneyDemo');"><i class="material-icons">attach_money</i>Money Stats</a></li>
+            <li><a class="sidenav-close" onclick="Javascript:ajaxGo('demo/moneyStatsDemo');"><i class="material-icons">attach_money</i>Money Stats</a></li>
             <li><a class="sidenav-close" onclick="Javascript:showBugReport();"><i class="material-icons">bug_report</i>Report Bug</a></li>
             <li><a class="sidenav-close" onclick="Javascript:ajaxGo('buyWTK');"><i class="material-icons">access_alarm</i>WTK Saves $</a></li>
             <li><a class="sidenav-close" onclick="Javascript:wtkLogout();"><i class="material-icons">close</i>Log Out</a></li>
