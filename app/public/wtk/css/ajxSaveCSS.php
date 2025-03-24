@@ -23,7 +23,7 @@ $pgHtm =<<<htmVAR
 /*
 MIT License
 
-Copyright 2021-2024 Wizard's Toolkit
+Copyright 2021-2025 Wizard's Toolkit
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

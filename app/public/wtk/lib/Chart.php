@@ -21,7 +21,7 @@
 * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 * @author      Programming Labs <support@programminglabs.com>
-* @license     Copyright 2021-2024, All rights reserved.
+* @license     Copyright 2021-2025, All rights reserved.
 * @link        Official page: https://wizardstoolkit.com
 * @version     2.0
 */
