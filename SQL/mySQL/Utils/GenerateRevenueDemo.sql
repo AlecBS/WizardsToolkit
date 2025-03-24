@@ -73,11 +73,12 @@ BEGIN
        `generate_fname`() AS `FirstName`,
        `generate_lname`() AS `LastName`,
         'Great Service' AS `ItemName`,
-      CASE FLOOR(RAND() * 40)
+      CASE FLOOR(RAND() * 45)
         WHEN 0 THEN 'Declined'
         WHEN 1 THEN 'Pending'
-        WHEN 2 THEN 'Requested'
+        WHEN 2 THEN 'Refund'
         WHEN 3 THEN 'Requested'
+        WHEN 4 THEN 'Requested'
         ELSE 'Authorized'
       END AS `PaymentStatus`,
       (FLOOR(RAND() * 601)+ 50) AS `GrossAmount`,
@@ -109,4 +110,19 @@ CALL `GenerateRevenueDemo`();
 -- SELECT * FROM `wtkRevenueDemo` ORDER BY `UID` ASC;
 
 -- To manually adjust AddDate
-UPDATE `wtkRevenue` SET `AddDate` = DATE_ADD(`AddDate`, INTERVAL 36 DAY);
+-- UPDATE `wtkRevenue` SET `AddDate` = DATE_ADD(`AddDate`, INTERVAL 36 DAY);
+
+-- Fill wtkIncomeByMonth data for demo purposes
+-- this requires `wtkRevenueDemo` to have previously been filled with test data via call `GenerateRevenueDemo`() above
+
+INSERT INTO `wtkIncomeByMonth`
+   (`YearTracked`,`Quarter`,`MonthInYear`,`GrossIncome`,`Refunds`)
+  SELECT DATE_FORMAT(`AddDate`,'%Y') AS `Year`,
+    QUARTER(DATE_FORMAT(`AddDate`,'%Y-%m-%d')) AS `Quarter`,
+    DATE_FORMAT(`AddDate`,'%m') AS `Month`,
+    SUM(IF (`PaymentStatus` = 'Authorized', `GrossAmount`,0)) AS `GrossIncome`,
+    SUM(IF (`PaymentStatus` = 'Refund', `GrossAmount`,0)) AS `Refunds`
+FROM `wtkRevenueDemo`
+WHERE `PaymentStatus` IN ('Authorized','Refund')
+GROUP BY DATE_FORMAT(`AddDate`,'%Y-%m')
+ORDER BY DATE_FORMAT(`AddDate`,'%Y-%m') ASC;

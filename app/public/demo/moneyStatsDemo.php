@@ -1,8 +1,7 @@
 <?PHP
-$gloLoginRequired = false;
+$pgSecurityLevel = 1;
 define('_RootPATH', '../');
 require('../wtk/wtkLogin.php');
-
 
 $pgSQL =<<<SQLVAR
 SELECT COUNT(*) AS `Count`
@@ -111,10 +110,14 @@ switch ($gloRNG):
             $pgGroupBy = 'to_char("AddDate", \'WW\')';
             $pgOrderBy = $pgGroupBy;
         else:
-            $pgGroupBy = "DATE_FORMAT(`AddDate`,'%Y-%u')";
-            $pgSelDates  = "DATE_FORMAT(DATE_ADD(DATE_ADD(DATE_FORMAT(`AddDate`,'%Y-01-01')," . "\n";
-            $pgSelDates .= " INTERVAL DATE_FORMAT(`AddDate`,'%u') WEEK), INTERVAL 1 DAY),'%b %D') AS `WeekEnding`";
-            $pgOrderBy = $pgGroupBy;
+            $pgGroupBy = "YEAR(`AddDate`), WEEK(`AddDate`, 1)";
+            $pgSelDates = "DATE_FORMAT(DATE_ADD(`AddDate`, INTERVAL (1 - DAYOFWEEK(`AddDate`)) + 7 DAY), '%b %D') AS `WeekEnding`" . "\n";
+            $pgOrderBy = 'YEAR(`AddDate`) DESC, WEEK(`AddDate`, 1)';
+            
+            // $pgGroupBy = "DATE_FORMAT(`AddDate`,'%Y-%u')";
+            // $pgSelDates  = "DATE_FORMAT(DATE_ADD(DATE_ADD(DATE_FORMAT(`AddDate`,'%Y-01-01')," . "\n";
+            // $pgSelDates .= " INTERVAL DATE_FORMAT(`AddDate`,'%u') WEEK), INTERVAL 1 DAY),'%b %D') AS `WeekEnding`";
+            // $pgOrderBy = $pgGroupBy;
         endif;
         $pgLimit = 8;
         break;
@@ -122,17 +125,18 @@ endswitch;
 
 $pgTabBar =<<<htmVAR
 <p>View: &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyDemo','dwmyChart','dwmyChart','d')">Daily</a> &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyDemo','dwmyChart','dwmyChart','w')">Weekly</a> &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyDemo','dwmyChart','dwmyChart','m')">Monthly</a> &nbsp;
-<a onclick="JavaScript:ajaxFillDiv('moneyDemo','dwmyChart','dwmyChart','y')">Yearly</a>
+<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','d')">Daily</a> &nbsp;
+<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','w')">Weekly</a> &nbsp;
+<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','m')">Monthly</a> &nbsp;
+<a onclick="JavaScript:ajaxFillDiv('moneyStatsDemo','dwmyChart','dwmyChart','y')">Yearly</a>
 </p>
 htmVAR;
-$pgTabBar = wtkReplace($pgTabBar,"onclick=\"JavaScript:ajaxFillDiv('moneyDemo','dwmyChart','dwmyChart','$gloRNG')\"",'disabled class="black-text"');
+$pgTabBar = wtkReplace($pgTabBar,"onclick=\"JavaScript:ajaxFillDiv('/admin/moneyStats','dwmyChart','dwmyChart','$gloRNG')\"",'disabled class="black-text"');
 
 if ($gloDriver1 == 'pgsql'):
     $pgSQL =<<<SQLVAR
 SELECT $pgSelDates ,
+    COUNT(`UID`) AS `Count`,
     SUM(`GrossAmount`) AS `Income`
   FROM `wtkRevenueDemo`
 GROUP BY $pgGroupBy
@@ -165,7 +169,7 @@ $gloSkipFooter = true;
 $pgChartOps = array('regRpt', 'bar','area');
 $pgTableID = wtkGetGet('TableID');
 if ($pgTableID == ''):
-    $pgChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 1);    
+    $pgChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 1);
     if (wtkGetParam('p') == 'dwmyChart'):
         $pgHtm  = "<h3>Income Earned $pgTitle</h3>" . "\n";
         $pgHtm .= "<p>$pgMsg</p>" . "\n" . $pgTabBar;
@@ -200,7 +204,7 @@ $gloColumnAlignArray = array (
 	'Amount' => 'center'
 );
 $pgPayChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 2);
-if ($pgTableID == 'payChart'):
+if ($pgTableID == 'wtkRpt2'):
     echo $pgPayChart;
     exit;
 endif;
@@ -219,7 +223,7 @@ if ($gloDriver1 == 'pgsql'):
 SQLVAR;
 else:
     $pgSQL =<<<SQLVAR
-SELECT e.`PaymentProvider`, COUNT(r.`UID`) AS `Count`,
+SELECT e.`PaymentProvider`, FORMAT(COUNT(r.`UID`),0) AS `Count`,
     FORMAT(SUM(r.`GrossAmount`),2) AS `Amount`
   FROM `wtkRevenueDemo` r
     INNER JOIN `wtkEcommerce` e ON e.`UID` = r.`EcomUID`
@@ -228,8 +232,12 @@ GROUP BY e.`PaymentProvider`
 ORDER BY e.`PaymentProvider` DESC LIMIT :Limit
 SQLVAR;
 endif;
+$gloTotalArray = array (
+    'Count'  => 'SUM',
+	'Amount' => 'DSUM'
+);
 $pgProviderChart = wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 3);
-if ($pgTableID == 'providerChart'):
+if ($pgTableID == 'wtkRpt3'):
     echo $pgProviderChart;
     exit;
 endif;
@@ -259,7 +267,7 @@ $pgHtm =<<<htmVAR
                             <label class="active" for="EndDate">To End Date</label>
                         </div>
                         <div class="input-field col m1 s2">
-                            <button onclick="Javascript:revenueRptFilter();" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
+                            <button onclick="Javascript:revenueDemoRptFilter();" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
                         </div>
                     </div>
                 </form>
@@ -290,26 +298,40 @@ $pgHtm =<<<htmVAR
     </div>
 </div>
 <script type="text/javascript">
-function revenueRptFilter(){
+function revenueDemoRptFilter(){
+    waitLoad('on');
+    let fncDone = 0;
+    let fncToDo = 2;
     let fncFormData = $('#dateRngForm').serialize();
     fncFormData = fncFormData + '&apiKey=' + pgApiKey;
     $('#payChartSPAN').text('');
     $('#provChartSPAN').text('');
-
     $.ajax({
         type: "POST",
-        url: 'moneyDemo.php?TableID=payChart',
+        url: 'moneyStatsDemo.php?TableID=wtkRpt2',
         data: (fncFormData),
         success: function(data) {
+            fncDone ++;
             $('#payChartSPAN').html(data);
+            if (fncToDo == fncDone){
+                let fncTabs = document.querySelectorAll('.tabs');
+                let fncTmp = M.Tabs.init(fncTabs); // it is critical this is only done after all have loaded
+                waitLoad('off');
+            }
         }
     })
     $.ajax({
         type: "POST",
-        url: 'moneyDemo.php?TableID=providerChart',
+        url: 'moneyStatsDemo.php?TableID=wtkRpt3',
         data: (fncFormData),
         success: function(data) {
+            fncDone ++;
             $('#provChartSPAN').html(data);
+            if (fncToDo == fncDone){
+                let fncTabs = document.querySelectorAll('.tabs');
+                let fncTmp = M.Tabs.init(fncTabs); // it is critical this is only done after all have loaded
+                waitLoad('off');
+            }
         }
     })
     $('#payFilterMsg').html('&nbsp;');

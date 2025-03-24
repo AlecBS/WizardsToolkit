@@ -112,7 +112,7 @@ function wtkGraphValues($fncSQL, $fncSqlFilter, $fncDateFormat = '') {
 *
 * Calling example:<br>
 * $pgChartOps = array('regRpt','pie','bar','line');<br>
-* $pgHtm .= wtkRptChart($pgSQL, $pgSqlFilter, $pgRpt . 'Rpt', '', $pgChartOps, $pgRptNum);
+* $pgHtm .= wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps, 1);
 *
 * @param string $fncSQL  SQL SELECT
 * @param array  $fncSqlFilter array that has PDO names of fields and their values
@@ -181,7 +181,7 @@ htmVAR;
     <li class="tab col s2"><a onclick="Javascript:changeChart('pie', 'pieCanvas$fncChartNum', $fncChartNum )">Pie Chart</a></li>
 htmVAR;
         $fncCanvas =<<<htmVAR
-    <div class="col s12" id="regRpt0">
+    <div class="col s12" id="regRpt$fncChartNum">
         $fncRegRpt
     </div>
     <div class="hide col s12" id="barChart$fncChartNum"><canvas id="barCanvas$fncChartNum"></canvas></div>

@@ -461,6 +461,20 @@ CREATE TABLE `wtkHelp` (
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
+CREATE TABLE `wtkIncomeByMonth` (
+  `UID` int UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `AddDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `YearTracked` smallint NOT NULL,
+  `Quarter` tinyint NOT NULL,
+  `MonthInYear` tinyint NOT NULL,
+  `GrossIncome` decimal(10,2),
+  `Refunds` decimal(10,2),
+  `WhyNote` varchar(250),
+  PRIMARY KEY (`UID`),
+  KEY `ix_wtkIncomeByQtr` (`YearTracked`,`Quarter`),
+  KEY `ix_wtkIncomeByMonth` (`YearTracked`,`MonthInYear`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
 CREATE TABLE `wtkLanguage` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

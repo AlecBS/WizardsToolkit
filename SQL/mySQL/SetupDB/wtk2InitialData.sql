@@ -73,7 +73,9 @@ INSERT INTO `wtkPages` (`UID`, `PageName`, `FileName`, `Path`)
 (36, 'Affiliates', 'affiliateList', '/admin/'),
 (37, 'Prospects', 'prospectList', '/admin/'),
 (38, 'Prospect Staff', 'prospectStaffList', '/admin/'),
-(39, 'CSV Importer', 'pickDataTable', '/admin/');
+(39, 'CSV Importer', 'pickDataTable', '/admin/'),
+(40, 'History', 'moneyHistory', '/admin/'),
+(41, 'Downloads', 'downloadList', '/admin/');
 
 INSERT INTO `wtkMenuSets` (`UID`, `MenuName`, `Description`)
   VALUES (1, 'WTK-Admin', 'administration of Wizards Toolkit');
@@ -94,12 +96,13 @@ INSERT INTO `wtkMenuItems` (`MenuGroupUID`, `Priority`, `PgUID`)
 (2, 40, 34),
 (2, 50, 28),
 (2, 60, 19),
-(2, 70, 31),
 (3, 10, 18),
 (3, 20, 36),
 (3, 30, 37),
 (3, 40, 33),
-(3, 50, 35),
+(3, 50, 31),
+(3, 60, 35),
+(3, 70, 40),
 (4, 10, 7),
 (4, 20, 15),
 (4, 30, 30),

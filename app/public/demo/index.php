@@ -37,8 +37,10 @@ $pgHtm =<<<htmVAR
                     <a target="_blank" href="charts2.htm">Demo 2 HTM and JS</a>
                     <br>
                     <a onclick="JavaScript:ajaxGo('rptDateRange');">Date Range Chart Analytics</a>
+                    <br><hr>
+                    <a onclick="JavaScript:ajaxGo('moneyStatsDemo');">Revenue Analytics</a>
                     <br>
-                    <a onclick="JavaScript:ajaxGo('moneyDemo');">Revenue Analytics</a>
+                    <a onclick="JavaScript:ajaxGo('moneyHistoryDemo');">Revenue History</a>
                     <br><hr>
                     <a onclick="JavaScript:ajaxGo('wtkFormFile');">File Upload</a>
                     <br>
