@@ -124,5 +124,6 @@ INSERT INTO `wtkIncomeByMonth`
     SUM(IF (`PaymentStatus` = 'Refund', `GrossAmount`,0)) AS `Refunds`
 FROM `wtkRevenueDemo`
 WHERE `PaymentStatus` IN ('Authorized','Refund')
+    AND DATE_FORMAT(`AddDate`,'%Y-%m') <= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH),'%Y-%m')
 GROUP BY DATE_FORMAT(`AddDate`,'%Y-%m')
 ORDER BY DATE_FORMAT(`AddDate`,'%Y-%m') ASC;
