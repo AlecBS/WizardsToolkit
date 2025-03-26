@@ -143,7 +143,13 @@ $pgFileExt  = pathinfo($pgFileName, PATHINFO_EXTENSION);
 $pgFileArray = explode(',', $pgFile);
 $pgFixedFile = $pgFileArray[1]; // gets rid of data:image/jpeg;base64,
 
-$pgNewFileName = wtkGenerateFileName($pgTable, $pgFileExt);
+if ($pgPath == '/exports/'):
+    // using this naming convention and cron jobs, will be deleted automatically after 15 minutes
+    $pgNewFileName = wtkEncode(date('His')) . rand(0,99) . '.' . $pgFileExt;
+else:
+    $pgNewFileName = wtkGenerateFileName($pgTable, $pgFileExt);
+endif;
+
 $pgUploadFile = '..' . $pgPath . $pgNewFileName;
 $pgUploadFile = wtkReplace($pgUploadFile, '....', '../..');
 

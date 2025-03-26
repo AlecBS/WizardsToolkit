@@ -12,7 +12,7 @@ else:
 endif;
 
 $gloWTKmode = 'ADD';
-$pgUpload  = wtkFormFile('wtkFiles','FilePath','/exports/','NewFileName','Pick File to Upload','s12','csvImporter','Y','','Y',1);
+$pgUpload  = wtkFormFile('wtkFiles','FilePath','/exports/','NewFileName','Pick File to Upload','s12','csvImporter','Y','accept=".csv"','Y',1);
 
 // For example, instead of /demo/imgs you could put '../docs/imgs/'
     // and it would find files in a /app/docs/imgs/ folder next to /app/public
