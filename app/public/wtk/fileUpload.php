@@ -145,7 +145,7 @@ $pgFixedFile = $pgFileArray[1]; // gets rid of data:image/jpeg;base64,
 
 if ($pgPath == '/exports/'):
     // using this naming convention and cron jobs, will be deleted automatically after 15 minutes
-    $pgNewFileName = wtkEncode(date('His')) . rand(0,99) . '.' . $pgFileExt;
+    $pgNewFileName = wtkEncode(date('His', strtotime('+45 minutes'))) . rand(0,99) . '.' . $pgFileExt;
 else:
     $pgNewFileName = wtkGenerateFileName($pgTable, $pgFileExt);
 endif;

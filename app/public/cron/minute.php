@@ -14,7 +14,7 @@ asort($pgNewFileArray);
 
 $pgMinutes = 15; // this can be data-driven
 $pgTooOldDate = 'w' . date('His', strtotime('-' . $pgMinutes . ' minutes'));
-$pgYesterdayDate = 'w' . date('His', strtotime('+1 minutes'));
+$pgYesterdayDate = 'w' . date('His', strtotime('+45 minutes'));
 $pgCount = 0;
 foreach ($pgNewFileArray as $pgDecoded => $pgFileToDel):
     $pgTmp = 'w' . $pgDecoded;
