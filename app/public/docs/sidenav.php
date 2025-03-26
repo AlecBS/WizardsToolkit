@@ -69,7 +69,7 @@ $pgHtm =<<<htmVAR
         <h2 class="phpdocumentor-sidebar__category-header">Miscellaneous</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="https://wizardstoolkit.com/wtk.php" target="_blank">WTK Demo</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="https://wizardstoolkit.com/wiki/" target="_blank">WTK Wiki</a></h3>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="https://wizardstoolkit.com/wtk/contactUs.php" target="_blank">Contact Us</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="https://wizardstoolkit.com/contact.php" target="_blank">Contact Us</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="/wtk/css/" target="_blank">CSS Maker</a></h3>
     </section>
 htmVAR;
