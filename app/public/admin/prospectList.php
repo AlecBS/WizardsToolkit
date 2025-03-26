@@ -5,6 +5,8 @@ if (!isset($gloConnected)):
     require('../wtk/wtkLogin.php');
 endif;
 
+$pgBroadcast = wtkBroadcastAlerts();
+
 $pgSQL =<<<SQLVAR
 SELECT p.`UID`,
     CONCAT(p.`CompanyName`,'<br>',
@@ -50,6 +52,7 @@ $gloDelPage  = 'wtkProspectsDelDate'; // have DelDate at end if should DelDate i
 
 $pgHtm =<<<htmVAR
 <div class="container">
+    $pgBroadcast
     <h4>Prospects
         <small class="right">
             <a onclick="JavaScript:ajaxGo('prospectStaffList')">Emailing List</a>

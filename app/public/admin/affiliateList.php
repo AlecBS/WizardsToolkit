@@ -5,6 +5,8 @@ if (!isset($gloConnected)):
     require('../wtk/wtkLogin.php');
 endif;
 
+$pgBroadcast = wtkBroadcastAlerts();
+
 $pgSQL =<<<SQLVAR
 SELECT `UID`, `CompanyName`, `ContactName`, `Email`,
     `fncContactIcons`(`Email`,`MainPhone`,0,0,'Y',`UID`,'N','N','') AS `Contact`,
@@ -56,6 +58,7 @@ $gloMoreButtons = array(
 
 $pgHtm =<<<htmVAR
 <div class="container">
+    $pgBroadcast
     <h4>Affiliates
         <small class="right">
             <a class="btn orange black-text"

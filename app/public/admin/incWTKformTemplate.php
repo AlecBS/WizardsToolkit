@@ -33,6 +33,8 @@ $pgHtm .= wtkFormHidden('wtkGoToURL', '../../admin/@BrowseFileName@.php');
 //$pgHtm .= wtkFormPrimeField('@Table@', 'ParentUID', $gloRNG);
 $pgHtm .= '            </div>' . "\n";
 $pgHtm .= wtkUpdateBtns() . "\n";
+// change to below if you want Copy button also
+// $pgHtm .= wtkUpdateBtns('wtkForm', '/wtk/lib/Save', 'Y'); // third parameter adds Copy button
 $pgHtm .= wtkFormWriteUpdField();
 
 $pgHtm .=<<<htmVAR
