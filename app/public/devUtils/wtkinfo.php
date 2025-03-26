@@ -128,8 +128,8 @@ htmVAR;
 endswitch;
 $pgWTKinfo .=<<<htmVAR
 <p>Visit <a target="_blank" href="https://wizardstoolkit.com/">WizardsToolkit.com</a>
-  for <a target="_blank" href="https://wizardstoolkit.com/pricing.htm">pricing information</a> or check out our
-  <a target="_blank" href="https://wizardstoolkit.com/tutorials.htm">Tutorials</a>.</p>
+  for <a target="_blank" href="https://wizardstoolkit.com/pricing.php">pricing information</a> or check out our
+  <a target="_blank" href="https://wizardstoolkit.com/tutorials.php">Tutorials</a>.</p>
 htmVAR;
 
 if (($gloRNG != 0) && ($gloRNG != '')):
