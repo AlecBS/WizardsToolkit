@@ -25,11 +25,8 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkFormText('wtkMenuSets', 'MenuName');
-if ($gloWTKmode == 'Copy'): // Copy data feature
-    $pgHtm = wtkReplace($pgHtm, ' name="Origwtk', ' name="Copywtk');
-    $gloWTKmode = 'ADD';
-endif;
-$pgHtm .= wtkFormText('wtkMenuSets', 'Description');
+
+$pgHtm .= wtkFormText('wtkMenuSets', 'Description', 'text','','s12','N','only seen here');
 
 $pgHtm .= wtkFormHidden('wtkGoToURL', '../../admin/menuSetList.php');
 $pgHtm .= wtkFormHidden('ID1', $gloId);

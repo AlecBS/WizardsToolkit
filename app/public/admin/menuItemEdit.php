@@ -6,7 +6,7 @@ if (!isset($gloConnected)):
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT `UID`, `MenuGroupUID`, `PgUID`, `Priority`
+SELECT `UID`, `MenuGroupUID`, `PgUID`, `Priority`, `ShowDividerAbove`
   FROM `wtkMenuItems`
 WHERE `UID` = ?
 SQLVAR;
@@ -26,10 +26,13 @@ $pgHtm =<<<htmVAR
             <div class="row">
 htmVAR;
 
-$pgHtm .= wtkFormText('wtkMenuItems', 'Priority','number');
-
+$pgValues = array(
+    'checked' => 'Y',
+    'not' => 'N'
+    );
+$pgHtm .= wtkFormCheckbox('wtkMenuItems', 'ShowDividerAbove', '',$pgValues,'s12');
 $pgSQL  = 'SELECT `UID`, `PageName` FROM `wtkPages` ORDER BY `PageName` ASC';
-$pgHtm .= wtkFormSelect('wtkMenuItems', 'PgUID', $pgSQL, [], 'PageName', 'UID', 'Page Name');
+$pgHtm .= wtkFormSelect('wtkMenuItems', 'PgUID', $pgSQL, [], 'PageName', 'UID', 'Page Name', 's12');
 
 $pgHtm .= wtkFormHidden('wtkGoToURL', '../../admin/menuItemList.php');
 $pgHtm .= wtkFormHidden('ID1', $gloId);

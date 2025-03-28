@@ -11,7 +11,14 @@ $pgToId = wtkGetPost('toId');
 $pgFromPos = wtkGetPost('fromPos');
 $pgToPos = wtkGetPost('toPos');
 
+// if your table with Priority drag-drop functionality has parent key, add code here
 switch ($pgTable):
+    case 'wtkMenuGroups':
+        $pgExtraWhere = ' AND `MenuUID` = ' . $pgFilter . "\n";
+        break;
+    case 'wtkMenuItems':
+        $pgExtraWhere = ' AND `MenuGroupUID` = ' . $pgFilter . "\n";
+        break;
     case 'wtkWidgetGroup_X_Widget':
         $pgExtraWhere = ' AND `WidgetGroupUID` = ' . $pgFilter . "\n";
         $pgUserUID = wtkSqlGetOneResult("SELECT `UserUID` FROM `wtkWidgetGroup_X_Widget` WHERE `UID` = ?", [$pgFromId],0);

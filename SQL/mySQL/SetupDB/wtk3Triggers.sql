@@ -42,6 +42,46 @@ CREATE TRIGGER `tub_wtkBlog`
   END
 $$
 
+CREATE TRIGGER `tib_wtkMenuGroups`
+    BEFORE INSERT ON `wtkMenuGroups`
+    FOR EACH ROW
+  BEGIN
+    DECLARE fncLastPriority SMALLINT;
+
+    SELECT COUNT(*) INTO fncLastPriority
+      FROM `wtkMenuGroups`
+    WHERE `MenuUID` = NEW.`MenuUID`;
+
+    IF (fncLastPriority > 0) THEN
+        SELECT `Priority` INTO fncLastPriority
+          FROM `wtkMenuGroups`
+        WHERE `MenuUID` = NEW.`MenuUID`
+        ORDER BY `Priority` DESC LIMIT 1;
+    END IF;
+    SET NEW.`Priority` = (fncLastPriority + 10);
+END
+$$
+
+CREATE TRIGGER `tib_wtkMenuItems`
+    BEFORE INSERT ON `wtkMenuItems`
+    FOR EACH ROW
+  BEGIN
+    DECLARE fncLastPriority SMALLINT;
+
+    SELECT COUNT(*) INTO fncLastPriority
+      FROM `wtkMenuItems`
+    WHERE `MenuGroupUID` = NEW.`MenuGroupUID`;
+
+    IF (fncLastPriority > 0) THEN
+        SELECT `Priority` INTO fncLastPriority
+          FROM `wtkMenuItems`
+        WHERE `MenuGroupUID` = NEW.`MenuGroupUID`
+        ORDER BY `Priority` DESC LIMIT 1;
+    END IF;
+    SET NEW.`Priority` = (fncLastPriority + 10);
+END
+$$
+
 CREATE TRIGGER `tib_wtkWidgetGroup_X_Widget`
     BEFORE INSERT ON `wtkWidgetGroup_X_Widget`
     FOR EACH ROW

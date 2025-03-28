@@ -51,7 +51,7 @@ function wtkMenu($fncMenuSetName, $fncSpecial = 'N') {
             global $gloWTKobjConn;
             $fncSQL =<<<SQLVAR
 SELECT COALESCE(i.`MenuGroupUID`, 0) AS `MenuGroupUID`, g.`GroupName`,
-    g.`GroupURL`, p.`PageName`, p.`FileName`, p.`Path`
+    g.`GroupURL`, p.`PageName`, p.`FileName`, p.`Path`, i.`ShowDividerAbove`
  FROM `wtkMenuSets` m
     INNER JOIN `wtkMenuGroups` g ON g.`MenuUID` = m.`UID`
     LEFT OUTER JOIN `wtkMenuItems` i ON i.`MenuGroupUID` = g.`UID`
@@ -164,7 +164,11 @@ htmVAR;
                 else:   // Not $fncRow['MenuGroupUID'] != $fncPriorGroupUID
                     if ($fncIsGroupURL == false):
 //                      $fncFile = $fncRow['FileName']; // 2VERIFY if remove this line, it breaks
-                        $fncTmp  = '    <li><a onclick="Javascript:ajaxGo(\'' . $fncFile . '\');">';
+                        $fncTmp = '';
+                        if ($fncRow['ShowDividerAbove'] == 'Y'):
+                            $fncTmp .= '    <li class="divider"></li>' . "\n";
+                        endif;
+                        $fncTmp .= '    <li><a onclick="Javascript:ajaxGo(\'' . $fncFile . '\');">';
                         $fncTmp .= $fncRow['PageName'] . '</a></li>' . "\n";
                         $fncDrops .= $fncTmp;
                     else:

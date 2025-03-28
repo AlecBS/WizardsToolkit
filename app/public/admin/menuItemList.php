@@ -23,7 +23,13 @@ $pgMenuName = wtkSqlValue('MenuName');
 $pgGroupName = wtkSqlValue('GroupName');
 
 $pgSQL =<<<SQLVAR
-SELECT m.`UID`, m.`Priority`, p.`PageName`
+SELECT m.`UID`, p.`PageName` AS `MenuItem`,
+  CONCAT('<a class="btn btn-floating wtkdrag" draggable="true"',
+    ' data-id="', m.`UID`, '"',
+    ' data-pos="', ROW_NUMBER() OVER(ORDER BY m.`Priority`), '"',
+    ' ondragstart="wtkDragStart(this);" ondrop="wtkDropId(this)" ondragover="wtkDragOver(event)">',
+    '<i class="material-icons" alt="drag to change priorty" title="drag to change priorty">drag_handle</i></a>')
+    AS `Prioritize`
  FROM `wtkMenuItems` m
    LEFT OUTER JOIN `wtkPages` p
     ON p.`UID` = m.`PgUID`
@@ -43,14 +49,22 @@ $gloColumnAlignArray = array (
 $pgHtm =<<<htmVAR
 <div class="container">
     <h4><a onclick="Javascript:ajaxGo('menuSetList');">$pgMenuName</a> >
-            <a onclick="JavaScript:wtkGoBack()">$pgGroupName</a> > Menu Items
+            <a onclick="JavaScript:ajaxGo('menuGroupList',0,$pgMenuUID)">$pgGroupName</a> > Menu Items
     </h4>
     <div class="wtk-list card b-shadow">
 htmVAR;
 $pgHtm .= wtkBuildDataBrowse($pgSQL, $pgSqlFilter, 'wtkMenuItems', '/admin/menuItemList.php');
-//$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div><br></div>' . "\n";
-$pgHtm .= $pgRefresh . "\n";
+$pgHtm  = wtkReplace($pgHtm, 'No data.','no menu items yet');
+$pgHtm .=<<<htmVAR
+    </div><br>
+</div>
+$pgRefresh
+<input type="hidden" id="wtkDragTable" value="wtkMenuItems">
+<input type="hidden" id="wtkDragColumn" value="Priority">
+<input type="hidden" id="wtkDragFilter" value="$gloRNG">
+<input type="hidden" id="wtkDragRefresh" value="/admin/menuItemList">
+<input type="hidden" id="wtkDragLocation" value="table">
+htmVAR;
 
 echo $pgHtm;
 exit;

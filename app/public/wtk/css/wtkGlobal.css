@@ -967,6 +967,10 @@ textarea.materialize-textarea:disabled+label {
   line-height: 12px;
 }
 
+.dropdown-content li.divider {
+  height: 2px !important;
+}
+
 .dropdown-content li>a {
   line-height: 0;
   color: var(--main-text-color) !important;

@@ -45,7 +45,7 @@ $pgHtm =<<<htmVAR
     <div class="wtk-list card b-shadow">
 htmVAR;
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], '@Table@', '/admin/@FileName@.php');
-//$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
+//$pgHtm  = wtkReplace($pgHtm, 'No data.','no @Table@ data yet');
 $pgHtm .= '</div><br></div>' . "\n";
 
 echo $pgHtm;

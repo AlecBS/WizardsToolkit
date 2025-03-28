@@ -10,7 +10,13 @@ else: // returning from save of menuGroupEdit
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT `UID`, `Priority`, `GroupName`
+SELECT `UID`, `GroupName` AS `MenuGrouping`,
+  CONCAT('<a class="btn btn-floating wtkdrag" draggable="true"',
+    ' data-id="', `UID`, '"',
+    ' data-pos="', ROW_NUMBER() OVER(ORDER BY `Priority`), '"',
+    ' ondragstart="wtkDragStart(this);" ondrop="wtkDropId(this)" ondragover="wtkDragOver(event)">',
+    '<i class="material-icons" alt="drag to change priorty" title="drag to change priorty">drag_handle</i></a>')
+    AS `Prioritize`
   FROM `wtkMenuGroups`
  WHERE `DelDate` IS NULL AND `MenuUID` = ?
 ORDER BY `Priority` ASC
@@ -32,13 +38,24 @@ $gloMoreButtons = array(
 
 $pgSetName = wtkSqlGetOneResult('SELECT `MenuName` FROM `wtkMenuSets` WHERE `UID` = ?', [$gloRNG]);
 
-$pgHtm  = '<div class="container">' . "\n";
-$pgHtm .= '  <h4><a onclick="JavaScript:wtkGoBack()">Menu Sets</a> > ' . $pgSetName . '</h4>'. "\n";
-$pgHtm .= '    <div class="wtk-list card b-shadow">' . "\n";
+$pgHtm =<<<htmVAR
+<div class="container">
+    <h4><a onclick="JavaScript:wtkGoBack()">Menu Sets</a> > $pgSetName </h4>
+    <p>&ldquo;Menu Grouping&rdquo; will be shown across the top navbar.</p>
+    <div class="wtk-list card b-shadow">
+htmVAR;
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [$gloRNG], 'wtkMenuGroups', '/admin/menuGroupList.php');
-//$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no users yet');
-$pgHtm .= '</div><br></div>' . "\n";
-$pgHtm .= $pgRefresh . "\n";
+$pgHtm  = wtkReplace($pgHtm, 'No data.','no menu groups yet');
+$pgHtm .=<<<htmVAR
+    </div><br>
+</div>
+$pgRefresh
+<input type="hidden" id="wtkDragTable" value="wtkMenuGroups">
+<input type="hidden" id="wtkDragColumn" value="Priority">
+<input type="hidden" id="wtkDragFilter" value="$gloRNG">
+<input type="hidden" id="wtkDragRefresh" value="/admin/menuGroupList">
+<input type="hidden" id="wtkDragLocation" value="table">
+htmVAR;
 
 echo $pgHtm;
 exit;

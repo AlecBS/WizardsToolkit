@@ -567,8 +567,9 @@ CREATE TABLE `wtkMenuItems` (
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `DelDate` datetime,
   `MenuGroupUID` int UNSIGNED NOT NULL,
-  `Priority` smallint NOT NULL DEFAULT 10,
+  `ShowDividerAbove` CHAR(1) NOT NULL DEFAULT 'N',
   `PgUID` int UNSIGNED,
+  `Priority` smallint NOT NULL DEFAULT 10,
   PRIMARY KEY (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 

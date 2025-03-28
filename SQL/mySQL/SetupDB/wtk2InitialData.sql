@@ -59,7 +59,7 @@ INSERT INTO `wtkPages` (`UID`, `PageName`, `FileName`, `Path`)
 (22, 'Forums', 'forumList', '/wtk/'),
 (23, 'Messages', 'messageList', '/wtk/'),
 (24, 'Menu Groups', 'menuGroupList', '/admin/'),
-(25, 'Email History', 'emailHistory', '/admin/'),
+(25, 'Emails Sent', 'emailHistory', '/admin/'),
 (26, 'Chats', 'chatList', '/wtk/'),
 (27, 'Access Fails', 'failedAttemptList', '/admin/'),
 (28, 'Broadcast List', 'broadcastList', '/admin/'),
@@ -79,47 +79,47 @@ INSERT INTO `wtkPages` (`UID`, `PageName`, `FileName`, `Path`)
 
 INSERT INTO `wtkMenuSets` (`UID`, `MenuName`, `Description`)
   VALUES (1, 'WTK-Admin', 'administration of Wizards Toolkit');
-INSERT INTO `wtkMenuGroups` (`UID`, `MenuUID`, `GroupName`, `GroupURL`, `Priority`)
+INSERT INTO `wtkMenuGroups` (`UID`, `MenuUID`, `GroupName`, `GroupURL`)
   VALUES
-(1, 1, 'Dashboard', 'dashboard', 10),
-(2, 1, 'Client Control', NULL, 20),
-(3, 1, 'Marketing', NULL, 30),
-(4, 1, 'Site Management', NULL, 40),
-(5, 1, 'View Logs', NULL, 50),
-(6, 1, 'Logout', 'logout', 90);
+(1, 1, 'Dashboard', 'dashboard'),
+(2, 1, 'Client Control', NULL),
+(3, 1, 'Marketing', NULL),
+(4, 1, 'Site Management', NULL),
+(5, 1, 'View Logs', NULL),
+(6, 1, 'Logout', 'logout');
 
-INSERT INTO `wtkMenuItems` (`MenuGroupUID`, `Priority`, `PgUID`)
+INSERT INTO `wtkMenuItems` (`MenuGroupUID`, `ShowDividerAbove`, `PgUID`)
   VALUES
-(2, 10, 1),
-(2, 20, 8),
-(2, 30, 16),
-(2, 40, 34),
-(2, 50, 28),
-(2, 60, 19),
-(3, 10, 18),
-(3, 20, 36),
-(3, 30, 37),
-(3, 40, 33),
-(3, 50, 31),
-(3, 60, 35),
-(3, 70, 40),
-(4, 10, 7),
-(4, 20, 15),
-(4, 30, 30),
-(4, 40, 29),
-(4, 50, 10),
-(4, 60, 2),
-(4, 70, 3),
-(4, 80, 17),
-(4, 90, 13),
-(4, 100, 39),
-(5, 10, 4),
-(5, 20, 11),
-(5, 30, 5),
-(5, 40, 6),
-(5, 50, 27),
-(5, 60, 25),
-(5, 70, 32);
+(2, 'N', 16),
+(2, 'N', 8),
+(2, 'Y', 34),
+(2, 'N', 28),
+(2, 'N', 19),
+(2, 'Y', 1),
+(3, 'N', 18),
+(3, 'N', 36),
+(3, 'N', 37),
+(3, 'N', 33),
+(3, 'Y', 31),
+(3, 'N', 35),
+(3, 'N', 40),
+(4, 'N', 7),
+(4, 'N', 15),
+(4, 'N', 30),
+(4, 'N', 29),
+(4, 'Y', 2),
+(4, 'N', 3),
+(4, 'Y', 10),
+(4, 'N', 17),
+(4, 'N', 13),
+(4, 'Y', 39),
+(5, 'N', 4),
+(5, 'N', 11),
+(5, 'N', 5),
+(5, 'Y', 6),
+(5, 'N', 27),
+(5, 'Y', 25),
+(5, 'N', 32);
 
 INSERT INTO `wtkHelp` (`HelpIndex`, `HelpTitle`, `HelpText`)
  VALUES
