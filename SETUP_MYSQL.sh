@@ -18,8 +18,8 @@ docker exec -it wtk_db_mysql mysql -uroot -pLowCodeViaWTK -e "FLUSH PRIVILEGES ;
 docker exec -it wtk_db_mysql mysql -uroot -pLowCodeViaWTK -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
 
 docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk1Tables.sql
-docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk2InitialData.sql
-docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk3Triggers.sql
+docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk2Triggers.sql
+docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk3InitialData.sql
 docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk4Functions.sql
 docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk5Procedures.sql
 docker exec -i wtk_db_mysql mysql -uroot -pLowCodeViaWTK -h 127.0.0.1 wiztools < ./SQL/mySQL/SetupDB/wtk6Views.sql
