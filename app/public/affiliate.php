@@ -182,7 +182,7 @@ $pgHtm =<<<htmVAR
                       or you plan on learning how to use WTK for your clients so you can
                       earn high hourly rates while using the most intuitive rapid
                       application development... we are here for you!
-                      Note: <a target="_blank" href="/startup.php">Startup Packages</a> are capped at 10% commission.</p>
+                      Note: <a target="_blank" href="/services.php">Startup Packages</a> are capped at 10% commission.</p>
                     <p>When you succeed, we succeed. Let us know how we can help you succeed!</p>
                 </div>
             </div>

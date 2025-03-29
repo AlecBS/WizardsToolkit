@@ -42,9 +42,25 @@ $pgHtm =<<<htmVAR
 <h4>Why Partner with Wizard&rsquo;s Toolkit?</h4>
 <ul class="browser-default">
     <li>Clients Perceive Value: Offer your clients an exclusive 10% discount on WTK subscription.</li>
-    <li>Earn Generously: we are currently changing the compensation plan and will notify you shortly of the new, exciting plan.</li>
-    <li>Enhance Your Portfolio: By recommending WTK, you position your company as a leader in cutting-edge low-code development, showcasing innovation and efficiency to your clients.</li>
-    <li>Drive Client Success: WTK&rsquo;s low-code solutions accelerate project timelines and reduce costs, making you the hero for your clients.</li>
+    <li>Earn Generously on first year of WTK subscription plans:
+        <ul class="browser-default">
+            <li>40% on the first 5 subscription signups</li>
+            <li>45% for sales 6 to 9</li>
+            <li>50% on 10th sale
+                <ul class="browser-default">
+                    <li><strong>PLUS retroactively paid 10% for
+                    first 5 sales and 5% for sales 6 through 9</strong></li>
+                    <li>In other words, on your 10th sale your prior sales are adjusted to 50%!</li>
+                </ul>
+            </li>
+	        <li>you earn 50% of first year on all future subscriptions</li>
+        </ul>
+    </li>
+    <li>Enhance Your Portfolio: By recommending WTK, you position your company
+        as a leader in cutting-edge low-code development, showcasing innovation
+        and efficiency to your clients.</li>
+    <li>Drive Client Success: WTK&rsquo;s low-code solutions accelerate project
+        timelines and reduce costs, making you the hero for your clients.</li>
 </ul>
 <br>
 <h4>Unlock New Opportunities</h4>
