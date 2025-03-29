@@ -117,7 +117,7 @@ function wtkSendMail($fncEmailArray, $fncSaveArray = [], $fncAttachments = '', $
 * @param string $fncAttachments defaults to blank
 * @global string $gloPostmarkToken defined in wtk/wtkServerInfo.php
 * @global string $gloEmailFromAddress will be used as the From email address; must be assigned in PostmarkApp
-* @uses function wtkSaveEmailSent to save email data if $fncSaveArray filled
+* @uses function wtkSaveEmailWrap to both put email body into HTML template and save to wtkEmailsSent table
 * @link https://postmarkapp.com/developer/user-guide/send-email-with-api/send-a-single-email
 * @return boolean true if succeeds, false if email fails
 */
@@ -309,7 +309,7 @@ function wtkPostmarkApp($fncEmailArray, $fncSaveArray, $fncAttachments = '') {
 * @global string $gloEmailPort
 * @global string $gloEmailSMTPAuth
 * @global string $gloEmailPassword
-* @uses function wtkSaveEmailSent to save email data if $fncSaveArray filled
+* @uses function wtkSaveEmailWrap to both put email body into HTML template and save to wtkEmailsSent table
 * @link https://postmarkapp.com/developer/user-guide/send-email-with-api/send-a-single-email
 * @return boolean true if succeeds, false if email fails
 */
@@ -446,14 +446,28 @@ function wtkSendPHPMail($fncEmailArray, $fncSaveArray = [], $fncAttachments = ''
     return $fncResult;
 } // end of wtkSendPHPMail
 
+/**
+* This is called by other Email PHP functions and generally shouldn't be called directly.
+*
+* This adds a row into the `wtkEmailsSent` for every email sent.
+*
+* @param string $fncSqlFilter
+* @param string $fncSaveArray - "Save Parameters" passed manually by developer
+* @param string $gloSkipConnect - if blank then $gloTechSupport will be used
+* @param array  $gloSkipSaveEmail
+* @return $fncEmailUID which is the UID of the `wtkEmailsSent` row just inserted
+*/
 function wtkSaveEmailSent($fncSqlFilter, $fncSaveArray){
-    global $gloSkipConnect;
-    if ($gloSkipConnect == 'Y'):
+    global $gloSkipConnect, $gloSkipSaveEmail;
+    if (!isset($gloSkipSaveEmail)):
+        $gloSkipSaveEmail = 'N';
+    endif;
+    if (($gloSkipConnect == 'Y') || ($gloSkipSaveEmail == 'Y')):
         $fncEmailUID = 0;
     else:
         $fncInsSQL = 'INSERT INTO `wtkEmailsSent` (`EmailAddress`, `Subject`, `EmailBody`)';
         $fncValues = ' VALUES (:EmailAddress, :Subject, :EmailBody)';
-        // ABS 03/01/21  BEGIN if passed extra values...
+        // BEGIN if passed extra values...
         if (array_key_exists('FromUID', $fncSaveArray)):
             $fncInsSQL = wtkReplace($fncInsSQL, ')',',`SendByUserUID`)');
             $fncValues = wtkReplace($fncValues, ')',', :FromUID)');
@@ -484,12 +498,7 @@ function wtkSaveEmailSent($fncSqlFilter, $fncSaveArray){
             $fncValues = wtkReplace($fncValues, ')',', :HtmlTemplate)');
             $fncSqlFilter['HtmlTemplate'] = $fncSaveArray['HtmlTemplate'];
         endif;
-        if (array_key_exists('MsgChainUID', $fncSaveArray)):
-            $fncInsSQL = wtkReplace($fncInsSQL, ')',',`MsgChainUID`)');
-            $fncValues = wtkReplace($fncValues, ')',', :MsgChainUID)');
-            $fncSqlFilter['MsgChainUID'] = $fncSaveArray['MsgChainUID'];
-        endif;
-        // ABS 03/01/21   END  if passed extra values...
+        //  END  if passed extra values...
         wtkSqlExec($fncInsSQL . $fncValues, $fncSqlFilter);
         $fncToAddress = $fncSqlFilter['EmailAddress'];
         $fncEmailUID = wtkSqlGetOneResult('SELECT `UID` FROM `wtkEmailsSent` WHERE `EmailAddress` = ? ORDER BY `UID` DESC LIMIT 1', [$fncToAddress], '', true);
@@ -646,6 +655,7 @@ function wtkUseEmailTemplate($fncBody, $fncToAddress, $fncTemplate){
  *
  * @param $fncEmailArray array containing Subject, ToEmail, and Body
  * @param $fncSaveArray array containing data to save to wtkEmailsSent
+ * @uses function wtkSaveEmailSent to save email data
  * @return array containing both wtkEmailsSent.UID and updated Email Body
  */
 function wtkSaveEmailWrap($fncEmailArray, $fncSaveArray){

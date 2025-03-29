@@ -118,15 +118,20 @@ CREATE TABLE `wtkAffiliates` (
 CREATE TABLE `wtkBackgroundActions` (
   `UID`       INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate`   timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `TriggerDate`   DATETIME NOT NULL,
-  `DoneDate`   DATETIME NULL,
-  `ActionType` varchar(8) NOT NULL,
-  `ToUserUID` int UNSIGNED,
-  `OtherUID`  int UNSIGNED,
-  `DevNote`   VARCHAR(120) NULL DEFAULT NULL,
+  `TriggerTime` DATETIME NOT NULL,
+  `StartTime`   DATETIME,
+  `CompletedTime` DATETIME,
+  `ActionType` varchar(20) NOT NULL,
+  `ForUserUID` int UNSIGNED,
+  `Param1UID`  int UNSIGNED,
+  `Param2UID`  int UNSIGNED,
+  `Param1Str`  varchar(20),
+  `Param2Str`  varchar(20),
   PRIMARY KEY (`UID`),
-  CONSTRAINT `fk_wtkBackgroundActions_ToUserUID`
-    FOREIGN KEY (`ToUserUID`) REFERENCES wtkUsers(`UID`)
+  CONSTRAINT `fk_wtkBackgroundActions_ForUserUID`
+    FOREIGN KEY (`ForUserUID`) REFERENCES `wtkUsers`(`UID`),
+  INDEX `ix_wtkBackgroundActions` (`StartTime`, `TriggerTime`),
+  INDEX `ix_wtkBackgroundAction_Param1` (`Param1UID`, `ActionType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkBroadcast` (

@@ -17,7 +17,8 @@ INSERT INTO `wtkEmailTemplate` (`EmailCode`, `AutomationOnly`, `EmailType`, `Sub
 ('invite', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Log in at @website@ using your email and password.</p>\r\n<p>If you do not know your password you can request a password reset on our website.</p>', 'this template is called from the User List by clicking the "Send Invite" button'),
 ('Welcome', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Thank you for joining our website!</p>', 'this template is called from Registration process'),
 ('WelcomePIN', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Your PIN is: <span style=\"font-family: \'Courier New\';\"><b>@PIN@</b></span></p>\r\n<p>Thank you for joining our website!</p>', 'this template is called from PIN Registration process'),
-('DelAcct', 'Y', 'A', 'Account Deleted', '<h3>Account Deleted</h3>\r\nAs requested, your account has been deleted and all personally identifiable information (PII) has been removed from our database.\r\n\r\nWe are sorry to see you go.  If you ever want to return, simply register a new account at our website at:\r\n@website@\r\n\r\nSincerely,\r\n@CompanyName@', 'automatically sent when user chooses to delete their account');
+('DelAcct', 'Y', 'A', 'Account Deleted', '<h3>Account Deleted</h3>\r\nAs requested, your account has been deleted and all personally identifiable information (PII) has been removed from our database.\r\n\r\nWe are sorry to see you go.  If you ever want to return, simply register a new account at our website at:\r\n@website@\r\n\r\nSincerely,\r\n@CompanyName@', 'automatically sent when user chooses to delete their account'),
+('Thank4Order','Y','A','Thank You for Your Order with @CompanyName@', '<p>Hi @FirstName@,</p>\r\n\r\n<p>Thank you for choosing @CompanyName@! We&apos;re thrilled to welcome you to our community and appreciate your trust in our services.</p>\r\n\r\n<h3>Order Details on @Date@</h3>\r\n<p>SKU Number: @SkuNumber@</p>\r\n\r\n<p>Your order is confirmed, and will be delivered shortly. If you have any questions or need assistance, our team is here to help.</p>\r\n\r\n@Param2Str@\r\n\r\n<p>Warm regards,<br>\r\nThe @CompanyName@ Team</p>', 'this will automatically be sent to users if \'Thank4Order\' added in wtkBackgroundActions');
 
 INSERT INTO `wtkReports` (`ViewOrder`, `SecurityLevel`, `TestMode`, `HideFooter`, `RptType`, `RptName`, `RptNotes`, `URLredirect`, `RptSelect`, `SelTableName`, `SelValueColumn`, `SelDisplayColumn`, `SelWhere`, `AddLink`, `EditLink`, `AlignCenter`, `AlignRight`, `FieldSuppress`,
      `ChartSuppress`, `SortableCols`, `TotalCols`, `TotalMoneyCols`, `DaysAgo`, `StartDatePrompt`, `StartDateCol`, `EndDatePrompt`, `EndDateCol`, `GraphRpt`, `RegRpt`, `BarChart`, `LineChart`, `AreaChart`, `PieChart`)
@@ -842,6 +843,11 @@ INSERT INTO `wtkWidgetGroup_X_Widget` (`WidgetGroupUID`, `WidgetUID`, `WidgetPri
 (2, 8, 90),
 (2, 7, 100),
 (2, 20, 110);
+
+/* Example Data for initial CRON Job Testing */
+
+INSERT INTO `wtkBackgroundActions` (`TriggerTime`, `ActionType`, `ForUserUID`, `Param1UID`, `Param2UID`, `Param1Str`, `Param2Str`)
+ VALUES (NOW(), 'Thank4Order', '1', NULL, NULL, 'SKU123', 'support');
 
 /*
 -- For App Testing of Microphone
