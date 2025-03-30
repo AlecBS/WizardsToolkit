@@ -1,4 +1,5 @@
 <?PHP
+$gloDebug = 'Y'; //2FIX comment-out before deploying; this prevents sending actual emails
 require('cronTop.php');
 
 $pgHtm .= '<h3>Nightly</h3>' . "\n";
@@ -61,12 +62,15 @@ htmVAR;
             'FromUID' => 0,
             'ToUID' => $pgUserUID
         );
-        $gloDebug .= 'Emailing ' . $pgEmail . ' about ' . $pgAmountDue . '<br>' . "\n";
-        if (($gloDbConnection == 'Live') || ($pgEmailCount < 2)):
-            // For dev testing, only send 2 emails
-            wtkNotifyViaEmail('Payroll Processed', $pgMsg, $pgEmail, $pgSaveArray, '', "email$gloDarkLight.htm");
+        if ($gloDebug == 'Y'):
+            $gloDebug .= 'Emailing ' . $pgEmail . ' about ' . $pgAmountDue . '<br>' . "\n";
+        else:
+            if (($gloDbConnection == 'Live') || ($pgEmailCount < 2)):
+                // For dev testing, only send 2 emails
+                wtkNotifyViaEmail('Payroll Processed', $pgMsg, $pgEmail, $pgSaveArray, '', "email$gloDarkLight.htm");
+                $pgEmailCount ++;
+            endif;
         endif;
-        $pgEmailCount ++;
 //    endwhile;
 //    unset($pgPDO);
     //  END  Now loop through generated Payroll and send them all an email
