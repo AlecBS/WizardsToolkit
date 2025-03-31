@@ -101,7 +101,7 @@ $pgHtm =<<<htmVAR
                 onclick="JavaScript:wtkModal('pickEmailTemplate','P',0,'SendAll')">Bulk Email</a>
             <span id="filterReset"$pgHideReset>
                 &nbsp;&nbsp;
-                <button onclick="JavaScript:wtkBrowseReset('/admin/prospectStaffList','wtkProspectStaff')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+                <button onclick="JavaScript:wtkBrowseReset('/admin/prospectStaffList','proStaffList')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
             </span>
         </small>
     </h4>
@@ -132,7 +132,7 @@ $pgHtm =<<<htmVAR
                            Yes</label>
                        </div>
                    </div>
-                   <button onclick="Javascript:wtkBrowseFilter('/admin/prospectStaffList','wtkProspectStaff')" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
+                   <button onclick="Javascript:wtkBrowseFilter('/admin/prospectStaffList','proStaffList')" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
                 </div>
             </div>
             <div class="col s12">
@@ -155,7 +155,8 @@ htmVAR;
 wtkSearchReplace('https://http','http'); // to fix data where website already included http: or https:
 wtkSearchReplace('Edit</th>','&nbsp;</th>');
 wtkSearchReplace("wtkModal('/admin/emailPro", "ajaxGo('/admin/emailPro");
-$pgList = wtkBuildDataBrowse($pgSQL, [], 'wtkProspectStaff', '/admin/prospectStaffList', 'P');
+$pgList = wtkBuildDataBrowse($pgSQL, [], 'proStaffList', '/admin/prospectStaffList', 'P');
+// set to proStaffList to prevent conflict with similar call on this data in prospectEdit
 $pgList = wtkReplace($pgList,'Edit</th>','&nbsp;</th>');
 $pgList = wtkReplace($pgList,'https://http','http'); // to fix data where website already included http: or https:
 //$pgList = wtkReplace($pgList,"wtkModal('/admin/emailPro", "ajaxGo('/admin/emailPro");
