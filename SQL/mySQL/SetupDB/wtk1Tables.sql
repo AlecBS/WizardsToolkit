@@ -549,9 +549,18 @@ CREATE TABLE `wtkLookups` (
   `LookupDisplay` varchar(50),
   `espLookupDisplay` varchar(50),
   PRIMARY KEY (`UID`),
-  CONSTRAINT `fk_wtkLookups_LastModByUserUIDC`
+  CONSTRAINT `fk_wtkLookups_LastModByUserUID`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`),
   KEY `ix_wtkLookups_LookupType` (`LookupType`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
+CREATE TABLE `wtkMenuSets` (
+  `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `DelDate` datetime,
+  `MenuName` varchar(20),
+  `Description` varchar(120),
+  PRIMARY KEY (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkMenuGroups` (
@@ -562,7 +571,9 @@ CREATE TABLE `wtkMenuGroups` (
   `GroupName` varchar(20),
   `GroupURL` varchar(140),
   `Priority` smallint NOT NULL DEFAULT 10,
-  PRIMARY KEY (`UID`)
+  PRIMARY KEY (`UID`),
+  CONSTRAINT `fk_wtkMenuGroups_MenuUID`
+    FOREIGN KEY (`MenuUID`) REFERENCES `wtkMenuSets`(`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkMenuItems` (
@@ -573,16 +584,11 @@ CREATE TABLE `wtkMenuItems` (
   `ShowDividerAbove` enum('N','Y') NOT NULL DEFAULT 'N',
   `PgUID` int UNSIGNED,
   `Priority` smallint NOT NULL DEFAULT 10,
-  PRIMARY KEY (`UID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
-
-CREATE TABLE `wtkMenuSets` (
-  `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `DelDate` datetime,
-  `MenuName` varchar(20),
-  `Description` varchar(120),
-  PRIMARY KEY (`UID`)
+  PRIMARY KEY (`UID`),
+  CONSTRAINT `fk_wtkMenuItems_MenuGroupUID`
+    FOREIGN KEY (`MenuGroupUID`) REFERENCES `wtkMenuGroups`(`UID`),
+  CONSTRAINT `fk_wtkMenuItems_PgUID`
+    FOREIGN KEY (`PgUID`) REFERENCES `wtkPages`(`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkNotifications` (
