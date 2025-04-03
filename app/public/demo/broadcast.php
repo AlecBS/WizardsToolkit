@@ -16,7 +16,7 @@ $pgHtm =<<<htmVAR
               <a target="_blank" href="/admin">/admin</a> website.</p>
         </div>
     </div>
-
+    <br>
 htmVAR;
 $pgHtm .= wtkBroadcastAlerts();
 $pgHtm .= '<br><br><p>This is below the wtkBroadcastAlerts() call.</p>' . "\n";

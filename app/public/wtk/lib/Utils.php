@@ -552,7 +552,7 @@ function wtkParseCurrencyToNumber($fncVal = '$0') {
 * as second parameter then redirects as 302.
 *
 * @param string $fncURL
-* @param string $fncPermanent defaults to 'Y'
+* @param string $fncPermanent defaults to 'N'
 * @return null
 */
 function wtkRedirect($fncURL, $fncPermanent = 'N') {
