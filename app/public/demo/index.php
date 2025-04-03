@@ -89,6 +89,9 @@ $pgHtm =<<<htmVAR
                     <a href="fileDisplayDir.php" target="_blank">Display Files in Directories</a>
                     <br>
                     <a href="fileDisplayData.php" target="_blank">Display Files via Data</a>
+                    <br><hr>
+                    <p>If you ran the Python Docker version of WTK,<br>
+                        then try the <a href="python.php">Python prototype</a>.</p>
                 </div>
             </div>
         </div>
@@ -166,7 +169,7 @@ wtkSearchReplace('<div id="widgetDIV"></div>',''); // this demo page handles wid
 
 //wtkSearchReplace('<div class="col m4 offset-m4 s12">','<div class="col m8 offset-m2 s12">');
 
-$pgVersion = 2; // makes preventing cache when update JS very easy
+$pgVersion = 1; // makes preventing cache when update JS very easy
 wtkSearchReplace('wtkUtils.js','wtkUtils.js?v=' . $pgVersion);
 wtkSearchReplace('wtkLibrary.js','wtkLibrary.js?v=' . $pgVersion);
 wtkSearchReplace('wtkFileUpload.js','wtkFileUpload.js?v=' . $pgVersion);
