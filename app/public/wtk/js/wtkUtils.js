@@ -372,7 +372,6 @@ function wtkValidate(fncCaller, fncDataType) {
                 }
                 return res;
             case 'EMAIL':
-                let elementName = fncCaller.name;
                 if (isValidEmail(fncPointer.value)) {
                     fncCaller.Valid = "true";
                 }else{
@@ -407,9 +406,12 @@ function wtkValidate(fncCaller, fncDataType) {
                 return(0);
             case "NUMERIC" :    // test for numeric entry
                 res = true;
+                // note: if input type="number" then HTML will blank the value before it gets here if has a comma
                 // strip out commas then test for number
+                wtkDebugLog('wtkValidate: NUMERIC before change: ' + fncCaller.value);
                 let fncNumValue = fncCaller.value.replace(/[,|$]/g, ''); // Remove commas and dollar signs
                 if (isNaN(fncNumValue)) {
+                    wtkDebugLog('wtkValidate: Not a Number: ' + fncNumValue);
 					if (pgLanguage == 'esp') {
 	                    wtkAlert(fncLabel + ': Numerico','Oops','red','warning',fncPointer.id);
 					}else{
@@ -426,6 +428,7 @@ function wtkValidate(fncCaller, fncDataType) {
                     res = false;
                 } else {
                     fncCaller.value = fncNumValue;
+                    wtkDebugLog('wtkValidate: is a number so setting to ' + fncNumValue);
                     // minimum value
                     if (!isNaN(fncMinVal) && typeof fncMinVal !== 'undefined' && fncNumValue < fncMinVal) {
                         fncCaller.value = fncMinVal;
@@ -447,6 +450,9 @@ function wtkValidate(fncCaller, fncDataType) {
     					}
                         fncPointer.select();
                         res = false;
+                    }
+                    if (res == true) {
+                        fncCaller.Valid = "true";
                     }
                 }
                 // set precision to decimal places
@@ -473,7 +479,7 @@ function wtkValidate(fncCaller, fncDataType) {
                             val = val.substr(0,(decPos + fncPointer.Places + 1));
                         }
                     }
-                  fncPointer.value = val;
+                    fncPointer.value = val;
                 }
                 return res;
             case "DATE" :

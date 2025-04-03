@@ -19,7 +19,9 @@ SELECT `UID`, `CompanyName`, `Website`,
     `AnnualSales`,`MonthlyWebsiteVisits`,`MonthlyWebsiteVisitsGrowth`,
     `CEOFirstName`,`CEOLastName`,`CEOEmail`,`CEOTwitter`,`CEOLinkedIn`,
     `FundingDate`,`FundingAmount`,`FundingType`,`FundingLink`,
-    `ProspectStatus`, `InternalNote`, `Description`,`Technologies`
+    `ProspectStatus`, `InternalNote`, `Description`,`Technologies`,
+    `Top5Investors`,`NumLeadInvestors`,`NumInvestors`,`SpendIT`,`SpendSoftware`,
+    `SpendCommunications`,`SpendServices`,`SpendHardware`,`SpendOtherIT`
   FROM `wtkProspects` p
 WHERE `UID` = ?
 SQLVAR;
@@ -64,7 +66,7 @@ $pgHtm .= wtkFormText('wtkProspects', 'SICCode','text','SIC Code','m3 s6');
 
 $pgHtm .= wtkFormText('wtkProspects', 'CompanySize','text','','m3 s6');
 $pgHtm .= wtkFormText('wtkProspects', 'NumberOfEmployees','text','','m3 s6');
-$pgHtm .= wtkFormText('wtkProspects', 'AnnualSales','text','','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'AnnualSales','dollar','','m3 s6');
 $pgHtm .= wtkFormText('wtkProspects', 'MonthlyWebsiteVisits','text','Website Visits','m3 s6','N','Monthly');
 $pgHtm .= wtkFormText('wtkProspects', 'MonthlyWebsiteVisitsGrowth','text','Website Visits Growth','m3 s6','N','Monthly');
 
@@ -98,13 +100,24 @@ $pgHtm .=<<<htmVAR
 htmVAR;
 $pgHtm .= wtkFormText('wtkProspects', 'FundingType','text','','m4 s12');
 $pgHtm .= wtkFormText('wtkProspects', 'FundingDate', 'date','','m4 s12');
-$pgHtm .= wtkFormText('wtkProspects', 'FundingAmount','text','','m4 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'FundingAmount','dollar','','m4 s12');
 $pgFundingLink = wtkSqlValue('FundingLink');
 if ($pgFundingLink != ''):
     $pgHtm .= '<div class="col s12">' . "\n";
     $pgHtm .= '  <a target="_blank" href="' . $pgFundingLink . '">' . $pgFundingLink . '</a>' . "\n";
     $pgHtm .= '</div>' . "\n";
 endif;
+
+$pgHtm .= '<div class="col s12">&nbsp;</div>' . "\n";
+$pgHtm .= wtkFormTextArea('wtkProspects', 'Top5Investors');
+$pgHtm .= wtkFormText('wtkProspects', 'NumLeadInvestors','number','# of Lead Investors','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'NumInvestors','number','# of Investors','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'SpendIT','dollar','IT Spend','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'SpendSoftware','dollar','Software Spend','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'SpendCommunications','dollar','Communications Spend','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'SpendServices','dollar','Services Spend','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'SpendHardware','dollar','Hardware Spend','m3 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'SpendOtherIT','dollar','Other IT Spend','m3 s6');
 
 $pgHtm .=<<<htmVAR
         </div>

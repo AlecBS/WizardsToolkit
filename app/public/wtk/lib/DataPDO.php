@@ -350,9 +350,8 @@ function wtkSqlDateFormat($fncColName, $fncAlias = '', $fncFormat = '') {
     if (strpos($fncColName, '`') === false):
         $fncColName = '`' . $fncColName . '`';
     endif;  // strpos($fncColName, '`') === false
-    switch (strtolower(SUBSTR ($gloDriver1, 0, 5 ))):
-        case 'mysql' :
-        case 'mysqli':
+    switch (strtolower(substr($gloDriver1, 0, 5))):
+        case 'mysql' :  // will also catch mysqli
             $fncResult = " DATE_FORMAT(" . $fncColName . ", '" . $fncFormat . "') AS '" . $fncAlias . "'";
             break;
         case 'postg' :
@@ -375,6 +374,69 @@ function wtkSqlDateSub($fncDate, $fncInterval, $fncUnitOfTime){
     return $fncResult;
 }
 
+
+/**
+* Prep Value for INSERT or UPDATE to validate and format value
+*
+* Currently this is only verified to work with MySQL.
+* Contact info@wizardstoolkit.com for development of PostgreSQL or other DB version.
+*
+* Pass in the table, field and value parameters.
+* This truncates strings that are too long, and removes $ and commas for NUMERIC column types
+*
+* @param string $fncTable Database Table Name
+* @param string $fncField Database Field Name
+* @param string $fncValue Database Value
+*/
+function wtkPrepSQLValue($fncTable, $fncField, $fncValue){
+    global $gloDriver1, $gloWTKobjConn;
+    $fncValue = trim($fncValue);
+    if (($fncValue != 'NULL') && (strtolower(substr($gloDriver1, 0, 5)) == 'mysql')):
+        $fncQuery  = 'SELECT ' . DB_COL_QUOTE.$fncField.DB_COL_QUOTE . ' FROM ';
+        $fncQuery .= DB_COL_QUOTE.$fncTable.DB_COL_QUOTE . ' LIMIT 1';
+        $fncSelect = $gloWTKobjConn->query($fncQuery);
+        $fncColInfo = $fncSelect->getColumnMeta(0);
+        $fncDateType = '';
+        $fncDateType = $fncColInfo['native_type'];
+        wtkTimeTrack('wtkPrepSQLValue: ' . $fncField . ' is a ' . $fncDateType);
+        switch (strtoupper($fncDateType)):
+            case 'SHORT':
+            case 'INT24':
+            case 'LONG':
+            case 'LONGLONG':
+            case 'NEWDECIMAL':
+            case 'FLOAT':
+            case 'DOUBLE':
+                $fncValue = str_replace(',', '', $fncValue);
+                $fncValue = str_replace('$', '', $fncValue);
+                if ($fncValue == ''):
+                    $fncValue = 'NULL';
+                endif;
+                break;
+            case 'DATE':
+                wtkTimeTrack('before reformat: fncValue = ' . $fncValue);
+                $fncValue = wtkFormatDateTime('Y-m-d', $fncValue);
+                wtkTimeTrack('after reformat: fncValue = ' . $fncValue);
+                break;
+            case 'TIMESTAMP':
+            case 'DATETIME':  // changed these to PDO
+                wtkTimeTrack('before T reformat: fncValue = ' . $fncValue);
+                $fncValue = wtkFormatDateTime('Y-m-d H:i:s', $fncValue);
+                wtkTimeTrack('after T reformat: fncValue = ' . $fncValue);
+                break;
+            case 'VAR_STRING':
+            case 'STRING':
+                $fncSQL = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS where COLUMN_NAME = ? and TABLE_NAME = ?';
+                $fncColLength = wtkSqlGetOneResult($fncSQL, [$fncField, $fncTable]);
+                if (($fncColLength > 0) && (strlen($fncValue) > $fncColLength)):
+                    $fncValue = substr($fncValue, 0, $fncColLength);
+                endif;  // strlen($fncValue) > $fncColInfo->wtkGetTextLength()
+                break;
+        endswitch; // fncDateType
+    endif;  // $fncValue == 'NULL'
+    return $fncValue;
+} // wtkPrepSQLValue
+
 $pgInsertColumns = '';
 $pgInsertValues  = '';
 $pgUpdateStr = '';
@@ -389,43 +451,11 @@ $pgPDOvalues = array();
 * @param string $fncTable Database Table Name
 * @param string $fncField Database Field Name
 * @param string $fncValue Database Value
+* @uses function wtkPrepSQLValue to validate and format value
 */
 function wtkBuildInsertSQL($fncTable, $fncField, $fncValue) {
-    global $gloWTKobjConn, $pgInsertColumns, $pgInsertValues, $pgPDOvalues;
-    $fncValue = trim($fncValue);
-    $fncDateType = '';
-    if ($fncValue == 'NULL'):
-        $fncQuote = '';
-    else:   // Not $fncValue == 'NULL'
-        $fncQuery  = 'SELECT ' . DB_COL_QUOTE.$fncField.DB_COL_QUOTE . ' FROM ';
-        $fncQuery .= DB_COL_QUOTE.$fncTable.DB_COL_QUOTE . ' LIMIT 1';
-        $fncSelect = $gloWTKobjConn->query($fncQuery);
-        $fncColInfo = $fncSelect->getColumnMeta(0);
-        $fncDateType = $fncColInfo['native_type'];
-        wtkTimeTrack('wtkBuildInsertSQL: ' . $fncField . ' is a ' . $fncDateType);
-        switch (strtoupper($fncDateType)):
-            case 'DATE' :
-                wtkTimeTrack('before reformat: fncValue = ' . $fncValue);
-                $fncValue = wtkFormatDateTime('Y-m-d', $fncValue);
-                wtkTimeTrack('after reformat: fncValue = ' . $fncValue);
-                break;
-            case 'TIMESTAMP' :
-            case 'DATETIME' :  // ABS 09/03/20  changed these to PDO
-                wtkTimeTrack('before T reformat: fncValue = ' . $fncValue);
-                $fncValue = wtkFormatDateTime('Y-m-d H:i:s', $fncValue);
-                wtkTimeTrack('after T reformat: fncValue = ' . $fncValue);
-                break;
-            case 'VAR_STRING':
-            case 'STRING':
-                $fncSQL = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS where COLUMN_NAME = ? and TABLE_NAME = ?';
-                $fncColLength = wtkSqlGetOneResult($fncSQL, [$fncField, $fncTable]);
-                if (($fncColLength > 0) && (strlen($fncValue) > $fncColLength)):
-                    $fncValue = substr($fncValue, 0, $fncColLength);
-                endif;  // strlen($fncValue) > $fncColInfo->wtkGetTextLength()
-                break;
-        endswitch; // fncDateType
-        // END   added T
-    endif;  // $fncValue == 'NULL'
+    global $pgInsertColumns, $pgInsertValues, $pgPDOvalues;
+    $fncValue = wtkPrepSQLValue($fncTable, $fncField, $fncValue);
     if ($pgInsertColumns != ''):
         $pgInsertColumns .= ', ';
         $pgInsertValues  .= ', ';
@@ -486,45 +516,15 @@ function wtkExecInsertSQL($fncTable) {
 * @param string $fncField Field Name
 * @param string $fncOldValue Old Value
 * @param string $fncNewValue New Value
+* @uses function wtkPrepSQLValue to validate and format value
 */
 function wtkBuildUpdateSQL($fncTable, $fncField, $fncOldValue, $fncNewValue) {
-    global $gloDb1, $gloWTKobjConn, $pgUpdateStr, $pgPDOvalues;
+    global $pgUpdateStr, $pgPDOvalues;
     // 2FIX  error handling if enter a number longer than field can handle.  For example:
     // Fatal error: mysql error: [1264: Out of range value adjusted for column 'LoginTimeout'
     // at row 1] in EXECUTE("UPDATE `wtkUsers` SET `SecurityLevel` = 50, `LoginTimeout` = 9123456789, `State` = 'Ca' WHERE `UID` = 1")
     wtkTimeTrack('wtkBuildUpdateSQL: ' . $fncTable . '.' . $fncField . ' new value: ' . $fncNewValue);
-    $fncNewValue = trim($fncNewValue);
-    $fncDateType = '';
-    if ($fncNewValue == 'NULL'):
-        $fncQuote = '';
-    else:   // Not $fncNewValue == 'NULL'
-        $fncQuery  = 'SELECT ' . DB_COL_QUOTE.$fncField.DB_COL_QUOTE . ' FROM ';
-        $fncQuery .= DB_COL_QUOTE.$fncTable.DB_COL_QUOTE . ' LIMIT 1';
-        $fncSelect = $gloWTKobjConn->query($fncQuery);
-        $fncColInfo = $fncSelect->getColumnMeta(0);
-        $fncDateType = $fncColInfo['native_type'];
-        wtkTimeTrack('wtkBuildUpdateSQL: ' . $fncField . ' is a ' . $fncDateType);
-        switch (strtoupper($fncDateType)):
-            case 'DATE' :
-                wtkTimeTrack('before reformat: fncValue = ' . $fncNewValue);
-                $fncNewValue = wtkFormatDateTime('Y-m-d', $fncNewValue);
-                wtkTimeTrack('after reformat: fncValue = ' . $fncNewValue);
-                break;
-            case 'TIMESTAMP' :
-            case 'DATETIME' :  // ABS 09/03/20  changed these to PDO
-                $fncNewValue = wtkFormatDateTime('Y-m-d H:i:s', $fncNewValue);
-                break;
-            case 'VAR_STRING':
-            case 'STRING':
-                $fncSQL = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME = ?';
-                $fncColLength = wtkSqlGetOneResult($fncSQL, [$gloDb1, $fncTable, $fncField]);
-                if (($fncColLength > 0) && (strlen($fncNewValue) > $fncColLength)):
-                    $fncNewValue = SUBSTR ( $fncNewValue , 0 , $fncColLength );
-                endif;
-                break;
-        endswitch; // fncDateType
-        // ABS 04/05/15   END   Change from 'D'ate to include Date'T'ime format as well
-    endif;  // $fncNewValue == 'NULL'
+    $fncNewValue = wtkPrepSQLValue($fncTable, $fncField, $fncNewValue);
     wtkBuildUpdateLog($fncTable, $fncField, $fncOldValue, $fncNewValue );
     $pgPDOvalues[$fncField] = $fncNewValue;
 

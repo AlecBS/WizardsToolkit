@@ -353,11 +353,9 @@ function wtkFormText($fncTable, $fncColName, $fncType = 'text', $fncLabel = '', 
             break;
         case 'dollar':
             $fncIcon = "\n" . '<i class="material-icons prefix">attach_money</i>';
-            $fncType = 'number';
         case 'number':
-            if ($gloForceRO == true):
-                $fncType = 'text';
-            else:
+            $fncType = 'text';
+            if ($gloForceRO != true):
                 $fncExtra = ' onChange="JavaScript:wtkValidate(this,\'NUMERIC\');"';
             endif;
             break;

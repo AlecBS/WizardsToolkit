@@ -9,7 +9,7 @@ $pgCsvFile = wtkGetPost('csvFile');
 $pgJColMap = wtkGetPost('colMap');
 $pgInsMsg = '';
 
-$pgColMap  = json_decode($pgJColMap,true);
+$pgColMap = json_decode($pgJColMap,true);
 $pgCntr = 0;
 
 switch ($pgStep):
@@ -113,7 +113,16 @@ endswitch;
 // Open the CSV file
 if (($pgHandle = fopen('../' . $pgCsvFile, 'r')) !== false):
     $pgRowCount = 0;
-    while (($pgData = fgetcsv($pgHandle, 1000, ',')) !== false):
+    $pgLastValueForDebug = '';
+    while (($pgData = fgetcsv($pgHandle, 9000, ',')) !== false):
+        // BEGIN clean up data for import specifically into wtkProspects table
+        if ($pgTableName == 'wtkProspects'):
+            $pgData = wtkReplace($pgData, ', Other,','');
+            $pgData = wtkReplace($pgData, ', CSS and JavaScript Libraries,',', CSS and JS Libraries,');
+            $pgData = wtkReplace($pgData, 'Google Tag Manager, Tag Management,','Tag Management,');
+            $pgData = wtkReplace($pgData, ', Customer Relationship Management,',',CRM,');
+        endif;
+        //  END  clean up data for import specifically into wtkProspects table
         if ($pgRowCount > 0): // Skip header row
             if ($pgStep == 'verify'):
                 $pgHtm .= '<tr>' . "\n";
@@ -126,16 +135,36 @@ if (($pgHandle = fopen('../' . $pgCsvFile, 'r')) !== false):
             $pgColCount = 0;
             foreach ($pgColMap as $pgKey => $pgValue):
                 $pgColCount++;
-                if ($pgStep == 'verify'):
-                	$pgHtm .= '  <td>' . $pgData[$pgValue] . '</td>' . "\n";
+                if (!array_key_exists($pgValue, $pgData)):
+                    $pgRowCount++;
+                    $pgHtm =<<<htmVAR
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <h3>Import Error</h3>
+            <p>Problem importing row $pgRowCount for $pgKey with ColumnMap of: $pgValue</p>
+            <p>Prior value that was OK for importing: '$pgLastValueForDebug'</p>
+        </div>
+    </div>
+</div>
+htmVAR;
+                    echo $pgHtm;
+                    exit;
                 else:
-                    if ($pgColCount > 1):
-                        $pgSQL .= ',';
+                    $pgLastValueForDebug = $pgData[$pgValue];
+                    if ($pgStep == 'verify'):
+                        $pgHtm .= '  <td>' . $pgData[$pgValue] . '</td>' . "\n";
+                    else:
+                        if ($pgColCount > 1):
+                            $pgSQL .= ',';
+                        endif;
+                        $pgFixedValue = wtkPrepSQLValue($pgTableName, $pgKey, $pgData[$pgValue]);
+                        if ($pgFixedValue == 'NULL'):
+                            $pgSQL .= $pgFixedValue;
+                        else:
+                            $pgSQL .= "'" . addslashes($pgFixedValue) . "'";
+                        endif;
                     endif;
-                    // if ($pgRowCount > 260): // may help debug if bad CSV data
-                    //     echo '<br>RowCount: ' . $pgRowCount . '; ColCount: ' . $pgColCount . '; Data[Value]: ' . $pgData[$pgValue];
-                    // endif;
-                    $pgSQL .= "'" . addslashes($pgData[$pgValue]) . "'";
                 endif;
             endforeach;
             if ($pgStep == 'verify'):
@@ -181,12 +210,16 @@ switch ($pgStep):
             $pgError = wtkReplace($pgError, 'PDOException: SQLSTATE[22007]:','');
             $pgError = wtkReplace($pgError, 'PDOException:','');
             $pgHtm =<<<htmVAR
-<div class="card">
-    <div class="card-content">
-        <br><h2>SQL Error</h2><br>
-        <p>$pgError</p>
-        <p>Problem is in your CSV file on row $pgRowOfFailure </p>
-        <p>$pgRowCount rows in CSV to import.</p>
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <h3>SQL Error</h3>
+            <br>
+            <p>$pgError</p>
+            <p>Problem is in your CSV file on row $pgRowOfFailure </p>
+            <p>$pgRowCount rows in CSV to import.</p>
+            <hr><pre><code>$pgSQL</code></pre>
+        </div>
     </div>
 </div>
 htmVAR;

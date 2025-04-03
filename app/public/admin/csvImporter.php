@@ -40,7 +40,15 @@ $pgCSVarray = [];
 // Open the CSV file for reading
 if (($pgHandle = fopen('../' . $pgUploadedFile, 'r')) !== false):
     // Loop through each line in the file
-    while (($pgData = fgetcsv($pgHandle, 1000, ',')) !== false):
+    while (($pgData = fgetcsv($pgHandle, 9000, ',')) !== false):
+        // BEGIN clean up data for import specifically into wtkProspects table
+        if ($gloRNG == 'wtkProspects'):
+            $pgData = wtkReplace($pgData, ', Other,','');
+            $pgData = wtkReplace($pgData, ', CSS and JavaScript Libraries,',', CSS and JS Libraries,');
+            $pgData = wtkReplace($pgData, 'Google Tag Manager, Tag Management,','Tag Management,');
+            $pgData = wtkReplace($pgData, ', Customer Relationship Management,',',CRM,');
+        endif;
+        //  END  clean up data for import specifically into wtkProspects table
         $pgCSVarray[] = $pgData;  // Add the line to the array
     endwhile;
     fclose($pgHandle);  // Close the file
