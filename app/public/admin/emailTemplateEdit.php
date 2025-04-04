@@ -80,6 +80,14 @@ $pgHtm .=<<<htmVAR
     </div>
 </div>
 htmVAR;
+
+// BEGIN check to see if company prefers WYSIWYG
+$pgWYSIWYG = wtkSqlGetOneResult('SELECT `PreferWYSIWYG` FROM `wtkCompanySettings` WHERE `UID` = 1', []);
+if ($pgWYSIWYG == 'Y'):
+    $pgHtm .= '<input type="hidden" id="HasTinyMCE" name="HasTinyMCE" value="textarea#wtkwtkEmailTemplateEmailBody">';
+endif;
+//  END  check to see if company prefers WYSIWYG
+
 echo $pgHtm;
 exit;
 ?>

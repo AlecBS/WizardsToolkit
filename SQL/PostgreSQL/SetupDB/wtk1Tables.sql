@@ -241,6 +241,7 @@ CREATE TABLE "wtkCompanySettings" (
   "DomainName" varchar(90),
   "AppVersion"  varchar(6),
   "EnableLockout"  char(1) NOT NULL DEFAULT 'Y',
+  "PreferWYSIWYG"  char(1) NOT NULL DEFAULT 'Y',
   CONSTRAINT "fk_wtkCompanySettings_UserUID"
     FOREIGN KEY ("LastModByUserUID") REFERENCES "wtkUsers"("UID")
 );

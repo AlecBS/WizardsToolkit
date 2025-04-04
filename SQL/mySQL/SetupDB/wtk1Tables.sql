@@ -272,6 +272,7 @@ CREATE TABLE `wtkCompanySettings` (
   `DomainName` varchar(90),
   `AppVersion`  varchar(6),
   `EnableLockout` enum('N','Y') NOT NULL DEFAULT 'Y',
+  `PreferWYSIWYG` enum('N','Y') NOT NULL DEFAULT 'Y',
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkCompanySettings_LastModByUserUID`
     FOREIGN KEY (`LastModByUserUID`) REFERENCES wtkUsers(`UID`)

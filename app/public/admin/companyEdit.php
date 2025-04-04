@@ -9,7 +9,8 @@ else:
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT `UID`, `CoName`, `PayPalEmail`, `DomainName`, `AppVersion`, `EnableLockout`
+SELECT `UID`, `CoName`, `PayPalEmail`, `DomainName`, `AppVersion`,
+    `PreferWYSIWYG`, `EnableLockout`
   FROM `wtkCompanySettings`
 WHERE `UID` = ?
 SQLVAR;
@@ -41,6 +42,7 @@ $pgValues = array(
     'checked' => 'Y',
     'not' => 'N'
 );
+$pgHtm .= wtkFormCheckbox('wtkCompanySettings', 'PreferWYSIWYG', 'Prefer WYSIWYG',$pgValues,'m6 s12');
 $pgHtm .= wtkFormCheckbox('wtkCompanySettings', 'EnableLockout', '', $pgValues);
 $pgHtm .= wtkFormHidden('ID1', 1);
 $pgHtm .= wtkFormHidden('UID', wtkEncode('UID'));
