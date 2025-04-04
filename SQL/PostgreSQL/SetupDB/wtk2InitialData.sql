@@ -10,8 +10,12 @@ INSERT INTO "wtkEcommerce" ("PaymentProvider", "EcomWebsite")
   VALUES ('Checkout.com','www.checkout.com');
 
 INSERT INTO "wtkEmailTemplate" ("EmailCode", "AutomationOnly", "EmailType", "Subject", "EmailBody", "InternalNote") VALUES
-  ('invite', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Log in at @website@ using your email and password.</p>\r\n<p>If you do not know your password you can request a password reset on our website.</p>', 'this template is called from the User List by clicking the \"Send Invite\" button'),
-  ('WelcomePIN', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Your PIN is: <span style="font-family: ''Courier New'';"><b>@PIN@</b></span></p>\r\n<p>Thank you for joining our website!</p>', 'this template is called from PIN Registration process');
+  ('invite', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>
+<p>Log in at @website@ using your email and password.</p>
+<p>If you do not know your password you can request a password reset on our website.</p>', 'this template is called from the User List by clicking the \"Send Invite\" button'),
+  ('WelcomePIN', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>
+<p>Your PIN is: <span style="font-family: ''Courier New'';"><b>@PIN@</b></span></p>
+<p>Thank you for joining our website!</p>', 'this template is called from PIN Registration process');
 
 INSERT INTO "wtkReports" ("ViewOrder", "SecurityLevel", "TestMode", "HideFooter", "RptType", "RptName", "RptNotes", "URLredirect", "RptSelect", "RptSelectEnd", "SelTableName", "SelValueColumn", "SelDisplayColumn", "SelWhere", "AddLink", "EditLink",
     "AlignCenter", "AlignRight", "FieldSuppress", "SortableCols", "TotalCols", "TotalMoneyCols", "DaysAgo", "StartDatePrompt", "StartDateCol", "EndDatePrompt", "EndDateCol", "GraphRpt", "MenuName") VALUES
@@ -24,46 +28,47 @@ INSERT INTO "wtkReports" ("ViewOrder", "SecurityLevel", "TestMode", "HideFooter"
 
 INSERT INTO "wtkPages" ("PageName", "FileName", "Path")
   VALUES
-('Settings', 'companyEdit', '/admin/'),
-('Page List', 'pageList', '/admin/'),
-('Menu Sets', 'menuSetList', '/admin/'),
-('Login Log', 'loginLogList', '/admin/'),
-('Update Logs', 'updateLogList', '/admin/'),
-('Error Logs', 'errorLogList', '/admin/'),
-('WTK Builder', 'wtkBuilder', '/admin/'),
-('Clients', 'clientList', '/admin/'),
-('Lookups', 'lookupList', '/admin/'),
-('User History', 'userHistory', '/admin/'),
-('Landing Pages', 'linkList', '/admin/'),
-('Language', 'languageList', '/admin/'),
-('My Profile', 'user', '/wtk/'),
-('Report Wizard', 'reportList', '/admin/'),
-('Users', 'userList', '/admin/'),
-('Help', 'helpList', '/admin/'),
-('Email Templates', 'emailTemplates', '/admin/'),
-('Reports Viewer', 'reportViewer', '/wtk/'),
-('Payroll', 'payrollList', NULL),
-('User Edit', 'userEdit', '/wtk/'),
-('Forums', 'forumList', '/wtk/'),
-('Messages', 'messageList', '/wtk/'),
-('Menu Groups', 'menuGroupList', '/admin/'),
-('Menu Items', 'menuItemList', '/admin/'),
-('Email History', 'emailHistory', '/admin/'),
-('Chats', 'chatList', '/wtk/'),
-('Access Fails', 'failedAttemptList', '/admin/'),
-('Broadcast List', 'broadcastList', '/admin/'),
-('Widget Groups', 'widgetGroupList', '/admin/'),
-('Widgets', 'widgetList', '/admin/'),
-('Revenue', 'revenueList', '/admin/'),
-('Feedback', 'bugList', '/admin/'),
-('Visitors', 'visitorStats', '/admin/'),
-('Ecom Providers', 'ecomList', '/admin/'),
-('Money Stats', 'moneyStats', '/admin/'),
-('Affiliates', 'affiliateList', '/admin/'),
-('Prospects', 'prospectList', '/admin/'),
-('Prospect Staff', 'prospectStaffList', '/admin/'),
-('CSV Importer', 'pickDataTable', '/admin/');
-
+  ('Settings', 'companyEdit', '/admin/'),
+  ('Page List', 'pageList', '/admin/'),
+  ('Menu Sets', 'menuSetList', '/admin/'),
+  ('Login Log', 'loginLogList', '/admin/'),
+  ('Update Logs', 'updateLogList', '/admin/'),
+  ('Error Logs', 'errorLogList', '/admin/'),
+  ('WTK Builder', 'wtkBuilder', '/admin/'),
+  ('Clients', 'clientList', '/admin/'),
+  ('Ad Tracking', 'adList', '/admin/'),
+  ('Lookups', 'lookupList', '/admin/'),
+  ('User History', 'userHistory', '/admin/'),
+  ('Landing Pages', 'linkList', '/admin/'),
+  ('Language', 'languageList', '/admin/'),
+  ('My Profile', 'user', '/wtk/'),
+  ('Report Wizard', 'reportList', '/admin/'),
+  ('Users', 'userList', '/admin/'),
+  ('Help', 'helpList', '/admin/'),
+  ('Emails', 'emailTemplates', '/admin/'),
+  ('Reports Viewer', 'reportViewer', '/wtk/'),
+  ('Polls', 'polls', '/admin/'),
+  ('User Edit', 'userEdit', '/wtk/'),
+  ('Forums', 'forumList', '/wtk/'),
+  ('Messages', 'messageList', '/wtk/'),
+  ('Menu Groups', 'menuGroupList', '/admin/'),
+  ('Emails Sent', 'emailHistory', '/admin/'),
+  ('Chats', 'chatList', '/wtk/'),
+  ('Access Fails', 'failedAttemptList', '/admin/'),
+  ('Broadcast List', 'broadcastList', '/admin/'),
+  ('Widget Groups', 'widgetGroupList', '/admin/'),
+  ('Widgets', 'widgetList', '/admin/'),
+  ('Revenue', 'revenueList', '/admin/'),
+  ('Feedback', 'bugList', '/admin/'),
+  ('Visitors', 'visitorStats', '/admin/'),
+  ('Ecom Providers', 'ecomList', '/admin/'),
+  ('Money Stats', 'moneyStats', '/admin/'),
+  ('Affiliates', 'affiliateList', '/admin/'),
+  ('Prospects', 'prospectList', '/admin/'),
+  ('Prospect Staff', 'prospectStaffList', '/admin/'),
+  ('CSV Importer', 'pickDataTable', '/admin/'),
+  ('History', 'moneyHistory', '/admin/'),
+  ('Downloads', 'downloadList', '/admin/');
 INSERT INTO "wtkMenuSets" ("MenuName", "Description")
   VALUES ('WTK-Admin', 'administration of Wizards Toolkit');
 
@@ -76,41 +81,44 @@ INSERT INTO "wtkMenuGroups" ("MenuUID", "GroupName", "GroupURL", "Priority")
   (1, 'View Logs', NULL, 50),
   (1, 'Logout', 'logout', 90);
 
+INSERT INTO "wtkMenuItems" ("MenuGroupUID", "ShowDividerAbove", "PgUID")
+  (2, 'N', 16),
+  (2, 'N', 8),
+  (2, 'Y', 34),
+  (2, 'N', 28),
+  (2, 'N', 19),
+  (2, 'Y', 1),
+  (3, 'N', 18),
+  (3, 'N', 36),
+  (3, 'N', 37),
+  (3, 'N', 33),
+  (3, 'Y', 31),
+  (3, 'N', 35),
+  (3, 'N', 40),
+  (4, 'N', 7),
+  (4, 'N', 15),
+  (4, 'N', 30),
+  (4, 'N', 29),
+  (4, 'Y', 2),
+  (4, 'N', 3),
+  (4, 'Y', 10),
+  (4, 'N', 17),
+  (4, 'N', 13),
+  (4, 'Y', 39),
+  (5, 'N', 4),
+  (5, 'N', 11),
+  (5, 'N', 5),
+  (5, 'Y', 6),
+  (5, 'N', 27),
+  (5, 'Y', 25),
+  (5, 'N', 32);
 
-INSERT INTO "wtkMenuItems" ("MenuGroupUID", "Priority", "PgUID")
+INSERT INTO "wtkHelp" ("HelpIndex", "HelpTitle", "HelpText")
   VALUES
-  (2, 10, 1),
-  (2, 20, 8),
-  (2, 30, 16),
-  (2, 40, 34),
-  (2, 50, 28),
-  (2, 60, 18),
-  (2, 70, 19),
-  (2, 80, 31),
-  (3, 10, 36),
-  (3, 20, 37),
-  (3, 30, 33),
-  (3, 40, 35),
-  (4, 10, 7),
-  (4, 20, 15),
-  (4, 30, 30),
-  (4, 40, 29),
-  (4, 50, 10),
-  (4, 60, 2),
-  (4, 70, 3),
-  (4, 80, 17),
-  (4, 90, 13),
-  (4, 100, 39),
-  (5, 10, 4),
-  (5, 20, 11),
-  (5, 30, 5),
-  (5, 40, 6),
-  (5, 50, 27),
-  (5, 60, 25),
-  (5, 70, 32);
+  ('reportEdit.php', 'SQL Report Wizard', '<h4>Filtering @Tokens@</h4>\n<p>On this page you will see which tokens can be added within your SQL SELECT or WHERE and they will be automatically replaced by data and passed parameters.</p>\n<p>For example, if you put in something like:<br>\n<code>WHERE `UserUID` = @UserUID@</code><br>\nthat will automatically replace the @UserUID@ with the currently logged in user''s UID (wtkUsers.UID).  This can be very useful if you want to create a report that only shows a user data related to their account.</p>\n<br>\n<h4>Sorting Functionality</h4>\n<p>Each column that you want to sort should be on a separate line in the \"Sorting\" box.  This function can take 1, 2 or 3 parameters. Note, as usual spaces will be automatically be inserted for WordCaps or snake_case.  For example, ''FirstName'' will be changed to ''First Name''.</p>\n<br>\n<h5>One Parameter</h5>\n<code>Count</code><br>\n<p>This uses column named `Count` and leaves headers as \"Count\" and sorts by this column.</p>\n<br>\n<h5>Two Parameters</h5>\n<code>LookupDisplay, USA State</code><br>\n<p>This uses column named `LookupDisplay` but shows the header as \"USA State\".  It sorts by the `LookupDisplay` column.</p>\n<br>\n<h5>Three Parameters</h5>\n<code>DOB, Birthday, u.`BirthDate`</code><br>\n<p>This uses column named `DOB` but shows the header as \"Birthday\".  It sorts using u.`BirthDate` column. This is really important when formatting causes problem with sort order.  For example if your date format is ''%b %D, %Y'' then sorting by that would not give the results you want.</p>\n<br>\n<h4>Example</h4>\n<p>Here is an example SQL query and the associated Sort Options.</p>\n<code>\nSELECT p.`UID`, u.`FirstName` AS `Owner`, p.`PetName`, p.`City`, DATE_FORMAT(p.`BirthDate`,''%b %D, %Y'') AS `DOB`<br>\n  FROM `pets` p<br>\n   INNER JOIN `wtkUsers` u ON u.`UID` = p.`UserUID`\n</code>\n<br><br>\n<h5>Sortable Columns</h5>\n<code>\nOwner<br>\nCity, Town<br>\nDOB, Birthday, p.`BirthDate`\n</code>');
 
-INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
- VALUES
+  INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
+   VALUES
    ('SecurityLevel', '1', 'Customer'),
    ('SecurityLevel', '30', 'Staff'),
    ('SecurityLevel', '80', 'Manager'),
@@ -119,6 +127,9 @@ INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
    ('StaffRole', 'Mgr', 'Manager'),
    ('StaffRole', 'Emp', 'Customer Service'),
    ('StaffRole', 'Tech', 'Tech Support'),
+   ('ClientStatus', 'T', 'Trial'),
+   ('ClientStatus', 'A', 'Active'),
+   ('ClientStatus', 'I', 'Inactive'),
    ('FailCode','SQL','SQL Injection'),
    ('FailCode','Hash','PW Reset'),
    ('FailCode','DDOS','DDOS Attack?'),
@@ -139,8 +150,19 @@ INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
    ('YesNoUnknown', 'N', 'No'),
    ('Currency', 'USD', 'USD $'),
    ('Currency', 'MXN', 'Mexican Pesos'),
-   ('Language', 'eng', 'English'),
-   ('Language', 'esp', 'Espa&ntilde;ol'),
+   ('LangPref', 'eng', 'English'),
+   ('LangPref', 'esp', 'Espa&ntilde;ol'),
+   ('emFreq', 'N', 'Never'),
+   ('emFreq', 'M', 'Monthly'),
+   ('emFreq', 'W', 'Weekly'),
+   ('emFreq', 'D', 'Once Daily'),
+   ('EmailType', 'A', 'Everyone'),
+   ('EmailType', 'Af', 'Affiliate'),
+   ('EmailType', 'P', 'Prospect'),
+   ('EmailType', 'C', 'Customer'),
+   ('EmailType', 'S', 'Staff'),
+   ('EmailHTM', 'emailLight', 'emailLight'),
+   ('EmailHTM', 'emailDark', 'emailDark'),
    ('AudienceType', 'All', 'All'),
    ('AudienceType', 'Cust', 'Customer'),
    ('AudienceType', 'Staf', 'Staff'),
@@ -156,17 +178,6 @@ INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
    ('TextColor', 'white-text', 'White'),
    ('TextColor', 'blue-text', 'Blue'),
    ('TextColor', 'red-text', 'Red'),
-   ('emFreq', 'N', 'Never'),
-   ('emFreq', 'M', 'Monthly'),
-   ('emFreq', 'W', 'Weekly'),
-   ('emFreq', 'D', 'Once Daily'),
-   ('EmailType', 'A', 'Everyone'),
-   ('EmailType', 'Af', 'Affiliate'),
-   ('EmailType', 'P', 'Prospect'),
-   ('EmailType', 'C', 'Customer'),
-   ('EmailType', 'S', 'Staff'),
-   ('EmailHTM', 'emailLight', 'emailLight'),
-   ('EmailHTM', 'emailDark', 'emailDark'),
    ('USAstate', 'AL', 'Alabama'),
    ('USAstate', 'AK', 'Alaska'),
    ('USAstate', 'AZ', 'Arizona'),
@@ -283,7 +294,7 @@ INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
     ('Country','CD','Congo, Democratic Republic of the'),
     ('Country','CK','Cook Islands'),
     ('Country','CR','Costa Rica'),
-    ('Country','CI','Cote D"ivoire'),
+    ('Country','CI','Cote D`ivoire'),
     ('Country','HR','Croatia'),
     ('Country','CU','Cuba'),
     ('Country','CY','Cyprus'),
@@ -485,7 +496,6 @@ INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
     ('WidgetColor','warning-gradient','Orange Gradient'),
     ('WidgetColor','red-gradient','Red Gradient'),
     ('WidgetColor','danger-gradient','Purple-Pink Gradient'),
-    ('ChartType','Bar,Line','Bar and Line'),
     ('ChartType','Line','Line'),
     ('ChartType','Area','Area'),
     ('ChartType','Pie','Pie'),
@@ -496,6 +506,13 @@ INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
     ('ProspectStatus', 'reply', 'Replied'),
     ('ProspectStatus', 'close', 'Closed'),
     ('ProspectStatus', 'sold', 'Client');
+
+INSERT INTO "wtkWidgetGroup" ("WidgetGroupName", "StaffRole", "SecurityLevel", "UseForDefault")
+ VALUES ('DevOps', 'Tech', 99, 'Y'),
+        ('Personal - leave blank, autofilled','Emp', 1, 'N'),
+        ('Marketing','Mgr', 30, 'Y');
+
+UPDATE "wtkWidgetGroup" SET "UID" = ("UID" - 1) WHERE "UID" < 4;
 
 INSERT INTO "wtkWidget" ("WidgetName","SecurityLevel","WidgetType","ChartType","WidgetColor","SkipFooter","WidgetDescription","WidgetSQL","WidgetURL","WindowModal")
  VALUES
@@ -585,3 +602,32 @@ WHERE "AddDate" > (NOW() - INTERVAL ''1 DAY'')',NULL,'N'),
 'SELECT COUNT("UID") as "Count"
 FROM "wtkUsers"
 WHERE "DelDate" IS NULL',NULL,'N');
+
+INSERT INTO "wtkWidgetGroup_X_Widget" ("WidgetGroupUID", "WidgetUID", "WidgetPriority")
+ VALUES
+(0, 15, 10),
+(0, 16, 20),
+(0, 17, 30),
+(0, 18, 40),
+(0, 13, 50),
+(0, 1, 60),
+(0, 12, 70),
+(0, 9, 80),
+(0, 10, 90),
+(0, 11, 100),
+(0, 14, 110),
+(2, 4, 10),
+(2, 5, 20),
+(2, 6, 30),
+(2, 21, 40),
+(2, 22, 50),
+(2, 23, 60),
+(2, 16, 70),
+(2, 17, 80),
+(2, 8, 90),
+(2, 7, 100),
+(2, 20, 110);
+
+/* Example Data for initial CRON Job Testing */
+INSERT INTO "wtkBackgroundActions" ("TriggerTime", "ActionType", "ForUserUID", "Param1UID", "Param2UID", "Param1Str", "Param2Str")
+ VALUES (NOW(), 'Thank4Order', '1', NULL, NULL, 'SKU123', 'support');

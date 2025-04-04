@@ -89,10 +89,10 @@ COMMENT ON COLUMN "wtkAffiliates"."DiscountPercentage" IS 'commission';
 CREATE TABLE "wtkBackgroundActions" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "TriggerDate" timestamp without time zone,
+  "TriggerTime"  timestamp without time zone,
   "StartTime"    timestamp without time zone,
-  "CompletedTime"    timestamp without time zone,
-  "ActionType"  varchar(8) NOT NULL,
+  "CompletedTime" timestamp without time zone,
+  "ActionType"   varchar(20) NOT NULL,
   "ForUserUID"   int,
   "Param1UID"    int,
   "Param2UID"    int,
