@@ -87,10 +87,13 @@ foreach ($pgCSVarray as $row):
                 $pgDataColName = $pgDataColArray[strtolower(wtkReplace($pgColName,' ',''))];
                 $pgExactMatches .= "gloImportObject['$pgDataColName'] = $pgColCntr;" . "\n";
                 $pgExactMatches .= "$('#" . $pgDataColName . "Link').addClass('hide');" . "\n";
+                $pgBtnColor = ' light-blue';
+            else:
+                $pgBtnColor = '';
             endif;
             //  END  check for exact match with data table
             $pgCsvCols .= '<tr><td>' . "\n";
-            $pgCsvCols .= ' <a draggable="true" data-id="' . $pgColCntr . '" ondragstart="wtkDragStart(this);" ondragover="wtkDragOver(event)" class="btn btn-floating wtkdrag">' . "\n";
+            $pgCsvCols .= ' <a draggable="true" data-id="' . $pgColCntr . '" ondragstart="wtkDragStart(this);" ondragover="wtkDragOver(event)" class="btn btn-floating wtkdrag' . $pgBtnColor . '">' . "\n";
             $pgCsvCols .= '<i class="material-icons" alt="drag to link where to import" title="drag to link where to import">drag_handle</i></a></td>' . "\n";
             $pgCsvCols .= '<td>' . $pgColName . '</td>' . "\n"; // column name
             $pgCsvCols .= '<td>@First' . $pgColCntr . 'Data@</td>' . "\n"; // data from first row

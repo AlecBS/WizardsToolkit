@@ -14,7 +14,7 @@ function makeProspectStaff(fncStep = 'prospectStaff'){
             if (fncStep == 'prospectStaff') {
                 $('#successMsg').html('<h4>Prospect Staff generated</h4>');
             } else {
-                $('#successMsg').html('<h4>Prospect Staff generated from CEO data</h4>');                
+                $('#successMsg').html('<h4>Prospect Staff generated from CEO data</h4>');
             }
             $('#runScriptBtn').addClass('hide');
             $('#runCEOScriptBtn').addClass('hide');
@@ -52,6 +52,8 @@ function mapCSVcolumns(fncFileName, fncHasMatches){
 }
 
 function importDropName(fncColName){
+    wtkDebugLog('importDropName ' + fncColName + '; pgFromDragId = ' + pgFromDragId);
+    $('a[data-id="' + pgFromDragId + '"]').addClass('light-blue');
     gloImportObject[fncColName] = pgFromDragId;
     $('#' + fncColName + 'Link').addClass('hide');
     $('#importBtn').removeClass('hide');
@@ -85,6 +87,7 @@ function wtkImport(fncStep) {
 
 function unLinkCSV2Table(fncColName){
     // remove from object then wipe out and rebuild mappingCSVul
+    $('a[data-id="' + gloImportObject[fncColName] + '"]').removeClass('light-blue');
     delete gloImportObject[fncColName];
     $('#' + fncColName + 'Link').removeClass('hide');
     showMappings();
