@@ -24,25 +24,13 @@ CREATE TABLE "wtkUsers" (
   "WebPassword" varchar(255),
   "LoginTimeout" smallint DEFAULT 60,
   "SecurityLevel" smallint DEFAULT 1,
-  "StaffRole" varchar(4) DEFAULT NULL,
-  "MenuSet" varchar(20) DEFAULT NULL,
-  "EmailAlerts" char(1) default 'Y',
-  "PhoneAlerts" char(1) default 'Y',
+  "StaffRole" varchar(4),
+  "MenuSet" varchar(20),
   "CanPrint" char(1) default 'N',
   "CanExport" char(1) default 'N',
   "CanEditHelp" char(1) default 'N',
   "CanUnlock" char(1) default 'N',
   "SSN" varchar(11),
-  "UseSkype" char(1) default 'N',
-  "SMSEnabled" char(1) default 'N',
-  "OptInEmails" char(1) default 'N',
-  "PaymentInstructions" TEXT NULL,
-  "CurrencyCode" CHAR(3) NOT NULL DEFAULT 'USD',
-  "Payee" varchar(120),
-  "BankAddress" varchar(240),
-  "AccountNumber" varchar(80),
-  "InternalNote" text,
-  "Biography" text,
   "IPAddress" varchar(15),
   "EmailOKDate" timestamp without time zone,
   "SignedDate" timestamp without time zone,
@@ -63,7 +51,7 @@ CREATE TABLE "wtkAds" (
   "LastModByUserUID" int,
   "AdName" varchar(60),
   "AdVendor" varchar(60),
-  "AdType" varchar(1),
+  "AdType" char(1),
   "AdText" text,
   "AdNote" text,
   "VisitCounter" int DEFAULT 0,
@@ -87,48 +75,35 @@ CREATE TABLE "wtkAffiliates" (
   "Email" varchar(100),
   "MainPhone" varchar(40),
   "Website" varchar(255),
-  "DiscountPercentage" tinyint COMMENT 'link gives discount on sale items',
-  "AffiliateRate" decimal(5,2) COMMENT 'commission',
+  "DiscountPercentage" smallint,
+  "AffiliateRate" decimal(5,2),
   "PaymentInstructions" text,
   "InternalNote" varchar(250)
 );
 CREATE INDEX "ix_wtkAffiliates_CompanyName" ON "wtkAffiliates" ("CompanyName");
 CREATE INDEX "ix_wtkAffiliates_ContactName" ON "wtkAffiliates" ("ContactName");
 CREATE INDEX "ix_wtkAffiliates_AffiliateHash" ON "wtkAffiliates" ("AffiliateHash");
+COMMENT ON COLUMN "wtkAffiliates"."DiscountPercentage" IS 'link gives discount on sale items';
+COMMENT ON COLUMN "wtkAffiliates"."DiscountPercentage" IS 'commission';
 
 CREATE TABLE "wtkBackgroundActions" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
   "TriggerDate" timestamp without time zone,
-  "DoneDate"    timestamp without time zone,
+  "StartTime"    timestamp without time zone,
+  "CompletedTime"    timestamp without time zone,
   "ActionType"  varchar(8) NOT NULL,
-  "ToUserUID"   int,
-  "OtherUID"    int,
-  "DevNote"     varchar(120),
-  CONSTRAINT "fk_wtkBackgroundActions_ToUserUID"
-    FOREIGN KEY("ToUserUID")
+  "ForUserUID"   int,
+  "Param1UID"    int,
+  "Param2UID"    int,
+  "Param1Str"    varchar(20),
+  "Param2Str"    varchar(20),
+  CONSTRAINT "fk_wtkBackgroundActions_ForUserUID"
+    FOREIGN KEY("ForUserUID")
     REFERENCES "wtkUsers"("UID")
 );
-
-CREATE TABLE "wtkClients" (
-  "UID" SERIAL PRIMARY KEY,
-  "AddDate" timestamp without time zone DEFAULT now(),
-  "ClientName" VARCHAR(30),
-  "Address" VARCHAR(30),
-  "Address2" VARCHAR(30),
-  "City" VARCHAR(30),
-  "State" CHAR(2),
-  "Zipcode" VARCHAR(10),
-  "CountryCode" char(2),
-  "ClientPhone" VARCHAR(20),
-  "ClientEmail" VARCHAR(40),
-  "AccountEmail" VARCHAR(60),
-  "StartDate" DATE DEFAULT NULL,
-  "ClientStatus" CHAR(1) DEFAULT 'A',
-  "InternalNote" VARCHAR(250)
-);
-CREATE INDEX "ixClientName" ON "wtkClients" ("ClientName");
-COMMENT ON COLUMN "wtkClients"."ClientStatus" IS 'Trial, Active, Inactive';
+CREATE INDEX "ix_wtkBackgroundActions_Time" ON "wtkBackgroundActions" ("StartTime","TriggerTime");
+CREATE INDEX "ix_wtkBackgroundActions_Param1" ON "wtkBackgroundActions" ("Param1UID","ActionType");
 
 CREATE TABLE "wtkBlog" (
     "UID" SERIAL PRIMARY KEY,
@@ -141,11 +116,11 @@ CREATE TABLE "wtkBlog" (
     "BlogContent" text,
     "MetaKeywords" text,
     "MetaDescription" text,
-    "TwitterAcct" varchar(40) DEFAULT NULL,
-    "OGTitle" varchar(70) DEFAULT NULL,
-    "OGDescription" varchar(200) DEFAULT NULL,
-    "OGFilePath" varchar(30) DEFAULT NULL,
-    "OGImage" varchar(12) DEFAULT NULL,
+    "TwitterAcct" varchar(40),
+    "OGTitle" varchar(70),
+    "OGDescription" varchar(200),
+    "OGFilePath" varchar(30),
+    "OGImage" varchar(12),
     "MakePublic" char(1) NOT NULL DEFAULT 'N',
     "PublishDate" timestamp without time zone default NULL,
     "Views"   int NOT NULL DEFAULT 0,
@@ -155,26 +130,28 @@ CREATE TABLE "wtkBlog" (
 );
 CREATE INDEX "ix_wtkBlog_Slug" ON "wtkBlog" ("Slug");
 COMMENT ON COLUMN "wtkBlog"."PageTitle" IS 'also used for Navigation name';
+COMMENT ON COLUMN "wtkBlog"."UserUID" IS 'written by';
 
 CREATE TABLE "wtkBroadcast" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "AddedByUserUID" int default NULL,
-  "DelDate" timestamp without time zone default NULL,
-  "DeletedByUserUID" int default NULL,
-  "AudienceType" varchar(4) default NULL,
-  "AudienceSubType" varchar(4) default NULL,
-  "BroadcastColor" varchar(20) default NULL,
-  "TextColor" varchar(20) default NULL,
-  "MessageHeader" varchar(120) default NULL,
-  "MessageType" varchar(10) default NULL,
+  "AddedByUserUID" int,
+  "DelDate" timestamp without time zone,
+  "DeletedByUserUID" int,
+  "AudienceType" varchar(4),
+  "AudienceSubType" varchar(4),
+  "BroadcastColor" varchar(20),
+  "TextColor" varchar(20),
+  "MessageHeader" varchar(120),
+  "MessageType" varchar(10),
   "MessageNote" text,
-  "ShowOnDate" date default NULL,
-  "ShowUntilDate" date default NULL,
+  "ShowOnDate" date,
+  "ShowUntilDate" date,
   "AllowClose" char(1) default 'Y',
   "CloseMessage" varchar(20) default 'Close',
-  CONSTRAINT "fk_wtkBroadcast_UserUID"
-    FOREIGN KEY ("DeletedByUserUID") REFERENCES "wtkUsers"("UID")
+  CONSTRAINT "fk_wtkBroadcast_DeletedByUserUID"
+    FOREIGN KEY("DeletedByUserUID")
+    REFERENCES "wtkUsers"("UID")
 );
 CREATE INDEX "ix_wtkBroadcast_AddedByUserUID" ON "wtkBroadcast" ("AddedByUserUID");
 CREATE INDEX "ix_wtkBroadcast_Dates" ON "wtkBroadcast" ("ShowOnDate","ShowUntilDate");
@@ -182,46 +159,67 @@ CREATE INDEX "ix_wtkBroadcast_Dates" ON "wtkBroadcast" ("ShowOnDate","ShowUntilD
 CREATE TABLE "wtkBroadcast_wtkUsers" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "BroadcastUID" int default NULL,
-  "UserUID" int default NULL,
-  "IpAddress" varchar(16) default NULL,
+  "BroadcastUID" int NOT NULL,
+  "UserUID" int NOT NULL,
+  "IpAddress" varchar(40) default NULL,
   CONSTRAINT "fk_wtkBroadcast_wtkUsers_UserUID"
     FOREIGN KEY ("UserUID") REFERENCES "wtkUsers"("UID")
 );
-CREATE INDEX "ix_wtkBroadcast_wtkUsers" ON "wtkBroadcast_wtkUsers" ("UserUID","BroadcastUID");
+CREATE INDEX "ix_wtkBroadcast_wtkUsers" ON "wtkBroadcast_wtkUsers"("UserUID","BroadcastUID")
 
 CREATE TABLE "wtkBugReport" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "CreatedByUserUID" int DEFAULT NULL,
-  "IPaddress" varchar(40) DEFAULT NULL,
-  "OpSystem" varchar(25) DEFAULT NULL,
-  "Browser" varchar(20) DEFAULT NULL,
-  "BrowserVer" varchar(12) DEFAULT NULL,
-  "AppVersion" varchar(12) DEFAULT NULL,
-  "DeviceType" char(8) DEFAULT 'computer',
-  "ReferralPage" varchar(120) DEFAULT NULL,
+  "CreatedByUserUID" int,
+  "IPaddress" varchar(40),
+  "OpSystem" varchar(25),
+  "Browser" varchar(20),
+  "BrowserVer" varchar(12),
+  "AppVersion" varchar(12),
+  "DeviceType" varchar(8) DEFAULT 'computer',
+  "ReferralPage" varchar(120),
   "BugMsg" text,
-  "InternalNote" varchar(120) DEFAULT NULL,
-  "DevNote" varchar(255) DEFAULT NULL,
-  "DevUserUID" int DEFAULT NULL,
-  "DoneDate" timestamp without time zone DEFAULT NULL,
-  CONSTRAINT "fk_wtkBugReport_UserUID"
-    FOREIGN KEY ("CreatedByUserUID") REFERENCES "wtkUsers"("UID")
+  "InternalNote" varchar(120),
+  "DevNote" varchar(255),
+  "DevUserUID" int,
+  "DoneDate"  timestamp without time zone,
+  CONSTRAINT "fk_wtkBugReport_CreatedByUserUID"
+   FOREIGN KEY ("CreatedByUserUID") REFERENCES "wtkUsers"("UID")
 );
+COMMENT ON COLUMN "wtkBugReport"."DeviceType" IS 'computer,tablet or phone';
 
 CREATE TABLE "wtkChat"(
-    "UID" SERIAL PRIMARY KEY,
-    "AddDate" timestamp without time zone DEFAULT now(),
-    "SendByUserUID" int,
-    "SendToUserUID" int,
-    "Message" varchar(900),
-    CONSTRAINT "fk_wtkChat_ByUserUID"
-      FOREIGN KEY ("SendByUserUID") REFERENCES "wtkUsers"("UID"),
-    CONSTRAINT "fk_wtkChat_ToUserUID"
-      FOREIGN KEY ("SendToUserUID") REFERENCES "wtkUsers"("UID")
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "SendByUserUID" int,
+  "SendToUserUID" int,
+  "Message" varchar(1400),
+  CONSTRAINT "fk_wtkChat_SendByUserUID"
+    FOREIGN KEY ("SendByUserUID") REFERENCES "wtkUsers"("UID"),
+  CONSTRAINT "fk_wtkChat_SendToUserUID"
+    FOREIGN KEY ("SendToUserUID") REFERENCES "wtkUsers"("UID")
 );
-CREATE INDEX "ix_wtkChat_FromTo" ON "wtkChat" ("SendByUserUID","SendToUserUID");
+CREATE INDEX "ix_wtkChat_FromTo" ON "wtkChat"("SendByUserUID","SendToUserUID")
+
+CREATE TABLE "wtkClients" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "ClientName" VARCHAR(30),
+  "Address" VARCHAR(30),
+  "Address2" VARCHAR(30),
+  "City" VARCHAR(30),
+  "State" CHAR(2),
+  "Zipcode" VARCHAR(10),
+  "CountryCode" CHAR(2),
+  "ClientPhone" VARCHAR(20),
+  "ClientEmail" VARCHAR(40),
+  "AccountEmail" VARCHAR(60),
+  "StartDate" DATE,
+  "ClientStatus" CHAR(1) DEFAULT 'A',
+  "InternalNote" VARCHAR(400)
+);
+CREATE INDEX "ixClientName" ON "wtkClients" ("ClientName");
+COMMENT ON COLUMN "wtkClients"."ClientStatus" IS 'Trial, Active, Inactive';
 
 CREATE TABLE "wtkCompanySettings" (
   "UID" SERIAL PRIMARY KEY,
@@ -240,8 +238,6 @@ CREATE TABLE "wtkCompanySettings" (
   "Ecommerce" varchar(5),
   "PayPalEmail" varchar(60),
   "TaxRate" numeric(6,4),
-  "ShowQty" varchar(1),
-  "ShowStaffLogin" varchar(1),
   "DomainName" varchar(90),
   "AppVersion"  varchar(6),
   "EnableLockout"  char(1) NOT NULL DEFAULT 'Y',
@@ -252,7 +248,25 @@ CREATE TABLE "wtkCompanySettings" (
 CREATE TABLE "wtkDebug" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "DevNote"   VARCHAR(240) NULL DEFAULT NULL
+  "DevNote"   VARCHAR(600) NULL DEFAULT NULL
+);
+
+CREATE TABLE "wtkDownloads" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "DelDate" timestamp without time zone,
+  "FileName" varchar(80),
+  "FileDescription" text,
+  "FileLocation" varchar(240)
+);
+
+CREATE TABLE "wtkDownloadTracking" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "DownloadUID" int,
+  "IPaddress" varchar(40),
+  CONSTRAINT "fk_wtkDownloadTracking_DownloadUID"
+    FOREIGN KEY ("DownloadUID") REFERENCES "wtkDownloads"("UID")
 );
 
 CREATE TABLE "wtkEcommerce" (
@@ -267,6 +281,19 @@ CREATE TABLE "wtkEcommerce" (
   "EcomNote" varchar(240)
 );
 
+CREATE TABLE "wtkEmailTemplate" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "DelDate" timestamp without time zone,
+  "AutomationOnly" CHAR(1) NOT NULL DEFAULT 'N',
+  "EmailType" varchar(8),
+  "EmailCode" varchar(20),
+  "Subject" varchar(600),
+  "EmailBody" text,
+  "InternalNote" text
+);
+CREATE INDEX "ix_wtkEmailTemplate_EmailCode" ON "wtkEmailTemplate" ("EmailCode");
+
 CREATE TABLE "wtkEmailsSent" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
@@ -278,7 +305,7 @@ CREATE TABLE "wtkEmailsSent" (
   "SendToUserUID" int,
   "EmailAddress" varchar(100),
   "InternalNote" varchar(250),
-  "Subject" varchar(255),
+  "Subject" varchar(600),
   "EmailBody" text,
   "EmailMsgId" varchar(200) NULL DEFAULT NULL,
   "EmailDelivered" timestamp without time zone NULL DEFAULT NULL,
@@ -293,19 +320,6 @@ CREATE TABLE "wtkEmailsSent" (
 );
 CREATE INDEX "ix_wtkEmailsSent_EmailType" ON "wtkEmailsSent" ("EmailType","OtherUID","UID");
 CREATE INDEX "ix_wtkEmailsSent_EmailMsgId" ON "wtkEmailsSent" ("EmailMsgId");
-
-CREATE TABLE "wtkEmailTemplate" (
-  "UID" SERIAL PRIMARY KEY,
-  "AddDate" timestamp without time zone DEFAULT now(),
-  "DelDate" timestamp without time zone,
-  "AutomationOnly" CHAR(1) NOT NULL DEFAULT 'N',
-  "EmailType" varchar(8),
-  "EmailCode" varchar(10),
-  "Subject" varchar(60),
-  "EmailBody" text,
-  "InternalNote" text
-);
-CREATE INDEX "ix_wtkEmailTemplate_EmailCode" ON "wtkEmailTemplate" ("EmailCode");
 
 CREATE TABLE "wtkErrorLog" (
   "UID" SERIAL PRIMARY KEY,
@@ -342,7 +356,7 @@ CREATE INDEX "ix_wtkFailedAttempts_FailCode" ON "wtkFailedAttempts" ("FailCode")
 CREATE TABLE "wtkFiles" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "DelDate" DATETIME,
+  "DelDate" timestamp without time zone,
   "UserUID" int,
   "TableRelation" varchar(30) NOT NULL,
   "ParentUID" int,
@@ -410,6 +424,19 @@ CREATE TABLE "wtkHelp" (
 );
 CREATE INDEX "ix_wtkHelp_HelpIndex" ON "wtkHelp" ("HelpIndex");
 
+CREATE TABLE "wtkIncomeByMonth" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "YearTracked" smallint NOT NULL,
+  "Quarter" smallint NOT NULL,
+  "MonthInYear" smallint NOT NULL,
+  "GrossIncome" decimal(10,2),
+  "Refunds" decimal(10,2),
+  "WhyNote" varchar(250)
+);
+CREATE INDEX "ix_wtkIncomeByQtr" ON "wtkIncomeByMonth" ("YearTracked","Quarter"),
+CREATE INDEX "ix_wtkIncomeByMonth" ON "wtkIncomeByMonth" ("YearTracked","MonthInYear")
+
 CREATE TABLE "wtkLanguage" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
@@ -423,6 +450,7 @@ CREATE TABLE "wtkLanguage" (
 );
 CREATE INDEX "ix_wtkLanguage" ON "wtkLanguage" ("PrimaryText","Language");
 CREATE INDEX "ix_wtkLanguage_MassUpdate" ON "wtkLanguage" ("MassUpdateId","Language","PrimaryText","NewText");
+CREATE INDEX "ix_wtkLanguage_LastModBy" ON "wtkLanguage" ("LastModByUserUID");
 
 CREATE TABLE "wtkLinkLogin" (
   "UID" SERIAL PRIMARY KEY,
@@ -456,7 +484,7 @@ CREATE TABLE "wtkLoginLog" (
   "PagesVisited" INT DEFAULT 1,
   "PassedId" bigint NULL,
   "WhichApp" VARCHAR(12),
-  "MobilePlatform" varchar(15),
+  "AccessMethod" varchar(15),
   "AppVersion"  varchar(6),
   "apiKey" varchar(256),
   CONSTRAINT "fk_wtkLoginLog_wtkUsers"
@@ -480,23 +508,13 @@ CREATE TABLE "wtkLookups" (
 );
 CREATE INDEX "ix_wtkLookups_LookupType" ON "wtkLookups" ("LookupType");
 
-CREATE TABLE "wtkMenuGroups" (
+CREATE TABLE "wtkPages" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "DelDate" timestamp without time zone,
-  "MenuUID" int NOT NULL,
-  "GroupName" varchar(20),
-  "GroupURL" varchar(140),
-  "Priority" smallint NOT NULL DEFAULT 10
-);
-
-CREATE TABLE "wtkMenuItems" (
-  "UID" SERIAL PRIMARY KEY,
-  "AddDate" timestamp without time zone DEFAULT now(),
-  "DelDate" timestamp without time zone,
-  "MenuGroupUID" int NOT NULL,
-  "Priority" smallint NOT NULL DEFAULT 10,
-  "PgUID" int
+  "PageName" varchar(200),
+  "FileName" varchar(30),
+  "Path" varchar(80),
+  "DevNote" varchar(250)
 );
 
 CREATE TABLE "wtkMenuSets" (
@@ -505,6 +523,32 @@ CREATE TABLE "wtkMenuSets" (
   "DelDate" timestamp without time zone,
   "MenuName" varchar(20),
   "Description" varchar(120)
+);
+
+CREATE TABLE "wtkMenuGroups" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "DelDate" timestamp without time zone,
+  "MenuUID" int NOT NULL,
+  "GroupName" varchar(20),
+  "GroupURL" varchar(140),
+  "Priority" smallint NOT NULL DEFAULT 10,
+  CONSTRAINT "fk_wtkMenuGroups_MenuUID"
+    FOREIGN KEY ("MenuUID") REFERENCES "wtkMenuSets"("UID")
+);
+
+CREATE TABLE "wtkMenuItems" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "DelDate" timestamp without time zone,
+  "MenuGroupUID" int NOT NULL,
+  "ShowDividerAbove" char(1) NOT NULL DEFAULT 'N',
+  "PgUID" int,
+  "Priority" smallint NOT NULL DEFAULT 10,
+  CONSTRAINT "fk_wtkMenuItems_MenuGroupUID"
+    FOREIGN KEY ("MenuGroupUID") REFERENCES "wtkMenuGroups"("UID"),
+  CONSTRAINT "fk_wtkMenuItems_PgUID"
+    FOREIGN KEY ("PgUID") REFERENCES "wtkPages"("UID")
 );
 
 CREATE TABLE "wtkNotifications" (
@@ -542,14 +586,108 @@ CREATE INDEX "ix_wtkNotifications_WhoTo" ON "wtkNotifications" ("StartDate","Aud
 CREATE INDEX "ix_wtkNotifications_ToType" ON "wtkNotifications" ("ToUID","ToStaffRole","SeenByUserUID");
 CREATE INDEX "ix_wtkNotifications_GoToId" ON "wtkNotifications" ("GoToId","GoToUrl");
 
-CREATE TABLE "wtkPages" (
+CREATE TABLE "wtkPolls" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "PageName" varchar(200),
-  "FileName" varchar(30),
-  "Path" varchar(80),
-  "DevNote" varchar(250)
+  "DelDate" timestamp without time zone default NULL,
+  "PollName" varchar(200) NOT NULL,
+  "PollText" text,
+  "PollType" varchar(4),
+  "Active" char(1) DEFAULT 'N'
 );
+
+CREATE TABLE "wtkPollOptions" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "PollUID" INT NOT NULL,
+  "OptionText" varchar(200) NOT NULL
+);
+
+CREATE TABLE "wtkPollResults" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "PollUID" INT NOT NULL,
+  "UserUID" INT NOT NULL,
+  "MyChoice" INT NOT NULL
+);
+
+CREATE TABLE "wtkProspects" (
+  "UID"         SERIAL PRIMARY KEY,
+  "AddDate"     timestamp without time zone DEFAULT now(),
+  "DelDate"     timestamp without time zone default NULL,
+  "ProspectStatus" varchar(5) DEFAULT 'new',
+  "CompanyName" varchar(255),
+  "Address1" varchar(55),
+  "Address2" varchar(30),
+  "City" varchar(30),
+  "State" char(2),
+  "Zipcode" varchar(10),
+  "County" varchar(30),
+  "Country" varchar(60),
+  "CountryCode" char(2),
+  "TimeZone" varchar(40),
+  "MainPhone" varchar(20),
+  "MainEmail" varchar(60),
+  "LinkedIn" varchar(80),
+  "Website" varchar(120),
+  "MonthlyWebsiteVisits" varchar(20),
+  "MonthlyWebsiteVisitsGrowth" varchar(20),
+  "CEOFirstName" varchar(40),
+  "CEOLastName" varchar(40),
+  "CEOEmail" varchar(60),
+  "CEOTwitter" varchar(60),
+  "CEOLinkedIn" varchar(280),
+  "OtherSocial" varchar(80),
+  "CompanySize" varchar(80),
+  "NumberOfEmployees" varchar(20),
+  "AnnualSales" varchar(255),
+  "FundingDate" varchar(60),
+  "FundingAmount" varchar(60),
+  "FundingType" varchar(120),
+  "FundingLink" varchar(480),
+  "Top5Investors" varchar(800),
+  "NumLeadInvestors" smallint,
+  "NumInvestors" smallint,
+  "SpendIT" int,
+  "SpendSoftware" int,
+  "SpendCommunications" int,
+  "SpendServices" int,
+  "SpendHardware" int,
+  "SpendOtherIT" int,
+  "SICCode" int,
+  "FoundingYear" varchar(20),
+  "B2BorB2C" varchar(20),
+  "Industry" varchar(255),
+  "Description" text,
+  "Technologies" text,
+  "InternalNote" text
+);
+CREATE INDEX "ix_wtkProspects_ProspectStatus" ON "wtkProspects" ("ProspectStatus");
+CREATE INDEX "ix_wtkProspects_Industry" ON "wtkProspects" ("Industry","ProspectStatus");
+CREATE INDEX "ix_wtkProspects_CompanyName" ON "wtkProspects" ("CompanyName");
+
+CREATE TABLE "wtkProspectStaff" (
+  "UID" SERIAL PRIMARY KEY,
+  "AddDate" timestamp without time zone DEFAULT now(),
+  "DelDate" timestamp without time zone default NULL,
+  "ProspectUID" INT NOT NULL,
+  "FirstName" varchar(80),
+  "LastName" varchar(80),
+  "StaffRole" varchar(255),
+  "DirectPhone" varchar(55),
+  "Email" varchar(100),
+  "EmailsSent" smallint DEFAULT '0',
+  "EmailsOpened" smallint DEFAULT '0',
+  "LinksClicked" smallint DEFAULT '0',
+  "AllowContact" char(1) DEFAULT 'Y',
+  "InternalNote" text,
+  CONSTRAINT "fk_wtkProspectStaff_ProspectUID"
+    FOREIGN KEY ("ProspectUID") REFERENCES "wtkProspects" ("UID")
+);
+CREATE INDEX "ix_wtkProspectStaff_AllowContact" ON "wtkProspectStaff" ("AllowContact","ProspectUID");
+CREATE INDEX "ix_wtkProspectStaff_Email" ON "wtkProspectStaff" ("Email");
+CREATE INDEX "ix_wtkProspectStaff_Contact" ON "wtkProspectStaff" ("LinksClicked","EmailsOpened","AllowContact");
+CREATE INDEX "ix_wtkProspectStaff_AllowContactEmailsSent" ON "wtkProspectStaff" ("AllowContact","EmailsSent");
 
 CREATE TABLE "wtkReminders" (
   "UID" SERIAL PRIMARY KEY,
@@ -582,42 +720,42 @@ COMMENT ON COLUMN "wtkReminders"."DeliveryMethod" IS 'Web, Email, SMS, or Push';
 CREATE TABLE "wtkReports" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "DelDate" timestamp without time zone default NULL,
-  "LastModByUserUID" int default NULL,
-  "ViewOrder" smallint DEFAULT NULL,
+  "DelDate" timestamp without time zone,
+  "LastModByUserUID" int,
+  "ViewOrder" smallint,
   "SecurityLevel" smallint DEFAULT 25,
   "TestMode" char(1) NOT NULL DEFAULT 'N',
   "HideFooter" char(1) DEFAULT 'N',
-  "RptType" varchar(10) DEFAULT NULL,
+  "RptType" varchar(10),
   "RptName" varchar(80) NOT NULL,
-  "RptNotes" varchar(400) DEFAULT NULL,
-  "URLredirect" varchar(45) DEFAULT NULL,
+  "RptNotes" varchar(400),
+  "URLredirect" varchar(45),
   "RptSelect" text,
-  "SelTableName" varchar(24) DEFAULT NULL,
-  "SelValueColumn" varchar(24) DEFAULT NULL,
-  "SelDisplayColumn" varchar(24) DEFAULT NULL,
-  "SelWhere" varchar(400) DEFAULT NULL,
-  "AddLink" varchar(40) DEFAULT NULL,
-  "EditLink" varchar(40) DEFAULT NULL,
-  "AlignCenter" varchar(200) DEFAULT NULL,
-  "AlignRight" varchar(200) DEFAULT NULL,
-  "FieldSuppress" varchar(200) DEFAULT NULL,
-  "ChartSuppress" varchar(200) DEFAULT NULL,
-  "SortableCols" varchar(800) DEFAULT NULL,
-  "TotalCols" varchar(200) DEFAULT NULL,
-  "TotalMoneyCols" varchar(200) DEFAULT NULL,
-  "DaysAgo" smallint DEFAULT NULL,
-  "StartDatePrompt" varchar(60) DEFAULT NULL,
-  "StartDateCol" varchar(30) DEFAULT NULL,
-  "EndDatePrompt" varchar(60) DEFAULT NULL,
-  "EndDateCol" varchar(30) DEFAULT NULL,
+  "SelTableName" varchar(24),
+  "SelValueColumn" varchar(24),
+  "SelDisplayColumn" varchar(24),
+  "SelWhere" varchar(400),
+  "AddLink" varchar(40),
+  "EditLink" varchar(40),
+  "AlignCenter" varchar(200),
+  "AlignRight" varchar(200),
+  "FieldSuppress" varchar(200),
+  "ChartSuppress" varchar(200),
+  "SortableCols" varchar(800),
+  "TotalCols" varchar(200),
+  "TotalMoneyCols" varchar(200),
+  "DaysAgo" smallint,
+  "StartDatePrompt" varchar(60),
+  "StartDateCol" varchar(30),
+  "EndDatePrompt" varchar(60),
+  "EndDateCol" varchar(30),
   "GraphRpt" char(1) DEFAULT 'N',
   "RegRpt"   char(1),
   "BarChart" char(1),
   "LineChart" char(1),
   "AreaChart" char(1),
   "PieChart" char(1),
-  "MenuName" varchar(20) DEFAULT NULL,
+  "MenuName" varchar(20),
   CONSTRAINT "fk_wtkReports_wtkUsers"
     FOREIGN KEY ("LastModByUserUID") REFERENCES "wtkUsers"("UID")
 );
@@ -641,8 +779,10 @@ CREATE TABLE "wtkRevenue" (
   "EcomUID"     int,
   "EcomTxnType" varchar(60),
   "EcomPayId"   varchar(60),
+  "AffiliateUID"  int,
+  "AffiliateRate" decimal(5,2),
   "RevType"     varchar(4),
-  "IPaddress"   varchar(15),
+  "IPaddress"   varchar(40),
   "PayerEmail"  varchar(60),
   "PayerId"     varchar(60),
   "FirstName"   varchar(60),
@@ -781,8 +921,6 @@ CREATE TABLE "wtkVisitorHistory" (
   "PageTitle" varchar(80),
   "PageURL" varchar(150),
   "SecondsViewed" INT DEFAULT 0,
-  CONSTRAINT "fk_wtkVisitorHistory_UserUID"
-    FOREIGN KEY ("UserUID") REFERENCES "wtkUsers"("UID"),
   CONSTRAINT "fk_wtkVisitorHistory_VisitorUID"
     FOREIGN KEY ("VisitorUID") REFERENCES "wtkVisitors"("UID")
 );
@@ -795,9 +933,9 @@ CREATE TABLE "wtkWidgetGroup" (
   "AddDate" timestamp without time zone DEFAULT now(),
   "DelDate" timestamp without time zone,
   "WidgetGroupName" varchar(40),
-  "StaffRole" varchar(4) DEFAULT NULL,
+  "StaffRole" varchar(4),
   "SecurityLevel" smallint DEFAULT 1,
-  "UseForDefault" char(1)
+  "UseForDefault" char(1) default 'N'
 );
 
 CREATE TABLE "wtkWidget" (
@@ -809,7 +947,7 @@ CREATE TABLE "wtkWidget" (
   "WidgetType" varchar(10),
   "ChartType"  varchar(30),
   "WidgetColor" varchar(20),
-  "SkipFooter"  char(1),
+  "SkipFooter"  char(1) default 'N',
   "WidgetDescription" varchar(240),
   "WidgetSQL" text,
   "WidgetURL" varchar(80),

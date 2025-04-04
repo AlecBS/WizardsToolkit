@@ -1,4 +1,3 @@
-version: "3.9"
 services:
     wtk_db_pg:
         platform: linux/amd64

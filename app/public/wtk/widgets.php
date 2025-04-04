@@ -50,7 +50,7 @@ htmVAR;
 SELECT wg.`WidgetGroupName`, w.`WidgetName`, COALESCE(w.`WidgetURL`,'') AS `WidgetURL`,
     COALESCE(w.`WidgetDescription`,'') AS `WidgetDescription`, w.`UID`, w.`WidgetSQL`,
     w.`WidgetType`, w.`ChartType`, COALESCE(w.`WidgetColor`,'info-gradient') AS `WidgetColor`,
-    COALESCE(w.`PassRNG`,0) AS `PassRNG`, w.`WindowModal`,
+    COALESCE(w.`PassRNG`,'N') AS `PassRNG`, w.`WindowModal`,
     COALESCE(w.`SkipFooter`,'N') AS `SkipFooter`
   FROM `wtkWidgetGroup_X_Widget` x
     INNER JOIN `wtkWidget` w ON w.`UID` = x.`WidgetUID`
