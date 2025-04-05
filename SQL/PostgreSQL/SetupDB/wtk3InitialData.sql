@@ -1,5 +1,5 @@
 INSERT INTO "wtkCompanySettings" ("CoName", "DomainName", "AppVersion", "EnableLockout")
-  VALUES ('Your Company', 'https://your-company.com', '2.0.0', 'Y');
+  VALUES ('Your Company', 'https://your-company.com', '1.0.0', 'Y');
 
 INSERT INTO "wtkUsers" ("DelDate","FirstName","LastName","Address","Title","Email","WebPassword","SecurityLevel","StaffRole","CanPrint","CanExport","FilePath","NewFileName","NewPassHash")
  VALUES (NULL,'Your','Name','Some Address', 'Admin', 'admin@email.com', NULL, 99, 'Tech', 'Y', 'Y',NULL,NULL,'needToSet'),
@@ -12,19 +12,108 @@ INSERT INTO "wtkEcommerce" ("PaymentProvider", "EcomWebsite")
 INSERT INTO "wtkEmailTemplate" ("EmailCode", "AutomationOnly", "EmailType", "Subject", "EmailBody", "InternalNote") VALUES
   ('invite', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>
 <p>Log in at @website@ using your email and password.</p>
-<p>If you do not know your password you can request a password reset on our website.</p>', 'this template is called from the User List by clicking the \"Send Invite\" button'),
+<p>If you do not know your password you can request a password reset on our website.</p>', 'this template is called from the User List by clicking the "Send Invite" button'),
   ('WelcomePIN', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>
 <p>Your PIN is: <span style="font-family: ''Courier New'';"><b>@PIN@</b></span></p>
 <p>Thank you for joining our website!</p>', 'this template is called from PIN Registration process');
 
-INSERT INTO "wtkReports" ("ViewOrder", "SecurityLevel", "TestMode", "HideFooter", "RptType", "RptName", "RptNotes", "URLredirect", "RptSelect", "RptSelectEnd", "SelTableName", "SelValueColumn", "SelDisplayColumn", "SelWhere", "AddLink", "EditLink",
-    "AlignCenter", "AlignRight", "FieldSuppress", "SortableCols", "TotalCols", "TotalMoneyCols", "DaysAgo", "StartDatePrompt", "StartDateCol", "EndDatePrompt", "EndDateCol", "GraphRpt", "MenuName") VALUES
-(10, 25, 'N', 'N', 'An', 'Page Views by User', 'This shows how many page views and logins each user has had.', NULL, 'SELECT CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",\r\n  COUNT(h."UID") AS "PageViews",\r\n  (SELECT COUNT(L."UID") FROM "wtkLoginLog" L WHERE  L."UserUID" = wu."UID") AS "Logins"\r\nFROM "wtkUsers" wu\r\n  INNER JOIN "wtkUserHistory" h ON h."UserUID" = wu."UID"\r\nWHERE wu."DelDate" IS NULL', 'GROUP BY wu."UID"\r\nORDER BY COUNT(h."UID") DESC, wu."FirstName" ASC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PageViews, Logins', NULL, NULL, 'PageViews, Logins', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-(20, 25, 'N', 'N', 'An', 'User Activity', 'This shows user activity on site.  It tracks logins, page views, report views and data updates.', NULL, 'SELECT CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",\r\n   (SELECT COUNT(L."UID") FROM "wtkLoginLog" L WHERE  L."UserUID" = wu."UID") AS "Logins",\r\n   COUNT(h."UID") AS "PageViews",\r\n   (SELECT COUNT(r."UID") FROM "wtkReportCntr" r WHERE  r."UserUID" = wu."UID") AS "ReportViews",\r\n   (SELECT COUNT(u."UID") FROM "wtkUpdateLog" u WHERE  u."UserUID" = wu."UID") AS "Updates"\r\n  FROM "wtkUsers" wu\r\nINNER JOIN "wtkUserHistory" h ON h."UserUID" = wu."UID"\r\n WHERE wu."DelDate" IS NULL', 'GROUP BY wu."UID"\r\nORDER BY COUNT(h."UID") DESC, wu."FirstName" ASC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PageViews, Logins, ReportViews, Updates', NULL, NULL, 'PageViews, Logins, ReportViews, Updates', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', NULL),
-(10, 0, 'N', 'N', 'Core', 'User Contact Information', 'Contact information for all users.', NULL, 'SELECT wu."UID",\r\n   CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",\r\n   L."LookupDisplay" AS "SecurityLevel",\r\n   "fncContactIcons"(wu."Email", wu."Phone",0,0,''Y'') AS "Contact"\r\n FROM "wtkUsers" wu\r\n  LEFT OUTER JOIN "wtkLookups" L\r\n   ON L."LookupType" = ''SecurityLevel'' AND L."LookupValue" = wu."SecurityLevel"\r\n WHERE wu."DelDate" IS NULL', 'ORDER BY wu."FirstName" ASC, wu."LastName" ASC', NULL, NULL, NULL, NULL, 'userEdit', 'userEdit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL),
-(20, 0, 'N', 'N', 'Core', 'User History Last Few Days', 'This is a demo for the Days Limit filter feature. It starts with showing page history for last @DaysPast@ days.', NULL, 'SELECT h."UID",\r\n  CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",\r\n  DATE_FORMAT(h."AddDate",''%c/%e/%Y at %l:%i %p'') AS "VisitDate",\r\n  h."PageURL", h."OtherUID" AS "PassedId", h."SecondsTaken"\r\n FROM "wtkUserHistory" h\r\nLEFT OUTER JOIN "wtkUsers" wu ON wu."UID" = h."UserUID"\r\nWHERE h."AddDate" >= DATE_SUB(NOW(), INTERVAL @DaysPast@ DAY)', 'ORDER BY h."UID" DESC', NULL, NULL, NULL, NULL, NULL, NULL, 'PassedId,SecondsTaken', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, 'N', NULL),
-(30, 0, 'N', 'N', 'Core', 'User History by Date Range', 'This is a demo for the Date Range filter feature.', NULL, 'SELECT h."UID",\r\n   CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",\r\n   DATE_FORMAT(h."AddDate",''%c/%e/%Y at %l:%i %p'') AS "VisitDate",\r\n   h."PageURL", h."OtherUID" AS "PassedId", h."SecondsTaken"\r\n  FROM "wtkUserHistory" h\r\n   LEFT OUTER JOIN "wtkUsers" wu ON wu."UID" = h."UserUID"\r\nWHERE h."AddDate" >= ''@StartDate@'' AND\r\n  DATE_FORMAT(h."AddDate",''%Y-%m-%d'') <= ''@EndDate@''', 'ORDER BY h."UID" DESC', NULL, NULL, NULL, NULL, NULL, NULL, 'PassedId,SecondsTaken', NULL, NULL, NULL, NULL, NULL, NULL, 'Visit Date', 'h."AddDate"', 'Visit Date', 'h."AddDate"', 'N', NULL),
-(40, 0, 'N', 'N', 'Core', 'External Report Demo', 'This uses the userList file as an external report as a demo that you can have any hand-coded report / page added to the report list.', '../admin/userList.php', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL);
+INSERT INTO "wtkReports" ("ViewOrder", "SecurityLevel", "TestMode", "HideFooter", "RptType", "RptName", "RptNotes", "URLredirect", "RptSelect", "SelTableName", "SelValueColumn", "SelDisplayColumn", "SelWhere", "AddLink", "EditLink", "AlignCenter", "AlignRight", "FieldSuppress",
+     "ChartSuppress", "SortableCols", "TotalCols", "TotalMoneyCols", "DaysAgo", "StartDatePrompt", "StartDateCol", "EndDatePrompt", "EndDateCol", "GraphRpt", "RegRpt", "BarChart", "LineChart", "AreaChart", "PieChart")
+ VALUES
+(10, 80, 'N', 'N', 'An', 'User Activity', 'This shows user activity on site.  It tracks logins, page views, report views and data updates.', NULL,
+'SELECT CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",
+  L."LookupDisplay" AS "StaffRole",
+   (SELECT COUNT(L."UID") FROM "wtkLoginLog" L WHERE  L."UserUID" = wu."UID") AS "Logins",
+   COUNT(h."UID") AS "PageViews",
+   (SELECT COUNT(r."UID") FROM "wtkReportCntr" r WHERE  r."UserUID" = wu."UID") AS "ReportViews",
+   (SELECT COUNT(u."UID") FROM "wtkUpdateLog" u WHERE  u."UserUID" = wu."UID") AS "Updates"
+  FROM "wtkUsers" wu
+    INNER JOIN "wtkUserHistory" h ON h."UserUID" = wu."UID"
+    INNER JOIN "wtkLookups" L ON L."LookupType" = ''StaffRole'' AND L."LookupValue" = wu."StaffRole"
+ WHERE wu."DelDate" IS NULL
+GROUP BY wu."UID", L."LookupDisplay"
+ORDER BY COUNT(h."UID") DESC, wu."FirstName" ASC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PageViews, Logins, ReportViews, Updates', NULL, 'StaffRole', NULL, 'PageViews, Logins, ReportViews, Updates', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', 'Y'),
+(20, 80, 'N', 'N', 'An', 'Page Views by User', 'This shows how many page views and logins each user has had.', NULL,
+'SELECT CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",
+  COUNT(h."UID") AS "PageViews",
+    (SELECT COUNT(L."UID") FROM "wtkLoginLog" L WHERE  L."UserUID" = wu."UID") AS "Logins"
+    FROM "wtkUsers" wu INNER JOIN "wtkUserHistory" h ON h."UserUID" = wu."UID" WHERE wu."DelDate" IS NULL
+GROUP BY wu."UID"
+ORDER BY COUNT(h."UID") DESC, wu."FirstName" ASC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PageViews, Logins', NULL, NULL, NULL, 'PageViews, Logins', NULL, NULL, NULL, NULL, NULL, NULL, 'Y', NULL, 'Y', 'Y', NULL, NULL),
+(10, 1, 'N', 'N', 'Core', 'User Contact Information', 'Contact information for all users.', NULL, 'SELECT wu."UID",
+   CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",
+   L."LookupDisplay" AS "SecurityLevel",
+   "fncContactIcons"(wu."Email", wu."Phone",0,0,''Y'',wu."UID",wu."SMSEnabled",''Y'','''') AS "Contact"
+ FROM "wtkUsers" wu
+  LEFT OUTER JOIN "wtkLookups" L
+   ON L."LookupType" = ''SecurityLevel'' AND CAST(L."LookupValue" AS smallint) = wu."SecurityLevel"
+ WHERE wu."DelDate" IS NULL
+ ORDER BY wu."FirstName" ASC, wu."LastName" ASC', NULL, NULL, NULL, NULL, 'userEdit', 'userEdit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL),
+(20, 99, 'N', 'N', 'Core', 'User History Last Few Days', 'This is a demo for the Days Limit filter feature. It starts with showing page history for last @DaysPast@ days.', NULL, 'SELECT h."UID",
+  CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",
+  to_char(h."AddDate",''MM/DD/YYYY "at" HH12:MI AM'') AS "VisitDate",
+  h."PageURL", h."OtherUID" AS "PassedId", h."SecondsTaken"
+ FROM "wtkUserHistory" h
+LEFT OUTER JOIN "wtkUsers" wu ON wu."UID" = h."UserUID"
+WHERE h."AddDate" >= (CURRENT_TIMESTAMP - INTERVAL ''@DaysPast@ DAYS'')
+ORDER BY h."UID" DESC', NULL, NULL, NULL, NULL, NULL, NULL, 'PassedId,SecondsTaken', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL),
+(30, 80, 'N', 'N', 'Core', 'User History with Date Range', 'Website page history of users.', NULL, 'SELECT h."UID",
+   CONCAT(wu."FirstName", '' '', COALESCE(wu."LastName",'''')) AS "User",
+   to_char(h."AddDate",''MM/DD/YYYY "at" HH12:MI AM'') AS "VisitDate",
+   h."PageURL", h."OtherUID" AS "PassedId", h."SecondsTaken"
+  FROM "wtkUserHistory" h
+   LEFT OUTER JOIN "wtkUsers" wu ON wu."UID" = h."UserUID"
+WHERE h."AddDate" >= ''@StartDate@'' AND
+  to_char(h."AddDate", ''YYYY-MM-DD'') <= ''@EndDate@''
+  AND h."UserUID" = @RptFilter@
+ORDER BY h."UID" DESC', 'wtkUsers', 'UID', 'FirstName', '"DelDate" IS NULL', NULL, NULL, 'PassedId,SecondsTaken', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Visit Date', NULL, 'Visit Date', NULL, 'N', NULL, NULL, NULL, NULL, NULL),
+(10, 80, 'N', 'N', 'Money', 'Money Stats', 'This uses the moneyStats file as an external report as a demo that you can have any hand-coded report / page added to the report list.', '/admin/moneyStats.php', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL),
+(20, 80, 'N', 'Y', 'Money', 'Payments by Ecommerce Provider', NULL, NULL, 'SELECT
+ CONCAT(''<a onclick="JavaScript:rpt('', 8, '','' , e."UID", '')">'', e."PaymentProvider",''</a>'') AS "PaymentProvider",
+  COUNT(r."UID") AS "Count",
+    CONCAT(''$'', to_char(SUM(r."GrossAmount"),''99G999D99'')) AS "Amount"
+  FROM "wtkRevenue" r
+    INNER JOIN "wtkEcommerce" e ON e."UID" = r."EcomUID"
+WHERE r."AddDate" >= ''@StartDate@'' AND
+  to_char(r."AddDate", ''YYYY-MM-DD'') <= ''@EndDate@''
+GROUP BY e."PaymentProvider", e."UID"
+ORDER BY e."PaymentProvider" DESC', NULL, NULL, NULL, NULL, NULL, NULL, 'Count', 'Amount', NULL, NULL, NULL, 'Count', 'Amount', NULL, 'Purchase Date', NULL, 'Purchase Date', NULL, 'N', NULL, NULL, NULL, NULL, NULL),
+(30, 80, 'N', 'N', 'Money', 'Revenue List', NULL, NULL,
+'SELECT r."UID", to_char(r."AddDate",''MM/DD/YYYY "at" HH12:MI AM'') AS "AddDate",
+    CONCAT(''<a onclick="JavaScript:ajaxGo(''''/wtk/userEdit'''','',r."UserUID",'')">'',
+       COALESCE(u."FirstName",''''), '' '', COALESCE(u."LastName",''''),''</a><br>'',u."Email") AS "Buyer",
+    CONCAT(''<a class="btn-floating" onclick="JavaScript:rpt(22,'',r."UserUID",'')">'',
+           ''<i class="material-icons">format_list_numbered</i></a>'',
+           ''<a onclick="JavaScript:ajaxGo(''''/admin/userLogins'''',0,'',
+               r."UserUID",'');" class="btn btn-floating btn-small">'',
+               ''<i class="material-icons" alt="Click to User Logins" title="Click to User Logins">beenhere</i></a>''
+       ) AS "Reports",
+    CONCAT(''<a onclick="JavaScript:wtkModal(''''/admin/ecomEdit'''',''''MODAL'''','',r."EcomUID",'')">'',
+       e."PaymentProvider",''</a>'') AS "PaymentProvider",
+    r."PaymentStatus",
+    CASE WHEN r."CurrencyCode" = ''USD'' THEN ''''
+      ELSE CONCAT(''<a target="_blank" href="https://www.xe.com/currencyconverter/convert/?Amount='',
+            r."GrossAmount",''&From='',r."CurrencyCode",''&To=USD">'',r."GrossAmount",''</a>'')
+    END AS "GrossAmount",
+    r."MerchantFee", r."CurrencyCode"
+FROM "wtkRevenue" r
+  INNER JOIN "wtkEcommerce" e ON e."UID" = r."EcomUID"
+  INNER JOIN "wtkUsers" u ON u."UID" = r."UserUID"
+WHERE r."EcomUID" = @RptFilter@
+  AND r."AddDate" >= ''@StartDate@'' AND
+  to_char(r."AddDate", ''YYYY-MM-DD'') <= ''@EndDate@''
+ORDER BY r."UID" DESC', 'wtkEcommerce', 'UID', 'PaymentProvider', '"DelDate" IS NULL', NULL, NULL, 'CurrencyCode', 'GrossAmount,MerchantFee', NULL, NULL, NULL, NULL, NULL, NULL, 'Purchase Date', NULL, 'Purchase Date', NULL, 'N', NULL, NULL, NULL, NULL, NULL),
+(40, 80, 'N', 'Y', 'Money', 'Revenue Monthly', 'Income comparison for last 6 months', NULL, 'SELECT to_char("AddDate",''MM'') AS "Month" ,
+    CONCAT(''$'', to_char(SUM("GrossAmount"),''99G999D99'')) AS "TotalIncome"
+  FROM "wtkRevenue"
+GROUP BY to_char("AddDate",''YYYY-MM''), "AddDate"
+ORDER BY to_char("AddDate",''YYYY-MM'') DESC LIMIT 6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'TotalIncome', NULL, NULL, NULL, NULL, 'TotalIncome', NULL, NULL, NULL, NULL, NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'N'),
+(50, 80, 'N', 'Y', 'Money', 'Revenue Yearly', 'Income comparison for last 5 years', NULL, 'SELECT to_char("AddDate",''YYYY'') AS "Year",
+    CONCAT(''$'',to_char(SUM("GrossAmount"),''99G999D99'')) AS "TotalIncome"
+  FROM "wtkRevenue"
+GROUP BY to_char("AddDate",''YYYY''), "AddDate"
+ORDER BY to_char("AddDate",''YYYY'') DESC LIMIT 5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'TotalIncome', NULL, NULL, NULL, NULL, 'TotalIncome', NULL, NULL, NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', NULL);
+
 
 INSERT INTO "wtkPages" ("PageName", "FileName", "Path")
   VALUES
@@ -82,6 +171,7 @@ INSERT INTO "wtkMenuGroups" ("MenuUID", "GroupName", "GroupURL", "Priority")
   (1, 'Logout', 'logout', 90);
 
 INSERT INTO "wtkMenuItems" ("MenuGroupUID", "ShowDividerAbove", "PgUID")
+  VALUES
   (2, 'N', 16),
   (2, 'N', 8),
   (2, 'Y', 34),
@@ -115,9 +205,38 @@ INSERT INTO "wtkMenuItems" ("MenuGroupUID", "ShowDividerAbove", "PgUID")
 
 INSERT INTO "wtkHelp" ("HelpIndex", "HelpTitle", "HelpText")
   VALUES
-  ('reportEdit.php', 'SQL Report Wizard', '<h4>Filtering @Tokens@</h4>\n<p>On this page you will see which tokens can be added within your SQL SELECT or WHERE and they will be automatically replaced by data and passed parameters.</p>\n<p>For example, if you put in something like:<br>\n<code>WHERE `UserUID` = @UserUID@</code><br>\nthat will automatically replace the @UserUID@ with the currently logged in user''s UID (wtkUsers.UID).  This can be very useful if you want to create a report that only shows a user data related to their account.</p>\n<br>\n<h4>Sorting Functionality</h4>\n<p>Each column that you want to sort should be on a separate line in the \"Sorting\" box.  This function can take 1, 2 or 3 parameters. Note, as usual spaces will be automatically be inserted for WordCaps or snake_case.  For example, ''FirstName'' will be changed to ''First Name''.</p>\n<br>\n<h5>One Parameter</h5>\n<code>Count</code><br>\n<p>This uses column named `Count` and leaves headers as \"Count\" and sorts by this column.</p>\n<br>\n<h5>Two Parameters</h5>\n<code>LookupDisplay, USA State</code><br>\n<p>This uses column named `LookupDisplay` but shows the header as \"USA State\".  It sorts by the `LookupDisplay` column.</p>\n<br>\n<h5>Three Parameters</h5>\n<code>DOB, Birthday, u.`BirthDate`</code><br>\n<p>This uses column named `DOB` but shows the header as \"Birthday\".  It sorts using u.`BirthDate` column. This is really important when formatting causes problem with sort order.  For example if your date format is ''%b %D, %Y'' then sorting by that would not give the results you want.</p>\n<br>\n<h4>Example</h4>\n<p>Here is an example SQL query and the associated Sort Options.</p>\n<code>\nSELECT p.`UID`, u.`FirstName` AS `Owner`, p.`PetName`, p.`City`, DATE_FORMAT(p.`BirthDate`,''%b %D, %Y'') AS `DOB`<br>\n  FROM `pets` p<br>\n   INNER JOIN `wtkUsers` u ON u.`UID` = p.`UserUID`\n</code>\n<br><br>\n<h5>Sortable Columns</h5>\n<code>\nOwner<br>\nCity, Town<br>\nDOB, Birthday, p.`BirthDate`\n</code>');
+  ('reportEdit.php', 'SQL Report Wizard',
+'<h4>Filtering @Tokens@</h4>
+<p>On this page you will see which tokens can be added within your SQL SELECT or WHERE and they will be automatically replaced by data and passed parameters.</p>
+<p>For example, if you put in something like:<br>
+<code>WHERE `UserUID` = @UserUID@</code><br>
+that will automatically replace the @UserUID@ with the currently logged in user''s UID (wtkUsers.UID).
+This can be very useful if you want to create a report that only shows a user data related to their account.</p>
+<br>
+<h4>Sorting Functionality</h4>
+<p>Each column that you want to sort should be on a separate line in the "Sorting" box.  This function can take 1, 2 or 3 parameters.
+Note, as usual spaces will be automatically be inserted for WordCaps or snake_case.  For example, ''FirstName'' will be changed
+to ''First Name''.</p>
+<br>
+<h5>One Parameter</h5>
+<code>Count</code><br>
+<p>This uses column named `Count` and leaves headers as "Count" and sorts by this column.</p>
+<br><h5>Two Parameters</h5>
+<code>LookupDisplay, USA State</code><br>
+<p>This uses column named `LookupDisplay` but shows the header as "USA State".  It sorts by the `LookupDisplay` column.</p>
+<br><h5>Three Parameters</h5>
+<code>DOB, Birthday, u.`BirthDate`</code><br>
+<p>This uses column named `DOB` but shows the header as "Birthday".  It sorts using u.`BirthDate` column. This is really important when formatting causes problem with sort order.
+ For example if your date format is ''Mon DD, YYYY '' then sorting by that would not give the results you want.</p>
+<br><h4>Example</h4>
+<p>Here is an example SQL query and the associated Sort Options.</p>
+<code>SELECT p.`UID`, u.`FirstName` AS `Owner`, p.`PetName`, p.`City`, to_char(p.`BirthDate`,''Mon DD, YYYY '') AS `DOB`<br>
+  FROM `pets` p<br>
+  INNER JOIN `wtkUsers` u ON u.`UID` = p.`UserUID`
+</code><br><br>
+<h5>Sortable Columns</h5><code>Owner<br>City, Town<br>DOB, Birthday, p.`BirthDate`</code>');
 
-  INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
+INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
    VALUES
    ('SecurityLevel', '1', 'Customer'),
    ('SecurityLevel', '30', 'Staff'),
@@ -534,7 +653,7 @@ WHERE "DelDate" IS NULL AND "AddDate" > (current_date - 7)',NULL,'N'),
    ('Revenue Today',90,'Count',NULL,'success-gradient',NULL,NULL,
 'SELECT CONCAT(''$'', COALESCE(SUM("GrossAmount"),0)) AS "Income"
   FROM "wtkRevenue"
-WHERE to_char("AddDate", ''YYYY-MM-DD'')= to_char(CURRENT_DATE, ''YYYY-MM-DD'')
+WHERE to_char("AddDate", ''YYYY-MM-DD'') = to_char(CURRENT_DATE, ''YYYY-MM-DD'')
   AND "PaymentStatus" = ''Authorized''',NULL,'N'),
    ('Revenue This Week',80,'Count',NULL,'info-gradient',NULL,'income from last 7 days',
 'SELECT CONCAT(''$'', SUM("GrossAmount")) AS "Income"
@@ -590,6 +709,10 @@ ORDER BY to_char("AddDate", ''J'') DESC LIMIT 5;',NULL,'N'),
 'SELECT COUNT("UID")
    FROM "wtkErrorLog"
  WHERE "DelDate" IS NULL AND "AddDate" > (NOW() - INTERVAL ''1 DAY'')',NULL,'N'),
+ ('Active Users',30,'Count',NULL,'success-gradient',NULL,NULL,
+'SELECT COUNT("UID") as "Count"
+FROM "wtkUsers"
+WHERE "DelDate" IS NULL',NULL,'N'),
     ('Emails Sent',80,'Count',NULL,'info-gradient',NULL,'how many emails sent in last 24 hours',
 'SELECT COUNT("UID")
  FROM "wtkEmailsSent"
@@ -598,10 +721,33 @@ WHERE "AddDate" > (NOW() - INTERVAL ''1 DAY'') ',NULL,'N'),
 'SELECT COUNT("UID")
  FROM "wtkReportCntr"
 WHERE "AddDate" > (NOW() - INTERVAL ''1 DAY'')',NULL,'N'),
-    ('Active Users',30,'Count',NULL,'success-gradient',NULL,NULL,
-'SELECT COUNT("UID") as "Count"
-FROM "wtkUsers"
-WHERE "DelDate" IS NULL',NULL,'N');
+('Last 5 Users', 30, 'List', NULL, NULL, 'Y', 'Last 5 unique users that accessed website.',
+'SELECT wu."FirstName" AS "User",
+    to_char(h."AddDate", ''Mon DD, YYYY at FMHH:MI am'') AS "LastAccess",
+    h."PageURL"
+   FROM "wtkUserHistory" h
+     INNER JOIN (
+         SELECT MAX("UID") AS "MaxUID"
+           FROM "wtkUserHistory"
+         GROUP BY "UserUID") latest ON h."UID" = latest."MaxUID"
+     INNER JOIN "wtkUsers" wu ON wu."UID" = h."UserUID"
+     WHERE wu."DelDate" IS NULL
+     ORDER BY h."UID" DESC LIMIT 5', NULL, 'N'),
+('Weekly Income', 80, 'Chart', 'Area', NULL, NULL, 'weekly income summaries',
+'SELECT to_char(DATE_TRUNC(''week'', "AddDate") + INTERVAL ''6 days'', ''Mon DD'') AS "WeekEnding",
+   COALESCE(SUM("GrossAmount"), 0) AS "Income"
+FROM "wtkRevenue"
+WHERE "PaymentStatus" IN (''Paid'', ''Authorized'')
+GROUP BY DATE_TRUNC(''week'', "AddDate")
+ORDER BY DATE_TRUNC(''week'', "AddDate") DESC', '/admin/moneyStats', 'N'),
+('Unique Visitors', 80, 'Count', NULL, 'info-gradient', NULL, 'visitors to marketing site',
+'SELECT COUNT(DISTINCT("IPaddress")) as "Count"
+FROM "wtkVisitors"
+WHERE "AddDate" > (NOW() - INTERVAL ''7 DAY'')', '/admin/visitorStats', 'N'),
+('Affiliates', 80, 'Count', NULL, 'success-gradient', NULL, NULL,
+'SELECT COUNT(*) FROM "wtkAffiliates" WHERE "DelDate" IS NULL', '/admin/affiliateList', 'N'),
+('Prospects', 80, 'Count', NULL, 'info-gradient', NULL, NULL,
+'SELECT COUNT(*) FROM "wtkProspects" WHERE "DelDate" IS NULL', '/admin/prospectList', 'N');
 
 INSERT INTO "wtkWidgetGroup_X_Widget" ("WidgetGroupUID", "WidgetUID", "WidgetPriority")
  VALUES

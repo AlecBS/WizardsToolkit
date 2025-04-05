@@ -22,7 +22,9 @@ FROM `wtkReports` r
     ON L2.`LookupType` = 'SecurityLevel' AND L2.`LookupValue` = r.`SecurityLevel`
  WHERE r.`DelDate` IS NULL
 SQLVAR;
-
+if ($gloDriver1 == 'pgsql'):
+    $pgSQL = wtkReplace($pgSQL, 'L2.`LookupValue`','CAST(L2."LookupValue" AS INT)');
+endif;
 $pgHideReset = ' class="hide"';
 $pgFilterCol   = 'RptName';
 $pgFilterValue = wtkFilterRequest('wtkFilter');

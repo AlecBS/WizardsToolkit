@@ -111,12 +111,12 @@ SQLVAR;
                 if (($pgSelWhere == '') && ($pgFilterValue != '')):
                     $pgSelWhere = "WHERE `$pgSelValueColumn` = '$pgFilterValue'";
                 endif;
-                $pgSelSQL = "SELECT `$pgSelDisplayColumn` FROM $pgSelTableName $pgSelWhere LIMIT 1";
+                $pgSelSQL = "SELECT `$pgSelDisplayColumn` FROM `$pgSelTableName` $pgSelWhere LIMIT 1";
                 $pgHtm .= '  <div class="input-field col m12 s12">' . "\n";
                 $pgHtm .= '<p>Filtered by: ' . wtkSqlGetOneResult($pgSelSQL,[]) . '</p>' . "\n";
             else:
                 $pgSelDisplayColumn = wtkReplace($pgSelDisplayColumn, '`', '');
-                $pgSelSQL = "SELECT `$pgSelValueColumn`, `$pgSelDisplayColumn` FROM $pgSelTableName $pgSelWhere ORDER BY `$pgSelDisplayColumn` ASC";
+                $pgSelSQL = "SELECT `$pgSelValueColumn`, `$pgSelDisplayColumn` FROM `$pgSelTableName` $pgSelWhere ORDER BY `$pgSelDisplayColumn` ASC";
                 $pgHtm .= '  <div class="input-field col m4 s12">' . "\n";
                 $pgHtm .= '    <select id="RptFilter" name="RptFilter">' . "\n";
                 $pgHtm .= '      <option value="">Show All</option>' . "\n";
