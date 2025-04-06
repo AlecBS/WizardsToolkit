@@ -59,7 +59,7 @@ CREATE TABLE `wtkUsers` (
   `CanEditHelp` enum('N','Y') default 'N',
   `CanUnlock` enum('N','Y') default 'N',
   `SSN` varchar(11),
-  `IPAddress` varchar(15),
+  `IPAddress` varchar(40),
   `EmailOKDate` datetime,
   `SignedDate` datetime,
   `PromoCode` varchar(24),
@@ -134,6 +134,32 @@ CREATE TABLE `wtkBackgroundActions` (
   INDEX `ix_wtkBackgroundAction_Param1` (`Param1UID`, `ActionType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
+CREATE TABLE `wtkBlog` (
+  `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `DelDate` datetime,
+  `LastEditDate` datetime,
+  `UserUID` int UNSIGNED NOT NULL COMMENT 'written by',
+  `Slug` varchar(80),
+  `PageTitle` varchar(120) COMMENT 'also used for Navigation name',
+  `BlogContent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `MetaKeywords` text,
+  `MetaDescription` text,
+  `TwitterAcct` varchar(40),
+  `OGTitle` varchar(70),
+  `OGDescription` varchar(200),
+  `OGFilePath` varchar(30),
+  `OGImage` varchar(12),
+  `MakePublic` enum('N','Y') NOT NULL DEFAULT 'N',
+  `PublishDate`  datetime,
+  `Views`   int UNSIGNED NOT NULL DEFAULT 0,
+  `LastViewDate` datetime,
+  PRIMARY KEY (`UID`),
+  KEY `ix_wtkBlog_Slug` (`Slug`),
+  CONSTRAINT `fk_wtkBlog_UserUID`
+    FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
 CREATE TABLE `wtkBroadcast` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -163,7 +189,7 @@ CREATE TABLE `wtkBroadcast_wtkUsers` (
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `BroadcastUID` int UNSIGNED default NULL,
   `UserUID` int UNSIGNED default NULL,
-  `IpAddress` varchar(16) default NULL,
+  `IpAddress` varchar(40) default NULL,
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkBroadcast_wtkUsers_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),
@@ -221,35 +247,9 @@ CREATE TABLE `wtkClients` (
   `AccountEmail` VARCHAR(60),
   `StartDate` DATE DEFAULT NULL,
   `ClientStatus` CHAR(1) DEFAULT 'A' COMMENT 'Trial, Active, Inactive',
-  `InternalNote` VARCHAR(250),
+  `InternalNote` VARCHAR(400),
   PRIMARY KEY (`UID`),
   KEY `ix_wtkClients_ClientName` (`ClientName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
-
-CREATE TABLE `wtkBlog` (
-  `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `DelDate` datetime,
-  `LastEditDate` datetime,
-  `UserUID` int UNSIGNED NOT NULL COMMENT 'written by',
-  `Slug` varchar(80),
-  `PageTitle` varchar(120) COMMENT 'also used for Navigation name',
-  `BlogContent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `MetaKeywords` text,
-  `MetaDescription` text,
-  `TwitterAcct` varchar(40),
-  `OGTitle` varchar(70),
-  `OGDescription` varchar(200),
-  `OGFilePath` varchar(30),
-  `OGImage` varchar(12),
-  `MakePublic` enum('N','Y') NOT NULL DEFAULT 'N',
-  `PublishDate`  datetime,
-  `Views`   int UNSIGNED NOT NULL DEFAULT 0,
-  `LastViewDate` datetime,
-  PRIMARY KEY (`UID`),
-  KEY `ix_wtkBlog_Slug` (`Slug`),
-  CONSTRAINT `fk_wtkBlog_UserUID`
-    FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkCompanySettings` (
@@ -869,7 +869,7 @@ CREATE TABLE `wtkRevenue` (
   `AffiliateUID`  int UNSIGNED,
   `AffiliateRate` decimal(5,2),
   `RevType`     varchar(4),
-  `IPaddress`   varchar(15),
+  `IPaddress`   varchar(40),
   `PayerEmail`  varchar(60),
   `PayerId`     varchar(60),
   `FirstName`   varchar(60),
