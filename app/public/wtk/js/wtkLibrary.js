@@ -1098,6 +1098,15 @@ function wtkRequiredFieldsFilled(fncFormName) {
 
 function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
     wtkDebugLog('ajaxPost: fncPage = ' + fncPage + '; fncPost = ' + fncPost + '; fncAddPageQ = ' + fncAddPageQ);
+    // BEGIN if TinyMCE is used, copy into original textarea form fields
+    if (elementInFormExist(fncPost,'HasTinyMCE')) { // because page may have more than one form
+        var fncHasTinyMCE = $('#HasTinyMCE').val();
+        wtkDebugLog('ajaxPost: fncHasTinyMCE = ' + fncHasTinyMCE);
+        let fncTextArea = fncHasTinyMCE.replace('textarea#','');
+        let fncNewValue = tinymce.get(fncTextArea).getContent();
+        $('#' + fncTextArea).val(fncNewValue);
+    }
+    //  END  if TinyMCE is used, copy into original textarea form fields
 
     let fncResult = wtkPrepFormPost(fncPost);
     let fncReady = fncResult.ready;

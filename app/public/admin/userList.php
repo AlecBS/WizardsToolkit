@@ -7,34 +7,37 @@ endif;
 $gloIconSize = 'btn-small';
 
 $pgSQL =<<<SQLVAR
-SELECT `UID`, `FirstName`, `LastName`, `City`,
-    `fncContactIcons`(`Email`,`CellPhone`,0,0,'Y',`UID`,`SMSEnabled`,'N','') AS `Contact`, `Email`
-  FROM `wtkUsers`
-WHERE `DelDate` IS NULL
+SELECT u.`UID`, u.`FirstName`, u.`LastName`, L.`LookupDisplay`,
+    `fncContactIcons`(u.`Email`,u.`CellPhone`,0,0,'Y',u.`UID`,u.`SMSEnabled`,'N','') AS `Contact`,
+    u.`Email`
+  FROM `wtkUsers` u
+    INNER JOIN `wtkLookups` L ON L.`LookupType` = 'SecurityLevel' AND L.`LookupValue` = u.`SecurityLevel`
+WHERE u.`DelDate` IS NULL
 SQLVAR;
 
 $pgHideReset = ' class="hide"';
 $pgFilterValue = wtkFilterRequest('wtkFilter');
 if ($pgFilterValue != ''):
-    $pgSQL .= " AND lower(`FirstName`) LIKE lower('%" . $pgFilterValue . "%')";
+    $pgSQL .= " AND lower(u.`FirstName`) LIKE lower('%" . $pgFilterValue . "%')";
     $pgHideReset = '';
 endif;  // $pgFilterValue != ''
 
 $pgFilter2Value = wtkFilterRequest('wtkFilter2');
 if ($pgFilter2Value != ''):
-    $pgSQL .= " AND lower(`LastName`) LIKE lower('%" . $pgFilter2Value . "%')";
+    $pgSQL .= " AND lower(u.`LastName`) LIKE lower('%" . $pgFilter2Value . "%')";
     $pgHideReset = '';
 endif;  // $pgFilter2Value != ''
 
-$pgSQL .= ' ORDER BY `LastName` ASC, `FirstName` ASC';
+$pgSQL .= ' ORDER BY u.`LastName` ASC, u.`FirstName` ASC';
 $pgSQL = wtkSqlPrep($pgSQL);
 if ($gloDeviceType == 'phone'):
-    $pgSQL = wtkReplace($pgSQL, ', `City`, `Phone`, `Email`','');
+    wtkFillSuppressArray('LookupDisplay');
+    wtkFillSuppressArray('Email');
 endif;
 
 wtkSetHeaderSort('LastName', 'Last Name');
 wtkSetHeaderSort('FirstName', 'First Name');
-wtkSetHeaderSort('City');
+wtkSetHeaderSort('LookupDisplay', 'SecurityLevel', 'L.`LookupValue`');
 
 $gloEditPage = '/admin/userAdminEdit';
 $gloAddPage  = $gloEditPage;
