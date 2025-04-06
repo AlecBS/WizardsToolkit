@@ -163,6 +163,10 @@ else:
     wtkSearchReplace('id="loginPage" class="full-page valign-wrapper">','id="loginPage" class="full-page"><br>');
 endif;
 
+if (wtkGetGet('start') == 'reg'):
+    wtkSearchReplace('wtkStartMaterializeCSS()',"wtkStartMaterializeCSS();showRegister('loginPage')");
+endif;
+
 wtkSearchReplace('<div style="max-width: 144px"','<div class="hide"'); // language options
 wtkSearchReplace('href="wtk/css/wtkLight.css">','href="wtk/css/wtkLight.css" id="CSStheme">');
 wtkSearchReplace('href="wtk/css/wtkBlue.css">','href="wtk/css/wtkBlue.css" id="CSScolor">');
