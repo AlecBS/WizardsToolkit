@@ -44,6 +44,9 @@ $pgHtm =<<<htmVAR
     <li>Clients Perceive Value: Offer your clients an exclusive 10% discount on WTK subscription.</li>
     <li>Earn Generously on first year of WTK subscription plans:
         <ul class="browser-default">
+            <li><strong>First 30 Days:</strong> if you close any sales during the first
+                30 days after you were introduced to the Affiliate program, you
+                earn a flat $300 on those sales!</li>
             <li>40% on the first 5 subscription signups</li>
             <li>45% for sales 6 to 9</li>
             <li>50% on 10th sale
