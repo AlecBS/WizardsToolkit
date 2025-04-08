@@ -57,112 +57,152 @@ $pgColorSelect = str_replace('>' . $pgColor . '<', ' selected>' . $pgColor . '<'
 </head>
 <body onload="JavaScript:getCssRoot();">
 	<div id="myNavbar">
-		<ul id="dropdown1" class="dropdown-content">
-			<li><a onclick="Javascript:ajaxGo('companyEdit');">Settings</a></li>
-			<li><a onclick="Javascript:ajaxGo('userList');">Users</a></li>
-			<li><a onclick="Javascript:ajaxGo('reportViewer');">Reports Viewer</a></li>
-			<li><a onclick="Javascript:ajaxGo('promoPlanList');">Promotions</a></li>
-			<li><a onclick="Javascript:ajaxGo('shortenedURLlist');">Shortened URLs</a></li>
-		</ul>
-		<ul id="dropdown2" class="dropdown-content">
-			<li><a onclick="Javascript:ajaxGo('emailTemplates');">Email Templates</a></li>
-			<li><a onclick="Javascript:ajaxGo('emailHistory');">Email History</a></li>
-			<li><a onclick="Javascript:ajaxGo('emailWizard');">Bulk Email</a></li>
-		</ul>
-		<ul id="dropdown3" class="dropdown-content">
-			<li><a onclick="Javascript:ajaxGo('wtkBuilder');">WTK Builder</a></li>
-			<li><a onclick="Javascript:ajaxGo('reportList');">Reports</a></li>
-			<li><a onclick="Javascript:ajaxGo('lookupList');">Lookups</a></li>
-			<li><a onclick="Javascript:ajaxGo('pageList');">Page List</a></li>
-			<li><a onclick="Javascript:ajaxGo('menuSetList');">Menu Sets</a></li>
-			<li><a onclick="Javascript:ajaxGo('helpList');">Help</a></li>
-			<li><a onclick="Javascript:ajaxGo('languageList');">Language</a></li>
-		</ul>
-		<ul id="dropdown4" class="dropdown-content">
-			<li><a onclick="Javascript:ajaxGo('loginLogList');">Login Log</a></li>
-			<li><a onclick="Javascript:ajaxGo('userHistory');">User History</a></li>
-			<li><a onclick="Javascript:ajaxGo('updateLogList');">Update Logs</a></li>
-			<li><a onclick="Javascript:ajaxGo('errorLogList');">Error Logs</a></li>
-			<li><a onclick="Javascript:ajaxGo('failedAttemptList');">Access Fails</a></li>
-		</ul>
-		<div class="navbar-fixed">
-			<nav id="cssNavBar" class="navbar navbar-home">
-				<div class="nav-wrapper">
-					<a data-target="phoneSideBar" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
-					<ul class="right hide-on-med-and-down">
-						<li><a class="dropdown-trigger" data-target="dropdown1">Client Control<i class="material-icons top-down">arrow_drop_down</i></a></li>
-						<li><a class="dropdown-trigger" data-target="dropdown2">Email Management<i class="material-icons top-down">arrow_drop_down</i></a></li>
-						<li><a class="dropdown-trigger" data-target="dropdown3">Site Management<i class="material-icons top-down">arrow_drop_down</i></a></li>
-						<li><a class="dropdown-trigger" data-target="dropdown4">View Logs<i class="material-icons top-down">arrow_drop_down</i></a></li>
-						<li><a href="/">Logout</a></li>
-					</ul>
-				</div>
-			</nav>
-		</div>
+        <ul id="dropdown2" class="dropdown-content">
+    <li><a onclick="Javascript:ajaxGo('userList');">Users</a></li>
+    <li><a onclick="Javascript:ajaxGo('clientList');">Clients</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('ecomList');">Ecom Providers</a></li>
+    <li><a onclick="Javascript:ajaxGo('broadcastList');">Broadcast List</a></li>
+    <li><a onclick="Javascript:ajaxGo('reportViewer');">Reports Viewer</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('companyEdit');">Settings</a></li>
+  </ul>
+  <ul id="dropdown3" class="dropdown-content">
+    <li><a onclick="Javascript:ajaxGo('emailTemplates');">Emails</a></li>
+    <li><a onclick="Javascript:ajaxGo('affiliateList');">Affiliates</a></li>
+    <li><a onclick="Javascript:ajaxGo('prospectList');">Prospects</a></li>
+    <li><a onclick="Javascript:ajaxGo('visitorStats');">Visitors</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('revenueList');">Revenue</a></li>
+    <li><a onclick="Javascript:ajaxGo('moneyStats');">Money Stats</a></li>
+    <li><a onclick="Javascript:ajaxGo('moneyHistory');">History</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('bugList');">Feedback</a></li>
+  </ul>
+  <ul id="dropdown4" class="dropdown-content">
+    <li><a onclick="Javascript:ajaxGo('wtkBuilder');">WTK Builder</a></li>
+    <li><a onclick="Javascript:ajaxGo('reportList');">Report Wizard</a></li>
+    <li><a onclick="Javascript:ajaxGo('widgetList');">Widgets</a></li>
+    <li><a onclick="Javascript:ajaxGo('widgetGroupList');">Widget Groups</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('pageList');">Page List</a></li>
+    <li><a onclick="Javascript:ajaxGo('menuSetList');">Menu Sets</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('lookupList');">Lookups</a></li>
+    <li><a onclick="Javascript:ajaxGo('helpList');">Help</a></li>
+    <li><a onclick="Javascript:ajaxGo('languageList');">Language</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('pickDataTable');">CSV Importer</a></li>
+  </ul>
+  <ul id="dropdown5" class="dropdown-content">
+    <li><a onclick="Javascript:ajaxGo('loginLogList');">Login Log</a></li>
+    <li><a onclick="Javascript:ajaxGo('userHistory');">User History</a></li>
+    <li><a onclick="Javascript:ajaxGo('updateLogList');">Update Logs</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('errorLogList');">Error Logs</a></li>
+    <li><a onclick="Javascript:ajaxGo('failedAttemptList');">Access Fails</a></li>
+    <li class="divider"></li>
+    <li><a onclick="Javascript:ajaxGo('emailHistory');">Emails Sent</a></li>
+  </ul>
+        <div class="navbar-fixed">
+            <nav class="navbar navbar-home">
+                <div class="nav-wrapper">
+                    <a data-target="phoneSideBar" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a onclick="Javascript:ajaxGo('Dashboard');">Dashboard</a></li>
+                        <li><a class="dropdown-trigger" data-target="dropdown2">Client Control<i class="material-icons top-down">arrow_drop_down</i></a></li>
+                        <li><a class="dropdown-trigger" data-target="dropdown3">Marketing<i class="material-icons top-down">arrow_drop_down</i></a></li>
+                        <li><a class="dropdown-trigger" data-target="dropdown4">Site Management<i class="material-icons top-down">arrow_drop_down</i></a></li>
+                        <li><a class="dropdown-trigger" data-target="dropdown5">View Logs<i class="material-icons top-down">arrow_drop_down</i></a></li>
+                        <li><a href="/">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
 		<!-- Next is Side Menu for Phones -->
-		<div class="sidebar-panel">
-			<ul id="phoneSideBar" class="sidenav side-nav">
-				<li class="no-padding">
-					<ul class="collapsible">
-						<li>
-							<a class="collapsible-header"><i class="material-icons">arrow_drop_down</i>Client Control</a>
-							<div class="collapsible-body">
-								<ul>
-									<li><a onclick="Javascript:ajaxGo('companyEdit');">Settings</a></li>
-									<li><a onclick="Javascript:ajaxGo('userList');">Users</a></li>
-									<li><a onclick="Javascript:ajaxGo('reportViewer');">Reports Viewer</a></li>
-									<li><a onclick="Javascript:ajaxGo('promoPlanList');">Promotions</a></li>
-									<li><a onclick="Javascript:ajaxGo('shortenedURLlist');">Shortened URLs</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-					<ul class="collapsible">
-						<li>
-							<a class="collapsible-header"><i class="material-icons">arrow_drop_down</i>Email Management</a>
-							<div class="collapsible-body">
-								<ul>
-									<li><a onclick="Javascript:ajaxGo('emailTemplates');">Email Templates</a></li>
-									<li><a onclick="Javascript:ajaxGo('emailHistory');">Email History</a></li>
-									<li><a onclick="Javascript:ajaxGo('emailWizard');">Bulk Email</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-					<ul class="collapsible">
-						<li>
-							<a class="collapsible-header"><i class="material-icons">arrow_drop_down</i>Site Management</a>
-							<div class="collapsible-body">
-								<ul>
-									<li><a onclick="Javascript:ajaxGo('wtkBuilder');">WTK Builder</a></li>
-									<li><a onclick="Javascript:ajaxGo('reportList');">Reports</a></li>
-									<li><a onclick="Javascript:ajaxGo('lookupList');">Lookups</a></li>
-									<li><a onclick="Javascript:ajaxGo('pageList');">Page List</a></li>
-									<li><a onclick="Javascript:ajaxGo('menuSetList');">Menu Sets</a></li>
-									<li><a onclick="Javascript:ajaxGo('helpList');">Help</a></li>
-									<li><a onclick="Javascript:ajaxGo('languageList');">Language</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-					<ul class="collapsible">
-						<li>
-							<a class="collapsible-header"><i class="material-icons">arrow_drop_down</i>View Logs</a>
-							<div class="collapsible-body">
-								<ul>
-									<li><a onclick="Javascript:ajaxGo('loginLogList');">Login Log</a></li>
-									<li><a onclick="Javascript:ajaxGo('userHistory');">User History</a></li>
-									<li><a onclick="Javascript:ajaxGo('updateLogList');">Update Logs</a></li>
-									<li><a onclick="Javascript:ajaxGo('errorLogList');">Error Logs</a></li>
-									<li><a onclick="Javascript:ajaxGo('failedAttemptList');">Access Fails</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</li>
-				<li><a href="/">Logout</a></li>
-			</ul>
-		</div>
+        <div class="sidebar-panel">
+            <ul id="phoneSideBar" class="sidenav side-nav">
+                <li class="no-padding">
+                    <ul class="collapsible">
+                        <li>
+                            <a class="collapsible-header"><i class="material-icons sideDown">arrow_drop_down</i>Client Control</a>
+                            <div class="collapsible-body">
+                                <ul>
+                        <li><a onclick="Javascript:ajaxGo('userList');">Users</a></li>
+                        <li><a onclick="Javascript:ajaxGo('clientList');">Clients</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('ecomList');">Ecom Providers</a></li>
+                        <li><a onclick="Javascript:ajaxGo('broadcastList');">Broadcast List</a></li>
+                        <li><a onclick="Javascript:ajaxGo('reportViewer');">Reports Viewer</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('companyEdit');">Settings</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul class="collapsible">
+                      <li>
+                        <a class="collapsible-header"><i class="material-icons sideDown">arrow_drop_down</i>Marketing</a>
+                        <div class="collapsible-body">
+                          <ul>
+                        <li><a onclick="Javascript:ajaxGo('emailTemplates');">Emails</a></li>
+                        <li><a onclick="Javascript:ajaxGo('affiliateList');">Affiliates</a></li>
+                        <li><a onclick="Javascript:ajaxGo('prospectList');">Prospects</a></li>
+                        <li><a onclick="Javascript:ajaxGo('visitorStats');">Visitors</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('revenueList');">Revenue</a></li>
+                        <li><a onclick="Javascript:ajaxGo('moneyStats');">Money Stats</a></li>
+                        <li><a onclick="Javascript:ajaxGo('moneyHistory');">History</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('bugList');">Feedback</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul class="collapsible">
+                      <li>
+                        <a class="collapsible-header"><i class="material-icons sideDown">arrow_drop_down</i>Site Management</a>
+                        <div class="collapsible-body">
+                          <ul>
+                        <li><a onclick="Javascript:ajaxGo('wtkBuilder');">WTK Builder</a></li>
+                        <li><a onclick="Javascript:ajaxGo('reportList');">Report Wizard</a></li>
+                        <li><a onclick="Javascript:ajaxGo('widgetList');">Widgets</a></li>
+                        <li><a onclick="Javascript:ajaxGo('widgetGroupList');">Widget Groups</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('pageList');">Page List</a></li>
+                        <li><a onclick="Javascript:ajaxGo('menuSetList');">Menu Sets</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('lookupList');">Lookups</a></li>
+                        <li><a onclick="Javascript:ajaxGo('helpList');">Help</a></li>
+                        <li><a onclick="Javascript:ajaxGo('languageList');">Language</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('pickDataTable');">CSV Importer</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul class="collapsible">
+                      <li>
+                        <a class="collapsible-header"><i class="material-icons sideDown">arrow_drop_down</i>View Logs</a>
+                        <div class="collapsible-body">
+                          <ul>
+                        <li><a onclick="Javascript:ajaxGo('loginLogList');">Login Log</a></li>
+                        <li><a onclick="Javascript:ajaxGo('userHistory');">User History</a></li>
+                        <li><a onclick="Javascript:ajaxGo('updateLogList');">Update Logs</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('errorLogList');">Error Logs</a></li>
+                        <li><a onclick="Javascript:ajaxGo('failedAttemptList');">Access Fails</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="Javascript:ajaxGo('emailHistory');">Emails Sent</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                    </li>
+                <li><a href="/">Logout</a></li>
+             </ul>
+        </div><input type="hidden" id="wtkDropDown" value="Y">
+
 		<div id="mainPage">
 			<div class="container">
 				<h3>CSS Maker <small><a href="/">by Wizard&rsquo;s Toolkit</a></small></h3><br>

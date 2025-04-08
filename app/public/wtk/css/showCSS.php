@@ -7,7 +7,6 @@ function wtkGetPost($fncParameter, $fncDefault = '') {
     return $fncResult;
 } // end of wtkGetPost
 
-$pgFileName = wtkGetPost('fileName');
 $pgGradientLeft = wtkGetPost('--gradient-left');
 $pgGradientRight = wtkGetPost('--gradient-right');
 $pgColor1 = wtkGetPost('--btn-color');
@@ -20,6 +19,7 @@ $pgColor7 = wtkGetPost('--dark-theme-focus');
 $pgColor8 = wtkGetPost('--bg-second-color');
 
 $pgHtm =<<<htmVAR
+<pre><code>
 /*
 MIT License
 
@@ -55,31 +55,19 @@ wtkGlobal.css
 */
 :root {
     --gradient-left: $pgGradientLeft;
-	--gradient-right: $pgGradientRight;
+    --gradient-right: $pgGradientRight;
     --gradient-color: linear-gradient(to right, var(--gradient-left), var(--gradient-right));
     --btn-color: $pgColor1;
     --btn-border-color: $pgColor2;
     --btn-hover: $pgColor3;
     --href-link: $pgColor4;
-	--active-label: $pgColor5;
+    --active-label: $pgColor5;
     --light-theme-focus: $pgColor6;
-	--dark-theme-focus: $pgColor7;
-	--bg-second-color: $pgColor8;
+    --dark-theme-focus: $pgColor7;
+    --bg-second-color: $pgColor8;
 }
+</code></pre>
 htmVAR;
 
-$pgCssName = 'wtk' . $pgFileName . '.css';
-if (is_writable($pgCssName)):
-    $pgJSON = '{"result":"fileExists"}';
-else:
-    $pgFile = fopen($pgCssName, 'w');
-    if (fwrite($pgFile, $pgHtm) === false):
-        $pgJSON = '{"result":"writeFailed"}';
-    else:
-        $pgJSON = '{"result":"ok"}';
-    endif;
-    fclose($pgFile);
-endif;
-echo $pgJSON;
-exit; // no display needed, handled via JS and spa.htm
+echo $pgHtm;
 ?>
