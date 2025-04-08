@@ -40,7 +40,7 @@ $pgColorSelect = str_replace('>' . $pgColor . '<', ' selected>' . $pgColor . '<'
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>CSS Maker by WTK</title>
-    <link rel="shortcut icon" href="/wtk/imgs/wtk.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/imgs/favicon/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" href="wtk<?php echo $pgColor; ?>.css">
@@ -263,7 +263,7 @@ $pgColorSelect = str_replace('>' . $pgColor . '<', ' selected>' . $pgColor . '<'
 										<li><a target="_blank" href="https://wizardstoolkit.com/">Wizard&rsquo;s Toolkit</a> low-code development library</li>
 										<li><a target="_blank" href="https://wizbits.me/">WizBits</a> shortened URL service</li>
 										<li><a target="_blank" href="https://extragood.info/">Mage Page</a> free landing page service</li>
-										<li><a target="_blank" href="https://materializecss.com/">MaterializeCSS</a> modern responsive front-end framework based on Material Design</li>
+										<li><a target="_blank" href="https://kwiklink.me/">KwikLink</a> your personal page to share your social media, websites, and contact info with a single URL</li>
 									</ul>
 								</blockquote>
 							</div>
@@ -360,12 +360,12 @@ $pgColorSelect = str_replace('>' . $pgColor . '<', ' selected>' . $pgColor . '<'
 					</form>
 				</div>
 				<br>
-			<h3>Report List</h3>
 			<br>
 			<div>
-                <h4>Quick Filters
+                <h4>Report List
                     <small id="filterReset">
-                        <button type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button></small>
+                        <button type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+                    </small>
                 </h4>
 				<form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
 					<div class="input-field">
@@ -452,6 +452,47 @@ $pgColorSelect = str_replace('>' . $pgColor . '<', ' selected>' . $pgColor . '<'
 			</table>
 			</div>
 			<br>
+			<div class="card b-shadow">
+				<div class="card-content">
+                    <div class="row">
+                        <div class="col s12">
+        					<h4>Tabs are a nice UI option</h4><br>
+                            <ul class="tabs">
+                                <li class="tab col s4"><a href="#tab1" class="active">MaterializeCSS</a></li>
+                                <li class="tab col s4"><a href="#tab2">Docker</a></li>
+                                <li class="tab col s4"><a href="#tab3">Download</a></li>
+                            </ul>
+                        </div>
+                        <div id="tab1" class="col s12">
+                            <br><h3>MaterializeCSS</h3>
+                            <p><a target="_blank" href="https://materializecss.com/tabs.html">MaterializeCSS</a> is a modern responsive front-end framework based on Material Design.</p>
+                            <p>Wizard&rsquo;s Toolkit generates MaterializeCSS code.  Always remember when
+                                using MaterializeCSS with jQuery to always declare jQuery.js <em>before</em> materialize.min.js.</p>
+                        </div>
+                        <div id="tab2" class="col s12">
+                            <br><h3>Docker</h3>
+                            <p>Docker makes it easy to jump in and have a perfect environment for working on
+                                Wizard&rsquo;s Toolkit. Plus, Docker facilitates scaling through Kubernetes
+                                and other methods. Wizard&rsquo;s Toolkit provides what we think is an ideal
+                                environment, but since this is low-code, you are welcome to change any aspects you want.</p>
+                            <p>WTK has <a target="_blank" href="https://hub.docker.com/r/proglabs/wizards-toolkit">Docker
+                                 Container</a> options for MySQL, PostgreSQL and Python.</p>
+                        </div>
+                        <div id="tab3" class="col s12">
+                            <br><h3>Download Wizard&rsquo;s Toolkit
+                                <small><br>Download and Start Developing 10x</small>
+                            </h3>
+                            <p>Wizard&rsquo;s Toolkit is the low-code rapid application development
+                                using PHP, SQL and JavaScript.</p>
+                            <p>Local development and testing is always free.
+                            All the resources developers need to start developing with WTK
+                            is located at<br>
+<a target="_blank" href="http://wizardstoolkit.com/download.php">http://wizardstoolkit.com/download.php</a></p>
+                        </div>
+                    </div>
+				</div>
+			</div>
+            <br>
 			<div class="card bg-second b-shadow">
 				<div class="card-content">
 					<p>This free utility was built by <a target="_blank" href="https://programminglabs.com/">Programming Labs</a>
@@ -511,6 +552,8 @@ function getCssRoot(){
       let fncElems = document.querySelectorAll('.tooltipped');
       let fncTmp = M.Tooltip.init(fncElems);
       M.updateTextFields();
+      let fncTabElem = document.querySelectorAll('.tabs');
+      fncTmp = M.Tabs.init(fncTabElem);
   });
 }
 function makeAPicker(fncClass){
