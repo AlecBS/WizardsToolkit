@@ -40,7 +40,6 @@ wtkBuildDataBrowse($fncSQL, $fncSqlFilter = [], $fncTableId = '', $fncURL = '', 
 $pgHtm =<<<htmVAR
 <div class="container">
     <h4>Lookup List</h4>
-    <br>
     <div class="wtk-list card b-shadow">
         $pgList
     </div>

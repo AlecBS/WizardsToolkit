@@ -169,12 +169,11 @@ $gloMoreButtons = array(
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Pet List</h4>
-    <br>
-    <h5>Quick Filters <small id="filterReset"$pgHideReset>
+    <h4>Pet List
+        <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('/demo/petList','pets','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
-    </h5>
+    </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
@@ -195,7 +194,7 @@ $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'pets', '/demo/petList.php', 'P');
 $pgHtm  = wtkReplace($pgHtm, 'wtk/emailModal','demo/petMailModal');
 $pgHtm  = wtkReplace($pgHtm, 'wtk/smsModal','demo/petSmsModal');
 
-$pgHtm  = wtkReplace($pgHtm, 'There is no data available.','no pets yet');
+$pgHtm  = wtkReplace($pgHtm, 'No data.','no pets yet');
 $pgHtm .= '</div></div>' . "\n";
 
 echo $pgHtm;
