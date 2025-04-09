@@ -1,4 +1,5 @@
 <?PHP
+//$gloLoginRequired = false; // uncomment this line if called from pages that do not require logging in
 define('_RootPATH', '../');
 require('wtkLogin.php');
 $pgIPaddress = wtkGetIPaddress();
@@ -8,6 +9,10 @@ $pgBrowserName  = trim(substr($pgBrowser['browser'], 0, 20));
 $pgBrowserVer   = trim(substr($pgBrowser['version'], 0, 12));
 $pgBugMsg = wtkGetPost('bugMsg');
 $pgBugMsg = wtkEscapeStringForDB($pgBugMsg);
+
+if (!isset($pgLoginAppVer)):
+    $pgLoginAppVer = 'n/a';
+endif;
 
 $pgSQL =<<<SQLVAR
 INSERT INTO `wtkBugReport`
@@ -30,14 +35,19 @@ $pgSqlFilter = array('UserUID' => $gloUserUID);
 $pgSQL = "SELECT `UID` FROM `wtkBugReport` WHERE `CreatedByUserUID` = :UserUID ORDER BY `UID` DESC LIMIT 1";
 $pgUID = wtkSqlGetOneResult($pgSQL, $pgSqlFilter);
 
-$pgSQL =<<<SQLVAR
+if ($gloUserUID == 0):
+    $pgFirstName = 'Person not signed in';
+    $pgEmail = 'unknown email';
+else:
+    $pgSQL =<<<SQLVAR
 SELECT `FirstName`, `Email`
  FROM `wtkUsers`
 WHERE `UID` = :UserUID
 SQLVAR;
-wtkSqlGetRow($pgSQL, $pgSqlFilter);
-$pgFirstName = wtkSqlValue('FirstName');
-$pgEmail = wtkSqlValue('Email');
+    wtkSqlGetRow($pgSQL, $pgSqlFilter);
+    $pgFirstName = wtkSqlValue('FirstName');
+    $pgEmail = wtkSqlValue('Email');
+endif;
 
 $pgEmailMsg  = "<h3>Bug reported from $gloCoName app</h3>";
 $pgEmailMsg .= "<p>$pgFirstName ($pgEmail) has reported:</p><hr>";
