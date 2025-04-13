@@ -114,6 +114,9 @@ function wtkStartMaterializeCSS() {
         }
         wtkDebugLog('wtkStartMaterializeCSS successful: pgSite: ' + pgSite + '; pgAccessMethod: ' + pgAccessMethod);
         if (pgMPAvsSPA == 'MPA') {
+            if ((pgApiKey == '') && (elementExist('apiKey'))) {
+                pgApiKey = $('#apiKey').val();
+            }
             afterPageLoad();
         }
     });

@@ -8,10 +8,10 @@ INSERT INTO `wtkUsers` (`UID`,`DelDate`,`FirstName`,`LastName`,`Address`,`Title`
    (2, NOW(), 'Your', 'Server', 'web server', 'Internal Processing', 'server@yourdomain.com', NULL, 99, 'Tech', 'N', 'N',NULL,NULL,NULL);
 UPDATE `wtkUsers` SET `UID` = 0 WHERE `UID` = 2;
 
-INSERT INTO `wtkEcommerce` (`PaymentProvider`, `EcomWebsite`)
-  VALUES ('PayPal','https://www.paypal.com'),
-         ('Stripe','https://www.stripe.com'),
-         ('Checkout.com','https://www.checkout.com');
+INSERT INTO `wtkEcommerce` (`PaymentProvider`, `EcomWebsite`, `EcomPayLink`)
+  VALUES ('PayPal','https://www.paypal.com',NULL),
+         ('Stripe','https://www.stripe.com','https://dashboard.stripe.com/payments/'),
+         ('Checkout.com','https://www.checkout.com','https://dashboard.checkout.com/payments/all-payments/payment/');
 
 INSERT INTO `wtkEmailTemplate` (`EmailCode`, `AutomationOnly`, `EmailType`, `Subject`, `EmailBody`, `InternalNote`) VALUES
 ('invite', 'Y', 'A', 'Welcome to @CompanyName@', '<p>Welcome to our website.</p>\r\n<p>Log in at @website@ using your email and password.</p>\r\n<p>If you do not know your password you can request a password reset on our website.</p>', 'this template is called from the User List by clicking the "Send Invite" button'),
