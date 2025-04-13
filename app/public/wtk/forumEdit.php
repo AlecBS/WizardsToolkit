@@ -13,7 +13,7 @@ WHERE `UID` = ?
 SQLVAR;
 wtkSqlGetRow($pgSQL, [$gloId]);
 $pgForumName = wtkSqlValue('ForumName');
-$pgForumNote = wtkSqlValue('ForumNote');
+$pgForumNote = nl2br(wtkSqlValue('ForumNote'));
 
 $pgSQL =<<<SQLVAR
 SELECT f.`UID`, f.`ForumMsg`, u.`FilePath`, u.`NewFileName`,

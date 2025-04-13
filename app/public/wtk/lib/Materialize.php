@@ -1405,7 +1405,7 @@ htmVAR;
         $fncTmp = "\n" . $fncTemplate;
         $fncTmp = wtkReplace($fncTmp, '@UserName@', $fncRow['UserName']);
         $fncTmp = wtkReplace($fncTmp, '@AddDate@', $fncRow['AddDate']);
-        $fncTmp = wtkReplace($fncTmp, '@NoteText@', $fncRow['ForumMsg']);
+        $fncTmp = wtkReplace($fncTmp, '@NoteText@', nl2br($fncRow['ForumMsg']));
         $fncNewFileName = $fncRow['NewFileName'];
         if ($fncNewFileName != ''):
             $fncFilePath = $fncRow['FilePath'];
