@@ -282,9 +282,18 @@ function wtkPostmarkApp($fncEmailArray, $fncSaveArray, $fncAttachments = '') {
             $fncReturn = false;
         endif;
         $fncCurlInfo = curl_getinfo($ch);
-        $fncCurlHttp = $fncCurlInfo['http_code'];
-        if ($fncCurlHttp != 200):
-            wtkLogError('PostmarkApp cURL', "HTTP Error : $fncCurlHttp ; Result: $fncResult");
+        if ($fncReturn == true):
+            $fncCurlHttp = $fncCurlInfo['http_code'];
+            if ($fncCurlHttp != 200):
+                wtkLogError('PostmarkApp cURL', "HTTP Error : $fncCurlHttp ; Result: $fncResult");
+            endif;
+        else:
+            if (strpos($fncResult, 'Found inactive addresses') !== false):
+                $fncSqlFilter = array('Email' => $fncToAddress);
+                wtkSqlExec("UPDATE `wtkUsers` SET `OptInEmails` = 'N' WHERE `Email` = :Email", $fncSqlFilter, false);
+                wtkSqlExec("UPDATE `wtkAffiliates` SET `DelDate` = NOW() WHERE `Email` = :Email", $fncSqlFilter, false);
+                wtkSqlExec("UPDATE `wtkProspectStaff` SET `AllowContact` = 'N', `InternalNote` = 'email bounced' WHERE `Email` = :Email", $fncSqlFilter, false);
+            endif;
         endif;
     endif;
     curl_close($ch);
