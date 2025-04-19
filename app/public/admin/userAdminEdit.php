@@ -29,7 +29,7 @@ $pgHtm .= wtkFormText('wtkUsers', 'LastName');
 $pgHtm .= wtkFormText('wtkUsers', 'Email', 'email');
 $pgHtm .= wtkFormText('wtkUsers', 'City');
 
-$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'SecurityLevel' ORDER BY `LookupValue` ASC";
+$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'SecurityLevel' AND `DelDate` IS NULL ORDER BY `LookupValue` ASC";
 $pgHtm .= wtkFormSelect('wtkUsers', 'SecurityLevel', $pgSQL, [], 'LookupDisplay', 'LookupValue','','m6 s6');
 
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'StaffRole' ORDER BY `LookupDisplay` ASC";

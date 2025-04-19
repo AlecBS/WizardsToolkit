@@ -23,7 +23,7 @@ $pgSQL =<<<SQLVAR
 SELECT `EmailCode`, `Subject`
   FROM `wtkEmailTemplate`
  WHERE `EmailType` = :EmailType
-    AND `DelDate` IS NULL
+    AND `DelDate` IS NULL AND `EmailCode` IS NOT NULL
 ORDER BY `UID` DESC
 SQLVAR;
 $pgSQL  = wtkSqlPrep($pgSQL);
@@ -70,7 +70,8 @@ $pgHtm =<<<htmVAR
         <input type="hidden" id="HasSelect" name="HasSelect" value="Y">
         <div class="row">
             <div class="col s12">
-                <p>Choose from any email template that has Email Type "$pgTemplateType".</p>
+                <p>Choose from any email template that has Email Type "$pgTemplateType".
+                <br>Email template must have `EmailCode`.</p>
             </div>
             $pgDrop1
             $pgDrop2
