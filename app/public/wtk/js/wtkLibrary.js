@@ -205,6 +205,11 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                             wtkDebugLog('wtkLoginForm successful: pgMPAvsSPA: ' + pgMPAvsSPA);
                             if (fncMPAvsSPA == 'MPA') {
                                 let fncGoToURL = $('#goToUrl').val();
+                                if (fncGoToURL.includes('?')) {
+                                    fncGoToURL = fncGoToURL + '&apiKey=' + pgApiKey;
+                                } else {
+                                    fncGoToURL = fncGoToURL + '?apiKey=' + pgApiKey;
+                                }
                                 window.location.replace(fncGoToURL); // redirect
                             } else {
                                 // need to do next lines at Dashboard
@@ -320,7 +325,7 @@ function showPage(fncPage, fncAddPageQ = 'Y') {
     $('#' + fncPage).removeClass('hide')
 } // showPage
 
-function showRegister(fncFrom) {
+function showRegister(fncFrom = 'loginPage') {
     pgPageArray.push('0~0~registerPage');
     pageTransition(fncFrom, 'registerPage');
 } //showRegister

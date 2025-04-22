@@ -189,7 +189,11 @@ table {
 ::-ms-input-placeholder { /* Internet Explorer 10-11 */
   color: var(--focus-color);
 }
-
+.breadcrumb,
+.breadcrumb::before,
+.breadcrumb:last-child {
+  color: var(--btn-color) !important;
+}
 /*BUTTONS*/
 button, .button {
   border-radius: 8px;
