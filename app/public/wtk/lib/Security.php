@@ -261,6 +261,7 @@ function wtkLang($fncText) {  // Multi-Lingual functionality
     global $gloDriver1, $gloLang;  // set in Core.php
     $fncResult = $fncText;
     if (($gloLang != '') && ($gloLang != 'eng')):
+        $fncText = trim($fncText);
         $fncPos = strpos($fncText, '<');
         if ($fncPos === false): // only translate words, not HTML tags
             $fncPos = strpos($_SERVER['PHP_SELF'], 'admin/');  // do not build translations for Admin site
