@@ -700,17 +700,18 @@ textarea.materialize-textarea:disabled+label {
 .select-wrapper.disabled+label {
   opacity: 0.4;
 }
-
 .select-wrapper input.select.dropdown:focus {
   color: var(--btn-border-color) !important;
+}
+.select-wrapper .caret {
+  fill: #777;
+}
+.wtk-search .select-wrapper+label {
+  top: -6px;
 }
 
 .switch label input[type="checkbox"]:checked+.lever, .switch label input[type="checkbox"]:checked+.lever::after {
   background-color: var(--btn-color) !important;
-}
-
-.select-wrapper .caret {
-  fill: #777;
 }
 
 /*FORUM*/
@@ -992,10 +993,6 @@ textarea.materialize-textarea:disabled+label {
 .select-dropdown.dropdown-content li.selected {
   padding: 3px 0;
   margin-bottom: 3px;
-}
-
-.select-wrapper+label {
-  top: 0;
 }
 
 /*SIDEBAR*/
