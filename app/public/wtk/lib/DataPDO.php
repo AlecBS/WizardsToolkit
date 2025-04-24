@@ -140,6 +140,7 @@ function wtkSqlGetOneResult($fncSQL, $fncSqlFilter, $fncDefault = '', $fncForceW
     else:
         $fncResult = $fncDefault;
     endif;
+    $fncPDO->closeCursor();
     unset($fncPDO);
     return ($fncResult);
 }  // end of wtkSqlGetOneResult

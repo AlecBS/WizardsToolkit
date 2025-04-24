@@ -258,10 +258,10 @@ function wtkVerifyHashLink($fncHash) {
 * @return string translated text; maximum 250 characters
 */
 function wtkLang($fncText) {  // Multi-Lingual functionality
-    global $gloDriver1, $gloLang;  // set in Core.php
+    global $gloDriver1, $gloConnected, $gloLang;  // set in Core.php
     $fncResult = $fncText;
-    if (($gloLang != '') && ($gloLang != 'eng')):
-        $fncText = trim($fncText);
+    $fncText = trim($fncText);
+    if (($gloLang != '') && ($gloLang != 'eng') && ($gloConnected) && ($fncText != 'UID')):
         $fncPos = strpos($fncText, '<');
         if ($fncPos === false): // only translate words, not HTML tags
             $fncPos = strpos($_SERVER['PHP_SELF'], 'admin/');  // do not build translations for Admin site
