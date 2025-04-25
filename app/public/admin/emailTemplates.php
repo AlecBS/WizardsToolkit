@@ -13,7 +13,7 @@ SELECT t.`UID`,  DATE_FORMAT(t.`AddDate`, '$gloSqlDateTime') AS `AddDate`,
 WHERE t.`DelDate` IS NULL
 SQLVAR;
 
-$pgHideReset = ' class="hide"';
+$pgHideReset = ' hide';
 $pgFilterValue = wtkFilterRequest('wtkFilter');
 if ($pgFilterValue != ''):
     $pgSQL .= " AND lower(t.`EmailCode`) LIKE lower('%" . $pgFilterValue . "%')" . "\n";
@@ -92,12 +92,13 @@ else:
                 ),
         );
 endif;  // Mgr level
-
+// onclick="wtkModal('/wtk/emailModal','',214,'');"
 $pgHtm =<<<htmVAR
 <div class="container">
     <h4>Email Templates
-        <small id="filterReset"$pgHideReset>
-        <button onclick="JavaScript:wtkBrowseReset('emailTemplates','wtkEmailTemplate')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
+        <small id="filterReset" class="right">
+        <a onclick="wtkModal('/admin/emailWriter','Start');" class="btn btn-floating"><i class="material-icons" alt="Write email to send" title="Write email to send">email</i></a>
+        <button onclick="JavaScript:wtkBrowseReset('emailTemplates','wtkEmailTemplate')" type="button" class="btn btn-small btn-save waves-effect waves-light$pgHideReset">Reset List</button>
         </small>
     </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">

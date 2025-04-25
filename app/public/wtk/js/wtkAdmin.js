@@ -153,7 +153,7 @@ function showEmailOrUser(){
     }
 }
 // sendEmail
-function adminValidateEmail(){
+function adminValidateEmail(fncPage = 'sendEmail'){
     var fncSendEmail = 'N';
     if ($('#UserOrEmail').is(':checked')) {
         let fncToEmail = $('#ToEmail').val();
@@ -170,7 +170,7 @@ function adminValidateEmail(){
         fncSendEmail = 'Y';
     }
     if (fncSendEmail == 'Y'){
-        modalSave('/admin/sendEmail','emailResults');
+        modalSave('/admin/' + fncPage,'emailResults');
         let fncId = document.getElementById('modalWTK');
         let fncModal = M.Modal.getInstance(fncId);
         fncModal.close();

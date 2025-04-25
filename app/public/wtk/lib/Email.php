@@ -84,6 +84,9 @@ function wtkSendMail($fncEmailArray, $fncSaveArray = [], $fncAttachments = '', $
         endif;
         $fncSubject = wtkTokenToValue($fncEmailArray['Subject']);
         if ($gloDbConnection != 'Live'):
+            if ($gloTechSupport == 'support@yourDomain.com'):
+                return false; // do not send email since address not set up
+            endif;
             $fncSubject = 'TST: ' . $fncSubject;
             $fncTmp  = '<br><br><span style="background:#41cee2">(Testing: originally was to be sent to ' . $fncEmailArray['ToAddress'] . ')</span>';
             $fncBody = wtkReplace($fncBody,'</body>', $fncTmp . '</body>');
@@ -93,7 +96,6 @@ function wtkSendMail($fncEmailArray, $fncSaveArray = [], $fncAttachments = '', $
         endif;
         $fncEmailArray['Subject'] = $fncSubject;
         $fncEmailArray['Body'] = $fncBody;
-
         if ($gloEmailMethod == 'PostmarkApp'):
             $fncResult = wtkPostmarkApp($fncEmailArray, $fncSaveArray, $fncAttachments);
         else:

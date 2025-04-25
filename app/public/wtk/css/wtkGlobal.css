@@ -706,6 +706,9 @@ textarea.materialize-textarea:disabled+label {
 .select-wrapper .caret {
   fill: #777;
 }
+.select-wrapper+label {
+  top: 0;
+}
 .wtk-search .select-wrapper+label {
   top: -6px;
 }

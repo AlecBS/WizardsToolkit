@@ -77,7 +77,9 @@ SQLVAR;
     $fncColTotal = 0;
     $fncPDO = $gloWTKobjConn->prepare($fncSQL);
     $fncPDO->execute($fncSqlFilter);
-    while ($fncPDOrow = $fncPDO->fetch(PDO::FETCH_ASSOC)):
+    $fncPDOrows = $fncPDO->fetchAll(PDO::FETCH_ASSOC);
+    $fncPDO->closeCursor();
+    foreach ($fncPDOrows as $fncPDOrow):
         if ($fncHtm == ''):
             if ($fncWidgetUID != 0):
                 $fncHtm = '<div class="row">' . "\n";
@@ -192,8 +194,7 @@ SQLVAR;
                 break;
             case 'Chart':
                 $fncChartType = strtolower($fncPDOrow['ChartType']);
-//                $fncChartOps = array('regRpt', 'bar','pie');
-      // 2FIX if bar,line passed then need to make it into an array
+//              $fncChartOps = array('regRpt', 'bar','pie');
                 $fncChartOps = array($fncChartType);
                 $fncContent = wtkRptChart($fncWidgetSQL, [], $fncChartOps, $fncChartNum);
                 $fncChartNum ++;
@@ -215,7 +216,7 @@ SQLVAR;
         endswitch;
         $fncTmp  = wtkReplace($fncTmp, '@Content@', $fncContent);
         $fncHtm .= $fncTmp . "\n";
-    endwhile;
+    endforeach;
     if ($fncHtm != ''):
         $fncHtm .= '</div>' . "\n";
     endif;

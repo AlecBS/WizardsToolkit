@@ -521,7 +521,7 @@ INSERT INTO `wtkLookups` (`LookupType`, `LookupValue`, `LookupDisplay`)
 INSERT INTO `wtkLanguage` (`MassUpdateId`, `Language`, `PrimaryText`, `NewText`)
 VALUES
 ('BugLabel', 'eng', 'main template', 'Is there a problem with our app?<br>Or do you have ideas on how to make it better?'),
-('BugLabel', 'esp', 'Is there a problem with our app? Or do you have ideas on how to make it better?', '¿Hay algún problema con nuestra aplicaci&oacute;n? ¿O tienes ideas sobre c&oacute;mo mejorarlo?'),
+('BugLabel', 'esp', 'Is there a problem with our app?<br>Or do you have ideas on how to make it better?', '¿Hay algún problema con nuestra aplicaci&oacute;n? ¿O tienes ideas sobre c&oacute;mo mejorarlo?'),
 ('BugLabel', 'hin', 'Is there a problem with our app?<br>Or do you have ideas on how to make it better?', 'क्या हमारे ऐप में कोई समस्या है?<br>या क्या आपके पास इसे बेहतर बनाने के बारे में कोई विचार है?'),
 ('BugRpt', 'eng', 'main template', 'Problem? Idea?'),
 ('BugRpt', 'esp', 'Problem? Idea?', '¿Algún problema?¿Tienes alguna soluci&oacute;n?'),
@@ -712,8 +712,8 @@ VALUES
 (NULL, 'esp', 'Payment Status', 'Estado del Pago'),
 (NULL, 'esp', 'Personal Data', 'Datos Personales'),
 (NULL, 'esp', 'Personal URL', 'URL Personal'),
-(NULL, 'esp', 'Phone', 'Celular'),
-(NULL, 'esp', 'Phone OS', 'Celular OS'),
+(NULL, 'esp', 'Phone', 'Tel&eacute;fono'),
+(NULL, 'esp', 'Phone OS', 'Tel&eacute;fono OS'),
 (NULL, 'esp', 'Photos', 'Fotos'),
 (NULL, 'esp', 'Plan', 'Plan'),
 (NULL, 'esp', 'Please check with your Administrator regarding increasing your security access', 'Favor de consultar con su Administrador respecto a mejorar el nivel de su aceso de seguridad.'),
@@ -847,7 +847,9 @@ VALUES
 (NULL, 'hin', 'Visit Date', 'यात्रा तिथि'),
 (NULL, 'hin', 'Web Password', 'वेब पासवर्ड'),
 (NULL, 'hin', 'Year', 'वर्ष'),
-(NULL, 'hin', 'Your Link', 'आपकी कड़ी');
+(NULL, 'hin', 'Your Link', 'आपकी कड़ी'),
+(NULL, 'hin', 'Edit Your Profile', 'अपनी प्रोफ़ाइल संपादित करें'),
+(NULL, 'hin', 'Personal URL', 'व्यक्तिगत यूआरएल');
 
 INSERT INTO `wtkWidgetGroup` (`WidgetGroupName`, `StaffRole`, `SecurityLevel`, `UseForDefault`)
   VALUES ('DevOps', 'Tech', 99, 'Y'),

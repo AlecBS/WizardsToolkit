@@ -21,7 +21,7 @@ if ($gloLoginRequired == true):
     if (!isset($pgApiKey)):
         $pgApiKey = wtkGetParam('apiKey','login');
         if (($gloSiteDesign == 'MPA') && ($pgApiKey == 'login')):
-            $pgApiKey = wtkGetSession('apiKey');
+            $pgApiKey = wtkGetCookie('apiKey');
             if ($pgApiKey == ''):
                 $pgApiKey = 'login';
             endif;
@@ -57,7 +57,7 @@ ORDER BY L.`UID` DESC LIMIT 1
 SQLVAR;
 // 2ENHANCE so times out after 24 hours and/or checks to see if logged-out
         if (($gloSiteDesign == 'MPA') && ($pgApiKey == '')):
-            $pgApiKey = wtkGetSession('apiKey');
+            $pgApiKey = wtkGetCookie('apiKey');
         endif;
         $pgSqlFilter = array (
             'apiKey' => $pgApiKey,
@@ -161,11 +161,14 @@ htmVAR;
         );
         wtkSqlExec(wtkSqlPrep($pgSQL), $pgSQLFilter);
         if ($gloSiteDesign == 'MPA'):
-            wtkSetSession('apiKey', $pgApiKey);
+            wtkSetCookie('apiKey', $pgApiKey, '1month');
         endif;
     endif;
 else:
     $gloAccessMethod = 'website';
+endif;
+if (($gloSiteDesign == 'MPA') && (!isset($pgApiKey))):
+    $pgApiKey = wtkGetCookie('apiKey');
 endif;
 if ((wtkGetParam('Mode') == 'ADD') || ($gloId == 'ADD')):
     $gloWTKmode = 'ADD';  // must be below above code so wtkSqlGetRow retrieves values

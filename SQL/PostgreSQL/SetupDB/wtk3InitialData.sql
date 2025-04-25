@@ -820,8 +820,8 @@ INSERT INTO "wtkLanguage" ("MassUpdateId", "Language", "PrimaryText", "NewText")
     (NULL, 'esp', 'Payment Status', 'Estado del Pago'),
     (NULL, 'esp', 'Personal Data', 'Datos Personales'),
     (NULL, 'esp', 'Personal URL', 'URL Personal'),
-    (NULL, 'esp', 'Phone', 'Celular'),
-    (NULL, 'esp', 'Phone OS', 'Celular OS'),
+    (NULL, 'esp', 'Phone', 'Tel&eacute;fono'),
+    (NULL, 'esp', 'Phone OS', 'Tel&eacute;fono OS'),
     (NULL, 'esp', 'Photos', 'Fotos'),
     (NULL, 'esp', 'Plan', 'Plan'),
     (NULL, 'esp', 'Please check with your Administrator regarding increasing your security access', 'Favor de consultar con su Administrador respecto a mejorar el nivel de su aceso de seguridad.'),
@@ -955,7 +955,9 @@ INSERT INTO "wtkLanguage" ("MassUpdateId", "Language", "PrimaryText", "NewText")
     (NULL, 'hin', 'Visit Date', 'यात्रा तिथि'),
     (NULL, 'hin', 'Web Password', 'वेब पासवर्ड'),
     (NULL, 'hin', 'Year', 'वर्ष'),
-    (NULL, 'hin', 'Your Link', 'आपकी कड़ी');
+    (NULL, 'hin', 'Your Link', 'आपकी कड़ी'),
+    (NULL, 'hin', 'Edit Your Profile', 'अपनी प्रोफ़ाइल संपादित करें'),
+    (NULL, 'hin', 'Personal URL', 'व्यक्तिगत यूआरएल');
 
 INSERT INTO "wtkWidgetGroup" ("WidgetGroupName", "StaffRole", "SecurityLevel", "UseForDefault")
  VALUES ('DevOps', 'Tech', 99, 'Y'),

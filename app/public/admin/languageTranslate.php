@@ -9,7 +9,8 @@ endif;
 $gloSkipFooter = true;
 $gloRowsPerPage = 100;
 $pgScriptSQL =<<<SQLVAR
-SELECT CONCAT("UPD", "ATE `wtkLanguage` SET `NewText` = '",`PrimaryText`,
+SELECT CONCAT("UPD", "ATE `wtkLanguage` SET `NewText` = '",
+    REPLACE(`PrimaryText`,'<','&lt;'),
     "' WHERE `UID` = ", `UID`, ';') AS `Scripts`
 FROM `wtkLanguage`
 WHERE `Language` = :Language AND `NewText` IS NULL
@@ -33,8 +34,27 @@ else: // called from this page picking a new language
     $pgNewLang = $pgLang;
 endif; // pgLang = ''
 //  END  check which language needs the most conversions
-
 $pgSqlFilter = array('Language' => $pgNewLang);
+
+// BEGIN auto-fill SPA MassUpdateId data when go to languageTranslate page (if none exists)
+$pgSQL =<<<SQLVAR
+SELECT COUNT(*)
+ FROM `wtkLanguage`
+WHERE `Language` = :Language AND `MassUpdateId` IS NOT NULL
+SQLVAR;
+$pgSpaLangCount = wtkSqlGetOneResult($pgSQL, $pgSqlFilter);
+if ($pgSpaLangCount == 0):
+    $pgSQL =<<<SQLVAR
+INSERT INTO `wtkLanguage` (`MassUpdateId`, `Language`, `PrimaryText`)
+  SELECT `MassUpdateId`, :Language, `NewText`
+    FROM `wtkLanguage`
+WHERE `Language` = 'eng' AND `MassUpdateId` IS NOT NULL
+ORDER BY `UID` ASC
+SQLVAR;
+    wtkSqlExec($pgSQL, $pgSqlFilter);
+endif;
+//  END  auto-fill SPA MassUpdateId data when go to languageTranslate page (if none exists)
+
 $pgList = wtkBuildDataBrowse($pgScriptSQL, $pgSqlFilter);
 
 $pgSQL =<<<SQLVAR
