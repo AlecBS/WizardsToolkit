@@ -53,7 +53,7 @@
 
     <p>Originally written in 2009, this library has been constantly updated.
       It was known to work with PHP 5.4 and recently was fully tested with
-      PHP 7.4.  Currently clients are using it with PHP 8.1.</p>
+      PHP 7.4.  Currently clients are using it with PHP 8.2.</p>
 
     <p>If you have any questions, contact Alec via this contact form:
     https://wizardstoolkit.com/contact.php</p>
@@ -117,6 +117,39 @@
         <li>Use ionCube loader-wizard.php to verify ionCube is set up correctly</li>
         <li>Set the password for your admin account by going to: <a onclick="JavaScript:wtkGoToURL('/wtk/passwordReset.php?u=test')">/wtk/passwordReset.php?u=test</a> </li>
     </ol>
+    <p>Once you are finished with setup, your environment will include all of the following:</p>
+    <table class="table-bordered">
+        <tr>
+            <td>http://127.0.0.1/admin</td>
+            <td>Admin Back Office</td>
+            <td>For DevOps, managing core data, creating reports, building widget dashboards
+                and much more.</td>
+        </tr>
+        <tr>
+            <td>http://127.0.0.1/docs/</td>
+            <td>WTK Docs</td>
+            <td>The exact documentation you are looking at now.</td>
+        </tr>
+        <tr>
+            <td nowrap="nowrap">http://127.0.0.1/devUtils/</td>
+            <td>DevUtils</td>
+            <td>This page is passcode protected - look in /devUtils/index.php for passcode<br>
+                utils included DB configuration, S3 to R2 migration, stress-testing servers,
+                and more.</td>
+        </tr>
+        <tr>
+            <td>http://127.0.0.1/app.php</td>
+            <td>Example Client App</td>
+            <td>Fully functioning SPA website with responsive design so looks
+                great on phones, tablets and computers.  Use to quick-start your new client projects.</td>
+        </tr>
+        <tr>
+            <td>http://127.0.0.1/demo/</td>
+            <td>WTK Demos</td>
+            <td>Over 40 pages with minimized code and detailed comments showing key WTK features.</td>
+        </tr>
+    </table>
+
     <h4>SQL Setup</h4>
 
     <p>If you are using PostgreSQL with Docker then during initial start PostgreSQL will have
@@ -139,7 +172,7 @@
 
     <h3 id="ionCube">ionCube Loader Setup</h3>
     <p>If you use the Docker method then you can skip this because it is all handled automatically.</p>
-    <p>The ionCube loader wizard was downloaded in February 2024 and is located in your Wizard&rsquo;s Toolkit environment at
+    <p>The ionCube loader wizard was downloaded in January 2025 and is located in your Wizard&rsquo;s Toolkit environment at
       <a onclick="JavaScript:wtkGoToURL('/devUtils/ioncube/loader-wizard.php')">/devUtils/ioncube/loader-wizard.php</a>.
        You can also download the latest version of ionCube loader wizard
        at <a href="https://www.ioncube.com/loaders.php" target="_blank">https://www.ioncube.com/loaders.php</a>.</p>

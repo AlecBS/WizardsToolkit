@@ -194,3 +194,16 @@
 .phpdocumentor-tag-link {
     margin-right: var(--spacing-sm);
 }
+.table-bordered {
+    border-collapse: collapse; /* Ensures borders are shared between cells */
+    width: 100%; /* Optional: makes the table take the full width of its container */
+}
+
+.table-bordered, .table-bordered th, .table-bordered td {
+    border: 1px solid #601ebe; /* Sets the border for the table, header, and cells */
+}
+
+.table-bordered th, .table-bordered td {
+    padding: 8px; /* Optional: adds padding for better readability */
+    text-align: left; /* Optional: aligns text to the left */
+}
