@@ -1103,16 +1103,6 @@ function wtkRequiredFieldsFilled(fncFormName) {
 
 function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
     wtkDebugLog('ajaxPost: fncPage = ' + fncPage + '; fncPost = ' + fncPost + '; fncAddPageQ = ' + fncAddPageQ);
-    // BEGIN if TinyMCE is used, copy into original textarea form fields
-    if (elementInFormExist(fncPost,'HasTinyMCE')) { // because page may have more than one form
-        var fncHasTinyMCE = $('#HasTinyMCE').val();
-        wtkDebugLog('ajaxPost: fncHasTinyMCE = ' + fncHasTinyMCE);
-        let fncTextArea = fncHasTinyMCE.replace('textarea#','');
-        let fncNewValue = tinymce.get(fncTextArea).getContent();
-        $('#' + fncTextArea).val(fncNewValue);
-    }
-    //  END  if TinyMCE is used, copy into original textarea form fields
-
     let fncResult = wtkPrepFormPost(fncPost);
     let fncReady = fncResult.ready;
     let fncContentType = fncResult.contentType;
@@ -1168,8 +1158,9 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                 data: (fncFormData),
                 success: function(data) {
                     waitLoad('off');
-                    if (elementExist('HasTinyMCE')){
+                    if (elementInFormExist(fncPost,'HasTinyMCE')) { // because page may have more than one form
                         wtkDebugLog('ajaxPost: HasTinyMCE going to tinymce.remove');
+                        let fncHasTinyMCE = $('#HasTinyMCE').val();
                         tinymce.remove(fncHasTinyMCE);
                         $('#HasTinyMCE').val('');
                     }
@@ -1724,6 +1715,7 @@ function wtkPrepFormPost(fncFormName) {
         let fnc2TextArea = fnc2HasTinyMCE.replace('textarea#','');
         let fnc2NewValue = tinymce.get(fnc2TextArea).getContent();
         $('#' + fnc2TextArea).val(fnc2NewValue);
+        wtkDebugLog('wtkPrepFormPost: HasTinyMCE  = ' + fnc2HasTinyMCE + '; fnc2NewValue = ' + fnc2NewValue);
     }
     //  END  if TinyMCE is used, copy into original textarea form fields
     let fncReady = 'N';
