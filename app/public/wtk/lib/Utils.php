@@ -586,7 +586,14 @@ function wtkRemoveStyle( $fncThisValue ) {
     if (!empty($fncThisValue) && ($fncThisValue != '')):
         $fncThisValue = wtkReplace($fncThisValue, '<br>', ' ');
         $fncThisValue = wtkReplace($fncThisValue, '<br/>', ' ');
+        $fncThisValue = wtkReplace($fncThisValue, '<br />', ' ');
         $fncThisValue = wtkReplace($fncThisValue, '&nbsp;', ' ');
+        $fncThisValue = wtkReplace($fncThisValue, '&lsquo;', "'");
+        $fncThisValue = wtkReplace($fncThisValue, '&rsquo;', "'");
+        $fncThisValue = wtkReplace($fncThisValue, '&ldquo;', '"');
+        $fncThisValue = wtkReplace($fncThisValue, '&rdquo;', '"');
+        $fncThisValue = wtkReplace($fncThisValue, '&apos;', "'");
+        $fncThisValue = wtkReplace($fncThisValue, '&mdash;', '-');
         while (true):
             $fncTag = '';
             $fncPos = strpos($fncThisValue, '</');

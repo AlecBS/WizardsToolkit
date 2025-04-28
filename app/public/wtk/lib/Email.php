@@ -80,8 +80,10 @@ function wtkSendMail($fncEmailArray, $fncSaveArray = [], $fncAttachments = '', $
         if (array_key_exists('PlainTextBody', $fncEmailArray)):
             $fncAltBody = wtkTokenToValue($fncEmailArray['PlainTextBody']);
             $fncAltBody = wtkReplace($fncAltBody, '"','\"');
-            $fncEmailArray['PlainTextBody'] = $fncAltBody;
+        else:
+            $fncAltBody = wtkRemoveStyle($fncBody);
         endif;
+        $fncEmailArray['PlainTextBody'] = $fncAltBody;
         $fncSubject = wtkTokenToValue($fncEmailArray['Subject']);
         if ($gloDbConnection != 'Live'):
             if ($gloTechSupport == 'support@yourDomain.com'):
@@ -576,8 +578,7 @@ function wtkNotifyViaEmail($fncSubject, $fncMessage, $fncToEmail = '', $fncSaveA
                           'CC'          => $fncCC,
                           'ReplyTo'     => $fncReplyTo,
                           'Subject'     => $fncSubject,
-                          'Body'        => $fncEmailBody,
-                          'PlainTextBody' => $fncMessage
+                          'Body'        => $fncEmailBody
                         );
     $fncResult = wtkSendMail($fncMailArray, $fncSaveArray, '', $fncDebugLevel);
     return $fncResult;
