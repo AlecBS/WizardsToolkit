@@ -682,11 +682,13 @@ input[type="range"]::-moz-range-thumb, input[type="range"]+.thumb {
 }
 
 .toggle-password {
-    position: absolute;
-    top: 50%;
-    right: 0.75rem;
-    transform: translateY(-50%);
-    color: var(--btn-color);
+  position: absolute;
+  top: 0.5rem; /* Aligns with .suffix */
+  right: 0.75rem;
+  color: var(--btn-color);
+  cursor: pointer;
+  z-index: 2;
+  transform: none; /* Remove translateY if using top directly */
 }
 
 label {

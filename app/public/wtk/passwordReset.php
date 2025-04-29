@@ -32,10 +32,12 @@ if ($pgNewPassHash != ''):
                 <div class="input-field col m6 s12">
                     <input type="password" name="wtkwtkUsersWebPassword" id="wtkwtkUsersWebPassword" class="char-cntr" data-length="20">
                     <label for="wtkwtkUsersWebPassword">Password</label>
+                    <span class="material-icons toggle-password" data-toggle="#wtkwtkUsersWebPassword" style="cursor:pointer;">visibility</span>
                 </div>
                 <div class="input-field col m6 s12">
                     <input type="password" name="rePW" id="rePW" class="char-cntr" data-length="20">
                     <label for="rePW">Confirm Password</label>
+                    <span class="material-icons toggle-password" data-toggle="#rePW" style="cursor:pointer;">visibility</span>
                 </div>
                 <div class="col s12 center">
                     <button id="btnResetPW" type="button" onclick="Javascript:resetPW()" class="btn b-shadow waves-effect">Save New Password</button>
