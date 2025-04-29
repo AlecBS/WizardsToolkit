@@ -922,6 +922,7 @@ function wtkInsertSpaces($fncFieldName) {
     $fncFinal = str_replace('User U I D', 'UserUID', $fncFinal);
     $fncFinal = str_replace(' U I D', ' UID', $fncFinal);
     $fncFinal = str_replace(' I D', ' ID', $fncFinal);
+    $fncFinal = str_replace('G B P ', 'GBP ', $fncFinal);
     $fncFinal = str_replace(' S M S', ' SMS', $fncFinal);
     $fncFinal = str_replace('I P Address', 'IP Address', $fncFinal);
     return $fncFinal;

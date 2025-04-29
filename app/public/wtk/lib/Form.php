@@ -52,7 +52,7 @@ function wtkPageReadOnlyCheck($fncPage, $fncId){
     if ($gloPrinting == true):
         $fncResult = true;
     else:   // Not $gloPrinting == true
-        if (($gloEnableLockout == 'Y') && ($fncId != 0)): // $fncId 0 means ADD page
+        if (($gloEnableLockout == 'Y') && ($fncId != 'ADD') && ($fncId != 0)): // $fncId 0 means ADD page
             $fncDate = wtkSqlDateSub('NOW()',3,'HOUR');
             $fncSQL =<<<SQLVAR
 SELECT COUNT(*)
@@ -86,6 +86,9 @@ SELECT CONCAT(u.`FirstName`, ' ', COALESCE(u.`LastName`,'')) AS `UserName`,
     AND L.`UserUID` <> :UserUID
  	ORDER BY L.`UID` DESC LIMIT 1
 SQLVAR;
+                if (!is_numeric($fncId)):
+                    $fncSQL = wtkReplace($fncSQL, ' AND L.`PassedId` = :PassedId','');
+                endif;
                 wtkSqlGetRow($fncSQL, $fncSqlFilter);
                 $fncUserName = wtkSqlValue('UserName');
                 $gloFormMsg  = "<div class='center'>This page is currently being edited by $fncUserName";

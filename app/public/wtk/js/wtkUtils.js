@@ -119,19 +119,7 @@ function wtkStartMaterializeCSS() {
             }
             afterPageLoad();
         } else {
-            document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
-                toggleIcon.addEventListener('click', function() {
-                    const input = document.querySelector(this.getAttribute('data-toggle'));
-
-                    if (input.type === 'password') {
-                        input.type = 'text';
-                        this.textContent = 'visibility_off';
-                    } else {
-                        input.type = 'password';
-                        this.textContent = 'visibility';
-                    }
-                });
-            });
+            wtkToggleShowPassword();
         }
     });
 } // wtkStartMaterializeCSS
@@ -157,25 +145,8 @@ function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warnin
     fncModal.open();
     wtkDebugLog('mobAlert called: ' + fncText);
 } // wtkAlert
-function wtkFocusOnInput() {
-    setTimeout(function() {
-        let fncReqField = document.getElementById(fncRequiredFieldId);
-        if (fncReqField) {
-            wtkDebugLog('wtkFocusOnInput ' + fncRequiredFieldId);
-            fncReqField.focus();
-        }
-    }, 180);
-}
-function wtkChangeRequired(fncId,fncRequired) {
-	let fncTmp = document.getElementById(fncId);
-	if (fncRequired == true) {
-		fncTmp.setAttribute('required', '');
-		wtkDebugLog('changeRequired : set required for ' + fncId);
-	} else {
-		fncTmp.removeAttribute('required');
-		wtkDebugLog('changeRequired : set NOT required for ' + fncId);
-	}
-}
+
+// BEGIN Debug related functions
 function wtkDebugMobile(fncDebug) {
     if (elementExist('MobileDebugging')){
         let fncTmp = $('#MobileDebugging').html();
@@ -207,18 +178,8 @@ function wtkSaveDebugLog() {
         }, 500);
     }
 }
-function wtkGetValue(fncIdName, fncFormId = '') {
-    let fncResult = '';
-    if (fncFormId == '') { // no form ID passed
-        let fncTest = document.getElementById(fncIdName);
-        if (fncTest) {
-            fncResult = document.getElementById(fncIdName).value;
-        }
-    } else {
-        fncResult = $('#' + fncFormId + ' input[type=hidden][id=' + fncIdName + ']').val();
-    }
-    return fncResult;
-} // wtkGetValue
+//  END  Debug related functions
+
 function wtkDisableBtn(fncBtnName) {
     if (elementExist(fncBtnName)) {
         $('#' + fncBtnName).attr("disabled", true);
@@ -227,6 +188,7 @@ function wtkDisableBtn(fncBtnName) {
         }, 3600);
     }
 }
+// BEGIN Language related functions
 function wtkChangeLang(fncLanguage, fncGoTo) {
     pgLanguage = fncLanguage;
     let fncLang = 'English';
@@ -255,7 +217,9 @@ function wtkLangUpdate(fncLanguage) {
 		});
 	});
 } // wtkLangUpdate
+//  END  Language related functions
 
+// BEGIN Navigation related functions
 function wtkGoToURL(fncPage, fncId='', fncRNG='', fncTarget='') {
     // WTK Browse pages call this instead of ajaxGo when using MPA
     let fncGoToURL = fncPage;
@@ -310,14 +274,153 @@ function wtkGoToURL(fncPage, fncId='', fncRNG='', fncTarget='') {
         fncForm.submit();
     }
 } // wtkGoToURL
-
 function wtkOpenPage(fncPage, fncId, fncRNG){
     // used for SPA pages to be able to open other SPA pages in a new tab
     let fncParams = 'apiKey=' + pgApiKey + '&p=ok&id=' + fncId + '&rng=' + fncRNG;
     window.open(fncPage + '.php?' + fncParams );
 }
+//  END  Navigation related functions
 
-// WTK Validation Logic  -- BEGIN
+// BEGIN Input Field related functions
+function wtkToggleShowPassword() {
+    document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
+        toggleIcon.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('data-toggle'));
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                this.textContent = 'visibility';
+            }
+        });
+    });
+} // wtkToggleShowPassword
+function wtkFocusOnInput() {
+    setTimeout(function() {
+        let fncReqField = document.getElementById(fncRequiredFieldId);
+        if (fncReqField) {
+            wtkDebugLog('wtkFocusOnInput ' + fncRequiredFieldId);
+            fncReqField.focus();
+        }
+    }, 180);
+}
+function wtkChangeRequired(fncId,fncRequired) {
+	let fncTmp = document.getElementById(fncId);
+	if (fncRequired == true) {
+		fncTmp.setAttribute('required', '');
+		wtkDebugLog('changeRequired : set required for ' + fncId);
+	} else {
+		fncTmp.removeAttribute('required');
+		wtkDebugLog('changeRequired : set NOT required for ' + fncId);
+	}
+}
+function wtkGetValue(fncIdName, fncFormId = '') {
+    let fncResult = '';
+    if (fncFormId == '') { // no form ID passed
+        let fncTest = document.getElementById(fncIdName);
+        if (fncTest) {
+            fncResult = document.getElementById(fncIdName).value;
+        }
+    } else {
+        fncResult = $('#' + fncFormId + ' input[type=hidden][id=' + fncIdName + ']').val();
+    }
+    return fncResult;
+} // wtkGetValue
+
+function elementExist(fncElemId) {
+    // test to see if HTML object like hidden field exists
+    let fncElement = document.getElementById(fncElemId);
+    if (typeof(fncElement) != 'undefined' && fncElement != null){
+        wtkDebugLog('elementExist true for ' + fncElemId);
+        return true;
+    } else {
+        wtkDebugLog('elementExist false for ' + fncElemId);
+        return false;
+    }
+}
+function elementInFormExist(fncFormId='', fncElemId='') {
+    if (fncFormId == '') {
+        return elementExist(fncElemId);
+    } else {
+        // test to see if hidden field exists in specific form
+        let formElement = document.getElementById(fncFormId);
+        if (formElement) {
+            let fncElement = formElement.querySelector('#' + fncElemId);
+            if (fncElement) {
+                wtkDebugLog('elementInFormExist true for ' + fncFormId + '.' + fncElemId);
+                return true;
+            } else {
+                wtkDebugLog('elementInFormExist false for ' + fncFormId + '.' + fncElemId);
+                return false;
+            }
+        }
+    }
+}
+
+function scorePassword(fncPass) {
+    let fncScore = 0;
+    if (!fncPass){
+        return fncScore;
+    } else {
+        // award every unique letter until 5 repetitions
+        let letters = new Object();
+        for (let i=0; i<fncPass.length; i++) {
+            letters[fncPass[i]] = (letters[fncPass[i]] || 0) + 1;
+            fncScore += 5.0 / letters[fncPass[i]];
+        }
+
+        // bonus points for mixing it up
+        let variations = {
+            digits: /\d/.test(fncPass),
+            lower: /[a-z]/.test(fncPass),
+            upper: /[A-Z]/.test(fncPass),
+            nonWords: /\W/.test(fncPass),
+        }
+
+        let variationCount = 0;
+        for (let check in variations) {
+            variationCount += (variations[check] == true) ? 1 : 0;
+        }
+        fncScore += (variationCount - 1) * 10;
+        return parseInt(fncScore);
+    }
+} // scorePassword
+
+function checkPassStrength(fncPass) {
+    let fncResult = 'too weak';
+    let fncScore = scorePassword(fncPass);
+    if (fncScore > 80) {
+        M.toast({html: 'Password is strong', classes: 'rounded green'});
+    } else if (fncScore > 60) {
+        M.toast({html: 'Password is good', classes: 'rounded green accent-3 black-text'});
+    } else if (fncScore > 30) {
+        M.toast({html: 'Password is weak - use numbers and both UPPER and lower case letters', classes: 'rounded orange'});
+    } else {
+        M.toast({html: 'Password is too weak - use numbers and both UPPER and lower case letters', classes: 'rounded red'});
+    }
+    return fncScore;
+} // checkPassStrength
+
+function wtkGetLabelTextById(fncId){
+	const fncLabel = document.querySelectorAll(`label[for="${fncId}"]`);
+	return fncLabel.length>0?fncLabel[0].innerHTML:"";
+}
+
+function wtkLabelSetActive(fncID){
+    // This works for MaterializeCSS HTML format of labels and input fields
+    let fncValue = $('#' + fncID).val();
+    if (fncValue != ''){
+        let fncInput = document.getElementById(fncID);
+        let fncLabel = fncInput.parentElement.querySelector("label");
+        if (fncLabel) {
+            fncLabel.classList.add("active");
+        }
+    }
+}
+//  END  Input Field related functions
+// BEGIN WTK Validation Logic
 function wtkValidate(fncCaller, fncDataType) {
     let fncLabel = wtkGetLabelTextById(fncCaller.id);
     let fncMinVal = parseFloat(fncCaller.min);
@@ -849,35 +952,6 @@ function formatBytes(bytes, decimals = 2) {
 
 function formatBytesMinimized(a,b=2){if(0===a)return"0 Bytes";const c=0>b?0:b,d=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,d)).toFixed(c))+" "+["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][d]}
 
-function elementExist(fncElemId) {
-    // test to see if HTML object like hidden field exists
-    let fncElement = document.getElementById(fncElemId);
-    if (typeof(fncElement) != 'undefined' && fncElement != null){
-        wtkDebugLog('elementExist true for ' + fncElemId);
-        return true;
-    } else {
-        wtkDebugLog('elementExist false for ' + fncElemId);
-        return false;
-    }
-}
-function elementInFormExist(fncFormId='', fncElemId='') {
-    if (fncFormId == '') {
-        return elementExist(fncElemId);
-    } else {
-        // test to see if hidden field exists in specific form
-        let formElement = document.getElementById(fncFormId);
-        if (formElement) {
-            let fncElement = formElement.querySelector('#' + fncElemId);
-            if (fncElement) {
-                wtkDebugLog('elementInFormExist true for ' + fncFormId + '.' + fncElemId);
-                return true;
-            } else {
-                wtkDebugLog('elementInFormExist false for ' + fncFormId + '.' + fncElemId);
-                return false;
-            }
-        }
-    }
-}
 function getCookie(cname) {
   let name = cname + '=';
   let decodedCookie = decodeURIComponent(document.cookie);
@@ -923,67 +997,6 @@ function waitLoad(fncMode) {
         $('#fullPage').removeClass('shade-background');
     }
 } // waitLoad
-
-function scorePassword(fncPass) {
-    let fncScore = 0;
-    if (!fncPass){
-        return fncScore;
-    } else {
-        // award every unique letter until 5 repetitions
-        let letters = new Object();
-        for (let i=0; i<fncPass.length; i++) {
-            letters[fncPass[i]] = (letters[fncPass[i]] || 0) + 1;
-            fncScore += 5.0 / letters[fncPass[i]];
-        }
-
-        // bonus points for mixing it up
-        let variations = {
-            digits: /\d/.test(fncPass),
-            lower: /[a-z]/.test(fncPass),
-            upper: /[A-Z]/.test(fncPass),
-            nonWords: /\W/.test(fncPass),
-        }
-
-        let variationCount = 0;
-        for (let check in variations) {
-            variationCount += (variations[check] == true) ? 1 : 0;
-        }
-        fncScore += (variationCount - 1) * 10;
-        return parseInt(fncScore);
-    }
-} // scorePassword
-
-function checkPassStrength(fncPass) {
-    let fncResult = 'too weak';
-    let fncScore = scorePassword(fncPass);
-    if (fncScore > 80) {
-        M.toast({html: 'Password is strong', classes: 'rounded green'});
-    } else if (fncScore > 60) {
-        M.toast({html: 'Password is good', classes: 'rounded green accent-3 black-text'});
-    } else if (fncScore > 30) {
-        M.toast({html: 'Password is weak - use numbers and both UPPER and lower case letters', classes: 'rounded orange'});
-    } else {
-        M.toast({html: 'Password is too weak - use numbers and both UPPER and lower case letters', classes: 'rounded red'});
-    }
-    return fncScore;
-} // checkPassStrength
-
-function wtkGetLabelTextById(fncId){
-	const fncLabel = document.querySelectorAll(`label[for="${fncId}"]`);
-	return fncLabel.length>0?fncLabel[0].innerHTML:"";
-}
-
-function wtkLabelSetActive(fncID){
-    // This works for MaterializeCSS HTML format of labels and input fields
-    let fncValue = $('#' + fncID).val();
-    if (fncValue != ''){
-        let fncInput = document.getElementById(fncID);
-        let fncLabel = fncInput.parentElement.querySelector("label");
-        if (fncLabel) {
-            fncLabel.classList.add("active");
-        }
-    }
-}
 
 function wtkEnterGo(event, fncGoTo = '') {
     if (event.key === 'Enter') {
