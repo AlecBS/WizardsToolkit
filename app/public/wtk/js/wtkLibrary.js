@@ -957,6 +957,19 @@ function afterPageLoad(fncPage) {
         M.textareaAutoResize($('#wtkwtkReportsSortableCols'));
         break;
     }
+    document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
+        toggleIcon.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('data-toggle'));
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                this.textContent = 'visibility';
+            }
+        });
+    });
 } // afterPageLoad
 
 function hidePriorPage() {

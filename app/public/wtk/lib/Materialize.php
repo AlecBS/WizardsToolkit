@@ -338,7 +338,13 @@ function wtkFormText($fncTable, $fncColName, $fncType = 'text', $fncLabel = '', 
     $fncClassActive = '';
     $fncIcon = '';
     $fncExtra = '';
+    $fncShowPW = '';
     switch (strtolower($fncType)):
+        case 'password':
+            $fncShowPW  = "\n" . '        <span class="material-icons toggle-password" data-toggle="#';
+            $fncShowPW .= $fncFormId;
+            $fncShowPW .= '" style="cursor:pointer;">visibility</span>';
+            break;
         case 'date':
 //2FIX      $fncType = 'text';
             if ($gloForceRO == false):
@@ -383,7 +389,7 @@ function wtkFormText($fncTable, $fncColName, $fncType = 'text', $fncLabel = '', 
     $fncHtm =<<<htmVAR
     <div class="input-field col $fncColSize">$fncIcon
         <input$fncDisabled type="$fncType"$fncExtra id="$fncFormId" name="$fncFormId" value="@$fncColName@">
-        <label for="$fncFormId">$fncLabel</label>$fncHelpText
+        <label for="$fncFormId">$fncLabel</label>$fncHelpText$fncShowPW
     </div>
 htmVAR;
     $fncHtm = wtkDisplayData($fncColName, $fncHtm, $fncTable, '', $fncType) . "\n";

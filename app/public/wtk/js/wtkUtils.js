@@ -118,6 +118,20 @@ function wtkStartMaterializeCSS() {
                 pgApiKey = $('#apiKey').val();
             }
             afterPageLoad();
+        } else {
+            document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
+                toggleIcon.addEventListener('click', function() {
+                    const input = document.querySelector(this.getAttribute('data-toggle'));
+
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        this.textContent = 'visibility_off';
+                    } else {
+                        input.type = 'password';
+                        this.textContent = 'visibility';
+                    }
+                });
+            });
         }
     });
 } // wtkStartMaterializeCSS

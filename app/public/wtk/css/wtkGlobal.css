@@ -681,6 +681,14 @@ input[type="range"]::-moz-range-thumb, input[type="range"]+.thumb {
   background: var(--btn-color);
 }
 
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    color: var(--btn-color);
+}
+
 label {
   color: #7a7676 !important;
 }
