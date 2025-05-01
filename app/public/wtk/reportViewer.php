@@ -18,9 +18,11 @@ htmVAR;
     echo $pgHtm;
     exit;
 endif;
+
+$pgReportsHdr = wtkLang('Reports');
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Reports</h4><br>
+    <h4>$pgReportsHdr</h4><br>
     <ul class="collapsible">
 htmVAR;
 
@@ -73,10 +75,11 @@ endwhile;
 $pgHtm .= '    </ul>' . "\n";
 $pgHtm .= '</div><br>' . "\n";
 
+$pgRptMsg = wtkLang('reports will show here');
 if ($gloDeviceType == 'phone'):
     $pgHtm .=<<<htmVAR
     <div id="rptSpan" class="center">
-        <br><br><p>reports will show here</p><br><br>
+        <br><br><p>$pgRptMsg</p><br><br>
     </div>
 htmVAR;
 else:
@@ -85,7 +88,7 @@ else:
         <div class="container">
             <div class="card b-shadow">
                 <div class="card-content">
-                    <p>reports will show here</p>
+                    <p>$pgRptMsg</p>
                 </div>
             </div>
         </div>

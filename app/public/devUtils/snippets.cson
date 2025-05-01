@@ -185,6 +185,9 @@ WHERE wu.`DelDate` IS NULL AND wu.`SecurityLevel` > 90\n
   'pgHtm':
     'prefix': 'hh'
     'body': '$pgHtm .= \'$1\' . "\\\\n";'
+  'wtkLang':
+    'prefix': 'lang'
+    'body': '$pgHeader$1 = wtkLang(\'$2\');'
   'HTML template':
     'prefix': 'ht'
     'body': "${1}, _WTK_RootPATH . 'html/minibox.htm');"
@@ -206,6 +209,9 @@ WHERE wu.`DelDate` IS NULL AND wu.`SecurityLevel` > 90\n
   'Header Sort':
     'prefix': 'hs'
     'body': 'wtkSetHeaderSort(\'${1:Status}\', \'${2:Status}\');'
+  'Suppress SQL Column':
+    'prefix': 'sa'
+    'body': 'wtkFillSuppressArray(\'${1:ColumnName}\');'
   'HTM VAR':
     'prefix': 'hvar'
     'body': '$pgHtm .=<<<htmVAR\n${1:someHTML}\nhtmVAR;'
@@ -244,7 +250,7 @@ WHERE wu.`DelDate` IS NULL AND wu.`SecurityLevel` > 90\n
     'body': '${1:condition} ? ${2:true} : ${3:false}'
   'IF Mgr level':
     'prefix': 'iu'
-    'body': 'if ($gloUserSecLevel >= 50): // Manager level\n${1:statement}\nendif;  // BB Staff level'
+    'body': 'if ($gloUserSecLevel >= 80): // Manager level\n${1:statement}\nendif;  // Manager level'
   'IF Programmer level':
     'prefix': 'ip'
     'body': 'if ($gloUserSecLevel == 99): // Programmer level\n${1:statement}\nendif;  // Programmer level'

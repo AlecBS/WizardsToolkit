@@ -122,10 +122,11 @@ INSERT INTO `wtkMenuItems` (`MenuGroupUID`, `ShowDividerAbove`, `PgUID`)
 (5, 'Y', 25),
 (5, 'N', 32);
 
-INSERT INTO `wtkHelp` (`HelpIndex`, `HelpTitle`, `HelpText`)
- VALUES
-('reportEdit.php', 'SQL Report Wizard', '<h4>Filtering @Tokens@</h4>\n<p>On this page you will see which tokens can be added within your SQL SELECT or WHERE and they will be automatically replaced by data and passed parameters.</p>\n<p>For example, if you put in something like:<br>\n<code>WHERE `UserUID` = @UserUID@</code><br>\nthat will automatically replace the @UserUID@ with the currently logged in user\'s UID (wtkUsers.UID).  This can be very useful if you want to create a report that only shows a user data related to their account.</p>\n<br>\n<h4>Sorting Functionality</h4>\n<p>Each column that you want to sort should be on a separate line in the \"Sorting\" box.  This function can take 1, 2 or 3 parameters. Note, as usual spaces will be automatically be inserted for WordCaps or snake_case.  For example, \'FirstName\' will be changed to \'First Name\'.</p>\n<br>\n<h5>One Parameter</h5>\n<code>Count</code><br>\n<p>This uses column named `Count` and leaves headers as \"Count\" and sorts by this column.</p>\n<br>\n<h5>Two Parameters</h5>\n<code>LookupDisplay, USA State</code><br>\n<p>This uses column named `LookupDisplay` but shows the header as \"USA State\".  It sorts by the `LookupDisplay` column.</p>\n<br>\n<h5>Three Parameters</h5>\n<code>DOB, Birthday, u.`BirthDate`</code><br>\n<p>This uses column named `DOB` but shows the header as \"Birthday\".  It sorts using u.`BirthDate` column. This is really important when formatting causes problem with sort order.  For example if your date format is \'%b %D, %Y\' then sorting by that would not give the results you want.</p>\n<br>\n<h4>Example</h4>\n<p>Here is an example SQL query and the associated Sort Options.</p>\n<code>\nSELECT p.`UID`, u.`FirstName` AS `Owner`, p.`PetName`, p.`City`, DATE_FORMAT(p.`BirthDate`,\'%b %D, %Y\') AS `DOB`<br>\n  FROM `pets` p<br>\n   INNER JOIN `wtkUsers` u ON u.`UID` = p.`UserUID`\n</code>\n<br><br>\n<h5>Sortable Columns</h5>\n<code>\nOwner<br>\nCity, Town<br>\nDOB, Birthday, p.`BirthDate`\n</code>');
-
+INSERT INTO `wtkHelp` (`HelpIndex`, `HelpTitle`, `HelpText`, `VideoLink`)
+VALUES
+('reportEdit.php', 'SQL Report Wizard', '<h4>Filtering @Tokens@</h4>\n<p>On this page you will see which tokens can be added within your SQL SELECT or WHERE and they will be automatically replaced by data and passed parameters.</p>\n<p>For example, if you put in something like:<br>\n<code class=\"code-text\">WHERE `UserUID` = @UserUID@</code><br>\nthat will automatically replace the @UserUID@ with the currently logged in user\'s UID (wtkUsers.UID).  This can be very useful if you want to create a report that only shows a user data related to their account.</p>\n<br>\n<h4>Sorting Functionality</h4>\n<p>Each column that you want to sort should be on a separate line in the \"Sorting\" box.  This function can take 1, 2 or 3 parameters. Note, as usual spaces will be automatically be inserted for WordCaps or snake_case.  For example, \'FirstName\' will be changed to \'First Name\'.</p>\n<br>\n<h5>One Parameter</h5>\n<code class=\"code-text\">Count</code><br>\n<p>This uses column named `Count` and leaves headers as \"Count\" and sorts by this column.</p>\n<br>\n<h5>Two Parameters</h5>\n<code class=\"code-text\">LookupDisplay, USA State</code><br>\n<p>This uses column named `LookupDisplay` but shows the header as \"USA State\".  It sorts by the `LookupDisplay` column.</p>\n<br>\n<h5>Three Parameters</h5>\n<code class=\"code-text\">DOB, Birthday, u.`BirthDate`</code><br>\n<p>This uses column named `DOB` but shows the header as \"Birthday\".  It sorts using u.`BirthDate` column. This is really important when formatting causes problem with sort order.  For example if your date format is \'%b %D, %Y\' then sorting by that would not give the results you want.</p>\n<br>\n<h4>Example</h4>\n<p>Here is an example SQL query and the associated Sort Options.</p>\n<pre><code class=\"code-text\">\nSELECT p.`UID`, u.`FirstName` AS `Owner`, p.`PetName`, p.`City`,\n    DATE_FORMAT(p.`BirthDate`,\'%b %D, %Y\') AS `DOB`\n  FROM `pets` p\n   INNER JOIN `wtkUsers` u ON u.`UID` = p.`UserUID`\n</code></pre>\n<br><br>\n<h5>Sortable Columns</h5>\n<pre><code class=\"code-text\">\nOwner\nCity, Town\nDOB, Birthday, p.`BirthDate`\n</code></pre>', ''),
+('Help', 'Help  Manager', '<h3>Managing Help Text Access and Editing</h3>\r\n<p>To control who can edit Help content:</p>\r\n<ol>\r\n<li>\r\n<p>Navigate to <strong>Client Control &gt; Users</strong>.</p>\r\n</li>\r\n<li>\r\n<p>Select a user, then set their permission for <strong data-start=\"260\" data-end=\"282\">Allow to Edit Help</strong>.</p>\r\n</li>\r\n</ol>\r\n<p>Users with this permission can edit Help text throughout the system, including any area where a Help button is available. If a user does <em data-start=\"422\" data-end=\"427\">not</em> have permission and no Help content has been added yet, the Help button will not be visible to them.</p>\r\n<h4>Editing Mode Settings</h4>\r\n<p>To choose whether Help text is edited in WYSIWYG mode:</p>\r\n<ul>\r\n<li>\r\n<p>Go to <strong data-start=\"621\" data-end=\"651\">Site Management &gt; Settings</strong> (found at the bottom of the menu).</p></li>\r\n<li>\r\n<p>Look for the option to toggle WYSIWYG editing for Help content.</p>\r\n</li>\r\n</ul>\r\n<h4>Adding a Help Button to a Page</h4>\r\n<p>To display a Help button on any PHP page, use the following code:</p>\r\n<code class=\"code-text\">$pgHelp = wtkHelp(\'LangMgr\');</code>\r\n<p>Place the &dollar;pgHelp variable wherever you&rsquo;d like the Help button to appear.</p>', ''),
+('LangMgr', 'Multi-Language Manager', '<p>To make a PHP page support multiple languages, include the following code:</p>\n<p><code class=\"code-text\">\n$pgHeader = wtkLang(\'Language Management\');\n</code></p>\n<p>When a user visits the page with a preferred language other than English, this will trigger the wtkLang function, which automatically adds the string to the wtkLanguage data table (if it\'s not already there). You can then use the Generate Language via AI feature to create translations for that text.</p>\n<p>Once a translation is generated, the system will automatically display the appropriate language to users based on their preferences.</p>\n\n<h4>Managing and Editing Translations</h4>\n\n<p>You can search for and edit any translated text directly from the Language Management page.</p>\n\n<h4>Adding New Language Options</h4>\n\n<p>To add new languages for users to select \n<a class=\"modal-close\" onclick=\"JavaScript:ajaxGo(\'lookupList\',0,\'LangPref\')\">click here</a>\n or:</p>\n<ol>\n<li>Go to Lookups.</li>\n<li>Filter by the LangPref category.</li>\n<li>Add the desired language options.</li>\n</ol>\n\n<h4>Automatic Translation for UI Elements</h4>\n\n<p>The wtkLang function is also used automatically for:</p>\n<ol>\n<li>Form field labels</li>\n<li>Column headers in reports</li>\n</ol>\n<p>This ensures consistent language support across your application.</p>', 'https://www.youtube.com/embed/1YPuMZjdGU0');
 
 INSERT INTO `wtkLookups` (`LookupType`, `LookupValue`, `LookupDisplay`)
  VALUES
@@ -616,6 +617,7 @@ VALUES
 (NULL, 'esp', 'Cancel', 'Cancelar'),
 (NULL, 'esp', 'Cell Phone', 'Tel&eacute;fono Celular'),
 (NULL, 'esp', 'Changed', 'Cambiado'),
+(NULL, 'esp', 'Choose Language','Elegir idioma'),
 (NULL, 'esp', 'City', 'Ciudad'),
 (NULL, 'esp', 'Clear', 'Borrar'),
 (NULL, 'esp', 'Clear All', 'Borrar Todo'),
@@ -647,19 +649,21 @@ VALUES
 (NULL, 'esp', 'Email address or password is invalid', 'La direcci&oacute;n de correo o la contrase&ntilde;a es inválido'),
 (NULL, 'esp', 'Enable Lockout', 'Habilitar Bloqueo'),
 (NULL, 'esp', 'English', 'Ingl&eacute;s'),
+(NULL, 'esp', 'English Text','Texto en inglés'),
 (NULL, 'esp', 'Expire', 'Vencimiento'),
 (NULL, 'esp', 'Expire on Date', 'Fecha de Vencimiento'),
 (NULL, 'esp', 'Eye Color', 'Color de Ojos'),
 (NULL, 'esp', 'Facebook: No Account', 'Facebook: No Tengo Cuenta'),
 (NULL, 'esp', 'Female', 'Mujer'),
+(NULL, 'esp', 'File Size','Tamaño del archivo'),
+(NULL, 'esp', 'for YouTube this should be in the format of src="https://www.youtube.com/embed/{yourLink}"','para YouTube, este debe tener el formato src="https://www.youtube.com/embed/{yourLink}"'),
 (NULL, 'esp', 'Forum Name', 'Nombre en el Foro'),
 (NULL, 'esp', 'Forum Note', 'Nota del Foro'),
 (NULL, 'esp', 'From Domain', 'Desde Dominio'),
 (NULL, 'esp', 'Full Access', 'Acceso Completo'),
+(NULL, 'esp', 'generate language via AI','generar idioma mediante IA'),
 (NULL, 'esp', 'Gender', 'G&eacute;nero'),
 (NULL, 'esp', 'Gross Amount', 'Importe Bruto'),
-(NULL, 'esp', 'Hair Color', 'Color de Cabello'),
-(NULL, 'esp', 'Height', 'Estatura'),
 (NULL, 'esp', 'Home', 'Inicio'),
 (NULL, 'esp', 'Home Phone', 'Tel&eacute;fono de casa'),
 (NULL, 'esp', 'I would like to create a', 'Me gustaria crear una'),
@@ -671,6 +675,7 @@ VALUES
 (NULL, 'esp', 'Introducing', 'Presentando'),
 (NULL, 'esp', 'IP Address', 'Direcci&oacute;n IP'),
 (NULL, 'esp', 'Language Preference', 'Lenguaje Preferencial'),
+(NULL, 'esp', 'Language Management','Gestión de idioma'),
 (NULL, 'esp', 'Languages', 'Idiomas'),
 (NULL, 'esp', 'Last Access', 'Último Acceso'),
 (NULL, 'esp', 'Last Update', 'Última Actualización'),
@@ -757,7 +762,6 @@ VALUES
 (NULL, 'esp', 'Testing', 'Pruebas'),
 (NULL, 'esp', 'Total Income', 'Ingresos Totales'),
 (NULL, 'esp', 'Total Visits', 'Total de Visitas'),
-(NULL, 'esp', 'Twitter', 'Twitter'),
 (NULL, 'esp', 'Twitter: no account', 'Twitter: No tengo cuenta'),
 (NULL, 'esp', 'Type', 'Tipo'),
 (NULL, 'esp', 'Types', 'Tipos'),
@@ -771,6 +775,7 @@ VALUES
 (NULL, 'esp', 'User Note', 'Nota para el Usuario'),
 (NULL, 'esp', 'User Photo', 'Foto del Usuario'),
 (NULL, 'esp', 'Value', 'Valor'),
+(NULL, 'esp', 'Video Link (YouTube or Vimeo)','Enlace de video (YouTube o Vimeo)'),
 (NULL, 'esp', 'Visit Date', 'Dato de Visitante'),
 (NULL, 'esp', 'Web Password', 'Contrase&ntilde;a de la WEB'),
 (NULL, 'esp', 'Week Ending', 'Semana que Termina'),

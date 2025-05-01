@@ -35,24 +35,20 @@ else: // called from this page picking a new language
 endif; // pgLang = ''
 //  END  check which language needs the most conversions
 $pgSqlFilter = array('Language' => $pgNewLang);
-
+$pgSqlFilter2 = array(
+    'Language'  => $pgNewLang,
+    'Language2' => $pgNewLang
+);
 // BEGIN auto-fill SPA MassUpdateId data when go to languageTranslate page (if none exists)
 $pgSQL =<<<SQLVAR
-SELECT COUNT(*)
- FROM `wtkLanguage`
-WHERE `Language` = :Language AND `MassUpdateId` IS NOT NULL
-SQLVAR;
-$pgSpaLangCount = wtkSqlGetOneResult($pgSQL, $pgSqlFilter);
-if ($pgSpaLangCount == 0):
-    $pgSQL =<<<SQLVAR
 INSERT INTO `wtkLanguage` (`MassUpdateId`, `Language`, `PrimaryText`)
-  SELECT `MassUpdateId`, :Language, `NewText`
-    FROM `wtkLanguage`
-WHERE `Language` = 'eng' AND `MassUpdateId` IS NOT NULL
-ORDER BY `UID` ASC
+  SELECT L1.`MassUpdateId`, :Language, L1.`NewText`
+    FROM `wtkLanguage` L1
+    LEFT OUTER JOIN `wtkLanguage` L2 ON L2.`Language` = :Language2 AND L2.`PrimaryText` = L1.`NewText`
+WHERE L1.`Language` = 'eng' AND L1.`MassUpdateId` IS NOT NULL AND L2.`UID` IS NULL
+ORDER BY L1.`UID` ASC
 SQLVAR;
-    wtkSqlExec($pgSQL, $pgSqlFilter);
-endif;
+wtkSqlExec($pgSQL, $pgSqlFilter2);
 //  END  auto-fill SPA MassUpdateId data when go to languageTranslate page (if none exists)
 
 $pgList = wtkBuildDataBrowse($pgScriptSQL, $pgSqlFilter);

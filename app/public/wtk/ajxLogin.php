@@ -109,7 +109,8 @@ SQLVAR;
             );
             wtkSqlExec(wtkSqlPrep($pgSQL), $pgFilter);
             if (($gloSiteDesign == 'MPA') || ($pgMpaOrSpa == 'MPA')):
-                wtkSetSession('apiKey',$pgApiKey);
+//              wtkSetSession('apiKey',$pgApiKey);
+                wtkSetCookie('apiKey',$pgApiKey,'1month');
             endif;
             // END  add logic from wtkLogin.php so can skip posting to index.php
         endif; // password is valid

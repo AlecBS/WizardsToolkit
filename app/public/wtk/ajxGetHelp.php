@@ -75,9 +75,16 @@ if ($pgCanEditHelp == 'Y'):
 htmVAR;
 
     $pgHtm .= wtkFormText('wtkHelp', 'HelpTitle', 'text', 'Help Title', 'm12 s12');
-    $pgHtm .= wtkFormText('wtkHelp', 'VideoLink','text','Video Link (YouTube or Vimeo)', 'm12 s12');
+    $pgHtm .= wtkFormText('wtkHelp', 'VideoLink','text','Video Link (YouTube or Vimeo)','m12 s12','N','for YouTube this should be in the format of src="https://www.youtube.com/embed/{yourLink}"');
+
     $pgTmp  = wtkFormTextArea('wtkHelp', 'HelpText', '', 'm12 s12');
     $pgTmp  = wtkReplace($pgTmp, 'materialize-textarea','materialize-textarea snote');
+    // BEGIN check to see if company prefers WYSIWYG
+    $pgWYSIWYG = wtkSqlGetOneResult('SELECT `PreferWYSIWYG` FROM `wtkCompanySettings` WHERE `UID` = 1', []);
+    if ($pgWYSIWYG == 'Y'):
+        $pgHtm .= '<input type="hidden" id="HasModalTinyMCE" name="HasModalTinyMCE" value="textarea#wtkwtkHelpHelpText">';
+    endif;
+    //  END  check to see if company prefers WYSIWYG
     $pgHtm .= $pgTmp ;
     $pgHtm .=<<<htmVAR
                 </div>

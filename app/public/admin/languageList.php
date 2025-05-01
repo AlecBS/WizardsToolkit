@@ -6,7 +6,12 @@ if (!isset($gloConnected)):
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT l.`UID`, l.`PrimaryText` AS `English`, o.`LookupDisplay` AS `ConvertTo`,
+SELECT l.`UID`, l.`MassUpdateId` AS `TemplateCode`,
+    CASE
+        WHEN l.`Language` = 'eng' THEN l.`NewText`
+        ELSE l.`PrimaryText`
+    END AS `EnglishText`,
+    o.`LookupDisplay` AS `ConvertTo`,
     l.`NewText` AS `OtherLanguage`
 FROM `wtkLanguage` l
   LEFT OUTER JOIN `wtkLookups` o ON o.`LookupType` = 'LangPref' AND o.`LookupValue` = l.`Language`
@@ -57,13 +62,19 @@ $pgValues = array(
 $gloWTKmode = 'ADD';
 $pgTmp = wtkFormSwitch('', 'Filter3', 'Only Empty', $pgValues, 'm2 s12');
 $pgSwitch = wtkReplace($pgTmp, 'input-field col m2 s12','');
+
+$pgHelp = wtkHelp('LangMgr');
+$pgHeader = wtkLang('Language Management');
+$pgMsg = wtkLang('generate language via AI');
+$pgResetList = wtkLang('Reset List');
+$pgChooseLabel = wtkLang('Choose Language');
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Language Management
+    <h4>$pgHeader $pgHelp
         <small class="right">
-            <a onclick="JavaScript:ajaxGo('/admin/languageTranslate')">generate language via AI</a>
+            <a onclick="JavaScript:ajaxGo('/admin/languageTranslate')">$pgMsg</a>
         <span id="filterReset"$pgHideReset>
-        <button onclick="JavaScript:wtkBrowseReset('languageList','wtkLanguage')" type="button" class="btn btn-small btn-save waves-effect waves-light">Reset List</button>
+        <button onclick="JavaScript:wtkBrowseReset('languageList','wtkLanguage')" type="button" class="btn btn-small btn-save waves-effect waves-light">$pgResetList</button>
         </span></small>
     </h4>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
@@ -79,7 +90,7 @@ $pgHtm =<<<htmVAR
                     <option value="">Show All</option>
                     $pgSelOptions
                 </select>
-                <label for="wtkFilter2" class="active">Choose Language</label>
+                <label for="wtkFilter2" class="active">$pgChooseLabel</label>
             </div>
             <div class="filter-width-33">
                 $pgSwitch
@@ -90,6 +101,9 @@ $pgHtm =<<<htmVAR
     <div class="wtk-list card b-shadow">
 htmVAR;
 
+wtkSetHeaderSort('TemplateCode');
+wtkSetHeaderSort('EnglishText');
+wtkSetHeaderSort('ConvertTo');
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkLanguage', '/admin/languageList.php');
 $pgHtm .= '</div><br></div>' . "\n";
 

@@ -26,7 +26,7 @@ htmVAR;
 
 $pgHtm .= wtkFormText('wtkHelp', 'HelpIndex', 'text', 'Help Index', 'm3 s12');
 $pgHtm .= wtkFormText('wtkHelp', 'HelpTitle', 'text', 'Help Title', 'm9 s12');
-$pgHtm .= wtkFormText('wtkHelp', 'VideoLink','text','Video Link (YouTube or Vimeo)');
+$pgHtm .= wtkFormText('wtkHelp', 'VideoLink','text','Video Link (YouTube or Vimeo)','m6 s12','N','for YouTube this should be in the format of src="https://www.youtube.com/embed/{yourLink}"');
 $pgHtm .= wtkFormTextArea('wtkHelp', 'HelpText', '', 'm12 s12');
 
 $pgHtm .= wtkFormPrimeField('wtkHelp', 'LastModByUserUID', $gloUserUID);
@@ -39,6 +39,12 @@ $pgHtm .= wtkFormHidden('wtkGoToURL', '../../admin/helpList.php');
 $pgHtm .= '            </div>' . "\n";
 $pgHtm .= wtkUpdateBtns() . "\n";
 $pgHtm .= wtkFormWriteUpdField();
+// BEGIN check to see if company prefers WYSIWYG
+$pgWYSIWYG = wtkSqlGetOneResult('SELECT `PreferWYSIWYG` FROM `wtkCompanySettings` WHERE `UID` = 1', []);
+if ($pgWYSIWYG == 'Y'):
+    $pgHtm .= '<input type="hidden" id="HasTinyMCE" name="HasTinyMCE" value="textarea#wtkwtkHelpHelpText">';
+endif;
+//  END  check to see if company prefers WYSIWYG
 
 $pgHtm .=<<<htmVAR
         </form>
