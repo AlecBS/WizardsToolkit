@@ -180,7 +180,11 @@ function adminValidateEmail(fncPage = 'sendEmail'){
 // pickEmailTemplate
 function adminEmailing(fncEmailGroup, fncId, fncMode = 'SendOne'){
     waitLoad('on');
-    wtkDisableBtn('adminSendBtn');
+    if (fncMode == 'SendOne') {
+        $('#adminSendBtn').addClass('hide');
+    } else {
+        wtkDisableBtn('adminSendBtn');
+    }
     let fncEmailCode = $('#EmailCode').val();
     let fncEmailHTM = $('#EmailHTM').val();
     $.ajax({
