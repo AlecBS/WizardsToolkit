@@ -40,6 +40,13 @@ if ($pgMobile != ''): // this makes website work for iOS and Android apps; have 
     endif;
 endif;
 //wtkSearchReplace('wtkLight.css','wtkDark.css');
+// BEGIN Language Setup
+$pgLangPref = wtkGetCookie('wtkLang');
+if ($pgLangPref != ''):
+    $pgHtm .= wtkFormHidden('changeLanguage', $pgLangPref);
+    wtkSearchReplace('<option value="' . $pgLangPref . '">','<option selected value="' . $pgLangPref . '">');
+endif;
+//  END  Language Setup
 
 wtkProtoType($pgHtm);
 wtkMergePage($pgHtm, $gloCoName, 'wtk/htm/spa.htm');

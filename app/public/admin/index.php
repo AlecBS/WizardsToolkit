@@ -45,7 +45,13 @@ wtkSearchReplace('wtkUtils.js','wtkUtils.js?v=' . $pgVersion);
 wtkSearchReplace('wtkLibrary.js','wtkLibrary.js?v=' . $pgVersion);
 wtkSearchReplace('wtkImporter.js','wtkImporter.js?v=' . $pgVersion);
 wtkSearchReplace('wtkFileUpload.js','wtkFileUpload.js?v=' . $pgVersion);
-
+// BEGIN Language Setup
+$pgLangPref = wtkGetCookie('wtkLang');
+if ($pgLangPref != ''):
+    $pgHtm .= wtkFormHidden('changeLanguage', $pgLangPref);
+    wtkSearchReplace('<option value="' . $pgLangPref . '">','<option selected value="' . $pgLangPref . '">');
+endif;
+//  END  Language Setup
 wtkSPArestart($pgHtm); // only triggered when returning from outside APIs
 wtkMergePage($pgHtm, $gloCoName, '../wtk/htm/spaAdmin.htm');
 ?>

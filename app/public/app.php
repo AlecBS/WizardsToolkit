@@ -170,6 +170,13 @@ endif;
 wtkSearchReplace('<div style="max-width: 144px"','<div class="hide"'); // language options
 wtkSearchReplace('href="wtk/css/wtkLight.css">','href="wtk/css/wtkLight.css" id="CSStheme">');
 wtkSearchReplace('href="wtk/css/wtkBlue.css">','href="wtk/css/wtkBlue.css" id="CSScolor">');
+// BEGIN Language Setup
+$pgLangPref = wtkGetCookie('wtkLang');
+if ($pgLangPref != ''):
+    $pgHtm .= wtkFormHidden('changeLanguage', $pgLangPref);
+    wtkSearchReplace('<option value="' . $pgLangPref . '">','<option selected value="' . $pgLangPref . '">');
+endif;
+//  END  Language Setup
 
 wtkMergePage($pgHtm, 'WTK Demo', 'wtk/htm/spa.htm');
 ?>

@@ -5,6 +5,26 @@ if (!isset($gloConnected)):
     require('../wtk/wtkLogin.php');
 endif;
 
+$pgFillMsg = '';
+if ($gloRNG != 0): // request to copy translations from other language
+    $pgSqlFilter = array(
+        'FromLanguage' => $gloRNG,
+        'ToLanguage'  => $gloId,
+        'ToLanguage2' => $gloId
+    );
+    $pgSQL =<<<SQLVAR
+INSERT INTO `wtkLanguage` (`MassUpdateId`, `Language`, `PrimaryText`)
+  SELECT L1.`MassUpdateId`, :ToLanguage, L1.`PrimaryText`
+    FROM `wtkLanguage` L1
+    LEFT OUTER JOIN `wtkLanguage` L2
+      ON L2.`Language` = :ToLanguage2 AND L2.`PrimaryText` = L1.`PrimaryText`
+WHERE L1.`Language` = :FromLanguage AND L2.`UID` IS NULL
+ORDER BY L1.`UID` ASC
+SQLVAR;
+    wtkSqlExec($pgSQL, $pgSqlFilter);
+    $pgFillMsg = "<p class='green-text'>Missing `$gloId` language translations filled by `$gloRNG`.</p>";
+endif;
+
 // BEGIN Generate UPDATE scripts for chosen language
 $gloSkipFooter = true;
 $gloRowsPerPage = 100;
@@ -60,15 +80,46 @@ WHERE `LookupType` = 'LangPref' AND `LookupValue` = :Language
 SQLVAR;
 $pgLanguage = wtkSqlGetOneResult($pgSQL, $pgSqlFilter);
 
+$pgFillOption = '';
+
+// BEGIN Check to see what language has the most translations which this language is missing
+$pgSQL =<<<SQLVAR
+SELECT o.`LookupDisplay` AS `Language`, L1.`Language` AS `LangCode`,
+    COUNT(L1.`UID`) AS `Count`
+  FROM `wtkLanguage` L1
+    LEFT OUTER JOIN `wtkLookups` o ON o.`LookupType` = 'LangPref' AND o.`LookupValue` = L1.`Language`
+    LEFT OUTER JOIN `wtkLanguage` L2
+        ON L2.`Language` = :Language AND L2.`PrimaryText` = L1.`PrimaryText`
+WHERE L1.`Language` NOT IN ('eng',:Language2) AND L1.`NewText` IS NOT NULL
+  AND L2.`UID` IS NULL
+GROUP BY L1.`Language`
+ORDER BY COUNT(L1.`UID`) DESC LIMIT 1
+SQLVAR;
+wtkSqlGetRow($pgSQL, $pgSqlFilter2);
+$pgNewCount = wtkSqlValue('Count');
+$pgLangCode = wtkSqlValue('LangCode');
+$pgMaxLanguage = wtkSqlValue('Language');
+
+if ($pgNewCount > 0):
+    $pgFillOption .=<<<htmVAR
+<p>There are $pgNewCount translations defined for $pgMaxLanguage which are not
+ in $pgLanguage.  Click
+ <a onclick="JavaScript:ajaxGo('/admin/languageTranslate','$pgNewLang','$pgLangCode')">copy data</a>
+  to add those to $pgLanguage for translation.</p>
+<hr>
+htmVAR;
+endif;
+//  END  Check to see what language has the most translations which this language is missing
+
 $pgHowTo =<<<htmVAR
-<h5><br>How to Use</h5><br>
+<h5><br>How to Use</h5><br>$pgFillMsg
 <p>Run the following in <a target="_blank" href="https://chatgpt.com/">ChatGPT</a>
    or some other AI to receive the SQL scripts
    that will generate the language translations for <strong>$pgLanguage.</strong></p>
 <p>This will do 100 translations at a time so may need to be run multiple times.
  </p>
 <p>After AI generates the UPDATE scripts, run them in your database.</p>
-<hr>
+<hr>$pgFillOption
 <pre><code>
 The following SQL scripts show the `NewText` being set to `English` phrases.
 Translate those into '$pgLanguage'.
