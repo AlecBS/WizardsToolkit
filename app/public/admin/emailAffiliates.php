@@ -56,6 +56,7 @@ SQLVAR;
  FROM `wtkAffiliates` a
     LEFT OUTER JOIN `wtkEmailsSent`e ON e.`OtherUID` = a.`UID` AND e.`EmailUID` = :EmailUID
 WHERE e.`UID` IS NULL AND a.`DelDate` IS NULL
+    AND a.`Email` IS NOT NULL
 SQLVAR;
         if ($pgTimeZone != ''):
             $pgSQL .= " AND (a.`TimeZone` IS NULL OR a.`TimeZone` = '$pgTimeZone')";

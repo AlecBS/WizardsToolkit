@@ -3,7 +3,7 @@ $gloLoginRequired = false;
 define('_RootPATH', '../');
 require('wtkLogin.php');
 
-$pgEmail = wtkGetParam('wtkwtkUsersEmail');
+$pgEmail = wtkGetPost('wtkwtkUsersEmail');
 $pgSQL = "SELECT COUNT(*) FROM `wtkUsers` WHERE `Email` = :Email AND `DelDate` IS NULL";
 $pgSqlFilter = array (
     'Email' => $pgEmail
