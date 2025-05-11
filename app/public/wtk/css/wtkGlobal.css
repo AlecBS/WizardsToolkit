@@ -1363,7 +1363,21 @@ textarea.materialize-textarea:disabled+label {
   display: block;
   white-space: pre;
 }
-
+/* Standard icon size (1.25rem = 20px) */
+.wtk-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0; /* Prevents icons from shrinking in flex containers */
+}
+.wtk-icon:not(:defined) {
+  display: none; /* Hide broken icons */
+}
+/* Flex container with spacing */
+.wtk-flex-center {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* = gap-2 (8px if 1rem = 16px) */
+}
 .wtk-list {
   padding: 0 30px 30px;
   margin-top: 25px;

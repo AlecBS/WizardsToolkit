@@ -92,15 +92,15 @@ CREATE FUNCTION `fncContactIcons`(fncEmail VARCHAR(80),
   */
     DECLARE fncHTM VARCHAR(800);
     DECLARE fncPhoneNum VARCHAR(80);
-    SET fncHTM = '';
+    SET fncHTM = '<div class="wtk-flex-center">';
 
     IF COALESCE(fncEmail,'') <> '' THEN
         IF (fncModalEmail = 'Y') THEN
             SET fncHTM = CONCAT(fncHTM,'<a onclick="wtkModal(', "'/wtk/emailModal','", fncEmailCode, "',",
-                fncUserUID, ",''", ');"><i class="material-icons">contact_mail</i></a> ');
+                fncUserUID, ",''", ');"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-mail"/></svg></a> ');
         ELSE
             SET fncHTM = CONCAT('<a href="mailto:', fncEmail,
-                '"><i class="material-icons">email</i></a> ');
+                '"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-mail"/></svg></a> ');
         END IF;
     END IF;
     -- enhanced for future mobile app functionality
@@ -108,24 +108,27 @@ CREATE FUNCTION `fncContactIcons`(fncEmail VARCHAR(80),
     IF (fncPhoneNum <> '') AND (fncPhoneNum <> '0') THEN
         IF (fncCanSMS = 'Y') THEN
             SET fncHTM = CONCAT(fncHTM,'<a onclick="wtkModal(', "'/wtk/smsModal','sms',", fncUserUID,
-                ",'", fncPhoneNum, '\');"><i class="material-icons">sms</i></a> ');
+                ",'", fncPhoneNum, '\');"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-sms"/></svg></a> ');
         END IF;
         IF (fncShowPhone = 'Y') THEN
-          SET fncHTM = CONCAT(fncHTM,'<a onclick="JavaScript:wtkDialPhone(', fncPhoneNum,
-              ')"><i class="material-icons">contact_phone</i></a> ',fncPhone,' ');
--- if you want to use phone formating, switch above line with below 2 lines
-              -- ')"><i class="material-icons">contact_phone</i></a> ',
-              -- fncFormatPhone(fncOnlyDigits(fncPhone),'(###)###-####'),' ');
+          SET fncHTM = CONCAT(fncHTM,'<a onclick="JavaScript:wtkDialPhone(', fncPhoneNum, ')">',
+              '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-phone"/></svg></a> ',fncPhone,' ');
+/*
+    if you want to use phone formating, switch above line with below 2 lines
+            ')"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-phone"/></svg></a> ',
+            fncFormatPhone(fncOnlyDigits(fncPhone),'(###)###-####'),' ');
+*/
         ELSE
           SET fncHTM = CONCAT(fncHTM,'<a onclick="JavaScript:wtkDialPhone(', fncPhoneNum,
-            ')"><i class="material-icons">contact_phone</i></a> ');
+            ')"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-phone"/></svg></a> ');
         END IF;
     END IF;
 
     IF (COALESCE(fncLat,0) <> 0) THEN
         SET fncHTM = CONCAT(fncHTM,'<a href="http://www.google.com/maps/?q=',
-          fncLat,',', fncLong, '" target="_blank"><i class="material-icons">place</i></a> ');
+          fncLat,',', fncLong, '" target="_blank"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-map-pin"/></svg></a> ');
     END IF;
+    SET fncHTM = CONCAT(fncHTM,'</div>');
     RETURN fncHTM;
 END
 $$
