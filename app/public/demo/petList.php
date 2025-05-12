@@ -146,6 +146,7 @@ wtkSetHeaderSort('DOB', 'Birth Day', 'BirthDate'); // third parameter is what so
 if (($gloDeviceType == 'phone') || ($gloAccessMethod == 'ios')):
     wtkFillSuppressArray('City');
     wtkFillSuppressArray('DOB');
+    $pgSQL = wtkReplace($pgSQL, "`Longitude`,'Y'","`Longitude`,'N'");
     $pgNameTip = 'pet name';
     $pgOwnerTip = 'owner phone';
 else:

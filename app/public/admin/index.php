@@ -42,7 +42,8 @@ $pgVersion = 2; // makes preventing cache when update JS very easy
 wtkSearchReplace('wtkGlobal.css','wtkGlobal.css?v=' . $pgVersion);
 wtkSearchReplace('wtkAdmin.js','wtkAdmin.js?v=' . $pgVersion);
 wtkSearchReplace('wtkUtils.js','wtkUtils.js?v=' . $pgVersion);
-wtkSearchReplace('wtkLibrary.js','wtkLibrary.js?v=' . $pgVersion);
+wtkSearchReplace('wtkCore.js','wtkCore.js?v=' . $pgVersion);
+wtkSearchReplace('wtkMaterialize.js','wtkMaterialize.js?v=' . $pgVersion);
 wtkSearchReplace('wtkImporter.js','wtkImporter.js?v=' . $pgVersion);
 wtkSearchReplace('wtkFileUpload.js','wtkFileUpload.js?v=' . $pgVersion);
 // BEGIN Language Setup

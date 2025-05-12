@@ -7,144 +7,9 @@
 // var wtkBrowseFilter;
 const wtkParams = new URLSearchParams(window.location.search);
 var pgDebug = 'N';
-
-// below function called in HTML by <body onload >
-function wtkStartMaterializeCSS() {
-    $(document).ready(function() {
-        M.AutoInit();
-        var fncTmpVar = '';
-        if (elementExist('pgDebugVar')) {
-            fncTmpVar = $('#pgDebugVar').val();
-            if (fncTmpVar == 'Y') {
-                pgDebug = 'Y';
-            }
-        }
-        if (elementExist('pgSiteVar')) {
-            pgSite = $('#pgSiteVar').val();
-        } else {
-            pgSite = 'publicApp';
-        }
-        if (elementExist('AccessMethod')) {
-            pgAccessMethod = $('#AccessMethod').val();
-        } else {
-            pgAccessMethod = 'website';
-        }
-        if (elementExist('CharCntr')) {
-            let fncCharCntr = $('#CharCntr').val();
-            if (fncCharCntr == 'Y') {
-                M.CharacterCounter.init();
-                M.CharacterCounter.init(document.querySelectorAll('.char-cntr'));
-            }
-        }
-        if (elementExist('HasCollapse')) {
-            fncTmpVar = $('#HasCollapse').val();
-            if (fncTmpVar == 'Y') {
-                let fncElem = document.querySelectorAll('.collapsible');
-                let fncTmp = M.Collapsible.init(fncElem);
-            }
-        }
-        if (elementExist('HasImage')) {
-            fncTmpVar = $('#HasImage').val();
-            if (fncTmpVar == 'Y') {
-        //        $('.materialboxed').materialbox();
-                let fncElemImg = document.querySelectorAll('.materialboxed');
-                let fncTmp2 = M.Materialbox.init(fncElemImg);
-                wtkDebugLog('wtkStartMaterializeCSS: HasImage');
-            }
-        }
-        if (elementExist('HasTooltip')) {
-            fncTmpVar = $('#HasTooltip').val();
-            if (fncTmpVar == 'Y') {
-                let fncOption = {};
-                let fncTmp3 = document.querySelectorAll('.tooltipped');
-                let fncTmp4 = M.Tooltip.init(fncTmp3, fncOption);
-            }
-        }
-        if (elementExist('wtkUpload')) {
-            // all File-Upload related functions are in wtkFileUpload.js
-            document.getElementById('wtkUpload').addEventListener('change', (e) => {
-                wtkFileChanged();
-            })
-        }
-        if ($('#wtkUploadFiles').val() !== undefined) {
-            let fncFileIDs = $('#wtkUploadFiles').val();
-            let fncFileUpArray = fncFileIDs.split(',');
-            for (let i = 0; i < fncFileUpArray.length; i++){
-                wtkDebugLog('afterPageLoad: set wtkFileChanged for wtkUpload' + fncFileUpArray[i]);
-                if (elementExist('wtkUpload' + fncFileUpArray[i])) {
-                    document.getElementById('wtkUpload' + fncFileUpArray[i]).addEventListener('change', (e) => {
-                        wtkFileChanged(fncFileUpArray[i]);
-                    })
-                } else {
-                    wtkDebugLog('afterPageLoad: wtkUpload' + fncFileUpArray[i] + ' does not exist');
-                }
-                wtkDebugLog('after set EventListener for wtkUpload to do wtkFileChanged');
-            }
-        }
-        if (elementExist('changeLanguage')) {
-            fncTmpVar = $('#changeLanguage').val();
-            if (fncTmpVar != undefined) {
-                wtkLangUpdate(fncTmpVar);
-            }
-        }
-        $(".wrapper-load").fadeOut();
-        if (typeof wtkMPAstart === "function") {
-            wtkMPAstart();
-        }
-        if (elementExist('SPArestart')) {
-            fncTmpVar = $('#SPArestart').val();
-            if (fncTmpVar == 'Y') {
-                $('#mainPage').removeClass('hide');
-                $('#myNavbar').removeClass('hide');
-                $('#loginPage').addClass('hide');
-                pgApiKey = $('#apiKeyRestart').val();
-                pgSecLevel = $('#secLvlRestart').val();
-                pgMPAvsSPA = 'SPA';
-            }
-        }
-        if (elementExist('myEmail')) {
-           document.getElementById('myEmail').onchange = function() {
-               wtkValidate(this,'EMAIL');
-           };
-        }
-        if (elementExist('wtkwtkUsersEmail')) {
-            document.getElementById('wtkwtkUsersEmail').onchange = function() {
-                wtkValidate(this,'EMAIL');
-            };
-        }
-        wtkDebugLog('wtkStartMaterializeCSS successful: pgSite: ' + pgSite + '; pgAccessMethod: ' + pgAccessMethod);
-        if (pgMPAvsSPA == 'MPA') {
-            if ((pgApiKey == '') && (elementExist('apiKey'))) {
-                pgApiKey = $('#apiKey').val();
-            }
-            afterPageLoad();
-        } else {
-            wtkToggleShowPassword();
-        }
-    });
-} // wtkStartMaterializeCSS
-
 var fncLastIconColor = 'red';
 var fncRequiredFieldId = ''; // set by wtkAlert and used by wtkFocusOnInput
-function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warning', fncReqId = '') {
-    if (fncLastIconColor != fncColor) {
-        $('#modIcon').removeClass(fncLastIconColor + '-text');
-        $('#modIcon').addClass(fncColor + '-text');
-        fncLastIconColor = fncColor;
-    }
-    $('#modIcon').text(fncIcon);
-    $('#modHdr').text(fncHdr);
-    $('#modText').html(fncText);
-    let fncOptions = {};
-    let fncModalId = document.getElementById('modalAlert');
-    if (fncReqId != '') {
-        fncRequiredFieldId = fncReqId;
-        fncOptions.onCloseEnd = wtkFocusOnInput;
-    }
-    let fncModal = M.Modal.init(fncModalId, fncOptions);
-    fncModal.open();
-    wtkDebugLog('mobAlert called: ' + fncText);
-} // wtkAlert
+
 
 // BEGIN Debug related functions
 function wtkDebugMobile(fncDebug) {
@@ -392,13 +257,13 @@ function checkPassStrength(fncPass) {
     let fncResult = 'too weak';
     let fncScore = scorePassword(fncPass);
     if (fncScore > 80) {
-        M.toast({html: 'Password is strong', classes: 'rounded green'});
+        wtkToastMsg('Password is strong','green');
     } else if (fncScore > 60) {
-        M.toast({html: 'Password is good', classes: 'rounded green accent-3 black-text'});
+        wtkToastMsg('Password is good','green accent-3 black-text');
     } else if (fncScore > 30) {
-        M.toast({html: 'Password is weak - use numbers and both UPPER and lower case letters', classes: 'rounded orange'});
+        wtkToastMsg('Password is weak - use numbers and both UPPER and lower case letters', 'orange');
     } else {
-        M.toast({html: 'Password is too weak - use numbers and both UPPER and lower case letters', classes: 'rounded red'});
+        wtkToastMsg('Password is too weak - use numbers and both UPPER and lower case letters', 'red');
     }
     return fncScore;
 } // checkPassStrength
@@ -982,21 +847,6 @@ function nl2br(str, is_xhtml) {
 	let breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
 }
-
-function waitLoad(fncMode) {
-    if (fncMode == 'on') {
-        $('#fullPage').addClass('shade-background');
-        $('#loaderDiv1').removeClass('hide');
-        $('#loaderDiv1').removeClass('active');
-        $('#loaderDiv2').addClass('active');
-        let fncDiv = document.getElementById('loaderDiv1');
-        fncDiv.style.removeProperty('display');
-    } else {
-        $('#loaderDiv2').removeClass('active');
-        $('#loaderDiv1').addClass('hide');
-        $('#fullPage').removeClass('shade-background');
-    }
-} // waitLoad
 
 function wtkEnterGo(event, fncGoTo = '') {
     if (event.key === 'Enter') {

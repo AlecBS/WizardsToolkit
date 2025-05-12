@@ -1,5 +1,7 @@
 "use strict";
-/* site-specific functions */
+// this file previously named wtkLibrary.js; all MaterializeCSS-specific functions moved to wtkMaterialize.js
+
+var pgHide = 'hide'; // set to 'hide' for MaterializeCSS, or 'hidden' for TailwindCSS
 var pgMPAvsSPA = 'SPA'; // set to SPA or MPA
 var pgApiKey = '';
 let pgSecLevel = 0;
@@ -11,166 +13,9 @@ if (wtkParams.has('NP')) {
         pgApiKey = wtkParams.get('apiKey');
     }
 }
+
 var pgPageArray = [];
 pgPageArray.push('0~0~logoutPage');
-
-function wtkDialPhone(fncPhone) {
-    wtkDebugMobile('fncPhone = ' + fncPhone);
-    if (pgAccessMethod == 'ios') {
-        let fncCount = fncPhone.length;
-        if (fncCount == 10) { // this fixes USA issue with some area codes
-            fncPhone = '+1' + fncPhone.toString();
-        }
-        wtkSDK.makePhoneCall(fncPhone);
-//      window.ReactNativeWebView.postMessage('dialPhone-' + fncPhone );
-    } else {
-        window.location.href = 'tel:' + fncPhone;
-    }
-    wtkDebugMobile('wtkDialPhone after dialPhone');
-}
-
-function showBugReport() {
-//    hidePriorPage();
-//    $('#reportBug').removeClass('hide');
-    if ($('#backBtn').hasClass('hide')) {
-        $('#backBtn').removeClass('hide');
-    }
-    pageTransition('priorPage', 'reportBug');
-    pgPageArray.push('0~0~reportBug');
-} // showBugReport
-
-function sendBug(){
-    pgPageArray.push('0~0~mainPage');
-    wtkDisableBtn('btnBugSave');
-    let fncBugMsg = $("#bugMsg").val();
-    $('#mainPage').html($('#bugSent').html());
-    $('#reportBug').addClass('hide');
-    $('#mainPage').removeClass('hide');
-    $('#pageTitle').text('Message Sent');
-    $("#bugMsg").val('');
-    // 2FIX need to make navigation away from page work
-    $.ajax({
-        type: 'POST',
-        url:  '/wtk/saveBug.php',
-        data: { apiKey: pgApiKey, bugMsg: fncBugMsg },
-        success: function(data) {
-            // do nothing
-        }
-    })
-} // sendBug
-
-function showBugReportModal() {
-    if (pgLastModal != 'reportBug') {
-        $('#modalWTK').html($('#reportBug').html());
-        $('#reportBug').html('purged to prevent dupe ID');
-        pgLastModal = 'reportBug';
-    }
-    let fncModalId = document.getElementById('modalWTK');
-    let fncModal = M.Modal.getInstance(fncModalId);
-    fncModal.open();
-    afterPageLoad('modal');
-}
-
-function sendBugModal(){
-    let fncBugMsg = $("#bugMsg").val();
-    $("#bugMsg").val('');
-    $.ajax({
-        type: 'POST',
-        url:  '/wtk/saveBug.php',
-        data: { apiKey: pgApiKey, bugMsg: fncBugMsg },
-        success: function(data) {
-            $('#reportBug').html($('#modalWTK').html());
-            $('#modalWTK').html('');
-            pgLastModal = '';
-        }
-    })
-    let fncId = document.getElementById('modalWTK');
-    let fncModal = M.Modal.getInstance(fncId);
-    fncModal.close();
-    M.toast({html: 'Your message has been sent.', classes: 'green rounded'});
-}
-
-function saveChat(fncToUID) {
-    let fncMessage = $('#wtkMsg').val();
-    if (fncMessage != '') {
-        $('#wtkMsg').val('');
-        document.getElementById("btnSendNote").style.marginTop = "15px";
-//        $('#wtkMsg').fadeOut(9);
-//        document.getElementById("btnSendNote").style.marginTop= "0px";
-//         setTimeout(function() {
-//             $('#wtkMsg').fadeIn(450);
-//         }, 3600);
-        $.ajax({
-            type: 'POST',
-            url:  '/wtk/saveChat.php',
-            data: { apiKey: pgApiKey, to: fncToUID, msg: fncMessage},
-            success: function(data) {
-                if (elementExist('noChat')){
-                    $('#noChat').addClass('hide');
-                }
-                let fncMsgDiv = document.getElementById('chatDIV');
-                fncMsgDiv.innerHTML += data + '<br>';
-            }
-        })
-    } // empty message
-} // saveChat
-
-function sendNote(fncParentUID, fncVer) {
-    wtkDebugLog('top of sendNote');
-    // pass 2 for fncVer if have 2 sets of sendNote boxes on same page
-    wtkDisableBtn('btnSendNote' + fncVer);
-    let fncNote = $('#myNote' + fncVer).val();
-//    $('#msgResult' + fncVer).html('<div class="chip green white-text">Message Sent</div>');
-    $('#myNote' + fncVer).fadeOut(9);
-    $('#btnSendNote' + fncVer).fadeOut(9);
-    document.getElementById("btnSendNote" + fncVer).style.marginTop= "0px";
-    setTimeout(function() {
-        $('#msgResult' + fncVer).html('');
-        $('#myNote' + fncVer).fadeIn(450);
-        $('#btnSendNote' + fncVer).fadeIn(450);
-        document.getElementById("btnSendNote" + fncVer).style.marginTop = "15px";
-    }, 2700);
-    $.ajax({
-        type: 'POST',
-        url:  '/wtk/sendNote.php',
-        data: { apiKey: pgApiKey, id: fncParentUID, msg: fncNote },
-        success: function(data) {
-            wtkDebugLog('sendNote.php called');
-            $('#myNote' + fncVer).val('');
-            $('#noForum').addClass('hide');
-            let fncMsgDiv = document.getElementById('forumDIV');
-            fncMsgDiv.innerHTML += data;
-        }
-    })
-} // sendNote
-
-function sendInvite(fncId) {
-    wtkDisableBtn('inviteUserBtn');
-    $.ajax({
-        type: 'POST',
-        url: '/wtk/sendInvite.php',
-        data: { apiKey: pgApiKey, techId: fncId},
-        success: function(data) {
-            ajaxGo('userList',1,0,'Y');
-        }
-    })
-}
-
-function saveSMSchoice() {
-    let fncSMS = 'Y';
-    if (document.getElementById('SMSEnabled').checked) {
-        fncSMS = 'N';
-    }
-    $.ajax({
-        type: 'POST',
-        url:  '/wtk/saveSMSchoice.php',
-        data: { apiKey: pgApiKey, sms: fncSMS },
-        success: function(data) {
-             // no response needed
-        }
-    })
-}
-
 function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
     $('#LoginErrMsg').html('');
     wtkDisableBtn('btnLogin');
@@ -234,6 +79,7 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                                         }
                                         break;
                                     case 'admin':
+                                        pgHide = 'hide';
                                         if (pgSecLevel < 71) {
                                             fncWrongApp = 'Y';
                                             if (pgSecLevel < 26) {
@@ -252,9 +98,9 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                                             // If you want to force users to upload a photo
                                             if ((fncPhoto == 'noPhoto') && (pgForceUserPhoto == 'Y')) {
                                                 pgHasPhoto = 'N';
-                                                $('#hamburger').addClass('hide');
-                                                $('#loginPage').addClass('hide');
-                                                $('#backBtn').addClass('hide');
+                                                $('#hamburger').addClass(pgHide);
+                                                $('#loginPage').addClass(pgHide);
+                                                $('#backBtn').addClass(pgHide);
                                                 pgPageArray.splice(0);
                                                 pgPageArray.push('0~0~user');
                                                 ajaxGo('user',0,0,'Y');
@@ -271,17 +117,17 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
                                         pageTransition('loginPage', 'dashboard');
                                         getDashboardCounts();
                                     }
-                                    $('#backBtn').addClass('hide');
-                                    $('#myNavbar').removeClass('hide');
-                                    $('#upgMsg').addClass('hide');
-                                    $('#hamburger').removeClass('hide');
-                            //          $('#slideOut').removeClass('hide');
+                                    $('#backBtn').addClass(pgHide);
+                                    $('#myNavbar').removeClass(pgHide);
+                                    $('#upgMsg').addClass(pgHide);
+                                    $('#hamburger').removeClass(pgHide);
+                            //          $('#slideOut').removeClass(pgHide);
                                     wtkFixSideNav();
                                     if (elementExist('FABbtn')){
-                                        $('#FABbtn').removeClass('hide');
+                                        $('#FABbtn').removeClass(pgHide);
                                     }
                                     if (elementExist('sideBar')){
-                                        $('#sideBar').removeClass('hide');
+                                        $('#sideBar').removeClass(pgHide);
                                         ajaxFillDiv('/ajxFillSideBar','N','slide-out');
                                     }
                                     if (fncMenu != ''){
@@ -306,42 +152,59 @@ function wtkLoginForm(fncMenu = '', fncMPAvsSPA = 'SPA', fncWhichApp = ''){
     } // email entered
 } // wtkLoginForm
 
-function showPage(fncPage, fncAddPageQ = 'Y') {
-    let fncCurInfo = pgPageArray[pgPageArray.length - 1];
-    let fncCurArray = fncCurInfo.split('~');
-    let fncCurrent = fncCurArray[2];
-    pageTransition(fncCurrent, fncPage);
-    if (isCorePage(fncCurrent)) {
-        $('#' + fncCurrent).addClass('hide');
-    } else {
-        $('#mainPage').addClass('hide');
+function wtkLogout(){
+    if (pgAlertUpdate != 0) {
+        clearInterval(pgAlertUpdate);
     }
-    if (fncAddPageQ == 'Y') {
-        pgPageArray.push('0~0~' + fncPage);
-        if ($('#backBtn').hasClass('hide')) {
-            $('#backBtn').removeClass('hide')
-        }
+    $('#backBtn').addClass(pgHide);
+    $('#hamburger').addClass(pgHide);
+    hidePriorPage();
+    if (elementExist('sideBar')){
+        $('#sideBar').addClass(pgHide);
     }
-    $('#' + fncPage).removeClass('hide')
-} // showPage
+    if (elementExist('myNavbar')){
+        $('#myNavbar').addClass(pgHide); // may or may not want to hide
+    }
+    $('#mainPage').addClass(pgHide);
+    $('body').addClass('bg-second');
+    $('#logoutPage').removeClass(pgHide);
+    $.ajax({
+        type: 'POST',
+        url:  '/wtk/ajxLogout.php',
+        data: { apiKey: pgApiKey },
+        success: function(data) {
+            wtkDebugLog('wtkLogout - new after');
+            let fncJSON = $.parseJSON(data);
+            if (fncJSON.result == 'ok'){
+                pgApiKey = '';
+                if (pgAccessMethod == 'ios') {
+                    //              window.ReactNativeWebView.postMessage('logout');
+                }
+                if (elementExist('wrongApp')){
+                    $('#wrongApp').addClass(pgHide);
+                }
+                if (elementExist('FABbtn')){
+                    $('#FABbtn').addClass(pgHide);
+                }
+                $('body').addClass('bg-second');
+                if (elementExist('pageWrapper')) {
+                    $('#pageWrapper').addClass(pgHide);
+                }
+                const fncElement = document.getElementById('fullPage');
 
-function showRegister(fncFrom = 'loginPage') {
-    pgPageArray.push('0~0~registerPage');
-    pageTransition(fncFrom, 'registerPage');
-} //showRegister
-
-// 2VERIFY next function now replaced by wtkRegister
-function wtkCheckEmail(fncEmail, fncGoToURL) {
-    $.getJSON('/wtk/ajxVerifyEmail.php?Email=' + fncEmail, function(data) {
-        $.each(data, function(key, value) {
-            if(value == 0){
-                ajaxPost('wtkForm', fncGoToURL);
+                if (fncElement) {
+                    fncElement.scrollIntoView({ behavior: 'smooth' });
+                    wtkDebugLog('wtkLogout - scroll to fullPage');
+                }
+                pgPageArray.splice(0); // Clear go-back array
+                pgPageArray.push('0~0~logoutPage');
+                wtkToggleShowPassword();
             } else {
-                wtkAlert("Your email already exists in our database.  Did you forget your login information? ");
+                wtkAlert('Failed to logout - please contact tech support.');
             }
-        });
-    });
-}
+        }
+    })
+} // wtkLogout
 
 function wtkRegister() {
     wtkDisableBtn('btnSignUp');
@@ -367,10 +230,10 @@ function wtkRegister() {
                   if (fncJSON.result != 'ok'){
                       waitLoad('off');
                       wtkAlert(fncJSON.result);
-                      $('#regForgot').removeClass('hide');
+                      $('#regForgot').removeClass(pgHide);
                   } else {
-                      $('#registerPage').addClass('hide');
-                      $('#mainPage').removeClass('hide');
+                      $('#registerPage').addClass(pgHide);
+                      $('#mainPage').removeClass(pgHide);
                       let fncFName = $('#wtkwtkUsersFirstName').val();
                       $('#myName').text(fncFName);
                       wtkFixSideNav();  // fixScroll();
@@ -383,8 +246,8 @@ function wtkRegister() {
                               $('body').removeClass('bg-second');
                               pgPageArray.push('0~0~newRegOK');
                               waitLoad('off');
-                              $('#backBtn').addClass('hide');
-                              $('#myNavbar').removeClass('hide');
+                              $('#backBtn').addClass(pgHide);
+                              $('#myNavbar').removeClass(pgHide);
                               $('#myPassword').val(fncPW);
                               pgApiKey = $('#regApiKey').val();
                           }
@@ -398,11 +261,24 @@ function wtkRegister() {
     }
 } // wtkRegister
 
+// 2VERIFY next function now replaced by wtkRegister
+function wtkCheckEmail(fncEmail, fncGoToURL) {
+    $.getJSON('/wtk/ajxVerifyEmail.php?Email=' + fncEmail, function(data) {
+        $.each(data, function(key, value) {
+            if(value == 0){
+                ajaxPost('wtkForm', fncGoToURL);
+            } else {
+                wtkAlert("Your email already exists in our database.  Did you forget your login information? ");
+            }
+        });
+    });
+} // wtkCheckEmail
+
 function showSignIn(fncFrom) {
     pgPageArray.push('0~0~loginPage');
     wtkDebugLog('showSignIn called');
     pageTransition(fncFrom, 'loginPage');
-    $('#backBtn').removeClass('hide');
+    $('#backBtn').removeClass(pgHide);
     if (pgAccessMethod != 'website') {
         // ios, Android, pwa (phone)
         $('body').removeClass('bg-second');
@@ -412,73 +288,151 @@ function showSignIn(fncFrom) {
     }
 } //showSignIn
 
-function wtkLogout(){
-    if (pgAlertUpdate != 0) {
-        clearInterval(pgAlertUpdate);
+function showBugReport() {
+//    hidePriorPage();
+//    $('#reportBug').removeClass(pgHide);
+    if ($('#backBtn').hasClass(pgHide)) {
+        $('#backBtn').removeClass(pgHide);
     }
-    $('#backBtn').addClass('hide');
-    $('#hamburger').addClass('hide');
-    hidePriorPage();
-    if (elementExist('sideBar')){
-        $('#sideBar').addClass('hide');
-    }
-    if (elementExist('myNavbar')){
-        $('#myNavbar').addClass('hide'); // may or may not want to hide
-    }
-    $('#mainPage').addClass('hide');
-    $('body').addClass('bg-second');
-    $('#logoutPage').removeClass('hide');
-    $.ajax({
-        type: 'POST',
-        url:  '/wtk/ajxLogout.php',
-        data: { apiKey: pgApiKey },
-        success: function(data) {
-            wtkDebugLog('wtkLogout - new after');
-            let fncJSON = $.parseJSON(data);
-            if (fncJSON.result == 'ok'){
-                pgApiKey = '';
-                if (pgAccessMethod == 'ios') {
-    //              window.ReactNativeWebView.postMessage('logout');
-                }
-                if (elementExist('wrongApp')){
-                    $('#wrongApp').addClass('hide');
-                }
-                if (elementExist('FABbtn')){
-                    $('#FABbtn').addClass('hide');
-                }
-                $('body').addClass('bg-second');
-                if (elementExist('pageWrapper')) {
-                    $('#pageWrapper').addClass('hide');
-                }
-                const fncElement = document.getElementById('fullPage');
-
-                if (fncElement) {
-                    fncElement.scrollIntoView({ behavior: 'smooth' });
-                    wtkDebugLog('wtkLogout - scroll to fullPage');
-                }
-                pgPageArray.splice(0); // Clear go-back array
-                pgPageArray.push('0~0~logoutPage');
-                wtkToggleShowPassword();
-            } else {
-                wtkAlert('Failed to logout - please contact tech support.');
-            }
-        }
-    })
-} // wtkLogout
+    pageTransition('priorPage', 'reportBug');
+    pgPageArray.push('0~0~reportBug');
+} // showBugReport
 
 function showForgotPW(fncFrom) {
     pgPageArray.push('0~0~forgotPW');
     pageTransition(fncFrom, 'forgotPW');
-//  $('#' + fncFrom).addClass('hide');
-//  $('#forgotPW').removeClass('hide');
+//  $('#' + fncFrom).addClass(pgHide);
+//  $('#forgotPW').removeClass(pgHide);
+}
+function showRegister(fncFrom = 'loginPage') {
+    pgPageArray.push('0~0~registerPage');
+    pageTransition(fncFrom, 'registerPage');
+} //showRegister
+
+function showPage(fncPage, fncAddPageQ = 'Y') {
+    let fncCurInfo = pgPageArray[pgPageArray.length - 1];
+    let fncCurArray = fncCurInfo.split('~');
+    let fncCurrent = fncCurArray[2];
+    pageTransition(fncCurrent, fncPage);
+    if (isCorePage(fncCurrent)) {
+        $('#' + fncCurrent).addClass(pgHide);
+    } else {
+        $('#mainPage').addClass(pgHide);
+    }
+    if (fncAddPageQ == 'Y') {
+        pgPageArray.push('0~0~' + fncPage);
+        if ($('#backBtn').hasClass(pgHide)) {
+            $('#backBtn').removeClass(pgHide)
+        }
+    }
+    $('#' + fncPage).removeClass(pgHide)
+} // showPage
+function sendBug(){
+    pgPageArray.push('0~0~mainPage');
+    wtkDisableBtn('btnBugSave');
+    let fncBugMsg = $("#bugMsg").val();
+    $('#mainPage').html($('#bugSent').html());
+    $('#reportBug').addClass(pgHide);
+    $('#mainPage').removeClass(pgHide);
+    $('#pageTitle').text('Message Sent');
+    $("#bugMsg").val('');
+    // 2FIX need to make navigation away from page work
+    $.ajax({
+        type: 'POST',
+        url:  '/wtk/saveBug.php',
+        data: { apiKey: pgApiKey, bugMsg: fncBugMsg },
+        success: function(data) {
+            // do nothing
+        }
+    })
+} // sendBug
+
+function sendNote(fncParentUID, fncVer) {
+    wtkDebugLog('top of sendNote');
+    // pass 2 for fncVer if have 2 sets of sendNote boxes on same page
+    wtkDisableBtn('btnSendNote' + fncVer);
+    let fncNote = $('#myNote' + fncVer).val();
+//    $('#msgResult' + fncVer).html('<div class="chip green white-text">Message Sent</div>');
+    $('#myNote' + fncVer).fadeOut(9);
+    $('#btnSendNote' + fncVer).fadeOut(9);
+    document.getElementById("btnSendNote" + fncVer).style.marginTop= "0px";
+    setTimeout(function() {
+        $('#msgResult' + fncVer).html('');
+        $('#myNote' + fncVer).fadeIn(450);
+        $('#btnSendNote' + fncVer).fadeIn(450);
+        document.getElementById("btnSendNote" + fncVer).style.marginTop = "15px";
+    }, 2700);
+    $.ajax({
+        type: 'POST',
+        url:  '/wtk/sendNote.php',
+        data: { apiKey: pgApiKey, id: fncParentUID, msg: fncNote },
+        success: function(data) {
+            wtkDebugLog('sendNote.php called');
+            $('#myNote' + fncVer).val('');
+            $('#noForum').addClass(pgHide);
+            let fncMsgDiv = document.getElementById('forumDIV');
+            fncMsgDiv.innerHTML += data;
+        }
+    })
+} // sendNote
+
+function sendInvite(fncId) {
+    wtkDisableBtn('inviteUserBtn');
+    $.ajax({
+        type: 'POST',
+        url: '/wtk/sendInvite.php',
+        data: { apiKey: pgApiKey, techId: fncId},
+        success: function(data) {
+            ajaxGo('userList',1,0,'Y');
+        }
+    })
+}
+
+function saveChat(fncToUID) {
+    let fncMessage = $('#wtkMsg').val();
+    if (fncMessage != '') {
+        $('#wtkMsg').val('');
+        document.getElementById("btnSendNote").style.marginTop = "15px";
+//        $('#wtkMsg').fadeOut(9);
+//        document.getElementById("btnSendNote").style.marginTop= "0px";
+//         setTimeout(function() {
+//             $('#wtkMsg').fadeIn(450);
+//         }, 3600);
+        $.ajax({
+            type: 'POST',
+            url:  '/wtk/saveChat.php',
+            data: { apiKey: pgApiKey, to: fncToUID, msg: fncMessage},
+            success: function(data) {
+                if (elementExist('noChat')){
+                    $('#noChat').addClass(pgHide);
+                }
+                let fncMsgDiv = document.getElementById('chatDIV');
+                fncMsgDiv.innerHTML += data + '<br>';
+            }
+        })
+    } // empty message
+} // saveChat
+
+function saveSMSchoice() {
+    let fncSMS = 'Y';
+    if (document.getElementById('SMSEnabled').checked) {
+        fncSMS = 'N';
+    }
+    $.ajax({
+        type: 'POST',
+        url:  '/wtk/saveSMSchoice.php',
+        data: { apiKey: pgApiKey, sms: fncSMS },
+        success: function(data) {
+            // no response needed
+        }
+    })
 }
 
 function wtkForgotPW() {
     wtkDebugLog('wtkForgotPW: top');
     let fncEmail = $('#emailForgot').val();
     if (fncEmail == '') {
-        $('#forgotMsg').html('<div class="chip blue white-text">Enter a valid email address.</div>');
-        $('#forgotMsg').fadeIn(540);
+        wtkAlert('Enter a valid email address.');
     } else {
         if (isValidEmail(fncEmail)) {
             $('#forgotMsg').html('');
@@ -493,8 +447,8 @@ function wtkForgotPW() {
                     let fncJSON = $.parseJSON(data);
                     if (fncJSON.result == 'success'){ // email/account exists
                         pageTransition('forgotPW','resetPWdiv');
-    //                              $('#forgotPW').addClass('hide');
-    //                              $('#resetPWdiv').removeClass('hide');
+    //                              $('#forgotPW').addClass(pgHide);
+    //                              $('#resetPWdiv').removeClass(pgHide);
                     } else {
                         let fncTmp = fncJSON.result;
                         $('#forgotMsg').html(fncTmp);
@@ -504,8 +458,7 @@ function wtkForgotPW() {
               })
           } else {
               wtkDebugLog('wtkForgotPW: not valid email');
-              $('#forgotMsg').html('<div class="chip red white-text">Please enter a valid email address.</div>');
-              $('#forgotMsg').fadeIn(540);
+              wtkAlert('Please enter a valid email address.');
           }
     }
 } // wtkForgotPW
@@ -532,8 +485,8 @@ function resetPW() {
               waitLoad('off');
               let fncJSON = $.parseJSON(data);
               if (fncJSON.result == 'ok'){
-                  $('#resetForm').addClass('hide');
-                  $('#finishedDIV').removeClass('hide');
+                  $('#resetForm').addClass(pgHide);
+                  $('#finishedDIV').removeClass(pgHide);
               } else {
                   wtkAlert(fncJSON.result);
                   $('#resultMsg').html(fncJSON.result);
@@ -543,35 +496,18 @@ function resetPW() {
     }
 }
 
-function wtkDeleteAccount(){
-    $('#deleteModalDIV').html($('#deleteConfirmedDIV').html());
-    $('#deleteModalFooter').html('<a class="btn modal-close waves-effect" onclick="Javascript:wtkLogout();">Close</a>');
-    $.ajax({
-        type: 'POST',
-        url:  '/wtk/ajxDeleteAcct.php',
-        data: { apiKey: pgApiKey },
-        success: function(data) {
-            setTimeout(function() {
-                if (pgApiKey != '') {
-                    wtkLogout();
-                }
-            }, 9000);
-        }
-    })
-}
-
 function goHome() {
 //    hidePriorPage();
     pageTransition('priorPage', 'dashboard');
     pgPageArray.splice(0);
     pgPageArray.push('0~0~dashboard');
-    $('#backBtn').addClass('hide');
-//    $('#dashboard').removeClass('hide');
-    if ($('#hamburger').hasClass('hide')) {
-        $('#hamburger').removeClass('hide');
+    $('#backBtn').addClass(pgHide);
+//    $('#dashboard').removeClass(pgHide);
+    if ($('#hamburger').hasClass(pgHide)) {
+        $('#hamburger').removeClass(pgHide);
     }
-    if ($('#slideOut').hasClass('hide')) {
-        $('#slideOut').removeClass('hide');
+    if ($('#slideOut').hasClass(pgHide)) {
+        $('#slideOut').removeClass(pgHide);
     }
     wtkFixSideNav();
     getDashboardCounts();
@@ -598,7 +534,7 @@ function getDashboardCounts() {
 var pgLastPhoto = '';
 function takePhoto(fncTable, fncId) {
     pgLastPhoto = fncTable;
-    $('#photoProgressDIV').removeClass('hide');
+    $('#photoProgressDIV').removeClass(pgHide);
     if (pgDebug == 'Y') {
         setTimeout(function() {
             receiveMessageTST('photo-myphoto-8');
@@ -611,6 +547,21 @@ function takePhoto(fncTable, fncId) {
         }
     }
 } // takePhoto
+
+function wtkDialPhone(fncPhone) {
+    wtkDebugMobile('fncPhone = ' + fncPhone);
+    if (pgAccessMethod == 'ios') {
+        let fncCount = fncPhone.length;
+        if (fncCount == 10) { // this fixes USA issue with some area codes
+            fncPhone = '+1' + fncPhone.toString();
+        }
+        wtkSDK.makePhoneCall(fncPhone);
+//      window.ReactNativeWebView.postMessage('dialPhone-' + fncPhone );
+    } else {
+        window.location.href = 'tel:' + fncPhone;
+    }
+    wtkDebugMobile('wtkDialPhone after dialPhone');
+}
 
 const isUIWebView = () => {
     return navigator.userAgent.toLowerCase().match(/\(.*applewebkit(?!.*(version|crios))/)
@@ -647,7 +598,7 @@ function handleMessage(messageArray) {
             let fncFileName = messageArray[2];
             wtkDebugMobile('handleMessage: fncPath = ' + fncPath + '; fncFileName = ' + fncFileName);
             if (elementExist('photoProgressDIV')){
-                $('#photoProgressDIV').addClass('hide');
+                $('#photoProgressDIV').addClass(pgHide);
             }
             if (elementExist('imgPreview')){
                 $("#imgPreview").attr("src", fncPath + fncFileName);
@@ -661,8 +612,8 @@ function handleMessage(messageArray) {
             // }
             // if (pgHasPhoto == 'N') {
             //     pgHasPhoto = 'Y';
-            //     $('#hamburger').removeClass('hide');
-            //     $('#noPhotoDIV').addClass('hide');
+            //     $('#hamburger').removeClass(pgHide);
+            //     $('#noPhotoDIV').addClass(pgHide);
             // }
             break;
         case 'cameraError':
@@ -672,14 +623,14 @@ function handleMessage(messageArray) {
             // not doing break because should do what is in cameraCancel
         case 'cameraCancel':
             wtkDebugMobile('cameraCancel called');
-            $('#photoProgressDIV').addClass('hide');
+            $('#photoProgressDIV').addClass(pgHide);
             /*
             if (pgLastPhoto == 'user') {
-                $('#userCard').removeClass('hide');
-                $('#addPhotoPage').addClass('hide');
-                $('#photoUpload').addClass('hide');
+                $('#userCard').removeClass(pgHide);
+                $('#addPhotoPage').addClass(pgHide);
+                $('#photoUpload').addClass(pgHide);
             }
-            $('#mainPhoto').removeClass('hide');
+            $('#mainPhoto').removeClass(pgHide);
             */
             break;
     } // switch
@@ -723,8 +674,8 @@ function pageTransition(fncFrom, fncTo, fncPage = ''){
 //      $('#pageTitle').html('&nbsp;');
         animateCSS('#' + fncFrom, pgTransitionOut).then((message) => {
           // Do something after the animation
-            $('#' + fncFrom).addClass('hide');
-            $('#' + fncTo).removeClass('hide');
+            $('#' + fncFrom).addClass(pgHide);
+            $('#' + fncTo).removeClass(pgHide);
             wtkDebugLog('animateCSS Out finished: Hide ' + fncFrom + '; Show ' + fncTo + '; fncPage = ' + fncPage);
             if ((fncTo == 'mainPage') && (pgMainPage != '')){
                 $('#mainPage').html(pgMainPage);
@@ -736,18 +687,18 @@ function pageTransition(fncFrom, fncTo, fncPage = ''){
             }
             animateCSS('#' + fncTo, pgTransitionIn).then((message) => {
                 wtkDebugLog('pageTransition: animateCSS In finished');
-//              $('#navCol1').removeClass('hide');
+//              $('#navCol1').removeClass(pgHide);
 //              $('#pageTitle').text('YourCompanyName');
-//              $('#navCol3').removeClass('hide');
+//              $('#navCol3').removeClass(pgHide);
             });
         });
     } else {
         pgLoadWhenReady = 'Y'; // response from server not ready yet
-        $('#' + fncFrom).addClass('hide');
+        $('#' + fncFrom).addClass(pgHide);
         if (fncTo == 'mainPage') {
             $('#mainPage').html('');
         }
-        $('#' + fncTo).removeClass('hide');
+        $('#' + fncTo).removeClass(pgHide);
     }
 } // pageTransition
 
@@ -770,205 +721,14 @@ const animateCSS = (element, animation, prefix = 'animate__') =>
     node.addEventListener('animationend', handleAnimationEnd, {once: true});
 });
 
-function afterPageLoad(fncPage) {
-    if ($('#HasImage').val() == 'Y') {
-//        $('.materialboxed').materialbox();
-        let elemImg = document.querySelectorAll('.materialboxed');
-        let fncTmp = M.Materialbox.init(elemImg);
-        wtkDebugLog('afterPageLoad: HasImage');
-    }
-    if ($('#HasCollapse').val() == 'Y') {
-        let elem1 = document.querySelectorAll('.collapsible');
-        let fncTmp1 = M.Collapsible.init(elem1);
-    }
-    if ($('#HasSelect').val() == 'Y') {
-        let elem2 = document.querySelectorAll('select');
-        let fncTmp2 = M.FormSelect.init(elem2);
-        wtkDebugLog('afterPageLoad: HasSelect');
-    }
-    if ($('#HasDatePicker').val() == 'Y') {
-        let elem3 = document.querySelectorAll('.datepicker');
-        let option3 = {
-            onClose: wtkFixSideNav,
-            setDefaultDate: true
-        };
-        let fncTmp3 = M.Datepicker.init(elem3, option3);
-        wtkDebugLog('afterPageLoad: HasDatePicker');
-    }
-    if ($('#HasTimePicker').val() == 'Y') {
-        let elem4 = document.querySelectorAll('.timepicker');
-        let fncTmp4 = M.Timepicker.init(elem4);
-        wtkDebugLog('afterPageLoad: HasTimePicker');
-    }
-    if ($('#HasTextArea').val() !== undefined) {
-        let fncTextAreas = $('#HasTextArea').val();
-        let fncAreaArray = fncTextAreas.split(',');
-        for(let i = 0; i < fncAreaArray.length; i++){
-            M.textareaAutoResize($('#' + fncAreaArray[i]));
-        }
-    }
-    if ($('#HasSummernote').val() == 'Y') {
-        $('.snote').summernote({
-            toolbar: [
-              ['style', ['style']],
-              ['font', ['bold', 'italic', 'underline', 'clear']],
-              ['fontname', ['fontname']],
-              ['color', ['color']],
-              ['para', ['ul', 'ol', 'paragraph']],
-              ['table', ['table']],
-              ['view', ['codeview', 'help']]],
-            dialogsInBody: true
-        });
-    }
-    if ($('#HasTabs').val() == 'Y') {
-        let elem5 = document.querySelectorAll('.tabs');
-        let fncTmp5 = M.Tabs.init(elem5);
-    }
-    let optionNone = {};
-    if ($('#HasFAB').val() == 'Y') {
-        let elems6 = document.querySelectorAll('.fixed-action-btn');
-        let fncTmp6 = M.FloatingActionButton.init(elems6, optionNone);
-    }
-    if ($('#HasTooltip').val() == 'Y') {
-        let elems7 = document.querySelectorAll('.tooltipped');
-        let fncTmp7 = M.Tooltip.init(elems7, optionNone);
-    }
-    if ($('#HasCarousel').val() == 'Y') {
-        wtkDebugLog('afterPageLoad: HasCarousel 5');
-        $('.carousel').carousel({
-            indicators: true
-        });
-    }
-    if ($('#refreshMenu').val() == 'Y') {
-        $('#refreshMenu').val('N');
-        ajaxFillDiv('menuRefresh','WTK-Admin','myNavbar');
-    }
-    if ($('#CharCntr').val() == 'Y') {
-        M.CharacterCounter.init();
-        M.CharacterCounter.init(document.querySelectorAll('.char-cntr'));
-    }
-    if ($('#wtkUpload').val() !== undefined) {
-        // all File-Upload related functions are in wtkFileUpload.js
-        wtkDebugLog('afterPageLoad: about to set EventListener for wtkUpload to do wtkFileChanged');
-        document.getElementById('wtkUpload').addEventListener('change', (e) => {
-            wtkFileChanged();
-        })
-    }
-    if ($('#wtkUploadFiles').val() !== undefined) {
-        let fncFileIDs = $('#wtkUploadFiles').val();
-        let fncFileUpArray = fncFileIDs.split(',');
-        for (let i = 0; i < fncFileUpArray.length; i++){
-            wtkDebugLog('afterPageLoad: set wtkFileChanged for wtkUpload' + fncFileUpArray[i]);
-            if (elementExist('wtkUpload' + fncFileUpArray[i])) {
-                document.getElementById('wtkUpload' + fncFileUpArray[i]).addEventListener('change', (e) => {
-                    wtkFileChanged(fncFileUpArray[i]);
-                })
-            } else {
-                wtkDebugLog('afterPageLoad: wtkUpload' + fncFileUpArray[i] + ' does not exist');
-            }
-            wtkDebugLog('after set EventListener for wtkUpload to do wtkFileChanged');
-        }
-    }
-    // BEGIN For Quick Filters make Enter Key act to Submit filter
-    if (elementExist('wtkFilter') && elementExist('wtkFilterBtn')){
-        let fncFilter = document.getElementById("wtkFilter");
-        // Execute a function when the user presses a key on the keyboard
-        fncFilter.addEventListener("keypress", function(event) {
-          // Number 13 is the "Enter" key on the keyboard
-          if (event.keyCode === 13) {
-            // Cancel the default action, if needed
-            event.preventDefault();
-            // Trigger the button element with a click
-            document.getElementById("wtkFilterBtn").click();
-          }
-        });
-    }
-    if (elementExist('wtkFilter2') && elementExist('wtkFilterBtn')){
-        let fncFilter2 = document.getElementById("wtkFilter2");
-        // Execute a function when the user releases a key on the keyboard
-        fncFilter2.addEventListener("keypress", function(event) {
-          // Number 13 is the "Enter" key on the keyboard
-          if (event.keyCode === 13) {
-            // Cancel the default action, if needed
-            event.preventDefault();
-            // Trigger the button element with a click
-            document.getElementById("wtkFilterBtn").click();
-          }
-        });
-    }
-    //  END  For Quick Filters make Enter Key act to Submit filter
-    if (elementExist('HasTinyMCE') || elementExist('HasModalTinyMCE')){
-        let fncHasTinyMCE = '';
-        if (elementExist('HasModalTinyMCE')) {
-            fncHasTinyMCE = $('#HasModalTinyMCE').val();
-            wtkDebugLog('afterPageLoad: HasModalTinyMCE = ' + fncHasTinyMCE);
-        }
-        if (fncHasTinyMCE == '') {
-            if (elementExist('HasTinyMCE')) {
-                fncHasTinyMCE = $('#HasTinyMCE').val();
-                wtkDebugLog('afterPageLoad: HasTinyMCE = ' + fncHasTinyMCE);
-            }
-        }
-        if (fncHasTinyMCE != '') {
-            tinymce.init({
-                selector: fncHasTinyMCE,
-                theme: "modern",
-                height: 250,
-                plugins: [
-                    "advlist autolink link lists charmap print preview hr anchor pagebreak spellchecker",
-                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                    "save table contextmenu directionality emoticons template paste textcolor"
-                ],
-                toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link"
-            });
-        }
-    }
-    switch(fncPage) {
-      case 'somePage':
-        $('#backBtn').addClass('hide');
-        break;
-      case 'datePages': // change to pages that need date pickers
-        // $('.datepicker').datepicker();
-        let elem5 = document.querySelectorAll('.datepicker');
-        let option5 = {
-            onClose: fixScroll,
-            setDefaultDate: true
-        };
-        let fncTmp5 = M.Datepicker.init(elem5, option5);
-        // var instancesDate = M.Datepicker.init(elems, {setDefaultDate:true});
-        /*
-        // Range feature did not work in FireFox; did not test other browsers
-//        M.Range.init($(document.querySelector('input[type=range]')));
-        setTimeout(function() {
-            var array_of_dom_elements = document.querySelectorAll("input[type=range]");
-            M.Range.init(array_of_dom_elements);
-            wtkDebugLog('afterPageLoad: calling Range.init');
-        }, 900);
-        */
-        break;
-      case 'dropListPages': // change to pages that require droplist/selects
-        let elem6 = document.querySelectorAll('select');
-        let fncTmp6 = M.FormSelect.init(elem6);
-        wtkDebugLog('afterPageLoad: FormSelect');
-        break;
-      case 'reportEdit': // change to pages that require textarea fields
-        wtkDebugLog('afterPageLoad: textareaAutoResize');
-        M.textareaAutoResize($('#wtkwtkReportsRptNotes'));
-        M.textareaAutoResize($('#wtkwtkReportsRptSelect'));
-        M.textareaAutoResize($('#wtkwtkReportsSortableCols'));
-        break;
-    }
-    wtkToggleShowPassword();
-} // afterPageLoad
-
 function hidePriorPage() {
     let fncCurInfo = pgPageArray[pgPageArray.length - 1];
     let fncCurArray = fncCurInfo.split('~');
     let fncCurrent = fncCurArray[2];
     if (isCorePage(fncCurrent)) {
-        $('#' + fncCurrent).addClass('hide');
+        $('#' + fncCurrent).addClass(pgHide);
     } else {
-        $('#mainPage').addClass('hide');
+        $('#mainPage').addClass(pgHide);
     }
 } // hidePriorPage
 
@@ -988,30 +748,7 @@ function ajaxGo(fncPage, fncId=0, fncRNG=0, fncAddPageQ='Y', fncFrom='') {
     }
     //  END  remove any TinyMCE so can re-initialize on other pages or return to this page
     if (elementExist('HasTooltip')){
-        let fncTooltipInstance;
-        let fncTooltipElems = document.querySelectorAll('.tooltipped');
-        fncTooltipElems.forEach(function(elem) {
-            if (elem.id) { // Check if element has an ID
-                fncTooltipInstance = M.Tooltip.getInstance(document.getElementById(elem.id));
-                $('#' + elem.id).removeClass('tooltipped');
-                wtkDebugLog('removed id ' + elem.id + ' tooltipped style');
-            } else {
-                fncTooltipInstance = M.Tooltip.getInstance(elem);
-                elem.classList.remove('tooltipped'); // Remove tooltipped class
-                wtkDebugLog('removed elem tooltipped style');
-            }
-            if (fncTooltipInstance) {
-                fncTooltipInstance.close();
-                fncTooltipInstance.destroy();
-                wtkDebugLog('fncTooltipInstance.closed/destroyed');
-            }
-        });
-        let fncMatTipElems = document.querySelectorAll('.material-tooltip');
-        fncMatTipElems.forEach(function(elem) { // hide ones not properly destroyed
-//            elem.classList.add('hide');
-            elem.remove(); // Completely remove the tooltip element from the DOM
-            wtkDebugLog('Removed material-tooltip element');
-        });
+        wtkRemoveToolTips();
     }
     let fncCurInfo = pgPageArray[pgPageArray.length - 1];
     let fncCurArray = fncCurInfo.split('~');
@@ -1024,8 +761,8 @@ function ajaxGo(fncPage, fncId=0, fncRNG=0, fncAddPageQ='Y', fncFrom='') {
         }
         pgPageArray.push(fncId + '~' + fncRNG + '~' + fncPage);
         wtkDebugLog('ajaxGo: pushed to pgPageArray fncPage = ' + fncPage + ' ; fncId = ' + fncId + '; fncRNG = ' + fncRNG);
-        if ($('#backBtn').hasClass('hide')) {
-            $('#backBtn').removeClass('hide')
+        if ($('#backBtn').hasClass(pgHide)) {
+            $('#backBtn').removeClass(pgHide)
         }
     } else {
         wtkDebugLog('ajaxGo: not pushing to pgPageArray for fncPage ' + fncPage );
@@ -1173,7 +910,7 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                             animateCSS('#mainPage', pgTransitionOut).then((message) => {
                               // Do something after the animation
                                 $('#mainPage').html(data);
-                                $('#mainPage').removeClass('hide');
+                                $('#mainPage').removeClass(pgHide);
                                 pgFileToUpload = 'N';
                                 afterPageLoad(fncPage);
                                 animateCSS('#mainPage', pgTransitionIn).then((message) => {
@@ -1182,9 +919,9 @@ function ajaxPost(fncPage, fncPost, fncAddPageQ='Y') {
                             });
                         } else {
                             $('#mainPage').html(data);
-                            $('#mainPage').removeClass('hide');
+                            $('#mainPage').removeClass(pgHide);
                             pgFileToUpload = 'N';
-                //          $('#hamburger').removeClass('hide');
+                //          $('#hamburger').removeClass(pgHide);
                             wtkFixSideNav();
                 //          wtkFixSideNav(); // if you add this, it comes from right side
                             afterPageLoad(fncPage);
@@ -1243,9 +980,9 @@ function ajaxFillDiv(fncPage, fncParam, fncDiv, fncRNG = 0) {
                     }
                     if (elementExist('myDashBtn')) {
                         if (fncParam == 1) {
-                            $('#myDashBtn').removeClass('hide');
+                            $('#myDashBtn').removeClass(pgHide);
                         } else {
-                            $('#myDashBtn').addClass('hide');
+                            $('#myDashBtn').addClass(pgHide);
                         }
                     }
                     $(pgLastDashboard).removeClass('widget-header');
@@ -1274,16 +1011,6 @@ function ajaxFillDiv(fncPage, fncParam, fncDiv, fncRNG = 0) {
 } // ajaxFillDiv
 
 // Below Functions are more core related
-function fixScroll() {
-    $('.sidenav').sidenav();
-    wtkDebugLog('called fixScroll');
-}
-function wtkFixSideNav(){
-    if (elementExist('phoneSideBar')) {
-        let fncElem = document.querySelectorAll('.sidenav');
-        M.Sidenav.init(fncElem, {edge:'right'});
-    }
-}
 
 function wtkGoBack() {
     if (pgMPAvsSPA == 'MPA') {
@@ -1299,9 +1026,9 @@ function wtkGoBack() {
         let fncPriorArray = fncPriorInfo.split('~');
         let fncPriorPage = fncPriorArray[2];
         if (isCorePage(fncPriorPage)) {
-            $('#' + fncPriorPage).addClass('hide');
+            $('#' + fncPriorPage).addClass(pgHide);
         } else {
-    //        $('#mainPage').addClass('hide');
+    //        $('#mainPage').addClass(pgHide);
             fncPriorPage = 'mainPage';
         }
         let fncCurInfo = pgPageArray[pgPageArray.length - 1];
@@ -1309,7 +1036,7 @@ function wtkGoBack() {
         let fncCurrent = fncCurArray[2];
         wtkDebugLog('wtkGoBack hiding ' + fncPriorPage + ' and showing ' + fncCurrent + '; fncCurInfo = ' + fncCurInfo + '; pgPageArray.length = ' + pgPageArray.length);
         if (pgPageArray.length == 1) {
-            $('#backBtn').addClass('hide');
+            $('#backBtn').addClass(pgHide);
         }
         if (isCorePage(fncCurrent)) {
             pageTransition(fncPriorPage,fncCurrent);
@@ -1318,12 +1045,12 @@ function wtkGoBack() {
     //          goHome();
                 pgPageArray.splice(0);
                 pgPageArray.push('0~0~dashboard');
-                $('#backBtn').addClass('hide');
-                if ($('#hamburger').hasClass('hide')) {
-                    $('#hamburger').removeClass('hide');
+                $('#backBtn').addClass(pgHide);
+                if ($('#hamburger').hasClass(pgHide)) {
+                    $('#hamburger').removeClass(pgHide);
                 }
-                if ($('#slideOut').hasClass('hide')) {
-                    $('#slideOut').removeClass('hide');
+                if ($('#slideOut').hasClass(pgHide)) {
+                    $('#slideOut').removeClass(pgHide);
                 }
                 wtkFixSideNav();
                 getDashboardCounts();
@@ -1331,7 +1058,7 @@ function wtkGoBack() {
         } else {
             wtkDebugLog('wtkGoBack NOT isCorePage, calling ajaxGo');
     //        $('#mainPage').html('... loading ...');
-    //        $('#mainPage').removeClass('hide');
+    //        $('#mainPage').removeClass(pgHide);
             pageTransition(fncPriorPage, 'mainPage');
             if (fncCurrent == '../reports') {
                 fncCurrent = '/wtk/reports'
@@ -1352,21 +1079,9 @@ function wtkGoBack() {
 function showBackBtn() {
     // currently not used but may be needed; 2VERIFY
     if (pgPageArray.length > 1) {
-        $('#backBtn').removeClass('hide');
+        $('#backBtn').removeClass(pgHide);
     }
 }
-
-function contactUs() {
-    $('.modal').modal({
-        dismissible: false,
-        startingTop: '4%',
-        endingTop: '10%'
-        }
-    );
-    let fncId = document.getElementById('contactDiv');
-    let fncModal = M.Modal.getInstance(fncId);
-    fncModal.open();
-} // contactUs
 
 function showDiv(fncDiv) {
     pageTransition('priorPage', fncDiv);
@@ -1386,38 +1101,6 @@ function ajxFilterEmailTemplate(){
         }
     })
 }
-
-function ajxEmailTemplate(fncId,fncOtherUID=0){
-    // called by emailModal.php
-    if (fncId == '0'){
-        $('#EmailUID').val('');
-        $('#Subject').val('');
-        $('#EmailMsg').val('');
-        $('#labelEmailMsg').removeClass('active');
-        $('#labelSubject').removeClass('active');
-        M.textareaAutoResize($('#EmailMsg'));
-    } else {
-        $.ajax({
-          type: 'POST',
-          url: '/wtk/ajxEmailTemplate.php',
-          data: { apiKey: pgApiKey, id: fncId, oid: fncOtherUID },
-          success: function(data) {
-              let fncJSON = $.parseJSON(data);
-              if (fncJSON.result == 'ok'){
-                  $('#EmailUID').val(fncId);
-                  $('#Subject').val(fncJSON.Subject);
-                  $('#labelSubject').addClass('active');
-                  let fncBody = fncJSON.Body;
-                  fncBody = fncBody.replaceAll('~!~','"');
-                  fncBody = fncBody.replaceAll('^n^', "\r\n");
-                  $('#EmailMsg').val(fncBody);
-                  $('#labelEmailMsg').addClass('active');
-                  M.textareaAutoResize($('#EmailMsg'));
-              }
-          }
-        })
-    }
-} // ajxEmailTemplate
 
 function wtkSendEmail(fncModalId = '', fncURL = '/wtk/ajxSendEmail', fncFormName = 'emailForm', fncEmailBtn = 'emailBtn'){
     let fncEmail = '';
@@ -1439,22 +1122,22 @@ function wtkSendEmail(fncModalId = '', fncURL = '/wtk/ajxSendEmail', fncFormName
                 url: fncAjaxURL,
                 data: (fncFormData),
                 success: function(data) {
-					let fncJSON = $.parseJSON(data);
-					if (fncJSON.result == 'OK'){
-						M.toast({html: "Your message has been sent.", classes: "green rounded"});
+                    let fncJSON = $.parseJSON(data);
+                    if (fncJSON.result == 'OK'){
+                        wtkToastMsg('Your message has been sent.', 'green');
                         if (elementExist('thanksMsg')) {
-                            $('#thanksMsg').removeClass('hide');
+                            $('#thanksMsg').removeClass(pgHide);
                         }
                         if (fncModalId == '') {
-                            $('#' + fncFormName).addClass('hide');
+                            $('#' + fncFormName).addClass(pgHide);
                         } else {
                             let fncId = document.getElementById(fncModalId);
-    						let fncModal = M.Modal.getInstance(fncId);
-    						fncModal.close();
+                            let fncModal = M.Modal.getInstance(fncId);
+                            fncModal.close();
                         }
-					} else {
-						M.toast({html: "Email failed to send", classes: "red rounded"});
-					}
+                    } else {
+                        wtkToastMsg('Email failed to send"', 'red');
+                    }
                 }
             })
         }else{ // not valid email
@@ -1481,12 +1164,10 @@ function sendMail(fncCloseModal = 'Y') {
                     success: function(data) {
                         wtkAlert('Thank you, we will respond to your email soon.','Message Sent', 'blue', 'email');
                         if (fncCloseModal == 'Y') {
-                            let fncId = document.getElementById('contactDiv');
-                            let fncModal = M.Modal.getInstance(fncId);
-                            fncModal.close();
+                            wtkCloseModal('contactDiv');
                         } else {
-                            $('#regForm').addClass('hide');
-                            $('#thanksMsg').removeClass('hide');
+                            $('#regForm').addClass(pgHide);
+                            $('#thanksMsg').removeClass(pgHide);
                         }
                     }
                 })
@@ -1521,10 +1202,8 @@ function wtkModalSendEmail(){
             url:  '/wtk/ajxModalEmail.php',
             data: (fncFormData),
             success: function(data) {
-                M.toast({html: 'Email sent', classes: 'rounded green'});
-                let fncId = document.getElementById('modalWTK');
-                let fncModal = M.Modal.getInstance(fncId);
-                fncModal.close();
+                wtkToastMsg('Email sent','green');
+                wtkCloseModal('modalWTK');
                 if (elementExist('wtkEmailsSentDIV') == true) {
                     if ($('#T').val() == '96xh5r45') {
                         ajaxFillDiv('/wtk/ajxEmailList', 'UserUID', 'wtkEmailsSentDIV', $('#ID1').val());
@@ -1549,7 +1228,7 @@ function wtkSendSMS(fncId){
             url:  '/wtk/ajxSendSMS.php',
             data: { apiKey: pgApiKey, id: fncId, SmsPhone: fncPhone, SmsMsg: fncSmsMsg},
             success: function(data) {
-                M.toast({html: 'SMS message sent', classes: 'rounded green'});
+                wtkToastMsg('SMS message sent','green');
             }
         })
     }
@@ -1557,11 +1236,11 @@ function wtkSendSMS(fncId){
 
 /* Begin: Notification related functions */
 function wtkShowNotificationAdvanced(){
-    if ($('#futureDateDIV').hasClass('hide')){
-        $('#futureDateDIV').removeClass('hide')
+    if ($('#futureDateDIV').hasClass(pgHide)){
+        $('#futureDateDIV').removeClass(pgHide)
         wtkChangeRequired('wtkwtkNotificationsStartDate',true);
     } else {
-        $('#futureDateDIV').addClass('hide')
+        $('#futureDateDIV').addClass(pgHide)
         $('#wtkwtkNotificationsStartDate').val('');
         $('#wtkwtkNotificationsRepeatFrequency1').prop('checked',true);
         wtkChangeRequired('wtkwtkNotificationsStartDate',false);
@@ -1570,33 +1249,23 @@ function wtkShowNotificationAdvanced(){
 function wtkNotificationAudience(fncValue){
     ajaxFillDiv('/wtk/ajxSelAudience', fncValue, 'pickToUID');
     if (fncValue == 'S') {
-        $('#AltDelivery').removeClass('hide');
+        $('#AltDelivery').removeClass(pgHide);
     } else {
-        $('#AltDelivery').addClass('hide');
+        $('#AltDelivery').addClass(pgHide);
     }
 }
-function wtkProofNotification(){
-    let fncIconColor = $('#wtkwtkNotificationsIconColor').val();
-    let fncIcon = $('#wtkwtkNotificationsIcon').val();
-
-    $("#proofIconColor").attr("class", ""); // remove all
-    $("#proofIconColor").addClass('btn-floating');
-    $("#proofIconColor").addClass('btn-large');
-    $("#proofIconColor").addClass(fncIconColor);
-    $("#proofIcon").text(fncIcon);
-}
 function wtkGoToNotification(fncId,fncGoToUrl,fncGoToId,fncGoToRng){
-    $('#alertId' + fncId).addClass('hide');
+    $('#alertId' + fncId).addClass(pgHide);
     let fncAlertCount = roundToPrecision($('#alertCounter').text());
     if (fncAlertCount == 1) {
-        $('#alertCounter').addClass('hide');
+        $('#alertCounter').addClass(pgHide);
         $('#alertCounter').text(0);
     } else {
         fncAlertCount = (fncAlertCount - 1);
         if (fncAlertCount >= 0) {
             $('#alertCounter').text(fncAlertCount);
-            if ($('#alertCounter').hasClass('hide')) {
-                $('#alertCounter').removeClass('hide');
+            if ($('#alertCounter').hasClass(pgHide)) {
+                $('#alertCounter').removeClass(pgHide);
             }
         }
     }
@@ -1618,15 +1287,14 @@ function wtkGoToNotification(fncId,fncGoToUrl,fncGoToId,fncGoToRng){
 /* End: Notification related functions */
 
 function wtkEditHelp(){
-    $('#editHelp').removeClass('hide');
-    $('#editHelpBtn').addClass('hide');
-    $('#saveHelpBtn').removeClass('hide');
+    $('#editHelp').removeClass(pgHide);
+    $('#editHelpBtn').addClass(pgHide);
+    $('#saveHelpBtn').removeClass(pgHide);
 }
 
 function wtkShowHelp(fncId) {
     wtkModal('/wtk/ajxGetHelp','help',fncId,0,'bg-second');
 }
-
 function wtkSaveHelp(fncId) {
     let fncTitle = $('#wtkwtkHelpHelpTitle').val();
     let fncText = $('#wtkwtkHelpHelpText').val();
@@ -1636,58 +1304,12 @@ function wtkSaveHelp(fncId) {
         url: '/wtk/ajxSaveHelp.php',
         data: { apiKey: pgApiKey, id: fncId, title: fncTitle, vid: fncVideo, text: fncText },
         success: function(data) {
-            M.toast({html: 'The help data has been saved.', classes: 'green rounded'});
+            wtkToastMsg('The help data has been saved.', 'green');
         }
     })
 } // wtkSaveHelp
 
-var pgModalColor = '';
-var pgLastModal = '';
 var pgClearBottomModal = true;
-function wtkModal(fncPage, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissable = 'Y') {
-    // First check and close any existing open modals
-    let fncExistingModal = M.Modal.getInstance(document.getElementById('modalWTK'));
-    if (fncExistingModal) {
-        fncExistingModal.close();
-        fncExistingModal.destroy();
-    }
-    waitLoad('on');
-    $.ajax({
-        type: 'POST',
-        url:  fncPage + '.php',
-        data: { apiKey: pgApiKey, Mode: fncMode, id: fncId, rng: fncRNG },
-        success: function(data) {
-            if (pgLastModal == 'reportBug') {
-                $('#reportBug').html($('#modalWTK').html());
-                pgLastModal = '';
-            }
-            $('#modalWTK').html(data);
-            waitLoad('off');
-
-            let fncOptions = {};
-            let fncModalId = document.getElementById('modalWTK');
-            if ($(data).find('input#HasModalTinyMCE').length > 0) {
-                wtkDebugLog("wtkModal: The input field with ID 'HasTinyMCE' exists!");
-                fncOptions.onCloseStart = wtkRemoveModalTinyMCE;
-            }
-            if (fncDismissable == 'N') {
-                wtkDebugLog('wtkModal: added fncDismissable to modal window');
-                fncOptions.dismissible = false;
-            }
-            let fncModal = M.Modal.init(fncModalId, fncOptions);
-            if (pgModalColor != '') {
-                $('#modalWTK').removeClass(pgModalColor);
-            }
-            if (fncColor != '') {
-                pgModalColor = fncColor;
-                $('#modalWTK').addClass(pgModalColor);
-            }
-            fncModal.open();
-            document.getElementById('modalWTK').scrollTop = 0;
-            afterPageLoad('modal');
-        }
-    })
-} // wtkModal
 
 function wtkModalUpdate(fncPage, fncId=0, fncRNG=0) {
     waitLoad('on');
@@ -1838,10 +1460,8 @@ function modalSave(fncPage, fncDiv, fncClose = 'N', fncAppend = 'N') {
                 }
                 if (fncClose == 'Y') {
                     pgClearBottomModal = false;
-                    let fncId = document.getElementById('modalWTK');
-                    let fncModal = M.Modal.getInstance(fncId);
-                    fncModal.close();
-                    M.toast({html: 'Your data has been saved.', classes: 'green rounded'});
+                    wtkCloseModal('modalWTK');
+                    wtkToastMsg('Your data has been saved.', 'green');
                 }
                 wtkFixSideNav();
             }
@@ -1869,9 +1489,7 @@ function modalSaveDoc(fncPage, fncDiv) {
         success: function(data) {
             waitLoad('off');
             $('#' + fncDiv).html(data);
-            let fncId = document.getElementById('modalWTK');
-            let fncModal = M.Modal.getInstance(fncId);
-            fncModal.close();
+            wtkCloseModal('modalWTK');
             wtkFixSideNav();
         }
     })
@@ -1924,7 +1542,7 @@ function wtkBrowseBox(fncURL, fncTableID, fncRNG, fncPgIx, fncOB, fncSRT) {
             let updatedTable = $(data);
             let oldTable = $('#' + fncTableID);
             oldTable.replaceWith(updatedTable);
-            $('.materialboxed').materialbox();
+            wtkTableSetup();
         }
     })
 };
@@ -1942,8 +1560,8 @@ function wtkBrowseFilter(fncURL, fncTableID = '', fncFormID = 'wtkFilterForm') {
             let updatedTable = $(data);
             let oldTable = $('#' + fncTableID);
             oldTable.replaceWith(updatedTable);
-            $('#filterReset').removeClass('hide');
-            $('.materialboxed').materialbox();
+            $('#filterReset').removeClass(pgHide);
+            wtkTableSetup();
         }
     })
 }
@@ -1976,7 +1594,7 @@ function wtkBrowseReset(fncURL, fncTableID = '', fncRNG=0) {
             $('#wtkFilter3').val('');
         }
     }
-    $('#filterReset').addClass('hide');
+    $('#filterReset').addClass(pgHide);
     $.ajax({
         type: 'POST',
         url:  fncURL + '.php',
@@ -1985,7 +1603,7 @@ function wtkBrowseReset(fncURL, fncTableID = '', fncRNG=0) {
             let updatedTable = $(data);
             let oldTable = $('#' + fncTableID);
             oldTable.replaceWith(updatedTable);
-            $('.materialboxed').materialbox();
+            wtkTableSetup();
         }
     })
 } // wtkBrowseReset
@@ -2002,7 +1620,7 @@ function wtkDel(fncTbl, fncId, fncDelDate, fncDesign = 'SPA', fncConfirm = 'N') 
         fncOK = true;
     }
     if (fncOK == true) {
-        $('#D' + fncTbl + fncId).addClass('hide');
+        $('#D' + fncTbl + fncId).addClass(pgHide);
         let fncTableRow = document.getElementById('D' + fncTbl + fncId);
         fncTableRow.style.display = 'none';
         $.ajax({
@@ -2032,7 +1650,7 @@ function wtkDeleteRefresh(fncTbl,fncId,fncRNG) {
                     let updatedTable = $(data);
                     let oldTable = $('#' + fncTbl);
                     oldTable.replaceWith(updatedTable);
-                    $('.materialboxed').materialbox();
+                    wtkTableSetup();
                 }
             })
         }
@@ -2043,10 +1661,10 @@ function wtkMakePageList() {
     // This creates JS file which stores paths to PHP files
     $.getJSON('/wtk/ajxMakePageList.php?apiKey=' + pgApiKey, function(data) {
         gloFilePath.splice(0); // empty array
-        $('#pageMsg').html('<span class="chip green white-text">Website paths and files updated</span>');
         $.each(data, function(key, value) {
             gloFilePath[key] = value;
         });
+        wtkToastMsg('Website paths and files updated','green')
     });
 } // wtkMakePageList
 
@@ -2064,12 +1682,12 @@ function wtkPayPal(fncPayPalItem, fncAmt, fncPage, fncCurCode='USD', fncDivs = '
             onError: function (err) {
                 wtkDebugLog('Error during purchase:');
                 wtkDebugLog(err);
-                M.toast({html: 'Error during purchase - please contact tech support', classes: 'rounded red'});
+                wtkToastMsg('Error during purchase - please contact tech support', 'red');
             },
             onCancel: function (data) {
                 // Show a cancel page, or return to cart
                 wtkDebugLog('Canceled order!');
-                M.toast({html: 'Your order has been canceled', classes: 'rounded orange'});
+                wtkToastMsg('Your order has been canceled', 'orange');
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
@@ -2091,8 +1709,8 @@ function wtkPayPal(fncPayPalItem, fncAmt, fncPage, fncCurCode='USD', fncDivs = '
                         success: function(data) {
                             wtkDebugLog('success on PayPal Save');
                             if (elementExist('paypal-thanks' + fncDivs)){
-                                $('#paypal-buttons' + fncDivs).addClass('hide');
-                                $('#paypal-thanks' + fncDivs).removeClass('hide');
+                                $('#paypal-buttons' + fncDivs).addClass(pgHide);
+                                $('#paypal-thanks' + fncDivs).removeClass(pgHide);
                             } else {
                                 $('#paypal-buttons' + fncDivs).html('<h1>Thank You!</h1>');
                             }
@@ -2138,44 +1756,6 @@ function wtkCheckNotifications() {
     })
 }
 
-function wtkClearBroadcast(fncUID){
-    $('#wtkBC' + fncUID).removeClass('active');
-    $('#wtkBC' + fncUID).removeClass('carousel-item');
-    $('#wtkBC' + fncUID).addClass('hide');
-    $.ajax({ url: '/wtk/ajxClearBroadcast.php?id=' + fncUID + '&apiKey=' + pgApiKey });
-    let fncCount = $('#broadcastCount').val();
-    fncCount = (fncCount - 1);
-    $('#broadcastCount').val(fncCount);
-    if (fncCount == 0) {
-        $('#broadcastDIV').addClass('hide');
-    } else {
-        let fncElem = document.getElementById('broadcastDIV');
-        let fncInstance = M.Carousel.getInstance(fncElem);
-        fncInstance.destroy();
-        wtkDebugLog('8 after fncInstance.destroy');
-        setTimeout(function() {
-            $('.carousel').carousel({
-                indicators: false
-            });
-        }, 180);
-    }
-};
-
-function wtkSetBreadCrumb(fncName,fncGoTo='',fncId=0,fncRNG=0,fncSpecial=''){
-    if (fncSpecial == 'clearFirst'){
-        document.getElementById('myBreadCrumbs').innerHTML = '';
-    }
-    var fncCrumbs = '<a class="breadcrumb"';
-    if (fncGoTo == ''){
-        fncCrumbs += '>';
-    } else {
-        fncCrumbs += ' onclick="JavaScript:ajaxGo(\'';
-        fncCrumbs += fncGoTo + "'," + fncId + ',' + fncRNG + ')">';
-    }
-    fncCrumbs += fncName + '</a>';
-    document.getElementById('myBreadCrumbs').innerHTML += fncCrumbs;
-} // wtkSetBreadCrumb
-
 function wtkRemoveTinyMCE() {
     if (elementExist('HasTinyMCE')) {
         let fncHasTinyMCE = $('#HasTinyMCE').val();
@@ -2207,18 +1787,18 @@ function test(fncShowPage) {
     if (fncShowPage == 'wait') {
         waitLoad('on');
     } else {
-//        $('#myNavbar').removeClass('hide');
+//        $('#myNavbar').removeClass(pgHide);
         pgPageArray.push('0~0~' + fncShowPage);
-        $('#logoutPage').addClass('hide');
+        $('#logoutPage').addClass(pgHide);
         if (isCorePage(fncShowPage)) {
-            $('#' + fncShowPage).removeClass('hide');
+            $('#' + fncShowPage).removeClass(pgHide);
         } else {
             $('#mainPage').html('... loading ...');
-            $('#mainPage').removeClass('hide');
+            $('#mainPage').removeClass(pgHide);
             ajaxGo(fncShowPage,0,0,'Y');
         }
-        $('#hamburger').removeClass('hide');
-        $('#slideOut').removeClass('hide');
+        $('#hamburger').removeClass(pgHide);
+        $('#slideOut').removeClass(pgHide);
         wtkFixSideNav();
     }
 }

@@ -207,31 +207,6 @@ $gloEmailSMTPAuth       = true;
 $gloConfirmDelete       = false;
 //  END  Email configuration variables
 
-$gloRowsPerPage = 20;  // can allow users to change this on a User Preference page
-
-$gloSaveCSS           = 'btn btn-primary';
-$gloCancelCSS         = 'btn btn-default';
-
-$gloDarkLight         = 'Light'; // used for emailing emailDark or emailLight and settign in minibox.htm
-$gloImgWidth          = 200; // used for browse list for image sizes
-$gloImgHeight         = 140; // used for browse list for image sizes
-
-$gloIconAsc           = '<i class="material-icons">expand_less</i>';
-$gloIconDesc          = '<i class="material-icons">expand_more</i>';
-
-$gloIconPrint         = '<i class="material-icons">print</i>';
-$gloIconExport        = '<i class="material-icons">file_download</i>';
-$gloIconExportXML     = 'XML';
-
-$gloIconAdd           = '<i class="material-icons">add</i>';
-$gloIconEdit          = '<i class="material-icons">edit</i>';
-$gloIconDelete        = '<i class="material-icons">delete</i>';
-
-$gloIconFirst         = '<i class="material-icons">first_page</i>';
-$gloIconPrior         = '<i class="material-icons">chevron_left</i>';
-$gloIconNext          = '<i class="material-icons">chevron_right</i>';
-$gloIconLast          = '<i class="material-icons">last_page</i>';
-
 $gloAddPlaceHolder    = true;  // ABS 07/07/14  When Mobile Phone AND Add Page, then hide Label and show PlaceHolder instead
 
 if ((isset($_REQUEST['Debug']) ? $_REQUEST['Debug'] : '') == 'Y' ):
@@ -254,12 +229,14 @@ if (!isset($gloSiteDesign)):
     $pgPos = strpos($gloCurrentPage, '/blog/admin/');
     if ($pgPos !== false):
         $gloSiteDesign = 'MPA'; // WTK blog site uses Multi Page App design
+        $gloCSSLib     = 'MaterializeCSS';
     else:
         $gloSiteDesign = 'SPA'; // MPA or SPA for Multi-Page App or Single Page App
         // Set your default on above line; below will override for WTK special folders/files
         $pgPos = strpos($gloCurrentPage, '/admin/');
         if ($pgPos !== false):
             $gloSiteDesign = 'SPA'; // WTK admin site uses Single Page App design
+            $gloCSSLib     = 'MaterializeCSS';
         else:
             $pgPos = strpos($gloCurrentPage, 'wtk/reports.php');
             if ($pgPos !== false):
@@ -278,16 +255,57 @@ if (wtkGetSession('HashPW') == 'passed'):
     $pgSecurityLevel = 0;
     $gloLoginRequired = false;
 endif;
-// btn-xs, btn-sm, btn-md, btn-lg, btn-xl
-if ($gloDeviceType == 'phone'):
-    $gloIconSize = 'btn-small';
-else:
-    $gloIconSize = '';
-endif;
 $gloPrototype = wtkGetParam('Prototype');
 if ($gloPrototype != ''):
     $_SESSION['Prototype'] = $gloPrototype;
 else:
     $gloPrototype = wtkGetSession('Prototype');
 endif;
+
+if (!isset($gloCSSLib)):
+//  $gloCSSLib     = 'TailwindCSS'; // in development, not ready yet
+    $gloCSSLib     = 'MaterializeCSS';
+endif;
+
+$gloSaveCSS           = 'btn btn-primary';
+$gloCancelCSS         = 'btn';
+
+$gloDarkLight         = 'Light'; // used for emailing emailDark or emailLight and settign in minibox.htm
+$gloImgWidth          = 200; // used for browse list for image sizes
+$gloImgHeight         = 140; // used for browse list for image sizes
+
+// btn-xs, btn-sm, btn-md, btn-lg, btn-xl
+if ($gloDeviceType == 'phone'):
+    $gloIconSize = 'btn-small';
+else:
+    $gloIconSize = '';
+endif;
+
+$gloIconAsc           = '<i class="material-icons">expand_less</i>';
+$gloIconDesc          = '<i class="material-icons">expand_more</i>';
+
+$gloIconPrint         = '<i class="material-icons">print</i>';
+// $gloIconExport        = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-download"/></svg>'; //  '<i class="material-icons">file_download</i>';
+$gloIconExport        = 'csv';
+$gloIconExportXML     = 'xml';
+
+if ($gloCSSLib == 'TailwindCSS'):
+    $gloIconAdd       = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-plus"/></svg>';
+    $gloIconEdit      = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-edit"/></svg>';
+    $gloIconDelete    = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-trash"/></svg>';
+    $gloIconFirst     = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-first-page"/></svg>';
+    $gloIconPrior     = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-chevron-left"/></svg>';
+    $gloIconNext      = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-chevron-right"/></svg>';
+    $gloIconLast      = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-last-page"/></svg>';
+else:
+    $gloIconAdd       = '<i class="material-icons">add</i>';
+    $gloIconEdit      = '<i class="material-icons">edit</i>';
+    $gloIconDelete    = '<i class="material-icons">delete</i>';
+    $gloIconFirst     = '<i class="material-icons">first_page</i>';
+    $gloIconPrior     = '<i class="material-icons">chevron_left</i>';
+    $gloIconNext      = '<i class="material-icons">chevron_right</i>';
+    $gloIconLast      = '<i class="material-icons">last_page</i>';
+endif;
+
+$gloRowsPerPage = 20;  // defaults to 50; reset here and can allow users to change this on a User Preference page
 ?>
