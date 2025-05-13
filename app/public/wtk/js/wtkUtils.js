@@ -147,21 +147,6 @@ function wtkOpenPage(fncPage, fncId, fncRNG){
 //  END  Navigation related functions
 
 // BEGIN Input Field related functions
-function wtkToggleShowPassword() {
-    document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
-        toggleIcon.addEventListener('click', function() {
-            const input = document.querySelector(this.getAttribute('data-toggle'));
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.textContent = 'visibility_off';
-            } else {
-                input.type = 'password';
-                this.textContent = 'visibility';
-            }
-        });
-    });
-} // wtkToggleShowPassword
 function wtkFocusOnInput() {
     setTimeout(function() {
         let fncReqField = document.getElementById(fncRequiredFieldId);

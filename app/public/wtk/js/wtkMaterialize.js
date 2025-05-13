@@ -116,6 +116,21 @@ function wtkStartMaterializeCSS() {
         pgHide = 'hide'; // 'hide' for MaterializeCSS, TailwindCSS uses 'hidden'
     });
 } // wtkStartMaterializeCSS
+function wtkToggleShowPassword() {
+    document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
+        toggleIcon.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('data-toggle'));
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                this.textContent = 'visibility';
+            }
+        });
+    });
+} // wtkToggleShowPassword
 
 function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warning', fncReqId = '') {
     if (fncLastIconColor != fncColor) {

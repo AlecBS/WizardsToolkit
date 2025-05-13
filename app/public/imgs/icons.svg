@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="icon-mail"
+  <symbol id="icon-email"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -76,6 +76,15 @@
     <circle cx="11" cy="11" r="8"/>
     <path d="m21 21-4.3-4.3"/>
   </symbol>
+  <symbol id="icon-lock"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+    <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+  </symbol>
   <symbol id="icon-csv"
           viewBox="0 0 24 24"
           fill="#000"
@@ -115,19 +124,37 @@
           stroke-linejoin="round">
     <path stroke="currentColor" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
   </symbol>
+  <symbol id="icon-eye"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  </symbol>
+  <symbol id="icon-eye-off"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    <path d="M1 1l22 22" />
+  </symbol>
   <!-- Page Navigation -->
   <symbol id="icon-first-page" viewBox="0 0 24 24" fill="currentColor">
     <path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"/>
   </symbol>
-
   <symbol id="icon-chevron-left" viewBox="0 0 24 24" fill="currentColor">
     <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
   </symbol>
-
   <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="currentColor">
     <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
   </symbol>
-
   <symbol id="icon-last-page" viewBox="0 0 24 24" fill="currentColor">
     <path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"/>
   </symbol>

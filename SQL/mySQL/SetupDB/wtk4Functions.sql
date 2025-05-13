@@ -97,10 +97,10 @@ CREATE FUNCTION `fncContactIcons`(fncEmail VARCHAR(80),
     IF COALESCE(fncEmail,'') <> '' THEN
         IF (fncModalEmail = 'Y') THEN
             SET fncHTM = CONCAT(fncHTM,'<a onclick="wtkModal(', "'/wtk/emailModal','", fncEmailCode, "',",
-                fncUserUID, ",''", ');"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-mail"/></svg></a> ');
+                fncUserUID, ",''", ');"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-email"/></svg></a> ');
         ELSE
             SET fncHTM = CONCAT('<a href="mailto:', fncEmail,
-                '"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-mail"/></svg></a> ');
+                '"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-email"/></svg></a> ');
         END IF;
     END IF;
     -- enhanced for future mobile app functionality
