@@ -22,19 +22,25 @@ $pgFilter = array (
     'Email' => $pgUserEmail
 );
 
+if ($gloCSSLib == 'TailwindCSS'):
+    $pgCSSerr = 'inline-flex items-center px-3 py-1 rounded-full bg-red-600 text-white text-sm font-medium';
+else:
+    $pgCSSerr = 'chip red white-text';
+endif;
+
 $pgDbPassword = wtkSqlGetOneResult($pgSQL, $pgFilter, 'NotExists');
 if ($pgDbPassword == 'NotExists'): // email does not exist in DB
     if ($pgForgot != ''): // Forgot PW request
-        $pgResult = "<span class='chip red white-text'>" . wtkLang('That email account does not exist on our site') . '.</span>';
+        $pgResult = "<span class='$pgCSSerr'>" . wtkLang('That email account does not exist on our site') . '.</span>';
     else: // Login request
-        $pgResult = "<span class='chip red white-text'>" . wtkLang('Email address does not exist in our system') . '.</span>';
+        $pgResult = "<span class='$pgCSSerr'>" . wtkLang('Email address does not exist in our system') . '.</span>';
     endif;
 else:
     if ($pgForgot == ''): // login attempt, did not forget password
         $pgUserOrigPW = wtkGetPost('pw');
         $pgUserPW = hash_hmac('sha256', $pgUserOrigPW, $gloAuthStatus);
         if (!password_verify($pgUserPW, $pgDbPassword)):
-            $pgResult = "<span class='chip red white-text'>" . wtkLang('Email address or password is invalid') . '.</span>';
+            $pgResult = "<span class='$pgCSSerr'>" . wtkLang('Email address or password is invalid') . '.</span>';
 //          $pgMoreResult  = ',"debug":"' . $pgUserPW .'"';
         else:
             $pgResult = 'success';
@@ -205,8 +211,9 @@ EMAILBODY;
         if (wtkSendMail($pgMailArray,$pgSaveArray)):
             $pgResult = 'success';
         else:
-            $pgResult  = "<span class='chip red white-text left'>". wtkLang('Email Failure') . '</span><br><br>';
-            $pgResult .= '<p>Email failed to send for some reason.  Please email ' . $gloTechSupport . ' with your account email address so they can review the problem.</p>';
+            $pgResult  = "<span class='$pgCSSerr'><h3>". wtkLang('Email Failure') . '</h3></span><br><br>';
+            $pgResult .= '<p>Email failed to send for some reason.  Please email ' . $gloTechSupport ;
+            $pgResult .= ' with your account email address so they can review the problem.</p><br>';
         endif;
     endif;
     // ABS 04/12/20   END  called from Forgot Password

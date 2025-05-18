@@ -246,7 +246,7 @@ htmVAR;
 * @return html returns modified passed $fncHtm with data values
 */
 function wtkDisplayData($fncColName, $fncHtm, $fncTable = '', $fncDefaultIfBlank = '', $fncPrepType = 'text'){
-    global $gloForceRO, $gloWTKmode, $gloPhpDateTime;
+    global $gloForceRO, $gloWTKmode, $gloPhpDateTime, $gloCSSLib;
     $fncData = wtkSqlValue($fncColName);
     if ($fncPrepType == 'date'): // temp date fix
         if (($gloForceRO == true) && ($fncData != '')):
@@ -254,7 +254,9 @@ function wtkDisplayData($fncColName, $fncHtm, $fncTable = '', $fncDefaultIfBlank
         else:
             $fncData = wtkReplace($fncData,'-','/');
         endif;
-        $fncHtm = wtkReplace($fncHtm,'type="date"','type="text"');
+        if ($gloCSSLib == 'MaterializeCSS'):
+            $fncHtm = wtkReplace($fncHtm,'type="date"','type="text"');
+        endif;
         $fncPrepType = 'text';
     endif;
     if ($fncData !== ''): // if != then 0 not caught here
@@ -276,7 +278,9 @@ function wtkDisplayData($fncColName, $fncHtm, $fncTable = '', $fncDefaultIfBlank
             $fncResult = wtkReplace($fncResult, '<label for="wtk' . $fncTable . $fncColName, $fncTmp . '        <label for="wtk' . $fncTable . $fncColName);
         endif;
         if ($fncData != ''):
-            $fncResult = wtkReplace($fncResult, '<label for="wtk' . $fncTable . $fncColName,'<label class="active" for="wtk' . $fncTable . $fncColName);
+            if ($gloCSSLib == 'MaterializeCSS'):
+                $fncResult = wtkReplace($fncResult, '<label for="wtk' . $fncTable . $fncColName,'<label class="active" for="wtk' . $fncTable . $fncColName);
+            endif;
         endif;
     endif;
     return $fncResult;

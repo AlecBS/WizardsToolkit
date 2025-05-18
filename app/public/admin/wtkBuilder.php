@@ -366,7 +366,7 @@ $pgHtm .=<<<htmVAR
             </div>
         </div>
         <div class="col m6 s12 center"><br>
-            <button type="button" class="btn b-shadow waves-effect waves-light" onclick="Javascript:ajaxWTKbuild()">Generate Page(s)</button>
+            <button type="button" class="btn b-shadow waves-effect waves-light" onclick="Javascript:ajaxWTKbuild('')">Generate Page(s)</button>
             <br><span id="buildMsg" class="green-text"></span>
         </div>
     </div>

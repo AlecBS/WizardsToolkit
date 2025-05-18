@@ -92,7 +92,7 @@ function generatePromoCodes(){
 }
 
 // wtkBuilder
-function ajaxWTKbuild() {
+function ajaxWTKbuild(fncVersion = '') {
     let fncBrFile = $('#wtkRFBBrPHPfilename').val();
     let fncUpFile = $('#wtkRFBUpPHPfilename').val();
 //    if ((fncBrFile == undefined) && (fncUpFile == undefined)){
@@ -102,9 +102,10 @@ function ajaxWTKbuild() {
         let fncFormData = $('#wtkBuild').serialize();
         fncFormData = fncFormData + '&apiKey=' + pgApiKey ;
         waitLoad('on');
+        let fncWTKfile = 'wtkBuilder' + fncVersion + '.php';
         $.ajax({
             type: 'POST',
-            url:  'wtkBuilder.php',
+            url:  fncWTKfile,
             data: (fncFormData),
             success: function(data) {
                 M.toast({html: 'Your file has been created!', classes: 'rounded'});
