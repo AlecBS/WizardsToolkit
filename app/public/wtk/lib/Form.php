@@ -1,6 +1,7 @@
 <?php
 /**
-* This contains Wizard's Toolkit functions for building HTML form fields.
+* This contains Wizard's Toolkit functions for building HTML form fields
+* excluding library-specific functions for MaterializeCSS or TailwindCSS
 *
 * These are universal functions required for saving of data, priming fields, hidden fields, etc.
 *
@@ -26,8 +27,83 @@
 * @author      Programming Labs <support@programminglabs.com>
 * @license     Copyright 2021-2025, All rights reserved.
 * @link        Official page: https://wizardstoolkit.com
-* @version     2.0
-*/
+* @version     2.1
+**/
+
+/**
+ * This receives form field HTML with tokens and replaces the @tokens@ with data.
+ *
+ * This is called within other MaterializeCSS PHP functions.  It sets class="active" for label
+ * when there is data in the form field.
+ *
+ * @param string $fncColName data column name
+ * @param string $fncHtm that has tokens to be changed into data
+ * @param string $fncTable defaults to '' blank; if passed then prepares field for WTK updating and saving
+ * @param string $fncDefaultIfBlank defaults to ''; if currently no value in data, use this default
+ * @param string $fncPrepType defaults to 'text' and used by wtkFormPrepUpdField
+ * @uses function wtkFormPrepUpdField
+ * @return html returns modified passed $fncHtm with data values
+ */
+function wtkDisplayData($fncColName, $fncHtm, $fncTable = '', $fncDefaultIfBlank = '', $fncPrepType = 'text'){
+    global $gloForceRO, $gloWTKmode, $gloPhpDateTime, $gloCSSLib;
+    $fncData = wtkSqlValue($fncColName);
+    if ($fncPrepType == 'date'): // temp date fix
+        if (($gloForceRO == true) && ($fncData != '')):
+            $fncData = date($gloPhpDateTime, strtotime($fncData));
+        else:
+            $fncData = wtkReplace($fncData,'-','/');
+        endif;
+        if ($gloCSSLib == 'MaterializeCSS'):
+            $fncHtm = wtkReplace($fncHtm,'type="date"','type="text"');
+        endif;
+        $fncPrepType = 'text';
+    endif;
+    if ($fncData !== ''): // if != then 0 not caught here
+        $fncData = htmlentities($fncData);
+        $fncResult = wtkReplace($fncHtm, '@' . $fncColName . '@', $fncData);
+    else:
+        if ($fncDefaultIfBlank == ''):
+            $fncResult = wtkReplace($fncHtm, '@' . $fncColName . '@', '');
+        else:
+            $fncResult = wtkReplace($fncHtm, $fncDefaultIfBlank, '');
+        endif;
+    endif;
+    if ($fncTable != ''):
+        if ($gloForceRO == false):
+            wtkFormPrepUpdField($fncTable, $fncColName, $fncPrepType);
+        endif;
+        if (($gloWTKmode != 'ADD') && ($gloForceRO == false)):
+            $fncTmp = wtkFormHidden('Origwtk' . $fncTable . $fncColName, wtkReplace($fncData, '"','~`'));
+            $fncResult = wtkReplace($fncResult, '<label for="wtk' . $fncTable . $fncColName, $fncTmp . '        <label for="wtk' . $fncTable . $fncColName);
+        endif;
+        if ($fncData != ''):
+            if ($gloCSSLib == 'MaterializeCSS'):
+                $fncResult = wtkReplace($fncResult, '<label for="wtk' . $fncTable . $fncColName,'<label class="active" for="wtk' . $fncTable . $fncColName);
+            endif;
+        endif;
+    endif;
+    return $fncResult;
+}  // wtkDisplayData
+
+/**
+ * This is called by many form-creating functions to generate the Label text.
+ *
+ * If a Label is passed it is returned directly.  Otherwise this uses the Column Name and inserts spaces.
+ * Generally this will only be called by internal functions.
+ *
+ * @param string $fncLabel can be passed '' blank value
+ * @param string $fncColName data column name like what was passed to wtkFormText
+ * @return html returns text to use as Label
+ */
+function wtkFormLabel($fncLabel, $fncColName) {
+    if ($fncLabel == ''):
+        $fncLabel = wtkInsertSpaces($fncColName);
+        $fncLabel = wtkReplace($fncLabel, ' UID','');
+        $fncLabel = wtkReplace($fncLabel, ' U ID','');
+    endif;
+    $fncLabel = wtkLang($fncLabel);
+    return $fncLabel;
+} // wtkFormLabel
 
 /**
 * This function can be called at top of page to determine if page should be read-only.

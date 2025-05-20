@@ -1,4 +1,5 @@
 <?PHP
+$gloCSSLib = 'MaterializeCSS';
 $pgSecurityLevel = 1;
 $gloSiteDesign  = 'MPA'; // MPA or SPA for Multi-Page App or Single Page App; usually set in wtkServerInfo.php
 // next IF statement only needed for SPA methodology
@@ -169,6 +170,7 @@ $gloMoreButtons = array(
 
 $pgHtm =<<<htmVAR
 <div class="container">
+    <br><br>
     <h4>Pet List
         <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('/demo/petList','pets','$gloRNG')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>

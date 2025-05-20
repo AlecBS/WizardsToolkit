@@ -258,7 +258,7 @@ function wtkHref($fncURL, $fncTitle, $fncClass = '') {
 * @return html with listing of broadcast alerts
 */
 function wtkBroadcastAlerts($fncMode = 'display') {
-    global $gloWTKobjConn, $gloUserUID, $gloUserSecLevel, $gloPrinting;
+    global $gloWTKobjConn, $gloUserUID, $gloUserSecLevel, $gloPrinting, $gloCSSLib;
     $fncResult = ''; // No broadcast messages';
     $fncFilter = '';  // can enhance here based on security level, role, etc.
     if ($gloUserSecLevel < 20):
@@ -326,7 +326,12 @@ SQLVAR;
             endif;  // fncHeader != ''
             $fncTmp .= '  <br><p>' . nl2br($fncRow['MessageNote']) . '</p>' . "\n";
             if ($fncRow['AllowClose'] == 'Y'):
-                $fncTmp .= '<br><button class="btn btn-default" onclick="wtkClearBroadcast(' . $fncUID . ')">' . $fncRow['CloseMessage'] . '</button>';
+                if ($gloCSSLib == 'TailwindCSS'):
+                    $fncBtn = 'wtk-btn-square';
+                else:
+                    $fncBtn = 'btn';
+                endif;
+                $fncTmp .= '<br><button class="' . $fncBtn . '" onclick="wtkClearBroadcast(' . $fncUID . ')">' . $fncRow['CloseMessage'] . '</button>';
             endif;
             $fncTmp .= '</div>' . "\n";
             $fncContent .= $fncTmp;
@@ -419,7 +424,7 @@ function wtkMergePage($fncFiller, $fncPageTitle, $fncTemplateHTML = '', $fncSkip
     global $gloCoLogo, $gloCoName, $gloMobileApp, $gloFormMsg, $gloJsInit,
            $gloFormChangeArray, $pgSearchReplaceCntr, $gloShowPrint, $gloPrinting,
            $gloShowExport, $gloShowExportXML, $gloIconPrint, $gloIconExport, $gloIconExportXML,
-           $gloIsFileUploadForm, $gloUserUID, $gloMyPage, $gloDarkLight;
+           $gloIsFileUploadForm, $gloUserUID, $gloMyPage, $gloDarkLight, $gloCSSLib;
 
     // BEGIN  moved here since Header needs to be affected
     if (wtkGetParam('Err') == 'BadSearch'):
@@ -470,10 +475,15 @@ function wtkMergePage($fncFiller, $fncPageTitle, $fncTemplateHTML = '', $fncSkip
             $fncTemplate = wtkReplace($fncTemplate, '@FormEncType@', '');
         endif;
         //  END   Used in upload file forms.
+        if ($gloCSSLib == 'TailwindCSS'):
+            $fncBtn = '"wtk-btn wtk-btn-square"';
+        else:
+            $fncBtn = '"btn btn-sm" style="cursor: pointer;"';
+        endif;
 
         if (wtkGetGet('Mode') != 'Export' && wtkGetGet('Mode') != 'XML'):
             if ($gloShowPrint == true && $gloPrinting == false):
-                $fncPrintBtn = '<a class="btn btn-default btn-sm" style="cursor: pointer;" onclick="JavaScript:wtkPrint(' . $gloUserUID . ');">' . $gloIconPrint . '</a>';
+                $fncPrintBtn = '<a class=' . $fncBtn . ' onclick="JavaScript:wtkPrint(' . $gloUserUID . ');">' . $gloIconPrint . '</a>';
                 // ABS 09/26/13  BEGIN  wtkPrint required form
                 $fncTmp  = '<form action="' . _WTK_RootPATH . 'lib/Print.php" method="post" name="PrintForm" id="PrintForm">' . "\n";
                 $fncTmp .= '<input type="hidden" name="hdr" id="hdr" value="' . $fncPageTitle . '">' . "\n";
@@ -483,10 +493,10 @@ function wtkMergePage($fncFiller, $fncPageTitle, $fncTemplateHTML = '', $fncSkip
             endif;  // $gloShowPrint == true && $gloPrinting == false
             if ($gloShowExport):   // moved Export feature to separate variable check
                 // $fncExportBtn = '<img src="' . $gloIconExport . '" width="20" height="20" border="0" alt="Export" onClick="';
-                $fncExportBtn = '<a class="btn btn-default btn-sm" style="cursor: pointer;" onclick="JavaScript:wtkSubmitToPrint(\'' . $gloMyPage . '?Mode=Export&' . wtkGetServer("QUERY_STRING") . '\');">' . $gloIconExport . '</a>';
+                $fncExportBtn = '<a class=' . $fncBtn . ' onclick="JavaScript:wtkSubmitToPrint(\'' . $gloMyPage . '?Mode=Export&' . wtkGetServer("QUERY_STRING") . '\');">' . $gloIconExport . '</a>';
             endif; // ($gloShowExport)
             if ($gloShowExportXML):
-                $fncExportXMLBtn = '<a class="btn btn-default btn-sm" style="cursor: pointer;" onclick="JavaScript:wtkSubmitToPrint(\'' . $gloMyPage . '?Mode=XML&' . wtkGetServer("QUERY_STRING") . '\');">' . $gloIconExportXML . '</a>';
+                $fncExportXMLBtn = '<a class=' . $fncBtn . ' onclick="JavaScript:wtkSubmitToPrint(\'' . $gloMyPage . '?Mode=XML&' . wtkGetServer("QUERY_STRING") . '\');">' . $gloIconExportXML . '</a>';
             endif; // ($gloShowExportXML)
         endif;  // wtkGetGet('Mode') != 'Export'
         $fncTemplate = wtkReplace($fncTemplate, '<!-- @HeaderButtons@ -->', $fncPrintBtn . ' ' . $fncExportBtn. ' ' . $fncExportXMLBtn . '<!-- @HeaderButtons@ -->');
