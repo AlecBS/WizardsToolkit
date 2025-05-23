@@ -640,7 +640,7 @@ function handleMessage(messageArray) {
 var pgMainPage = '';
 var pgLoadWhenReady = 'N'; // in case ajax result is slower than animation
 function pageTransition(fncFrom, fncTo, fncPage = ''){
-    wtkDebugLog('pageTransition Top: fncFrom = ' + fncFrom + '; fncTo = ' + fncTo + '; fncPage = ' + fncPage);
+    wtkDebugLog('pageTransition Top: fncFrom = ' + fncFrom + '; fncTo = ' + fncTo + '; fncPage = ' + fncPage + '; pgUseTransition =' + pgUseTransition);
     if (fncFrom == 'priorPage') {
         let fncCurInfo = pgPageArray[pgPageArray.length - 1];
         let fncCurArray = fncCurInfo.split('~');
@@ -699,6 +699,7 @@ function pageTransition(fncFrom, fncTo, fncPage = ''){
             $('#mainPage').html('');
         }
         $('#' + fncTo).removeClass(pgHide);
+        wtkDebugLog('pageTransition: bottom removed ' + pgHide + ' for ' + fncTo);
     }
 } // pageTransition
 
@@ -975,7 +976,7 @@ function ajaxFillDiv(fncPage, fncParam, fncDiv, fncRNG = 0) {
             $('#' + fncDiv).html(data);
             switch (fncPage) {
                 case '/wtk/widgets':
-                    if (elementExist('HasTooltip')){
+                    if (elementExist('HasTooltip') && (pgHide == 'hide')){
                         $('.tooltipped').tooltip();
                     }
                     if (elementExist('myDashBtn')) {
