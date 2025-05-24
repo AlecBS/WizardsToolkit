@@ -11,7 +11,7 @@ $pgBtns = wtkModalUpdateBtns('../wtk/lib/Save','revDIV');
 $pgSQL =<<<SQLVAR
 SELECT e.`PaymentProvider`, L.`LookupDisplay` AS `RevenueType`, r.`PaymentStatus`,
     CONCAT(COALESCE(u.`FirstName`,''), ' ', COALESCE(u.`LastName`,'')) AS `AssociatedUser`,
-    r.`PayerEmail`, r.`PayerId`, r.`FirstName`, r.`LastName`,
+    r.`EcomPayId`, r.`PayerEmail`, r.`PayerId`, r.`FirstName`, r.`LastName`,
     r.`ItemName`, r.`ItemNumber`, r.`OrderUID`, r.`GrossAmount`, r.`MerchantFee`,
     r.`IPaddress`, r.`CurrencyCode`, r.`EcomTxnType`, r.`EcomPayId`, r.`DevNote`,
     e.`EcomPayLink`
@@ -67,18 +67,25 @@ $pgHtm .= wtkFormText('wtkRevenue', 'GrossAmount','text','','m4 s12');
 $pgHtm .= wtkFormText('wtkRevenue', 'MerchantFee','text','','m4 s12');
 $pgHtm .= wtkFormText('wtkRevenue', 'CurrencyCode','text','','m4 s12');
 $pgHtm .= wtkFormText('wtkRevenue', 'EcomTxnType','text','TxnType','m4 s12');
-if ($pgPaymentProvider == 'Checkout'):
+//if ($pgPaymentProvider == 'Checkout'):
     $pgEcomPayId = wtkSqlValue('EcomPayId');
     if ($pgEcomPayId != ''):
         $pgHtm .= wtkFormText('wtkRevenue', 'EcomPayId','text','Payment ID','m4 s11');
         $pgEcomPayLink = wtkSqlValue('EcomPayLink');
+        if ($pgPaymentProvider == 'Checkout'):
+            $pgPayLink = $pgEcomPayId;
+        else:
+            $pgPayerId = wtkSqlValue('EcomPayId'); // use this for Stripe
+            $pgPayLink = $pgPayerId;
+        endif;
+
         $pgHtm .=<<<htmVAR
 <div class="col m1 s1">
-    <a href="$pgEcomPayLink$pgEcomPayId" data-tooltip="use to refund or review" class="btn tooltipped" target="_blank">Checkout.com</a>
+    <a href="$pgEcomPayLink$pgPayLink" data-tooltip="use to refund or review" class="btn tooltipped" target="_blank">Stripe</a>
 </div>
 htmVAR;
     endif;
-endif;
+//endif;
 $gloForceRO = false;
 $pgHtm .= wtkFormTextArea('wtkRevenue', 'DevNote','Internal Note','s12');
 
