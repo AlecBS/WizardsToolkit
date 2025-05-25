@@ -1224,6 +1224,11 @@ textarea.materialize-textarea:disabled+label {
 .widget-dashboard td {
   padding: 5px 5px !important;
 }
+.widget-chart {
+  min-height: 0.75em;
+  aspect-ratio: 4 / 3;
+  height: auto;
+}
 /* Gradients used for Widgets */
 .info-gradient {
   /* fallback/image non-cover color */

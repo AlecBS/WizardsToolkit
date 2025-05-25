@@ -1379,6 +1379,8 @@ function wtkPrepFormPost(fncFormName) {
                         for (let i = 0; i < fncFileUpArray.length; i++){
                             wtkfUploadFile(fncFileUpArray[i]);
                         }
+                    } else {
+                        wtkDebugLog('wtkPrepFormPost: not going to upload files; pgFileToUpload: ' + pgFileToUpload + '; pgFileSizeOK: ' + pgFileSizeOK);
                     }
                 }
             } else { // not uploading forms

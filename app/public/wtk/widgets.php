@@ -1,4 +1,5 @@
 <?PHP
+$gloSiteDesign = 'SPA';
 $pgSecurityLevel = 1;
 define('_RootPATH', '../');
 require('wtkLogin.php');
@@ -194,6 +195,7 @@ SQLVAR;
                 break;
             case 'Chart':
                 $fncChartType = strtolower($fncPDOrow['ChartType']);
+                $fncTmp = wtkReplace($fncTmp, 'card b-shadow', 'widget-chart card b-shadow');
 //              $fncChartOps = array('regRpt', 'bar','pie');
                 $fncChartOps = array($fncChartType);
                 $fncContent = wtkRptChart($fncWidgetSQL, [], $fncChartOps, $fncChartNum);
