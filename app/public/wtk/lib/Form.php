@@ -51,7 +51,9 @@ function wtkDisplayData($fncColName, $fncHtm, $fncTable = '', $fncDefaultIfBlank
         if (($gloForceRO == true) && ($fncData != '')):
             $fncData = date($gloPhpDateTime, strtotime($fncData));
         else:
-            $fncData = wtkReplace($fncData,'-','/');
+            if ($gloCSSLib == 'MaterializeCSS'):
+                $fncData = wtkReplace($fncData,'-','/');
+            endif;
         endif;
         if ($gloCSSLib == 'MaterializeCSS'):
             $fncHtm = wtkReplace($fncHtm,'type="date"','type="text"');

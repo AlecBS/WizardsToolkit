@@ -243,7 +243,7 @@ function wtkPostHog($fncPageTitle, $fncDistinctId, $fncEvent = '~pageview'){
 	$fncHeaders = array('Content-Type: application/json');
 
 	$fncExtras = '';
-	$fncBrowserArray = get_browser(null, true); //this function requires php_browscap.ini installed on the server.  Some servers have it but is not php default
+    $fncBrowserArray = safe_get_browser();
 	if ($fncBrowserArray != ''):
 		$fncPlatform = isset($fncBrowserArray['platform']) ? substr($fncBrowserArray['platform'], 0, 25) : 'NULL';
 		$fncBrowser = isset($fncBrowserArray['browser']) ? substr($fncBrowserArray['browser'], 0, 20) : 'NULL';

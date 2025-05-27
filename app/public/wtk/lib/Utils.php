@@ -27,13 +27,6 @@
 * @version     2.0
 */
 
-$gloCurrentPage = wtkGetServer('QUERY_STRING');
-if ($gloCurrentPage != ''):
-    $gloCurrentPage = $_SERVER['PHP_SELF'] . '?'. $gloCurrentPage;
-else:   // Not $gloCurrentPage != ''
-    $gloCurrentPage = $_SERVER['PHP_SELF'];
-endif;  // $gloCurrentPage != ''
-
 if (!isset($gloTrackTime)){$gloTrackTime=false;}
 $gloTimeTrackCntr  = 0;
 $gloTimeTrackArray = array();
@@ -298,7 +291,7 @@ function wtkInsFailedAttempt($fncFailCode, $fncFailNote = '') {
         $fncUserUID = $gloUserUID;
     endif;
     $fncIPaddress = wtkGetIPaddress();
-    $fncBrowserArray = get_browser(null, true); //this function requires php_browscap.ini installed on the server.  Some servers have it but is not php default
+    $fncBrowserArray = safe_get_browser();
     if ($fncBrowserArray == ''):
         $fncPlatform = 'NULL';
         $fncBrowser = 'NULL';
@@ -1258,6 +1251,27 @@ function wtkShowArrayValue($fncArray, $fncAddBR = 'N') {
     endforeach;
     return $fncResult;
 } // wtkShowArrayValue
+
+/**
+ * safe_get_browser will return '' instead of giving an error if get_browser won't work
+ *
+ * @return string containing browser info or '' if not available
+ */
+function safe_get_browser() {
+    // Check if the 'browscap' setting is defined and points to a readable file
+    $browscap = ini_get('browscap');
+    if (!$browscap || !is_readable($browscap)):
+        // browscap not set or not readable — return null to avoid calling get_browser()
+        $browser = '';
+    else:
+        // browscap is set and usable, so now we can call get_browser safely
+        $browser = @get_browser(null, true);
+        if ($browser === false):
+            $browser = '';
+        endif;
+    endif;
+    return $browser;
+} // safe_get_browser
 
 /**
  * Get HTML-encoded currency symbol based on currency code

@@ -1546,6 +1546,10 @@ function wtkBrowseBox(fncURL, fncTableID, fncRNG, fncPgIx, fncOB, fncSRT) {
             let oldTable = $('#' + fncTableID);
             oldTable.replaceWith(updatedTable);
             wtkTableSetup();
+            const fncElement = document.getElementById(fncTableID);
+            if (fncElement) {
+                fncElement.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     })
 };

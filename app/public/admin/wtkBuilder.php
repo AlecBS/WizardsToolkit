@@ -293,7 +293,7 @@ $pgTableName = 'RFB';
 $pgHtm =<<<htmVAR
 <div class="row">
   <div class="col s12">
-      <h4>Welcome to the Wizard&rsquo;s Toolkit Page Builder!
+      <h4>Wizard&rsquo;s Toolkit MaterializeCSS Page Builder!
       <small><br>create PHP pages in seconds</small></h4><br>
     <div class="card content b-shadow">
         <form action="?" id="wtkBuild" name="wtkBuild" method="POST">
