@@ -37,7 +37,10 @@ endif;
 $pgHtm .= wtkFormText('wtkUpdateLog', 'OtherUID', 'text', 'UID', 'm4 s12');
 $pgHtm .= wtkFormText('wtkUpdateLog', 'TableName', 'text', '', 'm4 s12');
 $pgHtm .= wtkFormTextArea('wtkUpdateLog', 'ChangeInfo');
-// $pgHtm .= wtkFormText('wtkUpdateLog', 'FullSQL');
+$pgHtm .= '</div><div class="row"><div class="col s12"><hr></div></div>' . "\n";
+$pgTmp  = wtkFormTextArea('wtkUpdateLog', 'FullSQL', 'Full SQL');
+$pgTmp  = wtkReplace($pgTmp, '<span style="color: #9e9e9e">', '<span class="code-text">&nbsp;<code>');
+$pgHtm .= wtkReplace($pgTmp, '</span>', '</code></span>');
 
 $pgHtm .= wtkFormWriteUpdField();
 $pgHtm .= wtkFormHidden('wtkGoToURL', '../../admin/updateLogView.php');

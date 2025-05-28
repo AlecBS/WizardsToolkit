@@ -3,10 +3,19 @@
 define('_RootPATH', '../');
 require('wtkLogin.php');
 $pgIPaddress = wtkGetIPaddress();
-$pgBrowser = get_browser(null, true);
-$pgInternalNote = 'Browser says OS: ' . trim(substr($pgBrowser['platform'], 0, 25));
-$pgBrowserName  = trim(substr($pgBrowser['browser'], 0, 20));
-$pgBrowserVer   = trim(substr($pgBrowser['version'], 0, 12));
+
+$pgBrowser = safe_get_browser();
+if ($pgBrowser == ''):
+    $pgInternalNote = 'get_browser note working in PHP';
+    $pgBrowserName  = 'unknown';
+    $pgBrowserVer   = 'unknown';
+else:
+    // Handle failure gracefully
+    $pgInternalNote = 'Browser says OS: ' . trim(substr($pgBrowser['platform'], 0, 25));
+    $pgBrowserName  = trim(substr($pgBrowser['browser'], 0, 20));
+    $pgBrowserVer   = trim(substr($pgBrowser['version'], 0, 12));
+endif;
+
 $pgBugMsg = wtkGetPost('bugMsg');
 $pgBugMsg = wtkEscapeStringForDB($pgBugMsg);
 
