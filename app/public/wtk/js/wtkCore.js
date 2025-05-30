@@ -1319,7 +1319,11 @@ function wtkModalUpdate(fncPage, fncId=0, fncRNG=0) {
         url:  fncPage + '.php',
         data: { apiKey: pgApiKey, id: fncId, rng: fncRNG },
         success: function(data) {
-            $('#modalWTK').html(data);
+            if (pgHide == 'hidden'){ // TailwindCSS
+                $('#modalContent').html(data);
+            } else {
+                $('#modalWTK').html(data);
+            }
             waitLoad('off');
             afterPageLoad('modalWTK');
         }
@@ -1549,6 +1553,7 @@ function wtkBrowseBox(fncURL, fncTableID, fncRNG, fncPgIx, fncOB, fncSRT) {
             const fncElement = document.getElementById(fncTableID);
             if (fncElement) {
                 fncElement.scrollIntoView({ behavior: 'smooth' });
+                wtkDebugLog('wtkBrowseBox scrollIntoView ' + fncTableID);
             }
         }
     })
