@@ -610,10 +610,10 @@ function wtkSaveUpdateLog($fncTable, $fncSQL) {
                     . DB_COL_QUOTE . 'FullSQL' . DB_COL_QUOTE . ', '
                     . DB_COL_QUOTE . 'ChangeInfo' . DB_COL_QUOTE . ', '
                     . DB_COL_QUOTE . 'OtherUID' . DB_COL_QUOTE . ')';
-    if (($gloId == '') || ($gloId == 'ADD')):
+    if (!is_int($gloId) || ($gloId == '') || ($gloId == 'ADD')):
         $gloId = 'NULL';
     endif;  // $gloId != ''
-    if ($gloUserUID != ''):
+    if (is_int($gloUserUID) && ($gloUserUID != '')):
         $fncUserUID = $gloUserUID;
     else:
         $fncUserUID = 'NULL';
