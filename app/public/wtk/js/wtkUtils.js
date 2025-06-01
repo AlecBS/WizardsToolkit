@@ -876,10 +876,17 @@ function wtkDropId(fncElement) {
             fromId: pgFromDragId, toId: fncToId, fromPos: pgFromDragPos, toPos: fncToPos},
         success: function(data) {
             let fncURL = $('#wtkDragRefresh' + fncSet).val();
-            if ($('#wtkDragLocation' + fncSet).val() == 'table') {
-                wtkBrowseReset(fncURL, fncTable, fncFilter);
-            } else {
-                wtkModalUpdate(fncURL, 0, fncFilter);
+            let fncDragLocation = $('#wtkDragLocation' + fncSet).val();
+            switch (fncDragLocation){
+                case 'table':
+                    wtkBrowseReset(fncURL, fncTable, fncFilter);
+                    break;
+                case 'div':
+                    let fncDiv = $('#wtkDragDIV' + fncSet).val();
+                    ajaxFillDiv(fncURL, fncFilter, fncDiv, fncToId);
+                    break;
+                default:
+                    wtkModalUpdate(fncURL, 0, fncFilter);
             }
         }
     })

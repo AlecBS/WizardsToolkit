@@ -36,6 +36,46 @@ endif;
     <span id="alertCounter" class="counter-icon-badge">3</span>
 </span>
 */
+
+/*
+* Example usage:
+* <code>
+* wtkSearchReplace('<!-- @wtkMenu@ -->', wtkNavBar('Your Company Name'));
+* </code>
+*
+* @param string $fncHeader pass this in for the top-center title to show
+* @return html of top navbar and side-menu
+*/
+function wtkNavBarTailwind($fncHeader){
+    $fncHtm =<<<htmVAR
+<div class="navbar bg-neutral text-neutral-content">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn m-1">
+                <svg class="wtk-icon"><use href="/imgs/icons.svg#icon-menu"/></svg>
+            </div>
+            <ul tabindex="0" class="dropdown-content menu min-w-max bg-base-100 p-2 shadow-sm">
+                <li><a onclick="Javascript:goHome();">Dashboard</a></li>
+                <li><a onclick="Javascript:ajaxGo('user');">My Profile</a></li>
+                <li><a onclick="Javascript:ajaxGo('reportViewer');">Reports</a></li>
+                <li><a onclick="Javascript:ajaxGo('chatList');">Chat</a></li>
+                <li><a onclick="Javascript:ajaxGo('forumList');">Forum</a></li>
+                <li><a onclick="Javascript:ajaxGo('messageList');">Message</a></li>
+                <li><a onclick="Javascript:showBugReport();">Report Bug</a></li>
+                <li><a onclick="Javascript:wtkLogout();">Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="navbar-center text-xl">$fncHeader</div>
+    <div class="navbar-end">
+        <a onclick="wtkLogout();" class="btn btn-ghost btn-circle"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-logout"></use></svg></a>
+    </div>
+</div>
+htmVAR;
+    return $fncHtm;
+} // wtkNavBarTailwind
+
+
 /*
 * Example usage:
 * <code>

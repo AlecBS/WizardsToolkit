@@ -365,7 +365,12 @@ htmVAR;
 */
 function wtkSPArestart($fncHtm, $fncTemplateHTML = ''){
     // use apiKey to lookup security level of user and verify page call is legit
-    global $gloCoName, $gloSiteDesign;
+    global $gloCoName, $gloSiteDesign, $gloCSSLib;
+    if ($gloCSSLib == 'MaterializeCSS'):
+        $fncHide = 'hide';
+    else:
+        $fncHide = 'hidden';
+    endif;
     $fncApiKey = wtkGetParam('apiKey');
     $fncPage = wtkGetGet('p');
     if (($fncPage != '') && ($gloSiteDesign == 'SPA') && ($fncApiKey != '')):
@@ -391,9 +396,9 @@ SQLVAR;
         $fncPage .= wtkFormHidden('SPArestart', 'Y');
         $fncPage .= wtkFormHidden('apiKeyRestart', $fncApiKey);
         $fncPage .= wtkFormHidden('secLvlRestart', $fncSecLvl);
-        wtkSearchReplace('id="myNavbar" class="hide"','id="myNavbar"');
-        wtkSearchReplace('id="mainPage" class="hide"','id="mainPage"');
-        wtkSearchReplace('id="loginPage" class="','id="loginPage" class="hide ');
+        wtkSearchReplace('id="myNavbar" class="' . $fncHide . '"','id="myNavbar"');
+        wtkSearchReplace('id="mainPage" class="' . $fncHide . '"','id="mainPage"');
+        wtkSearchReplace('id="loginPage" class="','id="loginPage" class="' . $fncHide . ' ');
         if ($fncTemplateHTML == ''):
             $fncTemplateHTML =  _WTK_RootPATH . 'htm/spa';
         endif;
