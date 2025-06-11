@@ -23,6 +23,7 @@ htmVAR;
 endif;
 
 $pgHtm = '';
+$pgJS  = '';
 $pgRptType = 'web';
 $pgRptMode = wtkGetParam('Mode');
 
@@ -78,6 +79,9 @@ SQLVAR;
     $pgShowGraph = wtkSqlValue('GraphRpt');
     // BEGIN  show Date Range fields if applicable for this report
     $pgSQL    = wtkSqlValue('RptSelect');
+    if (stripos($pgSQL, 'WTKIMAGE') !== false):
+        $pgJS .= wtkFormHidden('HasImage', 'Y');
+    endif;
     $pgStartDatePrompt = wtkSqlValue('StartDatePrompt');
     $pgEndDatePrompt   = wtkSqlValue('EndDatePrompt');
     $pgFilterValue = wtkFilterRequest('RptFilter','rpt' . $gloRNG);
@@ -499,4 +503,5 @@ endif;  // $pgRptUID == ''
 //  END   if report selected then show report
 
 echo $pgHtm;
+echo $pgJS;
 ?>
