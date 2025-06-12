@@ -1072,6 +1072,7 @@ CREATE TABLE `wtkWidget` (
   `WidgetDescription` varchar(240),
   `WidgetSQL` text,
   `WidgetURL` varchar(80),
+  `LinkType` varchar(6),
   `PassRNG` VARCHAR(20),
   `WindowModal` enum('N','Y') default 'N',
   PRIMARY KEY (`UID`)
