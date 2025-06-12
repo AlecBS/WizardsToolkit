@@ -1033,7 +1033,7 @@ htmVAR;
 /**
 * For modalWTK Modal window create cancel and save buttons.
 *
-* This calls modalSave function in wtkLibrary.js.  If page is $gloForceRO = true then
+* This calls modalSave function in wtkCore.js.  If page is $gloForceRO = true then
 * shows Return button instead of Save and Cancel.
 *
 * Example calling method:
