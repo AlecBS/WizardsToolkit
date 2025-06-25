@@ -213,6 +213,33 @@ Recommended PostgreSQL GUI Client: [DBeaver](https://dbeaver.io/) (free)
 
 Note: Ensure no local PostgreSQL server is running before starting the Docker containers.
 
+#### Minimum Database for Integration
+
+If you already have a full database and are only adding some features from Wizard's Toolkit,
+then here are the minimum SQL Tables you will need for the library to work.
+
+* wtkUsers
+* wtkCompanySettings
+* wtkDebug (recommended but only necessary if you use WTK debugging features)
+* wtkEmailTemplate (only necessary if you use WTK for emailing)
+* wtkEmailsSent (only necessary if you use WTK for emailing)
+* wtkErrorLog
+* wtkFailedAttempts
+* wtkLockoutUntil
+* wtkLoginLog
+* wtkUpdateLog
+* wtkUserHistory
+
+It is critical to INSERT INTO the one row into `wtkCompanySettings`.
+
+If you will be using WTK data-driven menus (like in WTK Back Office), you will also need:
+
+* wtkPages
+* wtkMenuSets
+* wtkMenuGroups
+* wtkMenuItems
+
+
 ## Documentation & Resources
 
 - [Official Documentation](https://wizardstoolkit.com/docs/)
