@@ -224,30 +224,45 @@ if (!isset($_SESSION)):
     session_start();
 endif;
 
-require('lib/Core.php');
-if (!isset($gloSiteDesign)):
-    $pgPos = strpos($gloCurrentPage, '/blog/admin/');
-    if ($pgPos !== false):
-        $gloSiteDesign = 'MPA'; // WTK blog site uses Multi Page App design
-        $gloCSSLib     = 'MaterializeCSS';
+$gloCurrentPage = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+if ($gloCurrentPage != ''):
+    $gloCurrentPage = $_SERVER['PHP_SELF'] . '?'. $gloCurrentPage;
+else:   // Not $gloCurrentPage != ''
+    $gloCurrentPage = $_SERVER['PHP_SELF'];
+endif;  // $gloCurrentPage != ''
+if (!isset($gloSiteDesign) || !isset($gloCSSLib)):
+    if ($_POST['MpaOrSpa'] != ''):
+        $gloSiteDesign = $_POST['MpaOrSpa'];
     else:
-        $gloSiteDesign = 'SPA'; // MPA or SPA for Multi-Page App or Single Page App
-        // Set your default on above line; below will override for WTK special folders/files
-        $pgPos = strpos($gloCurrentPage, '/admin/');
+        $pgPos = strpos($gloCurrentPage, '/blog/admin/');
         if ($pgPos !== false):
-            $gloSiteDesign = 'SPA'; // WTK admin site uses Single Page App design
+            $gloSiteDesign = 'MPA'; // WTK blog site uses Multi Page App design
             $gloCSSLib     = 'MaterializeCSS';
         else:
-            $pgPos = strpos($gloCurrentPage, 'wtk/reports.php');
+            // Set your default on above line; below will override for WTK special folders/files
+            $pgPos = strpos($gloCurrentPage, '/admin/');
             if ($pgPos !== false):
-                $gloSiteDesign = 'SPA'; // WTK reports.php must be called from SPA page
+                $gloSiteDesign = 'SPA'; // WTK admin site uses Single Page App design
+                $gloCSSLib     = 'MaterializeCSS';
             else:
-                if (wtkGetPost('wtkDesign') != ''):
-                    $gloSiteDesign = wtkGetPost('wtkDesign'); // pass to Save.php non-standard design
+                $pgPos = strpos($gloCurrentPage, 'wtk/reports.php');
+                if ($pgPos !== false):
+                    $gloSiteDesign = 'SPA'; // WTK reports.php must be called from SPA page
+                    $gloCSSLib     = 'MaterializeCSS';
                 endif;
             endif;
         endif;
+        if (!isset($gloSiteDesign)):
+            $gloSiteDesign = 'SPA'; // your default of MPA or SPA for Multi-Page App or Single Page App
+        endif;
     endif;
+    if (!isset($gloCSSLib)):
+        $gloCSSLib = 'MaterializeCSS'; // your default CSS Library: TailwindCSS or MaterializeCSS
+    endif;
+endif;
+require('lib/Core.php');
+if (wtkGetPost('wtkDesign') != ''):
+    $gloSiteDesign = wtkGetPost('wtkDesign'); // pass to Save.php non-standard design
 endif;
 
 if (wtkGetSession('HashPW') == 'passed'):
