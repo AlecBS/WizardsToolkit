@@ -7,17 +7,28 @@ function wtkTopGetGet($fncGetVariable) {
 } // end of wtkTopGetGet
 $pgDebug = wtkTopGetGet('Debug');
 $gloForceRO = false;
-if(!isset($gloLoginRequired)):
+if (!isset($gloLoginRequired)):
     $gloLoginRequired = true;
 endif;
-if(!isset($pgSecurityLevel)):
+if (!isset($pgSecurityLevel)):
     $pgSecurityLevel = 0;
 endif;
 require('wtkServerInfo.php');
 header('Access-Control-Allow-Origin: ' . $gloWebBaseURL);
 $gloShowPrint = false;
 $pgSavePg = '';
-if ($gloLoginRequired == true):
+if (($gloSiteDesign == 'MPA') && (!isset($pgApiKey))):
+    $pgApiKey = wtkGetCookie('apiKey');
+else:
+    if (!isset($pgApiKey)):
+        $pgApiKey = '';
+    endif;
+endif;
+
+if (($gloLoginRequired == true) || (($gloSiteDesign == 'MPA') && ($pgApiKey != ''))):
+    if ($pgApiKey == ''):
+        unset($pgApiKey);
+    endif;
     if (!isset($pgApiKey)):
         $pgApiKey = wtkGetParam('apiKey','login');
         if (($gloSiteDesign == 'MPA') && ($pgApiKey == 'login')):
@@ -63,26 +74,17 @@ SQLVAR;
             'apiKey' => $pgApiKey,
             'cUID' => 1
         );
-        wtkSqlGetRow($pgLoginSQL, $pgSqlFilter);
-        $pgLoginUID = wtkSqlValue('UID');
-        if ($pgLoginUID == ''): // apiKey does not exist or is incorrect
-            $pgHtm =<<<htmVAR
-    <div class="container"><br><br>
-        <div class="card b-shadow">
-            <div class="card-content">
-                <h3>Login Failed</h3>
-                <p>Please go back and try again.</p>
-            </div>
-        </div>
-    </div>
-htmVAR;
+        $pgTmp = wtkSqlGetRow($pgLoginSQL, $pgSqlFilter);
+        if ($pgTmp == 'no data'):
+            wtkDeleteCookie('apiKey');
             if ($gloSiteDesign == 'MPA'):
-                wtkMergePage('<h3>Login Failed</h3><p>Please go back and try again.</p>', 'Login Error', _WTK_RootPATH . 'htm/minibox.htm');
+                wtkMergePage('<h3>Login Failed</h3><p>Please refresh and try again.</p>', 'Login Error', _WTK_RootPATH . 'htm/minibox.htm');
             else:
-                echo $pgHtm;
+                echo '{"result":"error","message":"' . wtkLang('Login Failed') . '"}';
                 exit;
             endif;
         endif;
+        $pgLoginUID = wtkSqlValue('UID');
         $gloUserUID = wtkSqlValue('UserUID');
         $gloLoginCode = wtkSqlValue('LoginCode');
         $gloUserSecLevel = wtkSqlValue('SecurityLevel');
@@ -166,9 +168,6 @@ htmVAR;
     endif;
 else:
     $gloAccessMethod = 'website';
-endif;
-if (($gloSiteDesign == 'MPA') && (!isset($pgApiKey))):
-    $pgApiKey = wtkGetCookie('apiKey');
 endif;
 if ((wtkGetParam('Mode') == 'ADD') || ($gloId == 'ADD')):
     $gloWTKmode = 'ADD';  // must be below above code so wtkSqlGetRow retrieves values
