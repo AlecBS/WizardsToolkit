@@ -231,8 +231,9 @@ else:   // Not $gloCurrentPage != ''
     $gloCurrentPage = $_SERVER['PHP_SELF'];
 endif;  // $gloCurrentPage != ''
 if (!isset($gloSiteDesign) || !isset($gloCSSLib)):
-    if ($_POST['MpaOrSpa'] != ''):
-        $gloSiteDesign = $_POST['MpaOrSpa'];
+    $pgMpaOrSpa = isset($_POST['MpaOrSpa']) ? $_POST['MpaOrSpa'] : '';
+    if ($pgMpaOrSpa != ''):
+        $gloSiteDesign = $pgMpaOrSpa;
     else:
         $pgPos = strpos($gloCurrentPage, '/blog/admin/');
         if ($pgPos !== false):
