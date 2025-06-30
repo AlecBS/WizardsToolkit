@@ -419,6 +419,9 @@ function wtkPrepSQLValue($fncTable, $fncField, $fncValue){
                 $fncValue = wtkFormatDateTime('Y-m-d', $fncValue);
                 wtkTimeTrack('after reformat: fncValue = ' . $fncValue);
                 break;
+            case 'TIME':
+                $fncValue = wtkFormatDateTime('H:i:s', $fncValue);
+                break;
             case 'TIMESTAMP':
             case 'DATETIME':  // changed these to PDO
                 wtkTimeTrack('before T reformat: fncValue = ' . $fncValue);
