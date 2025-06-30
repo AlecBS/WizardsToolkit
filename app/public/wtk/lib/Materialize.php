@@ -77,6 +77,10 @@ SQLVAR;
                 $fncMenu .= '        <div class="col m7 s6">' . "\n";
             endif;
             $fncMenu .= '       <a data-target="phoneSideBar" class="sidenav-trigger right"><i class="material-icons">menu</i></a>' . "\n";
+            if ($fncMenuSetName == 'WTK-Admin'):
+                $fncMenu .= '  &nbsp;&nbsp;' . "\n";
+                $fncMenu .= '       <a class="brand-logo" onclick="JavaScript:ajaxGo(\'/wtk/userEdit\')"><i class="material-icons">account_circle</i></a>' . "\n";
+            endif;
             $fncMenu .= '       <ul class="right hide-on-med-and-down">' . "\n";
             $fncPDO = $gloWTKobjConn->prepare($fncSQL);
             $fncPDO->execute([$fncMenuSetName]);
