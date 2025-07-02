@@ -58,7 +58,7 @@ SQLVAR;
     $pgEmail = wtkSqlValue('Email');
 endif;
 
-$pgEmailMsg  = "<h3>Bug reported from $gloCoName app</h3>";
+$pgEmailMsg  = "<h3>Question from $gloCoName app</h3>";
 $pgEmailMsg .= "<p>$pgFirstName ($pgEmail) has reported:</p><hr>";
 $pgEmailMsg .= nl2br($pgBugMsg) . '<hr>';
 $pgEmailMsg .= '<p>More technical details are stored in wtkBugReport table. Check it out at: ' . $gloWebBaseURL . '/admin/bugView.php?id=' . $pgUID . ' .</p>';
