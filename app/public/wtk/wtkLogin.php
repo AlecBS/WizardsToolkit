@@ -17,27 +17,17 @@ require('wtkServerInfo.php');
 header('Access-Control-Allow-Origin: ' . $gloWebBaseURL);
 $gloShowPrint = false;
 $pgSavePg = '';
-if (($gloSiteDesign == 'MPA') && (!isset($pgApiKey))):
-    $pgApiKey = wtkGetCookie('apiKey');
-else:
-    if (!isset($pgApiKey)):
-        $pgApiKey = '';
+if (!isset($pgApiKey)):
+    $pgApiKey = wtkGetParam('apiKey','login');
+    if (($gloSiteDesign == 'MPA') && ($pgApiKey == 'login')):
+        $pgApiKey = wtkGetCookie('apiKey');
+        if ($pgApiKey == ''):
+            $pgApiKey = 'login';
+        endif;
     endif;
 endif;
 
 if (($gloLoginRequired == true) || (($gloSiteDesign == 'MPA') && ($pgApiKey != ''))):
-    if ($pgApiKey == ''):
-        unset($pgApiKey);
-    endif;
-    if (!isset($pgApiKey)):
-        $pgApiKey = wtkGetParam('apiKey','login');
-        if (($gloSiteDesign == 'MPA') && ($pgApiKey == 'login')):
-            $pgApiKey = wtkGetCookie('apiKey');
-            if ($pgApiKey == ''):
-                $pgApiKey = 'login';
-            endif;
-        endif;
-    endif;
     if ($pgApiKey == 'login'):
         $pgRememberMe = wtkGetCookie('rememberMe'); // 2ENHANCE save in phone storage
         if ($pgRememberMe == 'Y'):
@@ -67,9 +57,6 @@ WHERE L.`apiKey` = :apiKey
 ORDER BY L.`UID` DESC LIMIT 1
 SQLVAR;
 // 2ENHANCE so times out after 24 hours and/or checks to see if logged-out
-        if (($gloSiteDesign == 'MPA') && ($pgApiKey == '')):
-            $pgApiKey = wtkGetCookie('apiKey');
-        endif;
         $pgSqlFilter = array (
             'apiKey' => $pgApiKey,
             'cUID' => 1
@@ -94,7 +81,7 @@ SQLVAR;
         $gloEnableLockout = wtkSqlValue('EnableLockout');
         $gloWhichApp = wtkSqlValue('WhichApp');
         $gloAccessMethod = wtkSqlValue('AccessMethod');
-        if ($pgLoginAppVer != $pgCurrAppVer):
+        if (($pgLoginAppVer != $pgCurrAppVer) && ($gloLoginRequired == true)):
             $pgHtm =<<<htmVAR
     <div class="container"><br><br>
 		<div class="card b-shadow">
