@@ -78,6 +78,24 @@ BEGIN
 END
 $$
 
+CREATE FUNCTION fncMinutesToHrMin(fncDuration INT)
+    RETURNS VARCHAR(20)
+    DETERMINISTIC
+BEGIN
+    DECLARE fncFormattedDuration VARCHAR(20);
+
+    SET fncFormattedDuration = CASE
+        WHEN fncDuration < 60 THEN CONCAT(fncDuration, ' min')
+        WHEN fncDuration % 60 = 0 THEN CONCAT(FLOOR(fncDuration / 60), ' hr')
+        ELSE CONCAT(
+            FLOOR(fncDuration / 60), ' hr ',
+            fncDuration % 60, ' min'
+        )
+    END;
+    RETURN fncFormattedDuration;
+END
+$$
+
 CREATE FUNCTION `fncContactIcons`(fncEmail VARCHAR(80),
       fncPhone VARCHAR(80), fncLat DECIMAL(20,14), fncLong DECIMAL(20,14),
       fncShowPhone CHAR(1), fncUserUID INT, fncCanSMS CHAR(1), fncModalEmail CHAR(1), fncEmailCode CHAR(10)
@@ -185,5 +203,8 @@ BEGIN
 	RETURN (SELECT CRC32(((fncUID + 3) * 7) - 1));
 END
 $$
+
+RETURN fncFormattedDuration;
+END $$
 
 DELIMITER ;

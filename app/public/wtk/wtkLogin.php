@@ -27,7 +27,7 @@ if (!isset($pgApiKey)):
     endif;
 endif;
 
-if (($gloLoginRequired == true) || (($gloSiteDesign == 'MPA') && ($pgApiKey != ''))):
+if (($gloLoginRequired == true) || (($gloSiteDesign == 'MPA') && ($pgApiKey != 'login'))):
     if ($pgApiKey == 'login'):
         $pgRememberMe = wtkGetCookie('rememberMe'); // 2ENHANCE save in phone storage
         if ($pgRememberMe == 'Y'):
