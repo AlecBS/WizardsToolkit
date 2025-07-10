@@ -42,7 +42,21 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkFormText('wtkFiles', 'Description');
-$pgHtm .= wtkFormFile('wtkFiles', 'FilePath','/demo/imgs/','NewFileName','Pick File','m6 s12');
+$pgTmp  = wtkFormFile('wtkFiles', 'FilePath','/demo/imgs/','NewFileName','Pick File','m6 s12');
+/*
+Above wtkFormFile uses default of "image type" files; below allows uploading any type of file
+by passing '2' as the last parameter below, you can have multiple images on a page.  For example
+the main page can have image for wtkUsers file, and this modal would allow updating 2nd image on page
+due to the '2' parameter.
+
+$pgTmp  = wtkFormFile('wtkFiles', 'FilePath','/demo/imgs/','NewFileName',
+    'Pick File','m6 s12','','N','accept="*"','Y','2');
+*/
+
+if ($gloWTKmode == 'ADD'):
+    $pgTmp = wtkReplace($pgTmp, '<input type="file"','<input required="required" type="file"');
+endif;
+$pgHtm .= $pgTmp;
 
 // change second-to-last parameter above to accept=".pdf" for PDF-only option
 $pgHtm .= wtkFormPrimeField('wtkFiles', 'UserUID', $gloUserUID);
