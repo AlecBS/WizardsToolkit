@@ -26,7 +26,7 @@ if (!isset($pgApiKey)):
         endif;
     endif;
 endif;
-
+$gloUserSecLevel = 0;
 if (($gloLoginRequired == true) || (($gloSiteDesign == 'MPA') && ($pgApiKey != 'login'))):
     if ($pgApiKey == 'login'):
         $pgRememberMe = wtkGetCookie('rememberMe'); // 2ENHANCE save in phone storage
@@ -43,6 +43,9 @@ if (($gloLoginRequired == true) || (($gloSiteDesign == 'MPA') && ($pgApiKey != '
         wtkSearchReplace('@myPW@', $pgPW);
         wtkSearchReplace('@rememberMe@', $pgChecked);
         wtkSearchReplace('@goToUrl@', $gloCurrentPage);
+        if ($gloSiteDesign == 'MPA'):
+            wtkSearchReplace("wtkLoginForm('')", "wtkLoginForm('','MPA')");
+        endif;
         wtkMergePage('', 'Login', _WTK_RootPATH . 'htm/login.htm');
     else:
         $pgLoginSQL =<<<SQLVAR
