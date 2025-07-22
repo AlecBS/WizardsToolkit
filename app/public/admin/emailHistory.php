@@ -1,9 +1,18 @@
 <?PHP
-$pgSecurityLevel = 90;
+$pgSecurityLevel = 80;
 if (!isset($gloConnected)):
     define('_RootPATH', '../');
     require('../wtk/wtkLogin.php');
 endif;
+
+function prepWhere($fncWhere){
+    if ($fncWhere == ''):
+        $fncWhere  = ' WHERE';
+    else:
+        $fncWhere .= ' AND';
+    endif;
+    return $fncWhere;
+}
 
 $gloIconSize = 'btn-small';
 
@@ -62,39 +71,46 @@ if ($pgFilterSelect != ''):
 endif;
 $pgFilter2Value = wtkFilterRequest('wtkFilter2');
 if ($pgFilter2Value != ''):
-    if ($pgWhere == ''):
-        $pgWhere  = ' WHERE';
-    else:
-        $pgWhere .= ' AND';
-    endif;
+    $pgWhere = prepWhere($pgWhere);
     $pgWhere .= " lower(e.`EmailAddress`) LIKE lower('%" . $pgFilter2Value . "%')";
     $pgHideReset = '';
 endif;  // $pgFilter2Value != ''
 $pgFilter3Value = wtkFilterRequest('showClicked');
 if ($pgFilter3Value == 'Y'):
     $pgShowClicked = 'checked';
-    if ($pgWhere == ''):
-        $pgWhere  = ' WHERE';
-    else:
-        $pgWhere .= ' AND';
-    endif;
+    $pgWhere = prepWhere($pgWhere);
     $pgWhere .= ' e.`EmailLinkClicked` IS NOT NULL' . "\n";
 else:
     $pgShowClicked = '';
 endif;
 
-$pgFilter4Value = wtkFilterRequest('showOpened');
-if ($pgFilter4Value == 'Y'):
-    $pgShowOpened = 'checked';
-    if ($pgWhere == ''):
-        $pgWhere  = ' WHERE';
-    else:
-        $pgWhere .= ' AND';
-    endif;
-    $pgWhere .= ' e.`EmailOpened` IS NOT NULL' . "\n";
-else:
-    $pgShowOpened = '';
+// BEGIN filter by Subject
+$pgFilterSubject = wtkFilterRequest('wtkFilterSubject');
+if ($pgFilterSubject != ''):
+    $pgWhere = prepWhere($pgWhere);
+    $pgWhere .= " lower(e.`Subject`) LIKE lower('%" . $pgFilterSubject . "%')";
 endif;
+//  END  filter by Subject
+
+$pgOpenStatusNotOpened = '';
+$pgOpenStatusOpened = '';
+$pgOpenStatusAny = '';
+$pgFilter4Value = wtkFilterRequest('OpenStatus');
+switch ($pgFilter4Value):
+    case 'Opened':
+        $pgWhere = prepWhere($pgWhere);
+        $pgWhere .= ' e.`EmailOpened` IS NOT NULL' . "\n";
+        $pgOpenStatusOpened = 'checked';
+        break;
+    case 'NotOpened':
+        $pgWhere = prepWhere($pgWhere);
+        $pgWhere .= ' e.`EmailOpened` IS NULL' . "\n";
+        $pgOpenStatusNotOpened = 'checked';
+        break;
+    default:
+        // do nothing
+        $pgOpenStatusAny = 'checked';
+endswitch;
 /*
 $pgFilterValue = wtkFilterRequest('wtkFilter');
 if ($pgFilterValue != ''):
@@ -136,29 +152,55 @@ $pgHtm =<<<htmVAR
     <input type="hidden" id="HasTooltip" name="HasTooltip" value="Y">
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow" style="height:162px">
         <input type="hidden" id="Filter" name="Filter" value="Y">
-        <div class="row input-field">
-           <div class="filter-width-50">
+        <div class="row">
+           <div class="col m4 s12 input-field">
               <select id="wtkFilterSel" name="wtkFilterSel">
                 <option value="">All</option>
                   $pgSelOptions
               </select>
+              <label for="wtkFilterSel" class="active" style="top:0">User Type</label>
               <input type="hidden" id="HasSelect" name="HasSelect" value="Y">
            </div>
-           <div class="filter-width-50">
+           <div class="col m4 s12 input-field">
                 <input type="search" name="wtkFilter2" id="wtkFilter2" value="$pgFilter2Value" placeholder="enter partial email address">
            </div>
-        </div>
-        <div class="row input-field">
-           <div class="filter-width-50">
-               <span>Show only those that were opened</span>
-               <div class="switch">
-                 <label for="showOpened">No
-                   <input type="checkbox" value="Y" id="showOpened" name="showOpened" $pgShowOpened>
-                   <span class="lever"></span>
-                   Yes</label>
-               </div>
+           <div class="col m4 s12 input-field">
+                <input type="search" name="wtkFilterSubject" id="wtkFilterSubject" value="$pgFilterSubject" placeholder="enter partial subject">
            </div>
-           <div class="filter-width-50">
+        </div>
+        <div class="row" style="margin-top:-24px">
+           <div class="col m6 s12">
+                <span>Opened Status</span>
+                <table class="table-basic" style="margin-top:-9px">
+                    <tr>
+                        <td>
+                            <p>
+                                <label>
+                                  <input value="Any" class="with-gap" name="OpenStatus" type="radio" $pgOpenStatusAny />
+                                  <span>Any</span>
+                                </label>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <label>
+                                  <input value="NotOpened" class="with-gap" name="OpenStatus" type="radio" $pgOpenStatusNotOpened />
+                                  <span>Never Opened</span>
+                                </label>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <label>
+                                  <input value="Opened" class="with-gap" name="OpenStatus" type="radio" $pgOpenStatusOpened />
+                                  <span>Opened</span>
+                                </label>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+           </div>
+           <div class="col m4 s12 input-field">
                <span>Show only those that clicked Link</span>
                <div class="switch">
                  <label for="showClicked">No
@@ -167,7 +209,9 @@ $pgHtm =<<<htmVAR
                    Yes</label>
                </div>
            </div>
-           <button onclick="Javascript:wtkBrowseFilter('emailHistory','wtkEmailsSent')" id="wtkFilterBtn" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
+           <div class="col m2 s12">
+               <button onclick="Javascript:wtkBrowseFilter('emailHistory','wtkEmailsSent')" id="wtkFilterBtn2" type="button" class="btn waves-effect waves-light"><i class="material-icons">search</i></button>
+           </div>
         </div>
         <br>
     </form>
@@ -198,14 +242,14 @@ htmVAR;
 
 wtkSearchReplace('class="striped"','');
 wtkSearchReplace('border="0" cellpadding="10" cellspacing="0" id="templateHeader"','class="hide"');
-wtkSearchReplace('No data.','no emails sent yet');
+wtkSearchReplace('No data.','no emails sent with this filter');
 wtkSearchReplace('&nbsp; &nbsp;</div>','</div>');
 wtkSearchReplace('class="footerContent"','class="footerContent hide"');
 $pgMsgsList = wtkBuildDataBrowse($pgSQL, [], 'wtkEmailsSent', '','Y');
 $pgMsgsList = wtkReplace($pgMsgsList, 'border="0" cellpadding="10" cellspacing="0" id="templateHeader"','class="hide"');
 $pgMsgsList = wtkReplace($pgMsgsList, 'class="striped"','');
 $pgMsgsList = wtkReplace($pgMsgsList, '&nbsp; &nbsp;</div>','</div>');
-$pgMsgsList = wtkReplace($pgMsgsList, 'No data.','no emails sent yet');
+$pgMsgsList = wtkReplace($pgMsgsList, 'No data.','no emails sent with this filter');
 $pgMsgsList = wtkReplace($pgMsgsList, 'class="footerContent"','class="footerContent hide"');
 $pgHtm .= $pgMsgsList . "\n";
 $pgHtm .= '</div></div>' . "\n";
