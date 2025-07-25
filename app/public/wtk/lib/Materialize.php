@@ -379,7 +379,7 @@ htmVAR;
         $fncHtm =<<<htmVAR
     <div class="input-field col $fncColSize">
       <textarea$fncSetReguired id="$fncFormId" name="$fncFormId" class="materialize-textarea">@$fncColName@</textarea>
-      <label for="$fncFormId">$fncLabel</label>$fncHelpText
+      <label for="$fncFormId" style="margin-top:-6px">$fncLabel</label>$fncHelpText
     </div>
 htmVAR;
         $fncHtm = wtkDisplayData($fncColName, $fncHtm, $fncTable,'','textarea') . "\n";
