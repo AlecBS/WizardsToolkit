@@ -395,6 +395,7 @@ htmVAR;
     else: // MPA Method
         $gloShowPrint = false;
         if (function_exists('wtkMergePage')):
+            wtkSearchReplace('"col m4 offset-m4 s12"', '"col s12"');
             wtkMergePage($fncHtm, 'Error', _WTK_RootPATH . '/htm/minibox.htm');
         else:
             echo $fncHtm;  // called before Html.php included
