@@ -30,6 +30,7 @@ $pgHtm .= wtkFormText('wtkUsers', 'Email', 'email');
 $pgHtm .= wtkFormText('wtkUsers', 'City');
 
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'SecurityLevel' AND `DelDate` IS NULL ORDER BY `LookupValue` ASC";
+// if using MySQL can have above ORDER BY CAST(`LookupValue` AS SIGNED) ASC
 $pgHtm .= wtkFormSelect('wtkUsers', 'SecurityLevel', $pgSQL, [], 'LookupDisplay', 'LookupValue','','m6 s6');
 
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'StaffRole' ORDER BY `LookupDisplay` ASC";

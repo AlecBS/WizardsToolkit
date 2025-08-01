@@ -83,7 +83,7 @@ SQLVAR;
         $pgEmailMsg = wtkReplace($pgEmailMsg, '@LastName@', $pgLastName );
         $pgEmailMsg = wtkReplace($pgEmailMsg, '@PIN@', $pgPIN );
 
-        $pgTemplate = wtkLoadInclude('../wtk/htm/emailLight.htm');
+        $pgTemplate = wtkLoadInclude('../wtk/htm/email' . $gloDarkLight . '.htm');
         $pgTemplate = wtkReplace($pgTemplate, '@website@', $gloWebBaseURL); // because URL is in HTML template once for unsubcribe link
         $pgHtmBody  = wtkReplace($pgTemplate, '@CurrentYear@', date('Y'));
         $pgHtmBody  = wtkReplace($pgHtmBody, '@Header@', $pgSubject );
