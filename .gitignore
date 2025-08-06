@@ -1,3 +1,15 @@
 Mounts
 app/public/exports
 app/public/demo/imgs
+app/public/py
+app/vendor2
+app/public/BreaSpace
+app/public/json
+app/public/imgs/inv
+app/public/imgs/class
+app/public/imgs/user/w180.jpg
+app/public/imgs/user/w183.jpg
+app/public/imgs/user/w2.jpg
+app/public/imgs/user/w212.jpg
+app/public/tailwind
+config/daisyUIthemes

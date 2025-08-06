@@ -893,6 +893,22 @@ function wtkDropId(fncElement) {
 }
 //  END  Drag and Drop functionality
 
+function copyLinkToClipboard(fncInput){
+    var fncLinkInput = document.getElementById(fncInput);
+    // Select the text field
+    fncLinkInput.select();
+    fncLinkInput.setSelectionRange(0, 99999); // For mobile devices
+    try {
+        if (document.execCommand('copy')) {
+            wtkAlert("Copied the link: " + fncLinkInput.value,'Copied','blue','content_copy');
+        } else {
+            throw new Error("execCommand failed");
+        }
+    } catch (err) {
+        wtkAlert('Unable to copy: ' + err);
+    }
+}
+
 function wtkInitiatePhoneTouches(){
     // Initialize touch listeners for each draggable element
     wtkDebugLog('wtkInitiatePhoneTouches called');
