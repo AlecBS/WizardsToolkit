@@ -107,7 +107,7 @@ SQLVAR;
                 $fncHtm .= '<div class="row">' . "\n";
             endif;
         endif;
-        if (($fncColTotal % 12) == 0):
+        if ((($fncColTotal % 12) == 0) || ($fncColTotal > 9)):
             $fncHtm .= '</div>' . "\n";
             $fncHtm .= '<div class="row">' . "\n";
             $fncColTotal = 0;
@@ -120,7 +120,7 @@ SQLVAR;
                 break;
             case 'Link':
                 $fncTmp  = $fncLinkTemplate;
-                $fncColTotal = ($fncColTotal + 6);
+                $fncColTotal = ($fncColTotal + 4);
                 break;
             default:
                 $fncTmp  = $fncTemplate;
@@ -141,10 +141,14 @@ SQLVAR;
         if ($fncURL == ''):
             $fncTmp = wtkReplace($fncTmp, '@Link@', '');
         else:
-            if ($fncPDOrow['WindowModal'] == 'Y'):
-                $fncTmp = wtkReplace($fncTmp, '"@Link@', " clickable\" onclick=\"Javascript:wtkModal('" . $fncURL . "','widget',$fncUID,'$fncRNG');\"");
+            if (stripos($fncURL, '://') !== false):
+                $fncTmp = wtkReplace($fncTmp, '"@Link@', " clickable\" onclick=\"Javascript:wtkGoToURL('" . $fncURL . "','0',0,'targetBlank');\"");
             else:
-                $fncTmp = wtkReplace($fncTmp, '"@Link@', " clickable\" onclick=\"Javascript:ajaxGo('" . $fncURL . "',0,'$fncRNG');\"");
+                if ($fncPDOrow['WindowModal'] == 'Y'):
+                    $fncTmp = wtkReplace($fncTmp, '"@Link@', " clickable\" onclick=\"Javascript:wtkModal('" . $fncURL . "','widget',$fncUID,'$fncRNG');\"");
+                else:
+                    $fncTmp = wtkReplace($fncTmp, '"@Link@', " clickable\" onclick=\"Javascript:ajaxGo('" . $fncURL . "',0,'$fncRNG');\"");
+                endif;
             endif;
         endif;
         $fncTmp = wtkReplace($fncTmp, '@WidgetName@',$fncPDOrow['WidgetName']);
