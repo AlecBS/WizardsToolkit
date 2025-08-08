@@ -204,7 +204,4 @@ BEGIN
 END
 $$
 
-RETURN fncFormattedDuration;
-END $$
-
 DELIMITER ;
