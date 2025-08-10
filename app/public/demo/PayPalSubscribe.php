@@ -10,7 +10,7 @@ if ($gloPayPalEmail == 'buy@yourDomain.com'):
     $pgHtm .= 'Must set $gloPayPalEmail to an email address associated with a PayPal account.' . "\n";
     $pgHtm .= '<br><br>$gloPayPalEmail should be defined in your wtk/wtkServerInfo.php.' . "\n";
 else:
-    $pgHtm .= wtkSubscribePayPal("Wizard's Toolkit Subscription", 180, 'WTK1Year', 1, 'Y', 'CC_LG');
+    $pgHtm .= wtkSubscribePayPal("Wizard's Toolkit Subscription", 480, 'WTK1Year', 1, 'Y', 'CC_LG');
 endif;
 
 /*
