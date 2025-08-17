@@ -288,7 +288,7 @@ function wtkBuyNow($fncItemName, $fncPrice, $fncItemUID = '', $fncSKU = '', $fnc
 *
 * Pass in parameters to create a PayPal BuyNow set of form fields then auto-submit those to go to PayPal page
 * This can replace the BuyNow button function when additional processing needs to be done before posting to PayPal.
-* The exact sampe parameters are used as the BuyNow button
+* The exact same parameters are used as the BuyNow button
 *
 * @param string $fncItemName
 * @param string $fncPrice

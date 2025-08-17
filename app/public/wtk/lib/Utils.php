@@ -1187,17 +1187,21 @@ function wtkCURLcall($fncURL, $fncHeader, $fncPost, $fncPostCount = 1, $fncErrTi
     curl_setopt($ch, CURLOPT_URL, $fncURL);
 
     $fncResult = curl_exec($ch);
-    if (!($fncResult)):
-        $fncIpAddress = wtkGetIPaddress();
-        $fncCurlErrNum = curl_errno($ch);
-        $fncCurlErrStr = curl_error($ch);
-        wtkLogError($fncErrTitle, "cURL error: [$fncCurlErrNum] $fncCurlErrStr \n Called from $fncIpAddress");
-        $fncResult = "cURL error: [$fncCurlErrNum] $fncCurlErrStr";
-    else:
-        $fncCurlInfo = curl_getinfo($ch);
-        $fncCurlHttp = $fncCurlInfo['http_code'];
-        if ($fncCurlHttp != 200):
-            wtkLogError($fncErrTitle, "HTTP Error : $fncCurlHttp ; Result: $fncResult");
+    $fncCurlInfo = curl_getinfo($ch);
+    $fncCurlHttp = $fncCurlInfo['http_code'];
+    if (($fncCurlHttp != 200) && ($fncCurlHttp != 201)):
+        if (!($fncResult)):
+            $fncIpAddress = wtkGetIPaddress();
+            $fncCurlErrNum = curl_errno($ch);
+            $fncCurlErrStr = curl_error($ch);
+            wtkLogError($fncErrTitle, "cURL error: [$fncCurlErrNum] $fncCurlErrStr \n Called from $fncIpAddress");
+            $fncResult = "cURL error: [$fncCurlErrNum] $fncCurlErrStr";
+        else:
+            $fncCurlInfo = curl_getinfo($ch);
+            $fncCurlHttp = $fncCurlInfo['http_code'];
+            if ($fncCurlHttp != 200):
+                wtkLogError($fncErrTitle, "HTTP Error : $fncCurlHttp ; Result: $fncResult");
+            endif;
         endif;
     endif;
     curl_close($ch);
