@@ -1147,6 +1147,23 @@ function wtkSendEmail(fncModalId = '', fncURL = '/wtk/ajxSendEmail', fncFormName
     } // email entered
 } // wtkSendEmail
 
+function wtkEmailUserTemplate(fncUserUID, fncEmailCode){
+    wtkDisableBtn(fncEmailCode + 'Btn');
+    $.ajax({
+        type: 'POST',
+        url:  '/wtk/ajxEmailUserTemplate.php',
+        data: { apiKey: pgApiKey, id: fncUserUID, EmailCode: fncEmailCode },
+        success: function(data) {
+            let fncJSON = $.parseJSON(data);
+            if (fncJSON.result == 'ok'){
+                $('#pastEmailList').addClass('hide');
+                M.toast({html: 'Email sent', classes: 'rounded green'});
+            } else {
+                M.toast({html: 'Email failed - call Alec', classes: 'rounded red'});
+            }
+        }
+    })
+} // wtkEmailUserTemplate
 function sendMail(fncCloseModal = 'Y') {
     let fncName = $('#name').val();
     let fncEmail = $('#email').val();
