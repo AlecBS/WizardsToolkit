@@ -262,6 +262,26 @@
 		</div>
 	</div>
 </div>
+	<div id="modalUsers" class="modal modal-fixed-footer" style="max-height: 360px;">
+		<div class="modal-content">
+			<h4>User Lookup</h4><br>
+			<input type="hidden" id="UserLookupType">
+			<input type="hidden" id="UserSetColumn">
+			<input type="hidden" id="UserNameRefresh">
+			<div class="row">
+				<div class="col m5 offset-m1 s6 input-field">
+					<input type="text" id="UserLookup" onkeyup="JavaScript:wtkUserAutoFill($('#UserLookupType').val(),this.value)">
+					<label for="UserLookup">Lookup first name</label>
+				</div>
+				<div class="col m5 s6">
+					<ul id="foundUsers"></ul>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a class="btn waves-effect waves-light" onclick="JavaScript:closeUserLookup()">Close</a>
+		</div>
+	</div>
 	<div id="modalAlert" class="modal">
 		<div class="modal-content card center">
 			<i id="modIcon" class="material-icons large red-text text-darken-1">warning</i>

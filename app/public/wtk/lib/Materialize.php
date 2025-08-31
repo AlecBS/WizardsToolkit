@@ -645,6 +645,40 @@ htmVAR;
 } // wtkFormSelect
 
 /**
+ * Creates html for Modal User Select feature
+ *
+ * The modal "modalUsers" must be in the spa.htm for this to work.
+ *
+ * Example calling method:
+ * <code>
+ * $pgHtm .= wtkFormUserSelect('SomeTableName', 'UserUID', 'staff', 'StaffName');
+ * </code>
+ *
+ * @param string $fncTable data table
+ * @param string $fncColumn data column name
+ * @param string $fncUserFilter passed to /admin/ajxUserLookup.php to show filtered wtkUsers
+ * @param string $fncDisplayName used both for name displayed and Label
+ * @uses function wtkFormPrepUpdField
+ * @return html returns disabled input field showing user name with icon to open a modal window and select users
+ */
+function wtkFormUserSelect($fncTable, $fncColumn, $fncUserFilter, $fncDisplayName){
+    wtkFormPrepUpdField($fncTable, $fncColumn, 'text'); // so will save
+    $fncUserUID = wtkSqlValue($fncColumn);
+    $fncUserName = wtkSqlValue($fncDisplayName);
+    $fncLabel = wtkInsertSpaces($fncDisplayName);
+    $fncHtm =<<<htmVAR
+    <input type="hidden" name="Origwtk$fncTable$fncColumn" id="Origwtk$fncTable$fncColumn" value="$fncUserUID">
+    <input type="hidden" name="wtk$fncTable$fncColumn" id="wtk$fncTable$fncColumn" value="$fncUserUID">
+    <div class="input-field col m3 s12">
+        <i class="material-icons prefix clickable" onclick="JavaScript:openUserLookup('$fncUserFilter', '$fncDisplayName', 'wtk$fncTable$fncColumn')">search</i>
+        <input type="text" style="color:#000 !important;" disabled name="$fncDisplayName" id="$fncDisplayName" value="$fncUserName">
+        <label for="InstructorName" class="active">$fncLabel</label>
+    </div>
+htmVAR;
+    return $fncHtm;
+} // wtkFormUserSelect
+
+/**
 * Similar to wtkFormSelect but this one shows font styles while displaying select drop list of fonts
 *
 * The SQL query to use to generate a list of values and display values needs to be passed.

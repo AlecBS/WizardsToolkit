@@ -213,3 +213,40 @@ function resetAffiliate(fncID){
         }
     })
 }
+
+// BEGIN user select via modal window
+function wtkUserAutoFill(fncType, fncName) {
+    if (fncName.length > 2) {
+        $.ajax({
+            type: 'POST',
+            url: '/admin/ajxUserLookup.php',
+            data: { apiKey: pgApiKey, type: fncType, name: fncName },
+            success: function(data) {
+                $('#foundUsers').html(data);
+            }
+        })
+    }
+}
+function openUserLookup(fncLookupType, fncUserNameRefresh, fncSetUserColumn){
+    $('#UserLookup').val('');
+    $('#UserLookupType').val(fncLookupType);
+    $('#UserSetColumn').val(fncSetUserColumn);
+    $('#UserNameRefresh').val(fncUserNameRefresh);
+    $('#foundUsers').html('');
+    let fncId = document.getElementById('modalUsers');
+    let fncModal = M.Modal.getInstance(fncId);
+    fncModal.open();
+    $('#UserLookup').select();
+}
+function chooseUser(fncUserUID, fncUserName) {
+    $('#' + $('#UserSetColumn').val()).val(fncUserUID);
+    $('#' + $('#UserNameRefresh').val()).val(fncUserName);
+    closeUserLookup();
+}
+
+function closeUserLookup(){
+    let fncId = document.getElementById('modalUsers');
+    let fncModal = M.Modal.getInstance(fncId);
+    fncModal.close();
+}
+//  END  user select via modal window
