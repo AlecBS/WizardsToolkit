@@ -647,7 +647,9 @@ htmVAR;
 /**
  * Creates html for Modal User Select feature
  *
- * The modal "modalUsers" must be in the spa.htm for this to work.
+ * The modal "modalUsers" must be in the spa.htm or spaAdmin.htm for this to work.
+ * Matching JS functions are in wtkAdmin.js to allow easy User selection via typing a few letters of first name.
+ * Works well for large data sets of wtkUsers. Excellent to allow selecting associated user for different parent tables.
  *
  * Example calling method:
  * <code>
@@ -658,8 +660,8 @@ htmVAR;
  * @param string $fncColumn data column name
  * @param string $fncUserFilter passed to /admin/ajxUserLookup.php to show filtered wtkUsers
  * @param string $fncDisplayName used both for name displayed and Label
- * @uses function wtkFormPrepUpdField
  * @return html returns disabled input field showing user name with icon to open a modal window and select users
+ *@uses function wtkFormPrepUpdField
  */
 function wtkFormUserSelect($fncTable, $fncColumn, $fncUserFilter, $fncDisplayName){
     wtkFormPrepUpdField($fncTable, $fncColumn, 'text'); // so will save
