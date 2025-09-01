@@ -17,10 +17,10 @@ SELECT u.`UID`, CONCAT(u.`FirstName`, ' ', COALESCE(u.`LastName`,''), ' (', L.`L
     AND LOWER(u.`FirstName`) LIKE '%$pgName%'
 SQLVAR;
 switch ($pgType):
-    case 'instructors':
-        $pgSQL .= ' AND (u.`SecurityLevel` BETWEEN 20 AND 40 OR u.`UID` IN (3,4))';
+    case 'staff':
+        $pgSQL .= ' AND u.`SecurityLevel` BETWEEN 20 AND 40';
         break;
-    case 'roomSched':
+    case 'customers':
         $pgSQL .= ' AND u.`SecurityLevel` < 10';
         break;
 endswitch;
@@ -35,12 +35,11 @@ while ($gloPDOrow = $pgPDO->fetch(PDO::FETCH_ASSOC)):
     $pgUserName = wtkSqlValue('Name');
     $pgUserName = wtkReplace($pgUserName, "'","&rsquo;");
     switch ($pgType):
-        case 'instructor':
-        case 'roomSched':
-            $pgHtm .= '<li><a onclick="JavaScript:chooseUser(' . $pgUserUID . ', \'' . $pgUserName . '\')">' . $pgUserName . '</a></li>' . "\n";
+        case 'justList':
+            $pgHtm .= '<li>' . $pgUserName . '</li>' . "\n";
             break;
         default:
-            $pgHtm .= '<li>' . $pgUserName . '</li>' . "\n";
+            $pgHtm .= '<li><a onclick="JavaScript:chooseUser(' . $pgUserUID . ', \'' . $pgUserName . '\')">' . $pgUserName . '</a></li>' . "\n";
             break;
     endswitch;
 endwhile;

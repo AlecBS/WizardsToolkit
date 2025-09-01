@@ -1189,7 +1189,7 @@ function wtkCURLcall($fncURL, $fncHeader, $fncPost, $fncPostCount = 1, $fncErrTi
     $fncResult = curl_exec($ch);
     $fncCurlInfo = curl_getinfo($ch);
     $fncCurlHttp = $fncCurlInfo['http_code'];
-    if (($fncCurlHttp != 200) && ($fncCurlHttp != 201)):
+    if (($fncCurlHttp != 200) && ($fncCurlHttp != 201) && ($fncCurlHttp != 202)):
         if (!($fncResult)):
             $fncIpAddress = wtkGetIPaddress();
             $fncCurlErrNum = curl_errno($ch);
