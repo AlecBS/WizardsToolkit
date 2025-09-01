@@ -663,7 +663,7 @@ htmVAR;
  * @return html returns disabled input field showing user name with icon to open a modal window and select users
  *@uses function wtkFormPrepUpdField
  */
-function wtkFormUserSelect($fncTable, $fncColumn, $fncUserFilter, $fncDisplayName){
+function wtkFormUserSelect($fncTable, $fncColumn, $fncUserFilter, $fncDisplayName, $fncColSize = 'm6 s12'){
     wtkFormPrepUpdField($fncTable, $fncColumn, 'text'); // so will save
     $fncUserUID = wtkSqlValue($fncColumn);
     $fncUserName = wtkSqlValue($fncDisplayName);
@@ -671,7 +671,7 @@ function wtkFormUserSelect($fncTable, $fncColumn, $fncUserFilter, $fncDisplayNam
     $fncHtm =<<<htmVAR
     <input type="hidden" name="Origwtk$fncTable$fncColumn" id="Origwtk$fncTable$fncColumn" value="$fncUserUID">
     <input type="hidden" name="wtk$fncTable$fncColumn" id="wtk$fncTable$fncColumn" value="$fncUserUID">
-    <div class="input-field col m3 s12">
+    <div class="input-field col $fncColSize">
         <i class="material-icons prefix clickable" onclick="JavaScript:openUserLookup('$fncUserFilter', '$fncDisplayName', 'wtk$fncTable$fncColumn')">search</i>
         <input type="text" style="color:#000 !important;" disabled name="$fncDisplayName" id="$fncDisplayName" value="$fncUserName">
         <label for="InstructorName" class="active">$fncLabel</label>
