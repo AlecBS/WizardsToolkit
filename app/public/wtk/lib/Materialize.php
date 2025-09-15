@@ -664,16 +664,24 @@ htmVAR;
  *@uses function wtkFormPrepUpdField
  */
 function wtkFormUserSelect($fncTable, $fncColumn, $fncUserFilter, $fncDisplayName, $fncColSize = 'm6 s12'){
+    global $gloDarkLight;
     wtkFormPrepUpdField($fncTable, $fncColumn, 'text'); // so will save
     $fncUserUID = wtkSqlValue($fncColumn);
     $fncUserName = wtkSqlValue($fncDisplayName);
     $fncLabel = wtkInsertSpaces($fncDisplayName);
+    if ($gloDarkLight == 'Dark'):
+        $fncDisableColor = 'color:#fff !important;';
+        $fncIconColor = 'style="color:#c6c6c6 !important;"';
+    else:
+        $fncDisableColor = 'color:#000 !important;';
+        $fncIconColor = '';
+    endif;
     $fncHtm =<<<htmVAR
     <input type="hidden" name="Origwtk$fncTable$fncColumn" id="Origwtk$fncTable$fncColumn" value="$fncUserUID">
     <input type="hidden" name="wtk$fncTable$fncColumn" id="wtk$fncTable$fncColumn" value="$fncUserUID">
     <div class="input-field col $fncColSize">
-        <i class="material-icons prefix clickable" onclick="JavaScript:openUserLookup('$fncUserFilter', '$fncDisplayName', 'wtk$fncTable$fncColumn')">search</i>
-        <input type="text" style="color:#000 !important;" disabled name="$fncDisplayName" id="$fncDisplayName" value="$fncUserName">
+        <i class="material-icons prefix clickable" $fncIconColor onclick="JavaScript:openUserLookup('$fncUserFilter', '$fncDisplayName', 'wtk$fncTable$fncColumn')">search</i>
+        <input type="text" style="$fncDisableColor" disabled name="$fncDisplayName" id="$fncDisplayName" value="$fncUserName">
         <label for="InstructorName" class="active">$fncLabel</label>
     </div>
 htmVAR;
