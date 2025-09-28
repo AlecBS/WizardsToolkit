@@ -1808,6 +1808,11 @@ function wtkRemoveModalTinyMCE() {
     }
 } // wtkRemoveModalTinyMCE
 
+function wtkUnsetUserUID(fncFieldName,fncDisplayName){
+    // used by PHP wtkFormUserSelect function
+    $('#' + fncFieldName).val('');
+    $('#' + fncDisplayName).val('');
+}
 function toDo(fncFrom) {
     wtkAlert(fncFrom + ' - Alec needs to code this...');
 }

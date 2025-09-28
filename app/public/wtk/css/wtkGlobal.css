@@ -681,6 +681,16 @@ input[type="range"]::-moz-range-thumb, input[type="range"]+.thumb {
   background: var(--btn-color);
 }
 
+.input-icon-right {
+  /* same as toggle-password but without toggling */
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  color: var(--btn-color);
+  cursor: pointer;
+  z-index: 2;
+  transform: none;
+}
 .toggle-password {
   position: absolute;
   top: 0.5rem; /* Aligns with .suffix */

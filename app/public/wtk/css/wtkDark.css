@@ -26,14 +26,36 @@ https://WizardsToolkit.com
 */
 
 :root {
+  --href-link: #757678;
   --border-color: #444;
   --card-color: #3C3838;
   --focus-color: var(--dark-theme-focus);
+  --active-label: #4050DF;
   --main-bg-color: #212121;
   --main-text-color: #ccc;
   --secondary-bg-color: #272727;
   --third-bg-color: #323232;
   --input-color: #777;
+}
+
+.datepicker-table td.is-today {
+  color: var(--highlight-color);
+}
+.datepicker-day-button {
+  color: #fff;
+}
+.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done {
+  color: var(--highlight-color) !important;
+}
+.timepicker-tick {
+  color: #9b9191;
+}
+.timepicker-close {
+  color: #fff !important;
+}
+input[type="checkbox"].darkcheckbox:checked + span:not(.lever)::before {
+  border-right: 2px solid var(--highlight-color) !important;
+  border-bottom: 2px solid var(--highlight-color) !important;
 }
 
 /*DROPDOWN*/
@@ -78,7 +100,12 @@ textarea.materialize-textarea:disabled {
 .bg-second form input {
   color: #000;
 }
-
+.bg-second a:not(.btn) {
+  color: #064cda;
+}
+.bg-second p {
+  color: #424242;
+}
 .content form {
   background: #3c3838 !important;
 }
