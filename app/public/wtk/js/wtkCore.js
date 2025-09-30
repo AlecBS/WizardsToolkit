@@ -1599,28 +1599,19 @@ function wtkBrowseReset(fncURL, fncTableID = '', fncRNG=0) {
     if (fncTableID == '') {
         fncTableID = fncURL;
     }
-    if (elementExist('wtkFilter')){
-        let fncType = document.getElementById('wtkFilter').type;
-        if (fncType == 'checkbox') {
-            document.getElementById('wtkFilter').checked = false;
-        } else {
-            $('#wtkFilter').val('');
-        }
-    }
-    if (elementExist('wtkFilter2')){
-        let fncType2 = document.getElementById('wtkFilter2').type;
-        if (fncType2 == 'checkbox') {
-            document.getElementById('wtkFilter2').checked = false;
-        } else {
-            $('#wtkFilter2').val('');
-        }
-    }
-    if (elementExist('wtkFilter3')){
-        let fncType3 = document.getElementById('wtkFilter3').type;
-        if (fncType3 == 'checkbox') {
-            document.getElementById('wtkFilter3').checked = false;
-        } else {
-            $('#wtkFilter3').val('');
+    var fncFieldArray = document.getElementById('wtkFilterForm').elements;
+    for (var i = 0; i < fncFieldArray.length; i++) {
+        var fncField = fncFieldArray[i];
+        if (fncField != 'Filter') {
+            var fncType = fncField.type;
+            if (fncType === 'checkbox') {
+                fncField.checked = false;
+            } else if (fncType === 'text' || fncType === 'number' || fncType === 'email' || fncType === 'date' || fncType === 'search' || fncType === 'tel' || fncType === 'url' || fncType === 'password' || fncType === 'textarea') {
+                fncField.value = '';
+            } else if (fncType === 'select-one' || fncType === 'select-multiple') {
+                fncField.selectedIndex = 0;
+            }
+            // Add more types as needed
         }
     }
     $('#filterReset').addClass(pgHide);
