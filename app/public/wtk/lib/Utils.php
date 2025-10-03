@@ -1078,6 +1078,9 @@ function wtkDeadPage($fncType = ''){
         $fncHtm = wtkLoadInclude(_WTK_RootPATH . 'htm/serverOffline.htm');
         $fncHtm = wtkReplace($fncHtm, '@wtkPath@', _WTK_RootPATH);
     else:
+        if ($fncType != 'Lockout'):
+            wtkInsFailedAttempt($fncType);
+        endif;
         $fncIPaddress = wtkGetIPaddress();
         if ($fncIPaddress != 'no-IP'):
             $fncTmp = "<p>Your IP address ($fncIPaddress) has been logged and our";

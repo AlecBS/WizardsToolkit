@@ -6,7 +6,7 @@ require('wtkLogin.php');
 
 if (wtkGetParam('pw') != 'OkFromSrvr'): // prevent robots and hackers from triggering
     wtkInsFailedAttempt('cron');
-    wtkDeadPage();
+    wtkDeadPage('cron');
 endif;
 
 $pgHtm = '<h2>CRON Jobs</h2><hr>' . "\n";

@@ -24,7 +24,7 @@ if ($pgPassword != 'myRestPostmarkAppPW'):
     wtkLogError('PostmarkApp Headers', $pgTmp);
     $pgSqlDebugFilter = array ('DevNote' => 'restPostmarkApp triggered but wtkDeadPage');
     wtkSqlExec($pgDebugSQL, $pgSqlDebugFilter);
-    wtkDeadPage('');
+    wtkDeadPage('RPMA');
 endif;
 
 $pgInput = file_get_contents('php://input');

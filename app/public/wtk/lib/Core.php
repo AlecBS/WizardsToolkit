@@ -43,7 +43,14 @@ require(_WTK_RootPATH . 'lib/Google.php');
 require(_WTK_RootPATH . 'lib/Mobile.php');
 require(_WTK_RootPATH . 'lib/PayPal.php');
 require(_WTK_RootPATH . 'lib/Email.php');
-require(_WTK_RootPATH . 'lib/Materialize.php');
+if (!isset($gloCSSLib)):
+    $gloCSSLib = 'MaterializeCSS';
+endif;
+if ($gloCSSLib == 'MaterializeCSS'):
+    require(_WTK_RootPATH . 'lib/Materialize.php');
+else:
+    require(_WTK_RootPATH . 'lib/Tailwind.php');
+endif;
 require(_WTK_RootPATH . 'lib/Social.php');
 require(_WTK_RootPATH . 'lib/Twilio.php');
 require(_WTK_RootPATH . 'lib/Chart.php');
@@ -84,7 +91,7 @@ if ($gloSkipConnect != 'Y'):
             $pgSQL  = 'UPDATE `wtkLockoutUntil` SET `BlockedCount` = (`BlockedCount` + 1)';
             $pgSQL .= ' WHERE `IPaddress` = :IPaddress AND `LockUntil` > NOW()';
             wtkSqlExec($pgSQL, $pgSqlFilter);
-            wtkDeadPage('');
+            wtkDeadPage('Lockout');
         endif;
         //  END  see IP address is locked out
         $pgFailSQL  = 'SELECT COUNT(*) FROM `wtkFailedAttempts` WHERE `IPaddress` = :IPaddress';
@@ -145,7 +152,7 @@ SQLVAR;
                 );
                 wtkSqlExec(wtkSqlPrep($pgSQL),$pgSqlFilter);
             endif;
-            wtkDeadPage('');
+            wtkDeadPage('Lockout');
             //  END  Only send one email per minute
         endif;
     endif; // if have IP address, then check to see if should lockout
