@@ -157,14 +157,16 @@ function wtkFocusOnInput() {
     }, 180);
 }
 function wtkChangeRequired(fncId,fncRequired) {
-	let fncTmp = document.getElementById(fncId);
-	if (fncRequired == true) {
-		fncTmp.setAttribute('required', '');
-		wtkDebugLog('changeRequired : set required for ' + fncId);
-	} else {
-		fncTmp.removeAttribute('required');
-		wtkDebugLog('changeRequired : set NOT required for ' + fncId);
-	}
+    let fncTmp = document.getElementById(fncId);
+    if (elementExist(fncId)) {
+        if (fncRequired == true) {
+            wtkDebugLog('changeRequired : setting required for ' + fncId);
+            fncTmp.setAttribute('required', '');
+        } else {
+            wtkDebugLog('changeRequired : setting NOT required for ' + fncId);
+            fncTmp.removeAttribute('required');
+        }
+    }
 }
 function wtkGetValue(fncIdName, fncFormId = '') {
     let fncResult = '';

@@ -679,6 +679,7 @@ function wtkFormUserSelect($fncTable, $fncColumn, $fncUserFilter, $fncDisplayNam
     $fncHtm =<<<htmVAR
     <input type="hidden" name="Origwtk$fncTable$fncColumn" id="Origwtk$fncTable$fncColumn" value="$fncUserUID">
     <input type="hidden" name="wtk$fncTable$fncColumn" id="wtk$fncTable$fncColumn" value="$fncUserUID">
+    <label for="wtk$fncTable$fncColumn" class="hide">$fncLabel</label>
     <div class="input-field col $fncColSize">
         <i class="material-icons prefix clickable" $fncIconColor onclick="JavaScript:openUserLookup('$fncUserFilter', '$fncDisplayName', 'wtk$fncTable$fncColumn')">search</i>
         <input type="text" style="$fncDisableColor" disabled name="$fncDisplayName" id="$fncDisplayName" value="$fncUserName">
