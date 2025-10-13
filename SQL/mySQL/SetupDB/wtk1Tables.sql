@@ -59,7 +59,7 @@ CREATE TABLE `wtkUsers` (
   `CanEditHelp` enum('N','Y') default 'N',
   `CanUnlock` enum('N','Y') default 'N',
   `SSN` varchar(11),
-  `IPAddress` varchar(40),
+  `IPaddress` varchar(40),
   `EmailOKDate` datetime,
   `SignedDate` datetime,
   `PromoCode` varchar(24),
@@ -71,6 +71,17 @@ CREATE TABLE `wtkUsers` (
   KEY `ix_wtkUsers_Email` (`Email`),
   KEY `ix_wtkUsers_LastNameFirstName` (`LastName`, `FirstName`),
   KEY `ix_wtkUsers_FirstNameLastName` (`FirstName`, `LastName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
+CREATE TABLE `wtkAbuseIPDB` (
+  `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `IPaddress` varchar(40),
+  `CategoryUID` smallint,
+  `AbuseConfidenceScore` smallint,
+  `AbuseNote` varchar(250),
+  PRIMARY KEY (`UID`),
+  KEY `ix_wtkAbuseIPDB_AddDate` (`AddDate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkAds` (
@@ -189,7 +200,7 @@ CREATE TABLE `wtkBroadcast_wtkUsers` (
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `BroadcastUID` int UNSIGNED default NULL,
   `UserUID` int UNSIGNED default NULL,
-  `IpAddress` varchar(40) default NULL,
+  `IPaddress` varchar(40) default NULL,
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkBroadcast_wtkUsers_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),

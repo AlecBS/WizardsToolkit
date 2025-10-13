@@ -635,52 +635,6 @@ function wtkSaveUpdateLog($fncTable, $fncSQL) {
 }  // end of wtkSaveUpdateLog
 
 /**
-* Checks to see if there is a SQL injection in the SQL.
-* Pass in a value and it will mark as SQL injection if ;, single quote or information_schema .
-*
-* @param string $fncSqlColumn
-*/
-function wtkCheckSqlInjection($fncSqlColumn) {
-    $fncFail = false;
-    $fncPos = stripos($fncSqlColumn, "'");
-    if ($fncPos !== false):
-        $fncFail = true;
-    endif;  // pgPos !== false
-    $fncPos = strpos($fncSqlColumn, ';');
-    if ($fncPos !== false):
-        $fncFail = true;
-    endif;  // pgPos !== false
-    $fncPos = stripos($fncSqlColumn, 'information_schema');
-    if ($fncPos !== false):
-        $fncFail = true;
-    endif;  // pgPos !== false
-
-    if ($fncFail == true):
-        wtkInsFailedAttempt('SQL');
-        $fncIPaddress = wtkGetIPaddress();
-        $fncMsg  = 'Possible hacker attempt.  Check both wtkFailedAttempts and wtkErrorLog data for this';
-        $fncMsg .= ' time: ' . date('m/d/Y h:i:s') . '<br><br>' . $gloCurrentPage;
-        $fncMsg .= '<br><br>Website: ' . $gloWebBaseURL ;
-        $fncMsg .= '<br><br>From IP address: ' . $fncIPaddress ;
-        $fncMsg .= '<br><br>Injection: ' . $fncSqlColumn ;
-        $pgSaveArray = array (
-            'FromUID' => 0
-        );
-        wtkNotifyViaEmailPlain('SQL issue - ' . $gloCurrentPage, $fncMsg, '', $pgSaveArray);
-
-        $fncHtm  = '<div class="row">' . "\n";
-        $fncHtm .= '	<div class="col m10 offset-m1 s12">' . "\n";
-        $fncHtm .= '<h2>Page called incorrectly.</h2>' . "\n";
-        $fncHtm .= '<br>Your IP address is: ' . $fncIPaddress . ' and our technical staff has been notified so they can look into this immediately.'. "\n";
-        $fncHtm .= '	<br><br>' . "\n";
-        $fncHtm .= '	</div>' . "\n";
-        $fncHtm .= '</div>' . "\n";
-        $gloShowPrint = false;
-        wtkMergePage($fncHtm, 'Nefarious Action Detected', _RootPATH . 'wtk/htm/spa.htm');
-    endif;  // pgFail == true
-}  // end of wtkCheckSqlInjection
-
-/**
 * Generate new file name.  This is mostly used for creating a file name for image uploads.
 * Pass in the Table Name and File Extension.  The TableName is inserted into wtkGUID and
 * the auto-generated GUID is used as part of the file name.

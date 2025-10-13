@@ -1,7 +1,7 @@
 <?php
 // 2FIX
 // Send an SMS using Twilio
-$gloSkipConnect = true;
+$gloSkipConnect = 'Y';
 require('twilio/config.php');
 
 function wtkReplace($fncSubject, $fncSearch, $fncReplace) {
