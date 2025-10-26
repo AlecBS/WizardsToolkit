@@ -31,7 +31,9 @@
 use PHPMailer\PHPMailer\PHPMailer;  // must be in this file, not in Core.php
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-require(_WTK_RootPATH . 'PHPMailer/src/SMTP.php');
+if ($gloEmailMethod != 'PostmarkApp'):
+    require(_WTK_RootPATH . 'PHPMailer/src/SMTP.php');
+endif;
 
 /**
 * Primary function to call to send emails.
@@ -538,7 +540,7 @@ function wtkNotifyViaEmailPlain($fncSubject, $fncMessage, $fncToEmail = '', $fnc
 /**
 * One-line method of sending an email using an email HTML template.
 *
-* This defaults to sending email to $gloTechSupport definied in wtkServerInfo.php but you can pass both a To and a CC email
+* This defaults to sending email to $gloTechSupport defined in wtkServerInfo.php but you can pass both a To and a CC email
 *
 * @param string $fncSubject
 * @param string $fncMessage - body of email

@@ -286,7 +286,7 @@ endif;
 $gloSaveCSS           = 'btn btn-primary';
 $gloCancelCSS         = 'btn';
 
-$gloDarkLight         = 'Light'; // used for emailing emailDark or emailLight and settign in minibox.htm
+$gloDarkLight         = 'Light'; // used for emailing emailDark or emailLight and setting in minibox.htm
 $gloImgWidth          = 200; // used for browse list for image sizes
 $gloImgHeight         = 140; // used for browse list for image sizes
 
