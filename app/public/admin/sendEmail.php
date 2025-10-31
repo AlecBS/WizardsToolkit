@@ -93,7 +93,7 @@ SQLVAR;
 </div>
 <div id="modFooter" class="modal-footer right">
     <a class="btn-small black b-shadow waves-effect waves-light modal-close" onclick="JavaScript:wtkFixSideNav()">Close</a> &nbsp;&nbsp;
-    <a class="btn-primary btn-small b-shadow waves-effect waves-light" onclick="JavaScript:adminValidateEmail()">Send</a>
+    <a id="sendEmailBtn" class="btn-primary btn-small b-shadow waves-effect waves-light" onclick="JavaScript:adminValidateEmail()">Send</a>
 </div>
 htmVAR;
         break;

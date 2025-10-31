@@ -155,28 +155,39 @@ function showEmailOrUser(){
 }
 // sendEmail
 function adminValidateEmail(fncPage = 'sendEmail'){
-    var fncSendEmail = 'N';
-    if ($('#UserOrEmail').is(':checked')) {
-        let fncToEmail = $('#ToEmail').val();
-        if (fncToEmail == ''){
-            wtkAlert('Enter an email address to send to');
-        } else {
-            if (isValidEmail(fncToEmail)) {
-                fncSendEmail = 'Y';
-            } else {
-                wtkAlert('Email address is not valid');
-            }
+    wtkDisableBtn('sendEmailBtn');
+    if (elementExist('HasModalTinyMCE')){
+        if (elementExist('EmailMsg')){
+            var fncHasTinyMCE = $('#HasModalTinyMCE').val();
+            let fncTextArea = fncHasTinyMCE.replace('textarea#','');
+            let fncNewValue = tinymce.get(fncTextArea).getContent();
+            $('#EmailMsg').val(fncNewValue);
         }
-    } else {
-        fncSendEmail = 'Y';
     }
-    if (fncSendEmail == 'Y'){
-        modalSave('/admin/' + fncPage,'emailResults');
-        let fncId = document.getElementById('modalWTK');
-        let fncModal = M.Modal.getInstance(fncId);
-        fncModal.close();
-        M.toast({html: 'The email has been sent.', classes: 'green rounded'});
-    }
+    if (wtkRequiredFieldsFilled('FemailResults')) {
+        var fncSendEmail = 'N';
+        if ($('#UserOrEmail').is(':checked')) {
+            let fncToEmail = $('#ToEmail').val();
+            if (fncToEmail == ''){
+                wtkAlert('Enter an email address to send to');
+            } else {
+                if (isValidEmail(fncToEmail)) {
+                    fncSendEmail = 'Y';
+                } else {
+                    wtkAlert('Email address is not valid');
+                }
+            }
+        } else {
+            fncSendEmail = 'Y';
+        }
+        if (fncSendEmail == 'Y'){
+            modalSave('/admin/' + fncPage,'emailResults');
+            let fncId = document.getElementById('modalWTK');
+            let fncModal = M.Modal.getInstance(fncId);
+            fncModal.close();
+            M.toast({html: 'The email has been sent.', classes: 'green rounded'});
+        }
+    } // wtkRequiredFieldsFilled
 }
 // pickEmailTemplate
 function adminEmailing(fncEmailGroup, fncId, fncMode = 'SendOne'){
@@ -213,7 +224,29 @@ function resetAffiliate(fncID){
         }
     })
 }
-
+function ajxDeleteNotify(fncTbl, fncId, fncDelDate, fncDesign = 'SPA', fncConfirm = 'N') {
+    // use when browse does not have totals and therefore does not need refresh
+    if (fncDesign == '') {
+        fncDesign = pgMPAvsSPA;
+    }
+    let fncOK = false;
+    if ((fncConfirm == 'Y') || (fncConfirm == true)) {
+        fncOK = confirm('Are you certain you want to delete?');
+    } else {
+        fncOK = true;
+    }
+    if (fncOK == true) {
+        $('#D' + fncTbl + fncId).addClass('hide');
+        let fncTableRow = document.getElementById('D' + fncTbl + fncId);
+        fncTableRow.style.display = 'none';
+        $.ajax({
+            type: 'POST',
+            url:  '/admin/ajxDeleteNotify.php',
+            data: { apiKey: pgApiKey, tbl: fncTbl, id: fncId, date: fncDelDate, wtkDesign: fncDesign},
+            success: function(data) { }
+        })
+    }
+} // ajxDeleteNotify
 // BEGIN user select via modal window
 function wtkUserAutoFill(fncType, fncName) {
     if (fncName.length > 2) {

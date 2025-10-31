@@ -68,9 +68,12 @@ htmVAR;
 if ($gloRNG == 1): // called from bugList so SPA, not MPA
     echo $pgHtm;
     exit;
+else:
+    $pgHtm = wtkReplace($pgHtm, 'class="btn right">Reply</a>', 'class="hide">Reply</a>');
+    $pgHtm = wtkReplace($pgHtm, '<div class="container">', '<div>');
 endif;
 $pgApiKey = wtkGetGet('apiKey');
-if ($pgApiKey != ''): // clicked on messaage in email then logged in
+if ($pgApiKey != ''): // clicked on message in email then logged in
     $pgHtm .=<<<htmVAR
 <script type="text/javascript">
 setTimeout(function() {
