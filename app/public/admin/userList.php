@@ -8,7 +8,7 @@ $gloIconSize = 'btn-small';
 
 $pgSQL =<<<SQLVAR
 SELECT u.`UID`, u.`FirstName`, u.`LastName`, L.`LookupDisplay`,
-    `fncContactIcons`(u.`Email`,u.`CellPhone`,0,0,'Y',u.`UID`,u.`SMSEnabled`,'N','') AS `Contact`,
+    `fncContactIcons`(COALESCE(u.`Email`,u.`AltEmail`),COALESCE(u.`CellPhone`,u.`Phone`),0,0,'Y',u.`UID`,u.`SMSEnabled`,'N','') AS `Contact`,
     u.`Email`
   FROM `wtkUsers` u
     INNER JOIN `wtkLookups` L ON L.`LookupType` = 'SecurityLevel' AND L.`LookupValue` = u.`SecurityLevel`

@@ -842,7 +842,7 @@ htmVAR;
 * @param string $fncColSize MaterializeCSS column sizing - defaults to 'm6 s12'
 * @param string $fncRefresh defaults to '' blank; set to image ID you want refreshed upon saving (by JS)
 * @param string $fncShowOneClickUpload defaults to 'N' but if set to 'Y' then adds button to upload using AJAX without needing a 'Save' button
-* @param string $fncAccept defaults to 'accept="image/*"'; you can change this to other document filters like accept=".pdf"
+* @param string $fncAccept defaults to 'accept="image/*"'; you can change this to other document filters like accept=".pdf"; to accept all files change to accept="*"
 * @param string $fncThumbnail defaults to 'Y'; if set to 'Y' then adds an <img id="imgPreview" ...> which will show a preview of images
 * @param number $fncFormId usually leave this with default of '1' but if you have more than one file upload on a page, each must have this parameter different
 * @param string $fncAllowDelete defaults to 'Y' which shows a Delete button to delete file on server

@@ -6,7 +6,7 @@ $pgIPaddress = wtkGetIPaddress();
 
 $pgBrowser = safe_get_browser();
 if ($pgBrowser == ''):
-    $pgInternalNote = 'get_browser note working in PHP';
+    $pgInternalNote = 'get_browser not working in PHP';
     $pgBrowserName  = 'unknown';
     $pgBrowserVer   = 'unknown';
 else:

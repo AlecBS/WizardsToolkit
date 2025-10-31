@@ -110,7 +110,7 @@ CREATE FUNCTION `fncContactIcons`(fncEmail VARCHAR(80),
   */
     DECLARE fncHTM VARCHAR(800);
     DECLARE fncPhoneNum VARCHAR(80);
-    SET fncHTM = '<div class="wtk-flex-center">';
+    SET fncHTM = '';
 
     IF COALESCE(fncEmail,'') <> '' THEN
         IF (fncModalEmail = 'Y') THEN
@@ -146,7 +146,7 @@ CREATE FUNCTION `fncContactIcons`(fncEmail VARCHAR(80),
         SET fncHTM = CONCAT(fncHTM,'<a href="http://www.google.com/maps/?q=',
           fncLat,',', fncLong, '" target="_blank"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-map-pin"/></svg></a> ');
     END IF;
-    SET fncHTM = CONCAT(fncHTM,'</div>');
+    SET fncHTM = CONCAT('<div class="wtk-flex-center">',fncHTM,'</div>');
     RETURN fncHTM;
 END
 $$

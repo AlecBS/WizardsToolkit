@@ -8,11 +8,11 @@ $gloSiteDesign = 'SPA';
 $pgId = wtkGetParam('id');
 $pgDate = wtkSqlDateFormat('b.`AddDate`','BugDate',$gloSqlDateTime);
 $pgSQL =<<<SQLVAR
-SELECT b.`UID`, $pgDate,
+SELECT b.`UID`, $pgDate, b.`CreatedByUserUID`,
   b.`OpSystem` AS `OperatingSystem`, b.`Browser`, b.`BrowserVer` AS `BrowserVersion`,
   b.`AppVersion`, b.`DeviceType`, b.`ReferralPage`, b.`BugMsg`, b.`InternalNote`,
   CONCAT(u.`FirstName`, ' ', COALESCE(u.`LastName`,'')) AS `User`, b.`IPaddress`,
-  `fncContactIcons`(u.`Email`,u.`Phone`,0,0,'Y',u.`UID`,u.`SMSEnabled`,'Y','') AS `Contact`
+  fncContactIcons(COALESCE(u.`Email`,u.`AltEmail`),COALESCE(u.`CellPhone`,u.`Phone`),0,0,'Y',u.`UID`,u.`SMSEnabled`,'N','') AS `Contact`
 FROM `wtkBugReport` b
   LEFT OUTER JOIN `wtkUsers` u ON u.`UID` = b.`CreatedByUserUID`
 WHERE b.`UID` = ?
@@ -21,6 +21,7 @@ wtkSqlGetRow($pgSQL, [$pgId]);
 $pgBugMsg = wtkSqlValue('BugMsg');
 $pgBugMsg = nl2br($pgBugMsg);
 $pgBugDate = wtkSqlValue('BugDate');
+$pgUserUID = wtkSqlValue('CreatedByUserUID');
 
 $pgHtm =<<<htmVAR
 <div class="container">
@@ -39,7 +40,9 @@ $pgHtm =<<<htmVAR
             <span id="formMsg" class="red-text">$gloFormMsg</span>
             <div class="row">
                 <div class="col s12">
-                    <h6>Message From User</h6><br>
+                    <h6>Message From User
+                        <a onclick="wtkModal('/admin/emailWriter','Start', $pgUserUID, $pgId);" class="btn right">Reply</a>
+                    </h6><br>
                     $pgBugMsg
                     <br><hr>
                 </div>
