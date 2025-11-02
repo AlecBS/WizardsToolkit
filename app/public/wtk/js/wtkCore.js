@@ -1599,19 +1599,21 @@ function wtkBrowseReset(fncURL, fncTableID = '', fncRNG=0) {
     if (fncTableID == '') {
         fncTableID = fncURL;
     }
-    var fncFieldArray = document.getElementById('wtkFilterForm').elements;
-    for (var i = 0; i < fncFieldArray.length; i++) {
-        var fncField = fncFieldArray[i];
-        if (fncField != 'Filter') {
-            var fncType = fncField.type;
-            if (fncType === 'checkbox') {
-                fncField.checked = false;
-            } else if (fncType === 'text' || fncType === 'number' || fncType === 'email' || fncType === 'date' || fncType === 'search' || fncType === 'tel' || fncType === 'url' || fncType === 'password' || fncType === 'textarea') {
-                fncField.value = '';
-            } else if (fncType === 'select-one' || fncType === 'select-multiple') {
-                fncField.selectedIndex = 0;
+    if (elementExist('wtkFilterForm')){
+        var fncFieldArray = document.getElementById('wtkFilterForm').elements;
+        for (var i = 0; i < fncFieldArray.length; i++) {
+            var fncField = fncFieldArray[i];
+            if (fncField != 'Filter') {
+                var fncType = fncField.type;
+                if (fncType === 'checkbox') {
+                    fncField.checked = false;
+                } else if (fncType === 'text' || fncType === 'number' || fncType === 'email' || fncType === 'date' || fncType === 'search' || fncType === 'tel' || fncType === 'url' || fncType === 'password' || fncType === 'textarea') {
+                    fncField.value = '';
+                } else if (fncType === 'select-one' || fncType === 'select-multiple') {
+                    fncField.selectedIndex = 0;
+                }
+                // Add more types as needed
             }
-            // Add more types as needed
         }
     }
     $('#filterReset').addClass(pgHide);

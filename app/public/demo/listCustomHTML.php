@@ -1,5 +1,7 @@
 <?php
 $gloLoginRequired = false;
+$gloCSSLib = 'MaterializeCSS';
+
 define('_RootPATH', '../');
 require('../wtk/wtkLogin.php');
 

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@PageTitle@</title>
+	<script type="text/javascript" src="@wtkPath@js/tailwind416.js"></script>
+	<link href="@wtkPath@css/daisyui5.css" rel="stylesheet" type="text/css"/>
+	<link href="@wtkPath@css/daisyui5themes.css?v=2" rel="stylesheet" type="text/css"/>
+	<link href="@wtkPath@css/daisyui5properties.css" rel="stylesheet" type="text/css"/>
+	<link href="@wtkPath@css/wtkTailwind.css" rel="stylesheet" type="text/css">
+	<link rel="preload" href="/imgs/icons.svg" as="image" type="image/svg+xml">
+	<link rel="shortcut icon" href="@rootPath@imgs/favicon/favicon.ico" type="image/x-icon"/>
+	<link rel="apple-touch-icon" href="@rootPath@imgs/favicon/apple-touch-icon.png"/>
+	<link rel="apple-touch-icon" sizes="57x57" href="@rootPath@imgs/favicon/apple-touch-icon-57x57.png"/>
+	<link rel="apple-touch-icon" sizes="72x72" href="@rootPath@imgs/favicon/apple-touch-icon-72x72.png"/>
+	<link rel="apple-touch-icon" sizes="76x76" href="@rootPath@imgs/favicon/apple-touch-icon-76x76.png"/>
+	<link rel="apple-touch-icon" sizes="114x114" href="@rootPath@imgs/favicon/apple-touch-icon-114x114.png"/>
+	<link rel="apple-touch-icon" sizes="120x120" href="@rootPath@imgs/favicon/apple-touch-icon-120x120.png"/>
+	<link rel="apple-touch-icon" sizes="144x144" href="@rootPath@imgs/favicon/apple-touch-icon-144x144.png"/>
+	<link rel="apple-touch-icon"  sizes="152x152" href="@rootPath@imgs/favicon/apple-touch-icon-152x152.png"/>
+	<script type="text/javascript" src="@wtkPath@js/wtkUtils.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/jquery.min.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkPaths.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkColors.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/chart382.min.js" defer></script>
+</head>
+<body class="bg-second" onload="JavaScript:wtkPageSetup()" class="border-blue-500">
+	<div class="hidden from-[--p] to-[--s]"></div>
+	<!-- preloader -->
+	<div id="wtkLoader" class="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-90">
+		<div class="relative w-16 h-16">
+			<span class="loading loading-infinity loading-xl text-primary scale-300"></span>
+		</div>
+	</div>
+	<!-- end preloader -->
+
+	<div id="myNavbar" class="hidden relative z-10">
+		<!-- @wtkMenu@ -->
+	</div>
+	<!-- sign in -->
+	<div id="fullPage">
+		<div id="loginPage" class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+			<div class="w-full max-w-md">
+				<div class="bg-white rounded-lg shadow-md overflow-hidden">
+					<!-- Gradient Header -->
+					<div class="bg-gradient-to-r from-primary to-secondary p-6 text-center text-primary-content rounded-t-lg">
+						<h2 class="text-2xl font-bold" id="langWelcome">Welcome</h2>
+						<h4 class="text-lg">to @CompanyName@</h4>
+					</div>
+
+					<!-- Error Message -->
+					<div id="LoginErrMsg" class="text-center text-red-500 p-2"></div>
+
+					<!-- Login Form -->
+					<form class="p-6 space-y-4">
+						<!-- Email Input -->
+						<div class="form-control">
+							<label class="input validator w-full">
+								<svg class="wtk-icon">
+									<use href="/imgs/icons.svg#icon-email"/>
+								</svg>
+								<input type="email" class="grow" name="myEmail" id="myEmail" value="@myEmail@"
+									   placeholder="your@email.com" required/>
+							</label>
+							<div class="validator-hint hidden">Enter valid email address</div>
+						</div>
+
+						<!-- Password -->
+						<div class="form-control">
+							<label class="input validator w-full">
+								<svg class="wtk-icon">
+									<use href="/imgs/icons.svg#icon-lock"/>
+								</svg>
+								<input type="password" class="grow" name="myPassword" id="myPassword" value="@myPW@"
+									   placeholder="Password" required/>
+								<span class="cursor-pointer toggle-password" data-toggle="#myPassword">
+                                	<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye"/></svg>
+                            	</span>
+							</label>
+							<div class="validator-hint hidden">Enter a password</div>
+						</div>
+						<!-- Password Input -->
+
+						<!-- Remember Me Checkbox -->
+						<div class="mb-6 flex items-center">
+							<label for="rememberMe" class="flex items-center cursor-pointer">
+								<input type="checkbox" value="Y" id="rememberMe" name="rememberMe" @rememberMe@
+									   class="checkbox">
+								<span id="langRemember" class="ml-2 text-sm text-gray-600">Remember Me</span>
+							</label>
+						</div>
+
+						<!-- Sign In Button -->
+						<div class="text-center">
+							<button id="btnLogin" type="button" onclick="wtkLoginForm('')"
+									class="btn btn-primary w-full shadow-md hover:shadow-lg">
+								Sign in
+							</button>
+						</div>
+
+						<!-- Links -->
+						<ul class="mt-4 text-center space-y-2">
+							<li>
+								<a onclick="showForgotPW('loginPage')"
+								   class="text-blue-600 hover:text-blue-800 text-sm cursor-pointer">Forgot password?</a>
+							</li>
+							<li>
+								<a onclick="showRegister('loginPage');" id="langCreateAcct1"
+								   class="text-blue-600 hover:text-blue-800 text-sm cursor-pointer">Create account</a>
+							</li>
+						</ul>
+
+						<!-- Language Selector -->
+						<div class="mt-4 max-w-xs mx-auto">
+							<select id="selLangList" onchange="wtkLangUpdate(this.value)"
+									class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+								<option value="eng">English</option>
+								<option value="esp">Español</option>
+								<option value="hin">हिन्दी</option>
+							</select>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="mainPage" class="hidden min-h-screen bg-gray-50">
+			@wtkContent@
+		</div>
+		<div id="dashboard" class="hidden bg-base-300">
+			<div id="widgetDIV" class="mx-auto px-4 max-w-screen-xl"></div>
+			<br>
+		</div>
+		<div id="registerPage" class="hidden min-h-screen flex items-center justify-center bg-gray-50 p-4">
+			<div class="w-full max-w-md">
+				<div class="bg-white rounded-lg shadow-md overflow-hidden">
+					<div class="bg-gradient-to-r from-primary to-secondary p-6 text-center text-primary-content rounded-t-lg">
+						<h2 id="langCreateAcct2" class="text-2xl font-bold">Create Account</h2>
+					</div>
+					<div class="card-body p-6">
+						<form id="wtkRegisterForm" name="wtkRegisterForm" class="space-y-4">
+							<!-- First Name -->
+							<div class="form-control">
+								<label class="input validator w-full">
+									<svg class="wtk-icon">
+										<use href="/imgs/icons.svg#icon-user"/>
+									</svg>
+									<input type="text" class="grow" name="wtkwtkUsersFirstName" id="wtkwtkUsersFirstName"
+										   placeholder="First Name" required/>
+								</label>
+								<div class="validator-hint hidden">Please enter your first name</div>
+							</div>
+
+							<!-- Last Name -->
+							<div class="form-control">
+								<label class="input validator w-full">
+									<svg class="wtk-icon">
+										<use href="/imgs/icons.svg#icon-user"/>
+									</svg>
+									<input type="text" class="grow" name="wtkwtkUsersLastName" id="wtkwtkUsersLastName"
+										   placeholder="Last Name" required/>
+								</label>
+								<div class="validator-hint hidden">Please enter your last name</div>
+							</div>
+
+							<!-- Email -->
+							<div class="form-control">
+								<label class="input validator w-full">
+									<svg class="wtk-icon">
+										<use href="/imgs/icons.svg#icon-email"/>
+									</svg>
+									<input type="email" class="grow" name="wtkwtkUsersEmail" id="wtkwtkUsersEmail"
+										   placeholder="Email (used for login)" required/>
+								</label>
+								<div class="validator-hint hidden">Enter valid email address</div>
+							</div>
+
+							<!-- Password -->
+							<div class="form-control">
+								<label class="input validator w-full">
+									<svg class="wtk-icon">
+										<use href="/imgs/icons.svg#icon-lock"/>
+									</svg>
+									<input type="password" class="grow" name="wtkwtkUsersWebPassword"
+										   id="wtkwtkUsersWebPassword" placeholder="Password" required/>
+									<span class="cursor-pointer toggle-password" data-toggle="#wtkwtkUsersWebPassword">
+                                <svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye"/></svg>
+                            </span>
+								</label>
+								<div class="validator-hint hidden">Enter a password</div>
+							</div>
+
+							<!-- Confirm Password -->
+							<div class="form-control">
+								<label class="input validator w-full">
+									<svg class="wtk-icon">
+										<use href="/imgs/icons.svg#icon-lock"/>
+									</svg>
+									<input type="password" class="grow" name="rePW" id="rePW" placeholder="Retype Password"
+										   required/>
+									<span class="cursor-pointer toggle-password" data-toggle="#rePW">
+                                		<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye"/></svg>
+                            		</span>
+								</label>
+								<div class="validator-hint hidden">Passwords must match</div>
+							</div>
+
+							<!-- Sign Up Button -->
+							<div class="form-control mt-6">
+								<button id="btnSignUp" class="btn btn-primary w-full shadow-md hover:shadow-lg"
+										onclick="wtkRegister();" type="button">
+									Sign Up
+								</button>
+							</div>
+
+							<!-- Login Link -->
+							<div class="text-center text-sm">
+								<span id="langHaveAcct">Have an account?</span>
+								<a onclick="showSignIn('registerPage')" id="langLogin"
+								   class="link link-primary ml-1 cursor-pointer">Login</a>
+							</div>
+
+							<!-- Forgot Password Link -->
+							<div id="regForgot" class="text-center text-sm hidden">
+								<a onclick="showForgotPW('registerPage')" id="langForgotPW2"
+								   class="link link-primary cursor-pointer">Forgot password?</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="reportBug" class="hidden">
+			<div class="container mx-auto px-4 py-8">
+				<div class="bg-white rounded-lg shadow-md overflow-hidden">
+					<div class="p-6">
+						<div class="space-y-4"> <!-- Replaces <br> with consistent spacing -->
+							<h5 class="text-xl font-semibold text-gray-800" id="langBugRpt">Problem? Idea?</h5>
+
+							<p class="text-gray-600" id="langBugMsg">
+								Is there a problem with our app?<br>
+								Or do you have ideas on how to make it better?
+							</p>
+
+							<form class="space-y-4">
+								<div class="relative">
+              <textarea
+					  id="bugMsg"
+					  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 peer"
+			  ></textarea>
+									<label
+											for="bugMsg"
+											id="langBugLabel"
+											class="absolute left-3 top-2 text-gray-400 transition-all duration-200 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-500 bg-white px-1 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base"
+									>
+										Let us know your thoughts.
+									</label>
+								</div>
+
+								<div class="flex justify-end">
+									<button
+											onclick="sendBug();"
+											id="btnBugSave"
+											class="btn btn-primary w-full shadow-md hover:shadow-lg">
+										<span id="langSend" class="mr-2">Send</span>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="bugSent" class="hidden">
+			<div class="container mx-auto px-4 py-8">
+				<div class="bg-white rounded-lg shadow-md overflow-hidden">
+					<div class="p-6">
+						<h5 class="text-xl font-semibold text-gray-800" id="langBugSent">Message Delivered</h5>
+						<div class="my-4"></div> <!-- This replaces <br> with proper spacing -->
+						<p class="text-gray-600" id="langBugThanks">
+							Thank you for your feedback.<br>
+							Your message has been sent to tech support.
+						</p>
+					</div>
+				</div>
+				<div class="my-4"></div> <!-- This replaces <br> with proper spacing -->
+				<div class="text-center">
+					<button
+							onclick="goHome();"
+							id="langGoHome"
+							class="btn btn-primary w-full shadow-md hover:shadow-lg">
+						Return Home
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="forgotPW" class="min-h-screen flex items-center justify-center bg-base-100 p-4 hidden">
+			<div class="w-full max-w-md">
+				<div class="card bg-base-100 shadow-xl">
+					<!-- Card Header -->
+					<div class="bg-gradient-to-r from-primary to-secondary p-6 text-center text-primary-content rounded-t-lg">
+						<h2 id="langForgotPW1" class="text-2xl font-bold">Forgot password?</h2>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body p-6">
+						<div id="forgotMsg" class="text-center text-error"></div>
+						<p id="langForgotMsg" class="mb-4">Enter the email address you have on file with us and we will send
+							you a link
+							where you can type in a new password.</p>
+
+						<form class="space-y-4">
+							<!-- Email Input -->
+							<label class="input validator w-full">
+								<svg class="wtk-icon">
+									<use href="/imgs/icons.svg#icon-email"/>
+								</svg>
+								<input type="email" class="w-full" style="width:100% !important" name="emailForgot"
+									   id="emailForgot" placeholder="you@email.com" required/>
+							</label>
+							<div class="validator-hint hidden">Enter valid email address</div>
+
+							<!-- Reset Button -->
+							<button id="btnResetPW" type="button" onclick="wtkForgotPW()"
+									class="btn btn-primary w-full shadow-md hover:shadow-lg">
+								Reset Password
+							</button>
+
+							<!-- Remember Password Link -->
+							<div class="text-center text-sm">
+								<span id="langRememberPW">Remembered your password?</span>
+								<a onclick="showSignIn('forgotPW')"
+								   class="link link-primary ml-1 cursor-pointer">Login</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="resetPWdiv" class="min-h-screen flex items-center justify-center bg-base-100 p-4 hidden">
+			<div class="w-full max-w-md">
+				<div class="card bg-base-100 shadow-xl">
+					<div class="bg-gradient-to-r from-primary to-secondary p-6 text-center text-primary-content">
+						<h2 id="langEmailSent" class="text-2xl font-bold">Email Sent</h2>
+					</div>
+					<div class="card-body p-6">
+						<p id="langEmailMsg">An email has been sent with a link to reset your password.</p>
+						<div class="card-actions mt-4">
+							<button type="button"
+									class="btn btn-primary w-full shadow-md hover:shadow-lg"
+									onclick="showSignIn('resetPWdiv')"
+									id="langSignIn">
+								Back to Sign In
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="wrongApp" class="hidden">
+			<div class="py-8"> <!-- Replaces <br><br> with proper spacing -->
+				<div class="flex justify-center">
+					<div class="w-full sm:w-8/12 md:w-5/12 lg:w-4/12 px-4">
+						<!-- Responsive width equivalent to col m4 offset-m4 s12 -->
+						<div class="bg-white rounded-lg shadow-md overflow-hidden text-center max-w-[450px] mx-auto">
+							<!-- card with max-width -->
+							<div class="p-6"> <!-- card-content -->
+								<h2 class="text-2xl font-bold text-gray-800 mb-4" id="langWrongApp">Wrong App</h2>
+								<p class="text-gray-600" id="langWrongAppMsg">
+									It appears you have logged in to the wrong app.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="logoutPage" class="hidden min-h-screen flex items-center justify-center bg-base-100">
+			<div class="container mx-auto px-4">
+				<div class="card bg-base-100 shadow-md p-6 max-w-md mx-auto text-center">
+					<div class="card-body space-y-6">
+						<!-- Logo -->
+						<div class="flex justify-center">
+							<div class="w-32 h-32 bg-base-200 rounded-full flex items-center justify-center">
+								<img src="/imgs/emailLogo.png" class="mx-auto h-24" alt="Company Logo">
+							</div>
+						</div>
+						<div class="alert alert-success">
+							<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+								 viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+							</svg>
+							<span>You have been successfully logged out.</span>
+						</div>
+
+						<p class="text-base-content/70 italic">Put your logo and tag-line here.</p>
+						<button onclick="showSignIn('logoutPage')" class="btn btn-primary w-full shadow-md hover:shadow-lg">
+							Log In
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Alert Modal -->
+	<div id="modalAlert" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
+		<div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 text-center">
+			<div id="modIcon" class="mx-auto mb-4 text-red-600">
+				<svg class="wtk-icon">
+					<use href="/imgs/icons.svg#icon-alert"/>
+				</svg>
+			</div>
+			<h4 id="modHdr" class="text-2xl font-bold mb-4">Oops!</h4>
+			<p id="modText" class="mb-6 text-gray-700"></p>
+			<button id="langClose" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition">
+				Close
+			</button>
+		</div>
+	</div>
+	<div id="modalBackdrop" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"></div>
+	<div id="modalWTK" class="hidden fixed inset-0 flex items-center justify-center z-50 overflow-y-auto">
+		<div id="modalContent" class="p-6 overflow-y-auto max-h-[80vh]">
+			<!-- Content will be loaded here by AJAX -->
+			Loading...
+		</div>
+	</div>
+	<script type="text/javascript" src="@wtkPath@js/wtkCore.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkTailwind.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkClientVars.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkChart.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkFileUpload.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkAdmin.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@js/wtkImporter.js" defer></script>
+	<script type="text/javascript" src="@wtkPath@tinymce/tinymce.min.js" defer></script>
+</body>
+</html>

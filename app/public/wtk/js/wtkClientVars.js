@@ -1,4 +1,5 @@
 var gloPayPalClientId = 'enter-your-PayPal-SandBox-or-Live-ClientId';
+var gloStripePublicKey = 'pk_test_YourStripeKey';
 var gloWtkApiKey = '~369+success+BIG!winning+WTK+hope+Today~432~';
 // above put in your PayPal Sandbox or Live Client ID
 var pgLanguage = 'en'; // this is default language of English

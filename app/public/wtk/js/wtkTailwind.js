@@ -1,0 +1,245 @@
+"use strict";
+// add this file to your spa.htm if you are using TailwindCSS implementation of Wizard's Toolkit
+
+function wtkPageSetup(fncFromPage = ''){
+    wtkToggleShowPassword();
+    pgHide = 'hidden';
+    waitLoad('off');
+}
+function wtkToggleShowPassword() {
+    document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
+        toggleIcon.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('data-toggle'));
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.innerHTML = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye-off"/></svg>';
+            } else {
+                input.type = 'password';
+                this.innerHTML = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye"/></svg>';
+            }
+        });
+    });
+} // wtkToggleShowPassword
+function wtkModal(fncPage, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissable = 'Y') {
+    // First check and close any existing open modals
+    const modal = document.getElementById('modalWTK');
+    const backdrop = document.getElementById('modalBackdrop');
+
+    if (modal && backdrop) {
+        modal.classList.add('hidden');
+        backdrop.classList.add('hidden');
+    }
+
+    waitLoad('on'); // shows loading screen until ready
+
+    $.ajax({
+        type: 'POST',
+        url: fncPage + '.php',
+        data: {apiKey: pgApiKey, Mode: fncMode, id: fncId, rng: fncRNG},
+        success: function (data) {
+            $('#modalContent').html(data);
+            waitLoad('off'); // stops showing loading screen
+
+            // Show modal and backdrop
+            modal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+
+            // Handle dismissable option
+            if (fncDismissable === 'Y') {
+                backdrop.onclick = function () {
+                    modal.classList.add('hidden');
+                    backdrop.classList.add('hidden');
+                };
+            } else {
+                backdrop.onclick = null;
+            }
+
+            modal.scrollTop = 0;
+            afterPageLoad('modal');
+        }
+    });
+} // wtkModal
+
+function waitLoad(fncMode) {
+    if (fncMode == 'on') {
+        document.getElementById('wtkLoader').classList.remove('hidden');
+    } else {
+        document.getElementById('wtkLoader').classList.add('hidden');
+    }
+} // waitLoad
+
+function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warning', fncReqId = '') {
+    const modalEl = document.getElementById('modalAlert');
+    const iconEl = document.getElementById('modIcon');
+    const headerEl = document.getElementById('modHdr');
+    const textEl = document.getElementById('modText');
+    const closeBtn = document.getElementById('langClose');
+
+    // Update icon color
+    if (fncLastIconColor !== fncColor) {
+        iconEl.classList.remove(`text-${fncLastIconColor}-600`);
+        iconEl.classList.add(`text-${fncColor}-600`);
+        fncLastIconColor = fncColor;
+    }
+
+    // Update icon SVG based on type
+    let iconPath = '';
+    switch(fncIcon) {
+        case 'check':
+            iconPath = 'M5 13l4 4L19 7';
+            break;
+        case 'error':
+            iconPath = 'M6 18L18 6M6 6l12 12';
+            break;
+        case 'info':
+            iconPath = 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
+            break;
+        default: // warning
+            iconPath = 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z';
+    }
+
+    iconEl.innerHTML = `
+    <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${iconPath}"/>
+    </svg>
+  `;
+
+    // Set content
+    headerEl.textContent = fncHdr;
+    textEl.innerHTML = fncText;
+
+    // Show modal
+    modalEl.classList.remove('hidden');
+
+    // Handle close
+    const closeModal = () => {
+        modalEl.classList.add('hidden');
+        if (fncReqId) {
+            const inputEl = document.getElementById(fncReqId);
+            if (inputEl) inputEl.focus();
+        }
+    };
+
+    closeBtn.onclick = closeModal;
+
+    // Also close when clicking outside or pressing ESC
+    modalEl.onclick = (e) => {
+        if (e.target === modalEl) closeModal();
+    };
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modalEl.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    wtkDebugLog('wtkAlert called: ' + fncText);
+} // wtkAlert
+
+function closeParentDetails(el) {
+    const details = el.closest('details');
+    if (details) details.removeAttribute('open');
+}
+function afterPageLoad(fncPage){
+    if ($('#wtkUpload').val() !== undefined) {
+        // all File-Upload related functions are in wtkFileUpload.js
+        wtkDebugLog('afterPageLoad: about to set EventListener for wtkUpload to do wtkFileChanged');
+        document.getElementById('wtkUpload').addEventListener('change', (e) => {
+            wtkFileChanged();
+        })
+    }
+    if ($('#wtkUploadFiles').val() !== undefined) {
+        let fncFileIDs = $('#wtkUploadFiles').val();
+        let fncFileUpArray = fncFileIDs.split(',');
+        for (let i = 0; i < fncFileUpArray.length; i++){
+            wtkDebugLog('afterPageLoad: set wtkFileChanged for wtkUpload' + fncFileUpArray[i]);
+            if (elementExist('wtkUpload' + fncFileUpArray[i])) {
+                document.getElementById('wtkUpload' + fncFileUpArray[i]).addEventListener('change', (e) => {
+                    wtkFileChanged(fncFileUpArray[i]);
+                })
+            } else {
+                wtkDebugLog('afterPageLoad: wtkUpload' + fncFileUpArray[i] + ' does not exist');
+            }
+            wtkDebugLog('after set EventListener for wtkUpload to do wtkFileChanged');
+        }
+    }
+    // BEGIN For Quick Filters make Enter Key act to Submit filter
+    if (elementExist('wtkFilter') && elementExist('wtkFilterBtn')){
+        let fncFilter = document.getElementById("wtkFilter");
+        // Execute a function when the user presses a key on the keyboard
+        fncFilter.addEventListener("keypress", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("wtkFilterBtn").click();
+            }
+        });
+    }
+    if (elementExist('wtkFilter2') && elementExist('wtkFilterBtn')){
+        let fncFilter2 = document.getElementById("wtkFilter2");
+        // Execute a function when the user releases a key on the keyboard
+        fncFilter2.addEventListener("keypress", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("wtkFilterBtn").click();
+            }
+        });
+    }
+    //  END  For Quick Filters make Enter Key act to Submit filter
+    if (elementExist('HasTinyMCE') || elementExist('HasModalTinyMCE')){
+        let fncHasTinyMCE = '';
+        if (elementExist('HasModalTinyMCE')) {
+            fncHasTinyMCE = $('#HasModalTinyMCE').val();
+            wtkDebugLog('afterPageLoad: HasModalTinyMCE = ' + fncHasTinyMCE);
+        }
+        if (fncHasTinyMCE == '') {
+            if (elementExist('HasTinyMCE')) {
+                fncHasTinyMCE = $('#HasTinyMCE').val();
+                wtkDebugLog('afterPageLoad: HasTinyMCE = ' + fncHasTinyMCE);
+            }
+        }
+        if (fncHasTinyMCE != '') {
+            tinymce.init({
+                selector: fncHasTinyMCE,
+                theme: "modern",
+                height: 250,
+                plugins: [
+                    "advlist autolink link lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link"
+            });
+        }
+    }
+    if ($('#HasSummernote').val() == 'Y') {
+        $('.snote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['view', ['codeview', 'help']]],
+            dialogsInBody: true
+        });
+    }
+    wtkToggleShowPassword();
+}
+
+function wtkFixSideNav(){
+    console.log('wtkFixSideNav called -may need to define');
+}
+function wtkTableSetup(){
+    // not needed
+}
+function wtkRemoveToolTips(){
+    // not needed
+}

@@ -118,4 +118,67 @@ function wtkSendSMS($fncToPhone, $fncMessage, $fncSubject = 'SMS', $fncFromUserU
         wtkNotifyViaEmailPlain('Bad Phone', 'SMS failed because of phone number: ' . $fncToPhone . ' for message:<br>' . $fncMessage, '', $fncSaveArray);
     endif;  // ($fncLength == 10) || ($fncLength == 11)
 }  // end of wtkSendSMS
+
+function wtkSmsViaEmail($fncPhoneNumber, $fncCarrier, $fncMessage){
+    // below code uses PostmarkApp specifically but you can change to your preferred email methodology
+    global $gloPostmarkToken, $gloEmailFromAddress;
+    $fncCarrierGateways = [
+        'att' => 'txt.att.net',
+        'tmobile' => 'tmomail.net',
+        'verizon' => 'vtext.com',
+        'sprint' => 'messaging.sprintpcs.com'
+    ];
+    $fncReturn = 'SMS Failed';
+    if ($fncCarrier == 'att'):
+        $fncReturn = 'AT&T no longer offers this service';
+        wtkLogError('SMS', 'AT&T no longer offers email-to-text service');
+    else:
+        $fncPhone = preg_replace("/[^0-9]/", '', $fncPhoneNumber);
+        $fncLength = strlen($fncPhone);
+        if ((isset($fncCarrierGateways[$fncCarrier])) && ($fncLength == 10)):
+            $fncToPhone = $fncPhone . '@' . $fncCarrierGateways[$fncCarrier];
+            $fncPostArray = array('From'    => $gloEmailFromAddress,
+                                  'To'      => $fncToPhone,
+                                  'Subject' => '',
+                                  'TextBody' => $fncMessage,
+                                  'TrackOpens' => false,
+                                  'MessageStream' => 'outbound'
+                                );
+
+            $fncJSON = json_encode($fncPostArray);
+
+            $fncCurlHeaders = [
+                'Accept: application/json',
+                'Content-Type: application/json',
+                'X-Postmark-Server-Token: ' . $gloPostmarkToken
+            ];
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://api.postmarkapp.com/email');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $fncCurlHeaders);
+            curl_setopt($ch, CURLOPT_POST, 6);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $fncJSON); // http_build_query did not work
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+            $fncResult = curl_exec($ch);
+            if (!($fncResult)):
+                $fncCurlErrNum = curl_errno($ch);
+                $fncCurlErrStr = curl_error($ch);
+                wtkLogError('PostmarkApp cURL', "cURL error: [$fncCurlErrNum] $fncCurlErrStr \n Email to $fncToPhone");
+            else:
+                $fncReturn = 'SMS sent';
+    //          $fncResultArray = json_decode($fncResult, true);
+    //          $fncCurlInfo = curl_getinfo($ch);
+    //          print_r($fncCurlInfo);
+            endif;
+            curl_close($ch);
+        else:
+            if ($fncLength != 10):
+                $fncReturn = 'phone number needs 10 digits';
+            endif;
+        endif;
+    endif;
+    return $fncReturn;
+} // wtkSmsViaEmail
 ?>

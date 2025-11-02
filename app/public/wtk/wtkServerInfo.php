@@ -179,7 +179,7 @@ $gloTwilioSID           = 'Your-Account-SID'; // Your Account SID from www.twili
 $gloTwilioToken         = 'Your-Auth-Token';  // Your Auth Token from www.twilio.com/user/account
 //  END  Twilio SMS variables
 
-$gloPostHog = 'phc_yourKeyHere';
+$gloPostHog             = 'phc_yourKeyHere';
 
 if (!isset($gloTechPhone)):
     $gloTechPhone       = ''; // phone # for developer SMS testing
