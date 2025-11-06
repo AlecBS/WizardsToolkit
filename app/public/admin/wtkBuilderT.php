@@ -65,7 +65,7 @@ if (wtkGetParam('wtkRFBBrPHPfilename') != ''):
     endif;
     if ($pgBrFilter2 != ''):
         $pgBrTmp = wtkLoadInclude('incWTKfilter.php');
-        $pgBrTmp = wtkReplace($pgBrTmp, '$pgHideReset = \' class="hide"\';', '');
+        $pgBrTmp = wtkReplace($pgBrTmp, '$pgHideReset = \' class="hidden"\';', '');
         $pgBrTmp = wtkReplace($pgBrTmp, 'pgFilterValue', 'pgFilter2Value');
         $pgBrTmp = wtkReplace($pgBrTmp, "'wtkFilter'", "'wtkFilter2'");
         $pgBrTmp = wtkReplace($pgBrTmp, '@Filter@', $pgBrFilter2);
