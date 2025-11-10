@@ -36,15 +36,15 @@ endif;
 
 $pgWTKpath = substr(_WTK_RootPATH, 0, -1);
 
-if ((file_exists(_WTK_RootPATH . 'css/wtkGlobal.css')) && (file_exists(_WTK_RootPATH . 'js/wtkLibrary.js'))):
+if ((file_exists(_WTK_RootPATH . 'css/wtkGlobal.css')) && (file_exists(_WTK_RootPATH . 'js/wtkCore.js'))):
     $pgFilesExist = '<p class="green-text text-darken-2">Core JS and CSS files are recognized.</p>';
 else:
     $pgFilesExist  = '<p class="red-text text-darken-3"><strong>Core JS or CSS files not found!</strong></p>';
     if (!file_exists(_WTK_RootPATH . 'css/wtkGlobal.css')):
         $pgFilesExist .= '<p>wtkGlobal.css and other WTK CSS files should be in ' . _WTK_RootPATH . 'css directory.</p>';
     endif;
-    if (!file_exists(_WTK_RootPATH . 'js/wtkLibrary.js')):
-        $pgFilesExist .= '<p>wtkLibrary.js and other WTK JS files should be in ' . _WTK_RootPATH . 'js directory.</p>';
+    if (!file_exists(_WTK_RootPATH . 'js/wtkCore.js')):
+        $pgFilesExist .= '<p>wtkCore.js and other WTK JS files should be in ' . _WTK_RootPATH . 'js directory.</p>';
     endif;
 endif;
 

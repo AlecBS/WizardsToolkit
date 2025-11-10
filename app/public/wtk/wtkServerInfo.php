@@ -207,7 +207,7 @@ $gloEmailSMTPAuth       = true;
 $gloConfirmDelete       = false;
 //  END  Email configuration variables
 
-$gloAddPlaceHolder    = true;  // ABS 07/07/14  When Mobile Phone AND Add Page, then hide Label and show PlaceHolder instead
+$gloAddPlaceHolder    = true;  // When Mobile Phone AND Add Page, then hide Label and show PlaceHolder instead
 
 if ((isset($_REQUEST['Debug']) ? $_REQUEST['Debug'] : '') == 'Y' ):
     error_reporting(E_ALL | E_STRICT);
