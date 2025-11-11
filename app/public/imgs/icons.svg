@@ -136,6 +136,13 @@
     <!-- Arrow for export -->
     <path d="M14 2v6h6" stroke-width="1.75"/>
   </symbol>
+  <symbol id="icon-drag-handle" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 8h16" />
+    <path d="M4 12h16" />
+    <path d="M4 16h16" />
+  </symbol>
   <symbol id="icon-notes"
           viewBox="0 0 24 24"
           fill="none"

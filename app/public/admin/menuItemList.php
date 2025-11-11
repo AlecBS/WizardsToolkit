@@ -28,7 +28,7 @@ SELECT m.`UID`, p.`PageName` AS `MenuItem`,
     ' data-id="', m.`UID`, '"',
     ' data-pos="', ROW_NUMBER() OVER(ORDER BY m.`Priority`), '"',
     ' ondragstart="wtkDragStart(this);" ondrop="wtkDropId(this)" ondragover="wtkDragOver(event)">',
-    '<i class="material-icons" alt="drag to change priorty" title="drag to change priorty">drag_handle</i></a>')
+    '<i class="material-icons" alt="drag to change priority" title="drag to change priority">drag_handle</i></a>')
     AS `Prioritize`
  FROM `wtkMenuItems` m
    LEFT OUTER JOIN `wtkPages` p

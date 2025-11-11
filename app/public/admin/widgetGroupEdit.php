@@ -23,7 +23,7 @@ SELECT x.`UID`, w.`WidgetName`,
       ' data-id="', x.`UID`, '"',
       ' data-pos="', ROW_NUMBER() OVER(ORDER BY x.`WidgetPriority`), '"',
       ' ondragstart="wtkDragStart(this);" ondrop="wtkDropId(this)" ondragover="wtkDragOver(event)">',
-      '<i class="material-icons" alt="drag to change priorty" title="drag to change priorty">drag_handle</i></a>')
+      '<i class="material-icons" alt="drag to change priority" title="drag to change priority">drag_handle</i></a>')
       AS `Prioritize`
   FROM `wtkWidgetGroup_X_Widget` x
      INNER JOIN `wtkWidget` w ON w.`UID` = x.`WidgetUID`
