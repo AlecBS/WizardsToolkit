@@ -905,6 +905,7 @@ CREATE TABLE `wtkRevenue` (
 CREATE TABLE `wtkInboundLog` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `InboundSource` varchar(20),
   `IPaddress` varchar(40),
   `EcomUID` INT UNSIGNED,
   `RevenueUID` INT UNSIGNED,

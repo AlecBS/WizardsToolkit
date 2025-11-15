@@ -218,6 +218,11 @@ function afterPageLoad(fncPage){
             });
         }
     }
+    if (elementExist('CharCntr')){
+        if ($('#CharCntr').val() == 'Y') {
+            wtkCharWordCounters();
+        }
+    }
     if ($('#HasSummernote').val() == 'Y') {
         $('.snote').summernote({
             toolbar: [
@@ -234,6 +239,40 @@ function afterPageLoad(fncPage){
     wtkToggleShowPassword();
 }
 
+function wtkCharWordCounters() {
+    // Select all input and textarea elements with the class "char-cntr"
+    document.querySelectorAll('input.char-cntr, textarea.char-cntr').forEach(function(element) {
+        // Prevent duplicate counters if already present
+        if (element.nextSibling && element.nextSibling.classList
+            && element.nextSibling.classList.contains('char-word-counter')) {
+            return;
+        }
+        // Create the counter display element
+        var counter = document.createElement('div');
+        counter.className = 'char-word-counter';
+        counter.style.fontSize = '0.9em';
+        counter.style.margin = '4px 0 8px 0';
+        counter.style.color = '#666';
+
+        // Insert the counter right after the input/textarea
+        element.parentNode.insertBefore(counter, element.nextSibling);
+
+        // Update the counter display
+        function updateCounter() {
+            var val = element.value;
+            var charCount = val.length;
+            // Remove multiple spaces; split, filter empty, count
+            var wordCount = val.trim() === '' ? 0 : val.trim().split(/\s+/).length;
+            counter.innerHTML = 'Words: ' + wordCount + ' &nbsp;|&nbsp; Characters: ' + charCount;
+        }
+
+        // Initial count
+        updateCounter();
+
+        // Update on any input event
+        element.addEventListener('input', updateCounter);
+    });
+}
 function wtkFixSideNav(){
     console.log('wtkFixSideNav called -may need to define');
 }
