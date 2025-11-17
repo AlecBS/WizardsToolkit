@@ -83,10 +83,9 @@
        is the Docker method then runs a Docker container so you do not need MAMP
        or any other configuration.</p>
 
-   <p>Both include the SQL files to create all the necessary data tables, scripts to fill the
-    core data, SQL functions and triggers.  The SQL is for MySQL but Wizard&rsquo;s Toolkit should work
-    with any SQL database.  If you are interested in using for PostgreSQL or other databases
-    please <a href="https://wizardstoolkit.com/contact.php" target="_blank">contact us</a>.</p>
+   <p>Both include complete SQL scripts for tables, initial data, functions, triggers, and views. Wizard&rsquo;s Toolkit
+       is now fully verified and supported for both MySQL and PostgreSQL. For use with other SQL databases,
+       please <a href="https://wizardstoolkit.com/contact.php" target="_blank">contact us</a>.</p>
 
     <h4>Download via Docker</h4>
 
@@ -150,19 +149,42 @@
         </tr>
     </table>
 
-    <h4>SQL Setup</h4>
+<h4>SQL Setup</h4>
 
-    <p>If you are using PostgreSQL with Docker then during initial start PostgreSQL will have
-      automatically run the scripts and set up the database.  If you are not using Docker or
-      are using MySQL instead of PostgreSQL, you will need to run the scripts manually.</p>
+<p>The Wizard's Toolkit package includes all necessary SQL scripts to set up your database. We provide fully tested and verified scripts for the following databases:</p>
+<ul>
+    <li><strong>MySQL</strong></li>
+    <li><strong>PostgreSQL</strong></li>
+</ul>
 
-    <p><strong>Manually Running Scripts</strong></p>
+<p>The scripts include:</p>
+<ul>
+    <li>Table creation</li>
+    <li>Core data population</li>
+    <li>Stored procedures, functions, and triggers</li>
+    <li>Views</li>
+</ul>
 
-    <p>In Terminal you can run ./SETUP_MYSQL.sh and this will create database, user, and
-        run all SQL scripts to create tables and insert initial core data.</p>
-    <p>Or you can manually run all SQL scripts in numeric order. Scripts are located in
-      \SqlSetup\MySQL or \SqlSetup\PostgreSQL folder depending on which database you are using.
-      Of course these should not be uploaded to your production web server.</p>
+<h4>Automated Setup with Docker</h4>
+
+<p>If you are using the provided PostgreSQL Docker container, it will automatically run the required setup scripts and initialize the database on its first start. No manual intervention is needed.</p>
+
+<h4>Manual Setup</h4>
+
+<p>If you are not using Docker or are using MySQL, you will need to run the scripts manually. You can do this in one of two ways:</p>
+
+<h4>1. Using the Setup Script (Recommended for MySQL on Linux/macOS)</h4>
+
+<p>In Terminal, you can run the provided script which will create the database, user, and run all SQL scripts in the correct order.</p>
+<pre><code>./SETUP_MYSQL.sh</code></pre>
+
+<h4>2. Running Scripts Manually</h4>
+
+<p>You can also run the SQL scripts manually. Navigate to the <code>\SqlSetup\MySQL</code>
+    or <code>\SqlSetup\PostgreSQL</code> folder (depending on your database) and run all scripts in numeric order.</p>
+
+<p><strong>Important:</strong> These setup scripts are for initial installation and development. They should not be
+    uploaded to or run on your production web server.</p>
 
     <p>Note, your login will be <b>admin@email.com</b> unless you changed that when running wtk2InitialData.sql .
       Because passwords are encrypted and based on salt you set in <b>wtkServerInfo.php</b>, you will need to set your
