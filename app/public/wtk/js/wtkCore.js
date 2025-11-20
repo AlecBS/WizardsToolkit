@@ -1,7 +1,6 @@
 "use strict";
 // this file previously named wtkLibrary.js; all MaterializeCSS-specific functions moved to wtkMaterialize.js
 
-var pgHide = 'hide'; // set to 'hide' for MaterializeCSS, or 'hidden' for TailwindCSS
 var pgMPAvsSPA = 'SPA'; // set to SPA or MPA
 var pgApiKey = '';
 let pgSecLevel = 0;

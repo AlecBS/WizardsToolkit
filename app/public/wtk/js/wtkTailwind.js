@@ -1,9 +1,9 @@
 "use strict";
 // add this file to your spa.htm if you are using TailwindCSS implementation of Wizard's Toolkit
+var pgHide = 'hidden'; // set to 'hidden' for TailwindCSS or 'hide' for MaterializeCSS
 
 function wtkPageSetup(fncFromPage = ''){
     wtkToggleShowPassword();
-    pgHide = 'hidden';
     waitLoad('off');
 }
 function wtkToggleShowPassword() {

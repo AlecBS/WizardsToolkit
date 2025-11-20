@@ -1,5 +1,7 @@
 "use strict";
 
+var pgHide = 'hide'; // set to 'hide' for MaterializeCSS or 'hidden' for TailwindCSS
+
 // below function called in HTML by <body onload >
 function wtkStartMaterializeCSS() {
     $(document).ready(function() {
@@ -113,7 +115,6 @@ function wtkStartMaterializeCSS() {
         } else {
             wtkToggleShowPassword();
         }
-        pgHide = 'hide'; // 'hide' for MaterializeCSS, TailwindCSS uses 'hidden'
     });
 } // wtkStartMaterializeCSS
 function wtkToggleShowPassword() {
