@@ -164,8 +164,11 @@ function wtkFormTextArea($fncTable, $fncColName, $fncLabel = '', $fncColSize = '
     </div>
     <div class="flex gap-4 mt-4">
         <div class="flex-auto">
-            <textarea$fncSetReguired id="$fncFormId" name="$fncFormId" class="textarea w-full"
-                placeholder="$fncLabel">@$fncColName@</textarea>
+            <label for="$fncFormId" class="floating-label">
+                <span>$fncLabel</span> 
+                <textarea$fncSetReguired id="$fncFormId" name="$fncFormId" class="textarea w-full"
+                    placeholder="$fncLabel">@$fncColName@</textarea>
+            </label>
         </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-$fncColSize gap-4">
