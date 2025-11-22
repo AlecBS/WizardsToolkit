@@ -7,20 +7,29 @@ function wtkPageSetup(fncFromPage = ''){
     waitLoad('off');
 }
 function wtkToggleShowPassword() {
+    wtkDebugLog('wtkToggleShowPassword top');
     document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
         toggleIcon.addEventListener('click', function() {
+            let fncNow = Date.now();
+            if ((fncNow - pgLastClicked) < 500) return; // Ignore if triggered again within 500ms
+            pgLastClicked = fncNow;
+
             const input = document.querySelector(this.getAttribute('data-toggle'));
+            if (!input) return;
 
             if (input.type === 'password') {
                 input.type = 'text';
                 this.innerHTML = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye-off"/></svg>';
+                wtkDebugLog('wtkToggleShowPassword make visible: ' + pgLastClicked);
             } else {
                 input.type = 'password';
                 this.innerHTML = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye"/></svg>';
+                wtkDebugLog('wtkToggleShowPassword make invisible: ' + pgLastClicked);
             }
         });
     });
 } // wtkToggleShowPassword
+
 function wtkModal(fncPage, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissable = 'Y') {
     // First check and close any existing open modals
     const modal = document.getElementById('modalWTK');
@@ -60,6 +69,12 @@ function wtkModal(fncPage, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissab
         }
     });
 } // wtkModal
+
+function wtkCloseModal(fncModalId = 'modalWTK'){
+    // below not needed if using wtkModalUpdateBtns PHP function
+    // document.getElementById(fncModalId).classList.add('hidden');
+    // document.getElementById('modalBackdrop').classList.add('hidden');
+}
 
 function waitLoad(fncMode) {
     if (fncMode == 'on') {
@@ -140,6 +155,11 @@ function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warnin
 function closeParentDetails(el) {
     const details = el.closest('details');
     if (details) details.removeAttribute('open');
+}
+
+function closeSideMenu(el) {
+    const fncElem = el.closest('dropdown');
+    if (fncElem) fncElem.removeAttribute('dropdown-open');
 }
 function afterPageLoad(fncPage){
     if ($('#wtkUpload').val() !== undefined) {
@@ -237,7 +257,7 @@ function afterPageLoad(fncPage){
         });
     }
     wtkToggleShowPassword();
-}
+} // afterPageLoad
 
 function wtkCharWordCounters() {
     // Select all input and textarea elements with the class "char-cntr"
@@ -274,7 +294,7 @@ function wtkCharWordCounters() {
     });
 }
 function wtkFixSideNav(){
-    console.log('wtkFixSideNav called -may need to define');
+    wtkDebugLog('wtkFixSideNav called -may need to define');
 }
 function wtkTableSetup(){
     // not needed
@@ -282,3 +302,29 @@ function wtkTableSetup(){
 function wtkRemoveToolTips(){
     // not needed
 }
+
+function wtkToastMsg(fncMsg, fncColor = "success") {
+    const fncToastContainer = document.createElement("div");
+    fncToastContainer.className = "toast toast-top toast-end";
+    switch (fncColor) {
+        case 'green':
+            fncColor = 'success';
+            break;
+        case 'blue':
+            fncColor = 'info';
+            break;
+        case 'orange':
+            fncColor = 'warning';
+            break;
+        case 'red':
+            fncColor = 'error';
+            break;
+    }
+    const fncAlert = document.createElement("div");
+    fncAlert.className = `alert alert-${fncColor}`;
+    fncAlert.innerHTML = `<span>${fncMsg}</span>`;
+
+    fncToastContainer.appendChild(fncAlert);
+    document.body.appendChild(fncToastContainer);
+    setTimeout(() => fncToastContainer.remove(), 3000);
+} // wtkToastMsg
