@@ -59,7 +59,47 @@ htmVAR;
         endif; // want copy button
     endif;
     return $fncHtm;
-} // wtkUpdateBtnsT
+} // wtkUpdateBtns
+
+/**
+ * For modalWTK Modal window create cancel and save buttons.
+ *
+ * This calls modalSave function in wtkCore.js.  If page is $gloForceRO = true then
+ * shows Return button instead of Save and Cancel.
+ *
+ * Example calling method:
+ * <code>
+ * $pgHtm .= wtkModalUpdateBtns('petList');
+ * </code>
+ *
+ * @param string $fncURL which PHP page to call to do saving; should not include '.php'
+ * @param string $fncDiv the <div> you want to replace after saving; the <form> should be named the same with a prepended 'F'
+ * @param string $fncClose whether Saving should close modal window; defaults to 'Y'
+ * @param string $fncAppend defaults to 'N'; if 'Y' then expects <div> to have id="wtkModalList" and will append result instead of replace it
+ * @return html returns html with update and cancel buttons
+ */
+function wtkModalUpdateBtns($fncURL, $fncDiv, $fncClose = 'Y', $fncAppend = 'N'){
+    global $gloForceRO;
+    if ($gloForceRO == true):
+        $fncBtnTxt = wtkLang('Return');
+        $fncHtm =<<<htmVAR
+    <div class="text-center mt-5">
+        <button onclick="document.getElementById('modalWTK').close()" class="btn btn-sm btn-neutral">$fncBtnTxt</button>
+    </div>
+htmVAR;
+    else:
+        $fncCancelTxt = wtkLang('Cancel');
+        $fncSaveTxt = wtkLang('Save');
+        $fncHtm =<<<htmVAR
+    <div class="flex gap-4 justify-center gap-4 items-center">
+        <button onclick="document.getElementById('modalWTK').close()" class="btn btn-sm btn-neutral">$fncCancelTxt</button>
+        <form method="dialog"><button class="btn btn-sm btn-primary" onclick="Javascript:modalSave('$fncURL','$fncDiv','$fncClose','$fncAppend')">$fncSaveTxt</button></form>
+    </div>
+htmVAR;
+
+    endif;
+    return $fncHtm;
+} // wtkModalUpdateBtns
 
 function wtkFormText($fncTable, $fncColName, $fncType = 'text', $fncLabel = '', $fncColSize = 'notUsed', $fncRequired = 'N', $fncHelpText = '') {
     global $gloForceRO;
@@ -121,9 +161,6 @@ function wtkFormText($fncTable, $fncColName, $fncType = 'text', $fncLabel = '', 
         endif;
         $fncHelpText = "\n" . '<p class="label" style="font-size:smaller;padding-left:15px">' . $fncHelpText . '</p>';
     endif;
-    /* $fncHelpText$fncShowPW
-    <div class="input-field col $fncColSize">$fncIcon
-    */
     $fncHtm =<<<htmVAR
     <div>
         <label for="$fncFormId" class="floating-label">
@@ -140,12 +177,11 @@ function wtkFormTextArea($fncTable, $fncColName, $fncLabel = '', $fncColSize = '
     global $gloForceRO, $gloHasTextArea;
     $fncLabel = wtkFormLabel($fncLabel, $fncColName);
     $fncFormId = 'wtk' . $fncTable . $fncColName;
+    $fncSetReguired = '';
     if ($gloForceRO == true):
         // do nothing
     else:
-        if ($fncRequired == 'N'):
-            $fncSetReguired = '';
-        else:
+        if ($fncRequired != 'N'):
             $fncSetReguired = ' required';
         endif;
         if ($gloHasTextArea != ''):
@@ -493,7 +529,7 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
         $fncUpBtn = '<span id="wtkfAddBtn' . $fncFormId . '" class="btn btn-circle hidden"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-' . $fncIcon . '"/></svg></span>';
         $fncFileLoc = $fncFilePath . $fncFile;
     else:
-        $fncDelHide = ' hide';
+        $fncDelHide = ' hidden';
         $fncUpBtn = '<span class="btn btn-circle"><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-' . $fncIcon . '"/></svg></span>';
         if ($fncAccept == 'accept="image/*"'):
             $fncFileLoc = '/wtk/imgs/noPhotoSmall.gif';
@@ -520,7 +556,7 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
         else:
             $fncShowFile = '<a id="filePreview' . $fncFormId . '"';
             if ($gloWTKmode == 'ADD'):
-                $fncShowFile .= ' target="_blank" class="hide"';
+                $fncShowFile .= ' target="_blank" class="hidden"';
             else:
                 $fncViewLink = wtkSqlValue('ViewLink');
                 if ($fncViewLink == ''):
@@ -528,7 +564,7 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
                 endif;
                 $fncShowFile .= " onclick=\"JavaScript:wtkGoToURL('/wtk/viewFile',$fncViewLink,0,'targetBlank')\"";
                 if ($fncFileLoc == ''):
-                    $fncShowFile .= ' class="hide"';
+                    $fncShowFile .= ' class="hidden"';
                 endif;
             endif;
             $fncShowFile .= '><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye"/></svg></a>';
@@ -540,11 +576,11 @@ function wtkFormFile($fncTable, $fncColPath, $fncFilePath, $fncFileName,
         endif;
         $fncShowFile  = '<a id="filePreview' . $fncFormId . '" target="_blank"';
         if ($gloWTKmode == 'ADD'):
-            $fncShowFile .= ' class="hide"';
+            $fncShowFile .= ' class="hidden"';
         else:
             $fncShowFile .= " onclick=\"JavaScript:wtkGoToURL('/wtk/viewFile',$fncViewLink,0,'targetBlank')\"";
             if ($fncFileLoc == ''):
-                $fncShowFile .= ' class="hide"';
+                $fncShowFile .= ' class="hidden"';
             endif;
         endif;
         $fncShowFile .= '><svg class="wtk-icon"><use href="/imgs/icons.svg#icon-eye"/></svg></a>';
@@ -616,7 +652,7 @@ htmVAR;
     $fncHtm .=<<<htmVAR
     <input type="hidden" id="wtkfRefresh$fncFormId" name="wtkfRefresh$fncFormId" value="$fncRefresh">
     <input type="hidden" id="wtkfOrigName$fncFormId" name="wtkfOrigName$fncFormId" value="">
-    <div id="photoProgressDIV$fncFormId" class="progress hide">
+    <div id="photoProgressDIV$fncFormId" class="progress hidden">
         <div id="photoProgress$fncFormId" class="determinate" style="width: 25%"></div>
     </div>
     <div id="uploadStatus$fncFormId"></div>
@@ -625,7 +661,7 @@ htmVAR;
 </div>
 htmVAR;
     if ($gloForceRO == true):
-        $fncHtm = wtkReplace($fncHtm, '<label class="fileUpload"','<p>' . $fncLabel . '</p><label class="hide"');
+        $fncHtm = wtkReplace($fncHtm, '<label class="fileUpload"','<p>' . $fncLabel . '</p><label class="hidden"');
     endif;
     if ($gloHasFileUploads != ''):
         $gloHasFileUploads .= ',';
@@ -697,6 +733,7 @@ SQLVAR;
                         //.php?id=12&rng=3
                         $fncFile = wtkReplace($fncFile, '.php?rng=', "',0,'");
                     endif;
+                    $fncFile = $fncRow['Path'] . $fncFile;
                 endif;
                 //  END  determine ajaxGo values and construct
                 if ($fncRow['MenuGroupUID'] != $fncPriorGroupUID): // New Droplist so build beginning
@@ -749,6 +786,9 @@ SQLVAR;
                     endif;  // is_null($fncRow['GroupURL'])
                 else:   // Not $fncRow['MenuGroupUID'] != $fncPriorGroupUID
                     if ($fncIsGroupURL == false):
+                        if ($fncRow['ShowDividerAbove'] == 'Y'):
+                            $fncTopMenu .= '    <li><hr></li>' . "\n";
+                        endif;
 //                      $fncFile = $fncRow['FileName']; // 2VERIFY if remove this line, it breaks
                         $fncLink = '';
                         $fncLink .= '    <li><a onclick="Javascript:closeParentDetails(this);ajaxGo(\'' . $fncFile . '\');">';
@@ -796,13 +836,6 @@ SQLVAR;
         </div>
     </div>
 <!-- end navbar -->
-<script>
-  function closeParentDetails(el) {
-    const details = el.closest('details');
-    if (details) details.removeAttribute('open');
-  }
-</script>
-
 htmVAR;
         endif;  // wtkSqlGetOneResult($fncSQL) > 0
     endif;  // !$gloPrinting
