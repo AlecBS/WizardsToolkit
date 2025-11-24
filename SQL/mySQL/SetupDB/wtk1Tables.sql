@@ -693,6 +693,8 @@ CREATE TABLE `wtkProspects` (
   `Country` varchar(60) DEFAULT NULL,
   `CountryCode` char(2) DEFAULT NULL,
   `TimeZone` varchar(40) DEFAULT NULL,
+  'Latitude' DECIMAL(20,14),
+  'Longitude' DECIMAL(20,14),
   `MainPhone` varchar(20) DEFAULT NULL,
   `MainEmail` varchar(60) DEFAULT NULL,
   `LinkedIn` varchar(80) DEFAULT NULL,

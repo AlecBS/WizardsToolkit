@@ -13,7 +13,7 @@ if ($gloRNG > 0):
 endif;
 $pgSQL =<<<SQLVAR
 SELECT `UID`, `CompanyName`, `Website`, `ProspectType`,
-    `MainPhone`, `Website`, `Address1`,`Address2`, `City`, `State`, `Zipcode`,
+    `MainPhone`, `Address1`,`Address2`, `City`, `State`, `Zipcode`,
     `LinkedIn`,`OtherSocial`,`MainEmail`,`TimeZone`,
     `FoundingYear`,`SICCode`,`B2BorB2C`, `CompanySize`,`NumberOfEmployees`,
     `AnnualSales`,`MonthlyWebsiteVisits`,`MonthlyWebsiteVisitsGrowth`,
@@ -55,12 +55,14 @@ $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `Lookup
 $pgHtm .= wtkFormSelect('wtkProspects', 'State', $pgSQL, [], 'LookupDisplay', 'LookupValue','State','m4 s12','Y');
 $pgHtm .= wtkFormText('wtkProspects', 'Zipcode', 'text', 'Zipcode', 'm3 s12');
 
-$pgHtm .= wtkFormText('wtkProspects', 'Website', 'text', '', 'm6 s12');
-$pgHtm .= wtkFormText('wtkProspects', 'MainPhone', 'tel', 'Main Phone', 'm4 s12');
-$pgHtm .= wtkFormText('wtkProspects', 'TimeZone','text','','m2 s6');
+$pgHtm .= wtkFormText('wtkProspects', 'MainEmail', 'email', '', 'm6 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'MainPhone', 'tel', 'Main Phone', 'm6 s12');
 
-$pgHtm .= wtkFormText('wtkProspects', 'LinkedIn', 'text', 'LinkedIn', 'm8 s12');
-$pgHtm .= wtkFormText('wtkProspects', 'OtherSocial', 'text', '', 'm4 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'Website', 'text', '', 'm6 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'TimeZone','text','','m6 s6');
+
+$pgHtm .= wtkFormText('wtkProspects', 'LinkedIn', 'text', 'LinkedIn', 'm6 s12');
+$pgHtm .= wtkFormText('wtkProspects', 'OtherSocial', 'text', '', 'm6 s12');
 
 $pgHtm .= wtkFormText('wtkProspects', 'FoundingYear','number','','m3 s6');
 $pgHtm .= wtkFormText('wtkProspects', 'B2BorB2C','text','B2B or B2C','m3 s6');

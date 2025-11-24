@@ -628,6 +628,8 @@ CREATE TABLE "wtkProspects" (
   "Country" varchar(60),
   "CountryCode" char(2),
   "TimeZone" varchar(40),
+  "Latitude" DECIMAL(20,14),
+  "Longitude" DECIMAL(20,14),
   "MainPhone" varchar(20),
   "MainEmail" varchar(60),
   "LinkedIn" varchar(80),
