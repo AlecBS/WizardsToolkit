@@ -681,6 +681,7 @@ CREATE TABLE `wtkProspects` (
   `UID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DelDate` datetime DEFAULT NULL,
+  `ProspectType` char(3) NULL,
   `ProspectStatus` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'new',
   `CompanyName` varchar(255) DEFAULT NULL,
   `Address1` varchar(55) DEFAULT NULL,

@@ -616,7 +616,9 @@ INSERT INTO "wtkLookups" ("LookupType", "LookupValue", "LookupDisplay")
     ('ProspectStatus', 'email', 'Emailed'),
     ('ProspectStatus', 'reply', 'Replied'),
     ('ProspectStatus', 'close', 'Closed'),
-    ('ProspectStatus', 'sold', 'Client');
+    ('ProspectStatus', 'sold', 'Client'),
+    ('ProspectType', 'LeL', 'Lead List'),
+    ('ProspectType', 'D2D', 'Door to Door');
 
 INSERT INTO "wtkLanguage" ("MassUpdateId", "Language", "PrimaryText", "NewText")
 VALUES

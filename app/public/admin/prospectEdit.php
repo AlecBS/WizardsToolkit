@@ -12,7 +12,7 @@ if ($gloRNG > 0):
     $gloWTKmode = 'EDIT';
 endif;
 $pgSQL =<<<SQLVAR
-SELECT `UID`, `CompanyName`, `Website`,
+SELECT `UID`, `CompanyName`, `Website`, `ProspectType`,
     `MainPhone`, `Website`, `Address1`,`Address2`, `City`, `State`, `Zipcode`,
     `LinkedIn`,`OtherSocial`,`MainEmail`,`TimeZone`,
     `FoundingYear`,`SICCode`,`B2BorB2C`, `CompanySize`,`NumberOfEmployees`,
@@ -43,8 +43,10 @@ $pgHtm =<<<htmVAR
 htmVAR;
 
 $pgHtm .= wtkFormText('wtkProspects', 'CompanyName','text','', 'm8 s12');
+$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'ProspectType' ORDER BY `UID` ASC";
+$pgHtm .= wtkFormSelect('wtkProspects', 'ProspectType', $pgSQL, [], 'LookupDisplay', 'LookupValue','Prospect Type','m2 s12');
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'ProspectStatus' ORDER BY `LookupDisplay` ASC";
-$pgHtm .= wtkFormSelect('wtkProspects', 'ProspectStatus', $pgSQL, [], 'LookupDisplay', 'LookupValue','Prospect Status','m4 s12');
+$pgHtm .= wtkFormSelect('wtkProspects', 'ProspectStatus', $pgSQL, [], 'LookupDisplay', 'LookupValue','Prospect Status','m2 s12');
 
 $pgHtm .= wtkFormText('wtkProspects', 'Address1', 'text', 'Address', 'm8 s12');
 $pgHtm .= wtkFormText('wtkProspects', 'Address2', 'text', 'Suite or Unit', 'm4 s12');

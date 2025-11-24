@@ -524,6 +524,8 @@ INSERT INTO `wtkLookups` (`LookupType`, `LookupValue`, `LookupDisplay`)
    ('ProspectStatus', 'reply', 'Replied'),
    ('ProspectStatus', 'close', 'Closed'),
    ('ProspectStatus', 'sold', 'Client'),
+   ('ProspectType', 'LeL', 'Lead List'),
+   ('ProspectType', 'D2D', 'Door to Door'),
    ('AbuseIPCode', '1', 'DNS Compromise'),
    ('AbuseIPCode', '2', 'DNS Poisoning'),
    ('AbuseIPCode', '3', 'Fraud Orders'),

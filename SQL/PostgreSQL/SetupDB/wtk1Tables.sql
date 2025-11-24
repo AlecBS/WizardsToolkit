@@ -616,6 +616,7 @@ CREATE TABLE "wtkProspects" (
   "UID"         SERIAL PRIMARY KEY,
   "AddDate"     timestamp without time zone DEFAULT now(),
   "DelDate"     timestamp without time zone default NULL,
+  "ProspectType" char(3),
   "ProspectStatus" varchar(5) DEFAULT 'new',
   "CompanyName" varchar(255),
   "Address1" varchar(55),
