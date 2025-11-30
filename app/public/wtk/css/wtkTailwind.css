@@ -334,3 +334,17 @@ hr {
 @media (min-width: 1024px) {
     .lg-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+@keyframes toast-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.toast-animate {
+  animation: toast-slide-up 0.63s ease-out;
+}

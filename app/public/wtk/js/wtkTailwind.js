@@ -2,10 +2,12 @@
 // add this file to your spa.htm if you are using TailwindCSS implementation of Wizard's Toolkit
 var pgHide = 'hidden'; // set to 'hidden' for TailwindCSS or 'hide' for MaterializeCSS
 
-function wtkPageSetup(fncFromPage = ''){
+function wtkPageSetup(fncFromPage = '') {
     wtkToggleShowPassword();
     waitLoad('off');
 }
+var pgLastClicked = 0;
+
 function wtkToggleShowPassword() {
     wtkDebugLog('wtkToggleShowPassword top');
     document.querySelectorAll('.toggle-password').forEach(function(toggleIcon) {
@@ -99,7 +101,7 @@ function wtkAlert(fncText, fncHdr = 'Oops!', fncColor = 'red', fncIcon = 'warnin
 
     // Update icon SVG based on type
     let iconPath = '';
-    switch(fncIcon) {
+    switch (fncIcon) {
         case 'check':
             iconPath = 'M5 13l4 4L19 7';
             break;
@@ -171,7 +173,7 @@ function afterPageLoad(fncPage){
     if ($('#wtkUploadFiles').val() !== undefined) {
         let fncFileIDs = $('#wtkUploadFiles').val();
         let fncFileUpArray = fncFileIDs.split(',');
-        for (let i = 0; i < fncFileUpArray.length; i++){
+        for (let i = 0; i < fncFileUpArray.length; i++) {
             wtkDebugLog('afterPageLoad: set wtkFileChanged for wtkUpload' + fncFileUpArray[i]);
             if (elementExist('wtkUpload' + fncFileUpArray[i])) {
                 document.getElementById('wtkUpload' + fncFileUpArray[i]).addEventListener('change', (e) => {
@@ -237,7 +239,7 @@ function afterPageLoad(fncPage){
             });
         }
     }
-    if (elementExist('CharCntr')){
+    if (elementExist('CharCntr')) {
         if ($('#CharCntr').val() == 'Y') {
             wtkCharWordCounters();
         }
@@ -260,7 +262,7 @@ function afterPageLoad(fncPage){
 
 function wtkCharWordCounters() {
     // Select all input and textarea elements with the class "char-cntr"
-    document.querySelectorAll('input.char-cntr, textarea.char-cntr').forEach(function(element) {
+    document.querySelectorAll('input.char-cntr, textarea.char-cntr').forEach(function (element) {
         // Prevent duplicate counters if already present
         if (element.nextSibling && element.nextSibling.classList
             && element.nextSibling.classList.contains('char-word-counter')) {
@@ -302,28 +304,52 @@ function wtkRemoveToolTips(){
     // not needed
 }
 
-function wtkToastMsg(fncMsg, fncColor = "success") {
-    const fncToastContainer = document.createElement("div");
-    fncToastContainer.className = "toast toast-top toast-end";
+function wtkToastMsg(fncMsg, fncColor = "success", fncDivId = '', fncMaxWidth = 450) {
     switch (fncColor) {
-        case 'green':
-            fncColor = 'success';
-            break;
-        case 'blue':
-            fncColor = 'info';
-            break;
-        case 'orange':
-            fncColor = 'warning';
-            break;
-        case 'red':
-            fncColor = 'error';
-            break;
+        case 'green':  fncColor = 'success'; break;
+        case 'blue':   fncColor = 'info';    break;
+        case 'orange': fncColor = 'warning'; break;
+        case 'red':    fncColor = 'error';   break;
     }
-    const fncAlert = document.createElement("div");
-    fncAlert.className = `alert alert-${fncColor}`;
-    fncAlert.innerHTML = `<span>${fncMsg}</span>`;
 
-    fncToastContainer.appendChild(fncAlert);
-    document.body.appendChild(fncToastContainer);
-    setTimeout(() => fncToastContainer.remove(), 3000);
+    var toastRoot = '';
+    if (fncDivId == ''){
+        toastRoot = document.body;
+    } else {
+        if (elementExist('fncDivId')){
+            toastRoot = document.getElementById(fncDivId);
+        } else {
+            toastRoot = document.body;
+        }
+    }
+    // Create container structure if it doesn't exist
+    let toastStack = document.getElementById('toast-stack');
+    if (!toastStack) {
+        const toastContainer = document.createElement("div");
+        toastContainer.id = "toast-root";
+        toastContainer.className = "fixed left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full";
+        toastContainer.style.top = '72px';
+        toastStack = document.createElement("div");
+        toastStack.id = "toast-stack";
+        toastStack.className = "w-full flex flex-col items-center";
+        toastContainer.appendChild(toastStack);
+        if (toastRoot.firstChild) {
+            toastRoot.insertBefore(toastContainer, toastRoot.firstChild);
+        } else {
+            toastRoot.appendChild(toastContainer);
+        }
+    }
+
+    const fncAlert = document.createElement("div");
+    fncAlert.className = 'mx-auto alert alert-' + fncColor +
+                     ' flex justify-center items-center text-center toast-animate';
+    fncAlert.innerHTML = '<span>' + fncMsg + '</span>';
+
+    // Insert at top of stack
+    if (toastStack.firstChild) {
+        toastStack.insertBefore(fncAlert, toastStack.firstChild);
+    } else {
+        toastStack.appendChild(fncAlert);
+    }
+    setTimeout(() => toastStack.remove(), 3000);
 } // wtkToastMsg
