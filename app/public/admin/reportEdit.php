@@ -41,7 +41,7 @@ htmVAR;
 
 $pgHtm .= wtkFormText('wtkReports', 'RptName', 'text', 'Report Name');
 
-$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'SecurityLevel' ORDER BY `LookupValue` ASC";
+$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'SecurityLevel' ORDER BY CAST(`LookupValue` AS SIGNED) ASC";
 $pgHtm .= wtkFormSelect('wtkReports', 'SecurityLevel', $pgSQL, [], 'LookupDisplay', 'LookupValue','','m3 s6');
 
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'RptType' AND `DelDate` IS NULL ORDER BY `LookupDisplay` ASC";

@@ -71,9 +71,8 @@ function wtkModal(fncPage, fncMode, fncId=0, fncRNG=0, fncColor='', fncDismissab
 } // wtkModal
 
 function wtkCloseModal(fncModalId = 'modalWTK'){
-    // below not needed if using wtkModalUpdateBtns PHP function
-    // document.getElementById(fncModalId).classList.add('hidden');
-    // document.getElementById('modalBackdrop').classList.add('hidden');
+    document.getElementById(fncModalId).classList.add('hidden');
+    document.getElementById('modalBackdrop').classList.add('hidden');
 }
 
 function waitLoad(fncMode) {

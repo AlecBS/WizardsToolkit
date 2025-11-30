@@ -84,7 +84,7 @@ function wtkModalUpdateBtns($fncURL, $fncDiv, $fncClose = 'Y', $fncAppend = 'N')
         $fncBtnTxt = wtkLang('Return');
         $fncHtm =<<<htmVAR
     <div class="text-center mt-5">
-        <button onclick="document.getElementById('modalWTK').close()" class="btn btn-sm btn-neutral">$fncBtnTxt</button>
+        <a onclick="JavaScript:wtkCloseModal()" class="btn btn-sm btn-neutral">$fncBtnTxt</a>
     </div>
 htmVAR;
     else:
@@ -92,8 +92,8 @@ htmVAR;
         $fncSaveTxt = wtkLang('Save');
         $fncHtm =<<<htmVAR
     <div class="flex gap-4 justify-center gap-4 items-center">
-        <button onclick="document.getElementById('modalWTK').close()" class="btn btn-sm btn-neutral">$fncCancelTxt</button>
-        <form method="dialog"><button class="btn btn-sm btn-primary" onclick="Javascript:modalSave('$fncURL','$fncDiv','$fncClose','$fncAppend')">$fncSaveTxt</button></form>
+        <a onclick="JavaScript:wtkCloseModal()" class="btn btn-sm btn-neutral">$fncCancelTxt</a>
+        <a class="btn btn-sm btn-primary" onclick="Javascript:modalSave('$fncURL','$fncDiv','$fncClose','$fncAppend')">$fncSaveTxt</a>
     </div>
 htmVAR;
 
