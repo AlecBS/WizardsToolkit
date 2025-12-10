@@ -242,7 +242,7 @@ function wtkLogError($fncErrType, $fncErrMsg, $fncLineNum = 'NULL') {
 
     $fncErrType = wtkReplace(trim(substr($fncErrType, 0, 20)), "'", "''");
     // since text type remove 200 char limit
-    $fncErrMsg = wtkReplace(trim(substr($fncErrMsg, 0, 2000)), "'", "''");
+    $fncErrMsg = wtkReplace(trim(substr($fncErrMsg, 0, 1990)), "'", "''");
     $fncCurrentPage = wtkReplace(trim(substr($gloCurrentPage, 0, 120)), "'", "''");
     $fncSQL =<<<SQLVAR
 INSERT INTO `wtkErrorLog` (`UserUID`, `ErrType`, `ErrMsg`, `FromPage`, `ReferralPage`, `LineNum`)
