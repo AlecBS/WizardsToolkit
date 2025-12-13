@@ -98,7 +98,7 @@ function wtkPhoneLink($fncPhone, $fncPhoneExt = '', $fncShowNumber = 'Y') {
 * @return html of button which calls wtkShowHelp JS function
 */
 function wtkHelp($fncHelpIndex = '', $fncHelpTitle = '') {
-    global $gloUserUID, $gloPageTitle;
+    global $gloCSSLib, $gloUserUID, $gloPageTitle;
     if ($fncHelpTitle != ''):
         $fncPageTitle = $fncHelpTitle;
     else:
@@ -150,9 +150,14 @@ SQLVAR;
     endif;
     $fncResult = '';
     if ($fncShowHelp == 'Y'):
-        $fncResult .= '<a onclick="JavaScript:wtkShowHelp(' . $fncUID . ')">';
-        $fncResult .= '<i class="small material-icons blue-text">help_outline</i></a>';
-    endif; // <i class="material-icons" title="Help">help_outline</i>
+        if ($gloCSSLib == 'MaterializeCSS'):
+            $fncResult .= '<a onclick="JavaScript:wtkShowHelp(' . $fncUID . ')">';
+            $fncResult .= '<i class="small material-icons blue-text">help_outline</i></a>';
+        else: // TailwindCSS
+            $fncResult .= '<a onclick="JavaScript:wtkShowHelp(' . $fncUID . ')" class="btn btn-circle btn-secondary">';
+            $fncResult .= '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-help"/></svg></a>';
+        endif;
+    endif;
     return $fncResult;
 }  // end of wtkHelp
 

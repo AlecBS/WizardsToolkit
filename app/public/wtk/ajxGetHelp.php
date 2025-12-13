@@ -62,36 +62,53 @@ $pgEditHelp = '';
 $pgEditBtn = '';
 $pgHtm = '';
 if ($pgCanEditHelp == 'Y'):
-    $pgEditBtn  = '<a id="editHelpBtn" class="btn blue waves-effect right" onclick="JavaScript:wtkEditHelp()">Edit</a>';
-    $pgEditBtn .= '<a id="saveHelpBtn" class="btn modal-close waves-effect right hide" onclick="JavaScript:wtkSaveHelp(' . $gloId . ')">Save</a>';
+    if ($gloCSSLib == 'TailwindCSS'):
+        $pgHtm .=<<<htmVAR
+<div id="editHelp" class="hidden">
+    <h4 class="text-2xl font-semibold text-gray-800 mb-6">Edit Help</h4>
+    <form method="POST">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg-grid-2 gap-6">
+htmVAR;
+        $pgEditBtn =<<<htmVAR
+    <a id="editHelpBtn" class="btn btn-secondary" onclick="wtkEditHelp()">Edit</a>&nbsp;
+    <a id="saveHelpBtn" class="btn btn-primary modal-close hidden" onclick="wtkSaveHelp($gloId);wtkCloseModal()">Save</a>
+htmVAR;
+    else:
+        $pgEditBtn =<<<htmVAR
+    <a id="editHelpBtn" class="btn blue waves-effect right" onclick="wtkEditHelp()">Edit</a>
+    <a id="saveHelpBtn" class="btn modal-close waves-effect right hide" onclick="wtkSaveHelp($gloId)">Save</a>
+htmVAR;
 
-//  $pgHtm .= wtkFormText('wtkHelp', 'HelpIndex', 'text', 'Help Index', 'm3 s12');
-    $pgHtm .=<<<htmVAR
+    //  $pgHtm .= wtkFormText('wtkHelp', 'HelpIndex', 'text', 'Help Index', 'm3 s12');
+        $pgHtm .=<<<htmVAR
     <div id="editHelp" class="card hide">
         <div class="card-content">
             <h4>Edit Help</h4>
             <form>
                 <div class="row">
 htmVAR;
-
+    endif;
     $pgHtm .= wtkFormText('wtkHelp', 'HelpTitle', 'text', 'Help Title', 'm12 s12');
     $pgHtm .= wtkFormText('wtkHelp', 'VideoLink','text','Video Link (YouTube or Vimeo)','m12 s12','N','for YouTube this should be in the format of src="https://www.youtube.com/embed/{yourLink}"');
 
     $pgTmp  = wtkFormTextArea('wtkHelp', 'HelpText', '', 'm12 s12');
-    $pgTmp  = wtkReplace($pgTmp, 'materialize-textarea','materialize-textarea snote');
+//    $pgTmp  = wtkReplace($pgTmp, 'materialize-textarea','materialize-textarea snote');
     // BEGIN check to see if company prefers WYSIWYG
-    $pgWYSIWYG = wtkSqlGetOneResult('SELECT `PreferWYSIWYG` FROM `wtkCompanySettings` WHERE `UID` = 1', []);
-    if ($pgWYSIWYG == 'Y'):
-        $pgHtm .= '<input type="hidden" id="HasModalTinyMCE" name="HasModalTinyMCE" value="textarea#wtkwtkHelpHelpText">';
-    endif;
+// ABS removed for Blast-Me
+//    $pgWYSIWYG = wtkSqlGetOneResult('SELECT `PreferWYSIWYG` FROM `wtkCompanySettings` WHERE `UID` = 1', []);
+//    if ($pgWYSIWYG == 'Y'):
+//        $pgHtm .= '<input type="hidden" id="HasModalTinyMCE" name="HasModalTinyMCE" value="textarea#wtkwtkHelpHelpText">';
+//    endif;
     //  END  check to see if company prefers WYSIWYG
     $pgHtm .= $pgTmp ;
     $pgHtm .=<<<htmVAR
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 htmVAR;
+    if ($gloCSSLib == 'MaterializeCSS'):
+        $pgHtm .= '</div>';
+    endif;
     $pgEditHelp = $pgHtm;
 endif;
 
@@ -103,17 +120,30 @@ endif;
 */
 $pgHtm =<<<htmVAR
 <div class="modal-content">
-    <h2>$pgHelpTitle</h2><br>
+    <h2 class="text-2xl font-bold text-center">$pgHelpTitle</h2><br>
     <input type="hidden" id="HasTextArea" name="HasTextArea" value="wtkwtkHelpHelpText">
     $pgHelpText
     $pgVideoURL
     $pgEditHelp
 </div>
-<div class="modal-footer bg-second">
-    <a class="btn btn-save modal-close waves-effect left" onclick="JavaScript:wtkFixSideNav()">Close</a>
-    $pgEditBtn
-</div>
 htmVAR;
+if ($gloCSSLib == 'MaterializeCSS'):
+    $pgHtm .=<<<htmVAR
+<div class="modal-footer bg-second">
+    <a class="btn btn-save modal-close waves-effect left" onclick="wtkFixSideNav()">Close</a>
+    $pgEditBtn
+</div>    
+htmVAR;
+else:
+    if ($pgCanEditHelp == 'Y'):
+        $pgHtm .=<<<htmVAR
+<div class="text-center mt-5">
+    <a class="btn" onclick="wtkCloseModal()">Close</a>
+    $pgEditBtn
+</div>    
+htmVAR;
+    endif;
+endif;
 
 echo $pgHtm;
 exit; // no display needed, handled via JS and spa.htm
