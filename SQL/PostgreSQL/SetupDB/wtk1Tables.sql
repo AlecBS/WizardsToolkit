@@ -114,6 +114,8 @@ CREATE TABLE "wtkBlog" (
     "Slug" varchar(80),
     "PageTitle" varchar(120),
     "BlogContent" text,
+    "VideoLink1" varchar(255),
+    "VideoLink2" varchar(255),
     "MetaKeywords" text,
     "MetaDescription" text,
     "TwitterAcct" varchar(40),

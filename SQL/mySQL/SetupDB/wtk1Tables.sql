@@ -154,6 +154,8 @@ CREATE TABLE `wtkBlog` (
   `Slug` varchar(80),
   `PageTitle` varchar(120) COMMENT 'also used for Navigation name',
   `BlogContent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `VideoLink1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `VideoLink2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `MetaKeywords` text,
   `MetaDescription` text,
   `TwitterAcct` varchar(40),
