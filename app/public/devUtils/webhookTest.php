@@ -27,6 +27,7 @@ foreach ($pgHeaders as $key => $value):
         $pgKeyValues .= "$key: $value" . "\n";
     endif;
 endforeach;
+$pgKeyValues = substr($pgKeyValues, 0, 598);
 $pgSqlFilter = array('DevNote' => "Webhook Header: \n$pgKeyValues");
 wtkSqlExec('INSERT INTO `wtkDebug` (`DevNote`) VALUES (:DevNote)', $pgSqlFilter, false);
 
@@ -40,6 +41,7 @@ foreach ($_GET as $key => $value):
         $pgKeyValues .= "$key: $value" . "\n";
     endif;
 endforeach;
+$pgKeyValues = substr($pgKeyValues, 0, 598);
 $pgSqlFilter = array('DevNote' => "Webhook GET: \n$pgKeyValues");
 wtkSqlExec('INSERT INTO `wtkDebug` (`DevNote`) VALUES (:DevNote)', $pgSqlFilter, false);
 
@@ -53,11 +55,13 @@ foreach ($_POST as $key => $value):
         $pgKeyValues .= "$key: $value" . "\n";
     endif;
 endforeach;
+$pgKeyValues = substr($pgKeyValues, 0, 598);
 $pgSqlFilter = array('DevNote' => "Webhook POST: \n$pgKeyValues");
 wtkSqlExec('INSERT INTO `wtkDebug` (`DevNote`) VALUES (:DevNote)', $pgSqlFilter, false);
 
 $pgInput = file_get_contents('php://input');
 if (isset($pgInput)):
+    $pgInput = substr($pgInput, 0, 598);
     if ($pgInput != ''):
         $pgSqlFilter = array('DevNote' => "Webhook input: \n$pgInput");
     else:
