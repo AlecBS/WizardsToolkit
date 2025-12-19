@@ -467,7 +467,7 @@ CREATE TABLE "wtkLinkLogin" (
 CREATE TABLE "wtkLockoutUntil" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
-  "FailCode" varchar(4) NOT NULL,
+  "FailCode" varchar(20) NOT NULL,
   "UserUID" int,
   "IPaddress" varchar(40),
   "LockUntil" date,

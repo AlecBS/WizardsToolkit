@@ -521,7 +521,7 @@ CREATE TABLE `wtkLinkLogin` (
 CREATE TABLE `wtkLockoutUntil` (
   `UID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `AddDate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `FailCode` varchar(4) NOT NULL,
+  `FailCode` varchar(20) NOT NULL,
   `UserUID` int UNSIGNED,
   `IPaddress` varchar(40),
   `LockUntil` date,
