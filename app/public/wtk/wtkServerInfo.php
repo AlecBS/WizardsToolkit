@@ -230,41 +230,38 @@ if ($gloCurrentPage != ''):
 else:   // Not $gloCurrentPage != ''
     $gloCurrentPage = $_SERVER['PHP_SELF'];
 endif;  // $gloCurrentPage != ''
-if (!isset($gloSiteDesign) || !isset($gloCSSLib)):
-    $pgMpaOrSpa = isset($_POST['MpaOrSpa']) ? $_POST['MpaOrSpa'] : '';
-    if ($pgMpaOrSpa != ''):
-        $gloSiteDesign = $pgMpaOrSpa;
+
+// Check for pages/sites that require specific SPA or MaterializeCSS libraries
+$pgMpaOrSpa = isset($_POST['MpaOrSpa']) ? $_POST['MpaOrSpa'] : '';
+if ($pgMpaOrSpa != ''):
+    $gloSiteDesign = $pgMpaOrSpa;
+else:
+    $pgPos = strpos($gloCurrentPage, '/blog/admin/');
+    if ($pgPos !== false):
+        $gloSiteDesign = 'MPA'; // WTK blog site uses Multi Page App design
+        $gloCSSLib     = 'MaterializeCSS';
     else:
-        $pgPos = strpos($gloCurrentPage, '/blog/admin/');
+        // Set your default on above line; below will override for WTK special folders/files
+        $pgPos = strpos($gloCurrentPage, '/admin/');
         if ($pgPos !== false):
-            $gloSiteDesign = 'MPA'; // WTK blog site uses Multi Page App design
+            $gloSiteDesign = 'SPA'; // WTK admin site uses Single Page App design
             $gloCSSLib     = 'MaterializeCSS';
         else:
-            // Set your default on above line; below will override for WTK special folders/files
-            $pgPos = strpos($gloCurrentPage, '/admin/');
+            $pgPos = strpos($gloCurrentPage, 'wtk/reports.php');
             if ($pgPos !== false):
-                $gloSiteDesign = 'SPA'; // WTK admin site uses Single Page App design
-                $gloCSSLib     = 'MaterializeCSS';
-            else:
-                $pgPos = strpos($gloCurrentPage, 'wtk/reports.php');
-                if ($pgPos !== false):
-                    $gloSiteDesign = 'SPA'; // WTK reports.php must be called from SPA page
-                    $gloCSSLib     = 'MaterializeCSS';
-                endif;
+                $gloSiteDesign = 'SPA'; // WTK reports.php must be called from SPA page
+//                  $gloCSSLib     = 'MaterializeCSS';
             endif;
         endif;
-        if (!isset($gloSiteDesign)):
-            $gloSiteDesign = 'SPA'; // your default of MPA or SPA for Multi-Page App or Single Page App
-        endif;
     endif;
-    if (!isset($gloCSSLib)):
-        $gloCSSLib = 'MaterializeCSS'; // your default CSS Library: TailwindCSS or MaterializeCSS
+    if (!isset($gloSiteDesign)):
+        $gloSiteDesign = 'SPA'; // your default of MPA or SPA for Multi-Page App or Single Page App
     endif;
+endif;
+if (!isset($gloCSSLib)):
+    $gloCSSLib = 'MaterializeCSS'; // your default CSS Library: TailwindCSS or MaterializeCSS
 endif;
 require('lib/Core.php');
-if (wtkGetPost('wtkDesign') != ''):
-    $gloSiteDesign = wtkGetPost('wtkDesign'); // pass to Save.php non-standard design
-endif;
 
 if (wtkGetSession('HashPW') == 'passed'):
     $_SESSION['HashPW'] = '';
@@ -278,14 +275,6 @@ else:
     $gloPrototype = wtkGetSession('Prototype');
 endif;
 
-if (!isset($gloCSSLib)):
-//  $gloCSSLib     = 'TailwindCSS'; // in development, not ready yet
-    $gloCSSLib     = 'MaterializeCSS';
-endif;
-
-$gloSaveCSS           = 'btn btn-primary';
-$gloCancelCSS         = 'btn';
-
 $gloDarkLight         = 'Light'; // used for emailing emailDark or emailLight and setting in minibox.htm
 $gloImgWidth          = 200; // used for browse list for image sizes
 $gloImgHeight         = 140; // used for browse list for image sizes
@@ -296,16 +285,15 @@ if ($gloDeviceType == 'phone'):
 else:
     $gloIconSize = '';
 endif;
-
-$gloIconAsc           = '<i class="material-icons">expand_less</i>';
-$gloIconDesc          = '<i class="material-icons">expand_more</i>';
-
 $gloIconPrint         = '<i class="material-icons">print</i>';
-// $gloIconExport        = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-download"/></svg>'; //  '<i class="material-icons">file_download</i>';
-$gloIconExport        = 'csv';
 $gloIconExportXML     = 'xml';
+$gloSaveCSS           = 'btn btn-primary';
+$gloCancelCSS         = 'btn';
 
 if ($gloCSSLib == 'TailwindCSS'):
+    $gloIconExport    = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-download"/></svg>';
+    $gloIconAsc       = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-chevron-up"/></svg>';
+    $gloIconDesc      = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-chevron-down"/></svg>';
     $gloIconAdd       = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-plus"/></svg>';
     $gloIconEdit      = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-edit"/></svg>';
     $gloIconDelete    = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-trash"/></svg>';
@@ -314,6 +302,9 @@ if ($gloCSSLib == 'TailwindCSS'):
     $gloIconNext      = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-chevron-right"/></svg>';
     $gloIconLast      = '<svg class="wtk-icon"><use href="/imgs/icons.svg#icon-last-page"/></svg>';
 else:
+    $gloIconExport    = 'csv'; //'<i class="material-icons">file_download</i>';
+    $gloIconAsc       = '<i class="material-icons">expand_less</i>';
+    $gloIconDesc      = '<i class="material-icons">expand_more</i>';
     $gloIconAdd       = '<i class="material-icons">add</i>';
     $gloIconEdit      = '<i class="material-icons">edit</i>';
     $gloIconDelete    = '<i class="material-icons">delete</i>';

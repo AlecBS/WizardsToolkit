@@ -5,6 +5,11 @@ var pgHide = 'hidden'; // set to 'hidden' for TailwindCSS or 'hide' for Material
 function wtkPageSetup(fncFromPage = '') {
     wtkToggleShowPassword();
     waitLoad('off');
+    if (elementExist('pgSiteVar')) {
+        pgSite = $('#pgSiteVar').val();
+    } else {
+        pgSite = 'publicApp';
+    }
 }
 var pgLastClicked = 0;
 
