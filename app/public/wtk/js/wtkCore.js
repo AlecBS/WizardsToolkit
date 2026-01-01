@@ -798,6 +798,11 @@ function ajaxGo(fncPage, fncId=0, fncRNG=0, fncAddPageQ='Y', fncFrom='') {
                 pgMainPage = data; // now managed in pageTransition
             }
             waitLoad('off');
+            if (elementExist('myNavbar')){
+                setTimeout(function () {
+                    document.getElementById('myNavbar').scrollIntoView({ behavior: 'smooth' });
+                }, 180);
+            }
             /*
             let fncPageTitle = $('#myTitle').val();
             if (fncPageTitle != '') {

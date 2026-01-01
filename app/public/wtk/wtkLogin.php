@@ -85,7 +85,24 @@ SQLVAR;
         $gloWhichApp = wtkSqlValue('WhichApp');
         $gloAccessMethod = wtkSqlValue('AccessMethod');
         if (($pgLoginAppVer != $pgCurrAppVer) && ($gloLoginRequired == true)):
-            $pgHtm =<<<htmVAR
+            if ($gloCSSLib == 'TailwindCSS'):
+                $pgHtm =<<<htmVAR
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="max-w-md w-full bg-white rounded-lg shadow-md p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">New App Version</h3>
+    <p class="text-gray-600">
+      The newest version of the app is now available.
+      Download is quick and easy.<br>Click
+      <a href="?App=new" class="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+        Upgrade
+      </a>
+      then log back in.
+    </p>
+  </div>
+</div>            
+htmVAR;
+            else:
+                $pgHtm =<<<htmVAR
     <div class="container"><br><br>
 		<div class="card b-shadow">
             <div class="card-content">
@@ -98,6 +115,7 @@ SQLVAR;
         </div>
     </div>
 htmVAR;
+            endif;
             if ($gloSiteDesign == 'MPA'): // this should never occur
                 wtkMergePage($pgHtm, 'Login', _WTK_RootPATH . 'htm/minibox.htm');
             else:

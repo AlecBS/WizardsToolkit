@@ -921,7 +921,9 @@ INSERT INTO `wtkWidget` (`UID`, `WidgetName`, `SecurityLevel`, `WidgetType`, `Ch
 (20, 'Weekly Income', 80, 'Chart', 'Area', NULL, NULL, 'weekly income summaries', 'SELECT `WeekEnding`, `Income`\r\nFROM (\r\n    SELECT DATE_FORMAT(DATE_ADD(`AddDate`, INTERVAL (1 - DAYOFWEEK(`AddDate`)) + 7 DAY), \'%b %D\') AS `WeekEnding`,\r\n           COALESCE(SUM(`GrossAmount`), 0) AS `Income`,\r\n           `AddDate`\r\n    FROM `wtkRevenue`\r\n    WHERE `PaymentStatus` IN (\'Paid\', \'Authorized\',\'succeeded\')\r\n    GROUP BY YEAR(`AddDate`), WEEK(`AddDate`, 1)\r\n    ORDER BY YEAR(`AddDate`) DESC, WEEK(`AddDate`, 1) DESC\r\n    LIMIT 7\r\n) AS subquery\r\nORDER BY `AddDate` ASC', '/admin/moneyStats', NULL, 'N'),
 (21, 'Unique Visitors', 80, 'Count', NULL, 'info-gradient', NULL, 'visitors to marketing site', 'SELECT COUNT(DISTINCT(`IPaddress`)) as `Count`\r\nFROM `wtkVisitors`\r\nWHERE `AddDate` > (NOW() - INTERVAL 7 DAY)', '/admin/visitorStats', NULL, 'N'),
 (22, 'Affiliates', 80, 'Count', NULL, 'success-gradient', NULL, NULL, 'SELECT COUNT(*)\r\n FROM `wtkAffiliates`\r\nWHERE `DelDate` IS NULL', '/admin/affiliateList', NULL, 'N'),
-(23, 'Prospects', 80, 'Count', NULL, 'info-gradient', NULL, NULL, 'SELECT COUNT(*)\r\n FROM `wtkProspects`\r\nWHERE `DelDate` IS NULL', '/admin/prospectList', NULL, 'N');
+(23, 'Prospects', 80, 'Count', NULL, 'info-gradient', NULL, NULL, 'SELECT COUNT(*)\r\n FROM `wtkProspects`\r\nWHERE `DelDate` IS NULL', '/admin/prospectList', NULL, 'N'),
+(24, 'Help System', 1, 'List', 'Area', 'danger-gradient', 'Y', NULL, 'SELECT `UID`, CONCAT(\'<a onclick=\"wtkShowHelp(\',`UID`,\')\">\',`HelpTitle`,\'</a>\') AS `HowTo`\r\n  FROM `wtkHelp`\r\nORDER BY `HelpTitle` ASC', NULL, NULL, 'N');
+
 
 INSERT INTO `wtkWidgetGroup_X_Widget` (`WidgetGroupUID`, `WidgetUID`, `WidgetPriority`)
  VALUES

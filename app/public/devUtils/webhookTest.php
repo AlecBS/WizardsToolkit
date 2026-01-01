@@ -61,13 +61,13 @@ wtkSqlExec('INSERT INTO `wtkDebug` (`DevNote`) VALUES (:DevNote)', $pgSqlFilter,
 
 $pgInput = file_get_contents('php://input');
 if (isset($pgInput)):
-    $pgInput = substr($pgInput, 0, 598);
-    if ($pgInput != ''):
-        $pgSqlFilter = array('DevNote' => "Webhook input: \n$pgInput");
-    else:
-        $pgSqlFilter = array('DevNote' => "Webhook no input");
-    endif;
-    wtkSqlExec('INSERT INTO `wtkDebug` (`DevNote`) VALUES (:DevNote)', $pgSqlFilter, false);
+    $pgSQL = "INSERT INTO `wtkInboundLog` (`InboundSource`,`IPaddress`,`InboundText`) VALUES ('webhookTest', :IPaddress, :InboundText)";
+    $pgIPaddress = wtkGetIPaddress();
+    $pgSqlFilter = array(
+        'IPaddress' => $pgIPaddress,
+        'InboundText' => $pgInput
+    );
+    wtkSqlExec($pgSQL, $pgSqlFilter, false);
 endif;
 
 // BEGIN Verify Header Password

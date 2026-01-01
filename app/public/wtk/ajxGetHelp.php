@@ -44,16 +44,28 @@ if ($pgVideoURL != ''):
         $pgVid = wtkReplace($pgVid, 'https://vimeo.com/','');
         $pgTmp  = '<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" src="//player.vimeo.com/video/';
         $pgTmp .= $pgVid . '" class="note-video-clip" width="640" height="360" frameborder="0"></iframe>';
-    else: // not Vimeo, assume must be YouTube
-        $pgVid = wtkReplace($pgVideoURL, 'https://youtu.be/','');
-        $pgVid = wtkReplace($pgVid, '&feature=emb_imp_woyt','');
-        $pgVid = wtkReplace($pgVid, '&feature=youtu.be','');
-//        https://www.youtube.com/watch?v=nMZA7Emr5z4
-        $pgVid = wtkReplace($pgVid, 'https://www.youtube.com/watch?v=','');
-        $pgVid = wtkReplace($pgVid, 'https://www.youtube.com/embed/','');
-    	$pgTmp  = '<iframe width="560" height="315" src="https://www.youtube.com/embed/';
-        $pgTmp .= $pgVid . '" title="YouTube video player" frameborder="0"';
-        $pgTmp .= ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    else: // not Vimeo, check to see if YouTube
+        $pgPos = stripos($pgVideoURL, 'youtu');
+        if ($pgPos !== false): // Vimeo video
+            $pgVid = wtkReplace($pgVideoURL, 'https://youtu.be/','');
+            $pgVid = wtkReplace($pgVid, '&feature=emb_imp_woyt','');
+            $pgVid = wtkReplace($pgVid, '&feature=youtu.be','');
+    //        https://www.youtube.com/watch?v=nMZA7Emr5z4
+            $pgVid = wtkReplace($pgVid, 'https://www.youtube.com/watch?v=','');
+            $pgVid = wtkReplace($pgVid, 'https://www.youtube.com/embed/','');
+            $pgTmp  = '<iframe width="560" height="315" src="https://www.youtube.com/embed/';
+            $pgTmp .= $pgVid . '" title="YouTube video player" frameborder="0"';
+            $pgTmp .= ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        else: // not Vimeo, nor YouTube
+            $pgTmp =<<<htmVAR
+<div class="media-container">
+    <video controls autoplay muted playsinline style="width:100%">
+        <source src="$pgVideoURL" type="video/mp4" >
+        Your browser does not support the video tag.
+    </video>
+</div>
+htmVAR;
+        endif;
     endif;
     $pgVideoURL = '<br><br><div align="center">' . $pgTmp . '</div>';
 endif;

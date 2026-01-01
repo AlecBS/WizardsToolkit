@@ -3,6 +3,16 @@
 $gloLoginRequired = false;
 require('wtk/wtkLogin.php');
 
+if (wtkGetParam('App') == 'dev'): // change to != when want to disable site during maintenance
+    $pgHtm =<<<htmVAR
+<h2>Site Under Maintenance</h2><br>
+<p>We&rsquo;re currently deploying significant upgrades to improve your experience.
+ The site will be back online with new features in about an hour. Thank you for your patience.</p>
+htmVAR;
+    wtkSearchReplace('<div class="col m4 offset-m4 s12">','<div class="col m6 offset-m3 s12">');
+    wtkMergePage($pgHtm, $gloCoName, 'wtk/htm/minibox.htm');
+endif;
+
 $pgMobileLink = '';
 $pgMobile = wtkGetParam('mobile');
 if ($pgMobile != ''): // this makes website work for iOS and Android apps; have Xcode point to this page ?mobile=ios
