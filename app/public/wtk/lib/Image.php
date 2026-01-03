@@ -570,4 +570,135 @@ function wtkPhotosSpread($fncPhotoCount, $fncSQL, $fncSqlFilter, $fncImageFolder
     endif;  // $fncPhotoCount == 0
     return $fncResult;
 }  // end of wtkPhotosSpread
+
+/**
+* wtkReduceImageSize - actually reduce the size of an image
+*
+* Pass in the binary of an image and the maximum width you want.
+* If current width is > desired new width, calculate what new height should be then generate image and return as binary.
+*
+* This has not been stress tested against all image types and scenarios yet.
+* Calling method:
+*
+try {
+    $pgImageBinary = wtkReduceImageSize($pgOrigImageBinary, 630);
+} catch (Exception $e) {
+    wtkLogError('Image Resize', $e->getMessage());
+}
+*
+* @param binary $fncImageBinary - binary of an image
+* @param int   $fncNewMaxWidth - new maximum width
+* @return binary of image at reduced size
+*/
+function wtkReduceImageSize($fncImageBinary, $fncNewMaxWidth) {
+    // Create image from binary data
+    $originalImage = imagecreatefromstring($fncImageBinary);
+
+    if ($originalImage === false) {
+        throw new Exception("Failed to create image from binary data");
+    }
+
+    // Get original dimensions
+    $originalWidth = imagesx($originalImage);
+    $originalHeight = imagesy($originalImage);
+
+    // Check if resizing is needed
+    if ($originalWidth <= $fncNewMaxWidth) {
+        // No resizing needed, return original binary
+        imagedestroy($originalImage);
+        return $fncImageBinary;
+    }
+
+    // Calculate new height while maintaining aspect ratio
+    $ratio = $originalHeight / $originalWidth;
+    $newWidth = $fncNewMaxWidth;
+    $newHeight = (int) round($newWidth * $ratio);
+
+    // Create new image with calculated dimensions
+    $newImage = imagecreatetruecolor($newWidth, $newHeight);
+
+    if ($newImage === false) {
+        imagedestroy($originalImage);
+        throw new Exception("Failed to create new image resource");
+    }
+
+    // Preserve transparency for PNG and GIF
+    $isTransparent = false;
+    $imageType = null;
+
+    // Try to detect image type and preserve transparency
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_buffer($finfo, $fncImageBinary);
+    finfo_close($finfo);
+
+    if ($mimeType === 'image/png' || $mimeType === 'image/gif') {
+        $imageType = ($mimeType === 'image/png') ? IMAGETYPE_PNG : IMAGETYPE_GIF;
+        $isTransparent = true;
+
+        // Handle transparency
+        imagealphablending($newImage, false);
+        imagesavealpha($newImage, true);
+
+        if ($mimeType === 'image/gif') {
+            // For GIF, try to handle transparency
+            $transparentIndex = imagecolortransparent($originalImage);
+            if ($transparentIndex >= 0) {
+                $transparentColor = imagecolorsforindex($originalImage, $transparentIndex);
+                $transparentIndex = imagecolorallocate($newImage,
+                    $transparentColor['red'],
+                    $transparentColor['green'],
+                    $transparentColor['blue']);
+                imagefill($newImage, 0, 0, $transparentIndex);
+                imagecolortransparent($newImage, $transparentIndex);
+            }
+        } else {
+            // For PNG, allocate transparent background
+            $transparent = imagecolorallocatealpha($newImage, 0, 0, 0, 127);
+            imagefill($newImage, 0, 0, $transparent);
+        }
+    }
+
+    // Resize image with high quality
+    $success = imagecopyresampled(
+        $newImage,      // Destination image
+        $originalImage, // Source image
+        0, 0,           // Destination x, y
+        0, 0,           // Source x, y
+        $newWidth,      // Destination width
+        $newHeight,     // Destination height
+        $originalWidth, // Source width
+        $originalHeight // Source height
+    );
+
+    if (!$success) {
+        imagedestroy($originalImage);
+        imagedestroy($newImage);
+        throw new Exception("Failed to resize image");
+    }
+    ob_start(); // Capture output to get binary data
+
+    // Output based on detected image type
+    if ($isTransparent) {
+        if ($imageType === IMAGETYPE_PNG) {
+            imagepng($newImage, null, 9); // Maximum compression for PNG
+        } elseif ($imageType === IMAGETYPE_GIF) {
+            imagegif($newImage);
+        }
+    } else {
+        // Default to JPEG with 85% quality (good balance of size/quality)
+        imagejpeg($newImage, null, 85);
+    }
+
+    $fncNewImageBinary = ob_get_clean();
+
+    // Clean up
+    imagedestroy($originalImage);
+    imagedestroy($newImage);
+
+    if ($fncNewImageBinary === false || strlen($fncNewImageBinary) === 0) {
+        throw new Exception("Failed to generate new image binary");
+    }
+
+    return $fncNewImageBinary;
+} // wtkReduceImageSize
 ?>

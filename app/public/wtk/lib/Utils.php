@@ -1190,20 +1190,25 @@ function wtkCURLcall($fncURL, $fncHeader, $fncPost, $fncPostCount = 1, $fncErrTi
     curl_setopt($ch, CURLOPT_URL, $fncURL);
 
     $fncResult = curl_exec($ch);
-    $fncCurlInfo = curl_getinfo($ch);
-    $fncCurlHttp = $fncCurlInfo['http_code'];
-    if (($fncCurlHttp != 200) && ($fncCurlHttp != 201) && ($fncCurlHttp != 202)):
-        if (!($fncResult)):
-            $fncIpAddress = wtkGetIPaddress();
-            $fncCurlErrNum = curl_errno($ch);
-            $fncCurlErrStr = curl_error($ch);
-            wtkLogError($fncErrTitle, "cURL error: [$fncCurlErrNum] $fncCurlErrStr \n Called from $fncIpAddress");
-            $fncResult = "cURL error: [$fncCurlErrNum] $fncCurlErrStr";
-        else:
-            $fncCurlInfo = curl_getinfo($ch);
-            $fncCurlHttp = $fncCurlInfo['http_code'];
-            if ($fncCurlHttp != 200):
-                wtkLogError($fncErrTitle, "HTTP Error : $fncCurlHttp ; Result: $fncResult");
+    if ($fncResult === false): // Network/connection error
+        wtkLogError($fncErrTitle, "curl_exec Error: returned false");
+        $fncResult = '{"result":"error"}';
+    else:
+        $fncCurlInfo = curl_getinfo($ch);
+        $fncCurlHttp = $fncCurlInfo['http_code'];
+        if (($fncCurlHttp != 200) && ($fncCurlHttp != 201) && ($fncCurlHttp != 202)):
+            if (!($fncResult)):
+                $fncIpAddress = wtkGetIPaddress();
+                $fncCurlErrNum = curl_errno($ch);
+                $fncCurlErrStr = curl_error($ch);
+                wtkLogError($fncErrTitle, "cURL error: [$fncCurlErrNum] $fncCurlErrStr \n Called from $fncIpAddress");
+                $fncResult = "cURL error: [$fncCurlErrNum] $fncCurlErrStr";
+            else:
+                $fncCurlInfo = curl_getinfo($ch);
+                $fncCurlHttp = $fncCurlInfo['http_code'];
+                if ($fncCurlHttp != 200):
+                    wtkLogError($fncErrTitle, "HTTP Error : $fncCurlHttp ; Result: $fncResult");
+                endif;
             endif;
         endif;
     endif;
@@ -1305,6 +1310,32 @@ function wtkCurrencySymbol($fncCurrencyCode) {
     }
     return $fncResult;
 } // wtkCurrencySymbol
+
+function wtkSaveURLtoServer($fncURL, $fncLocalFile) {
+    // this will delete a file if it already exists before downloading new file
+    if (file_exists($fncLocalFile)): // should include path
+        unlink($fncLocalFile);
+    endif;
+    // Open local file for writing (binary-safe)
+    $fp = fopen($fncLocalFile, 'w');
+
+    $ch = curl_init($fncURL);
+    curl_setopt($ch, CURLOPT_FILE, $fp);          // Stream directly to file
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects, often needed for signed URLs
+    curl_setopt($ch, CURLOPT_TIMEOUT, 0);           // No timeout for large videos; adjust if desired
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Keep SSL verification on in production
+    curl_exec($ch);
+
+    if (curl_errno($ch)):
+        $fncError = curl_error($ch);
+        wtkLogError('wtkSaveURLtoServer', 'cURL error: ' . $fncError);
+        $fncResult = 'error';
+    else:
+        $fncResult = 'ok';
+    endif;
+    curl_close($ch);
+    return $fncResult;
+} // wtkSaveURLtoServer
 
 wtkTimeTrack('End of Utils.php');
 ?>
