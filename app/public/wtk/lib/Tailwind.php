@@ -189,11 +189,11 @@ function wtkFormTextArea($fncTable, $fncColName, $fncLabel = '', $fncColSize = '
         endif;
         $gloHasTextArea .= $fncFormId;
     endif;
+    if (strlen($fncHelpText) < 121):
+        $fncHelpText = wtkLang($fncHelpText);
+    endif;
     if ($fncHelpText != ''):
-        if (strlen($fncHelpText) < 121):
-            $fncHelpText = wtkLang($fncHelpText);
-        endif;
-        $fncHelpText = "\n" . '<span class="helper-text">' . $fncHelpText. '</span>';
+        $fncHelpText = '- ' . $fncHelpText;
     endif;
 //      <label for="$fncFormId">$fncLabel</label>$fncHelpText
     $fncHtm =<<<htmVAR
@@ -203,7 +203,7 @@ function wtkFormTextArea($fncTable, $fncColName, $fncLabel = '', $fncColSize = '
             <label for="$fncFormId" class="floating-label">
                 <span>$fncLabel</span> 
                 <textarea$fncSetReguired id="$fncFormId" name="$fncFormId" class="textarea w-full"
-                    placeholder="$fncLabel">@$fncColName@</textarea>
+                    placeholder="$fncLabel $fncHelpText">@$fncColName@</textarea>
             </label>
         </div>
     </div>

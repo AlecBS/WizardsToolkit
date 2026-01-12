@@ -282,6 +282,8 @@ function wtkCharWordCounters() {
 
         // Insert the counter right after the input/textarea
         element.parentNode.insertBefore(counter, element.nextSibling);
+     // Read data-length (string) and optionally coerce to number
+        var maxLength = element.dataset.length || '';
 
         // Update the counter display
         function updateCounter() {
@@ -289,12 +291,13 @@ function wtkCharWordCounters() {
             var charCount = val.length;
             // Remove multiple spaces; split, filter empty, count
             var wordCount = val.trim() === '' ? 0 : val.trim().split(/\s+/).length;
-            counter.innerHTML = 'Words: ' + wordCount + ' &nbsp;|&nbsp; Characters: ' + charCount;
+            counter.innerHTML =
+                'Words: ' + wordCount +
+                ' &nbsp;|&nbsp; Characters: ' + charCount +
+                (maxLength ? ' &nbsp;|&nbsp; Max: ' + maxLength : '');
         }
 
-        // Initial count
-        updateCounter();
-
+        updateCounter(); // Initial count
         // Update on any input event
         element.addEventListener('input', updateCounter);
     });

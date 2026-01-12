@@ -4,6 +4,22 @@ define('_RootPATH', '../');
 require('../wtk/wtkLogin.php');
 
 $pgSlug = wtkGetGet('slug');
+
+if ($pgSlug == ''):
+    $pgSQL =<<<SQLVAR
+SELECT b.`BlogImage1`, b.`BlogImage2`, b.`BlogTitle`, b.`BlogContent`, b.`ShortDescription`
+  FROM `blastBlogs` b
+ORDER BY b.`UID` DESC
+SQLVAR;
+    $pgHtm = '<h2>New Blogs Coming Soon!</h2>';
+    wtkMergePage($pgHtm, $gloCoName, '../wtk/htm/minibox.htm');
+else:
+    /*
+b.`BlogArticleTags`, bs.`BlogHead`, bs.`BlogHeader`, bs.`BlogFooter`
+    INNER JOIN `blastSettings` bs ON bs.`UserUID` = b.`UserUID`
+     */
+endif;
+
 $pgSlug = wtkReplace($pgSlug,'blog.php&slug=','');
 
 $pgSQL =<<<SQLVAR

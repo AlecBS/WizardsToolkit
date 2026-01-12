@@ -12,6 +12,7 @@ SELECT `UID`, `LookupType`, `LookupValue`,
 WHERE `DelDate` IS NULL
 SQLVAR;
 
+$pgCopyDataLink = '';
 $pgHideReset = ' class="hide"';
 if (($gloRNG != '0') && ($gloRNG != '')):
     $pgFilterValue = $gloRNG;
@@ -21,6 +22,7 @@ endif;
 if ($pgFilterValue != ''):
     $pgSQL .= " AND lower(`LookupType`) LIKE lower('%" . $pgFilterValue . "%')";
     $pgHideReset = '';
+    $pgCopyDataLink = '<small id="exportDIV"><a onclick="ajaxFillDiv(\'/admin/ajxExportLookups\',\'' . $pgFilterValue . '\',\'sqlInsert\')">export</a></small>';
 endif;  // $pgFilterValue != ''
 $pgSQL .= ' ORDER BY `LookupType` ASC';
 
@@ -33,11 +35,12 @@ wtkSetHeaderSort('LookupDisplay', 'Display');
 
 $pgHtm =<<<htmVAR
 <div class="container">
-    <h4>Lookup List
+    <h4>Lookup List $pgCopyDataLink
         <small id="filterReset"$pgHideReset>
         <button onclick="JavaScript:wtkBrowseReset('lookupList','wtkLookups')" type="button" class="btn btn-small btn-save waves-effect waves-light right">Reset List</button>
         </small>
     </h4>
+    <div id="sqlInsert"></div>
     <form method="post" name="wtkFilterForm" id="wtkFilterForm" role="search" class="wtk-search card b-shadow">
         <input type="hidden" id="Filter" name="Filter" value="Y">
         <div class="input-field">
