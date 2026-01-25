@@ -337,6 +337,7 @@ function wtkToastMsg(fncMsg, fncColor = "success", fncDivId = '', fncMaxWidth = 
         toastContainer.id = "toast-root";
         toastContainer.className = "fixed left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full";
         toastContainer.style.top = '72px';
+        toastContainer.style.zIndex = 52;
         toastStack = document.createElement("div");
         toastStack.id = "toast-stack";
         toastStack.className = "w-full flex flex-col items-center";
