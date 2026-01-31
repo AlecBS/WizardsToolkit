@@ -126,6 +126,7 @@ function wtkSmsViaEmail($fncPhoneNumber, $fncCarrier, $fncMessage){
         'att' => 'txt.att.net',
         'tmobile' => 'tmomail.net',
         'verizon' => 'vtext.com',
+        'spectrum' => 'mypixmessages.com',
         'sprint' => 'messaging.sprintpcs.com'
     ];
     $fncReturn = 'SMS Failed';
