@@ -122,8 +122,13 @@ wtkSearchReplace('@myEmail@', $pgEmail);
 wtkSearchReplace('@myPW@', $pgPW);
 wtkSearchReplace('@rememberMe@', $pgChecked);
 if (wtkGetParam('App') == 'new'):
-    $pgReplace = '<p id="upgMsg" class="green-text">' . wtkLang('Thank you for upgrading to newest version!') . '</p>';
-    wtkSearchReplace('<div id="LoginErrMsg"></div>', '<div id="LoginErrMsg">' . $pgReplace . '</div>');
+    if ($gloCSSLib == 'MaterializeCSS'):
+        $pgReplace = '<p id="upgMsg" class="green-text">' . wtkLang('Thank you for upgrading to newest version!') . '</p>';
+        wtkSearchReplace('<div id="LoginErrMsg"></div>', '<div id="LoginErrMsg">' . $pgReplace . '</div>');
+    else:
+        $pgReplace = '<p id="upgMsg" class="text-red-500">' . wtkLang('Thank you for upgrading to newest version!') . '</p>';
+        wtkSearchReplace('<div id="LoginErrMsg" class="text-center mt-4"></div>', '<div id="LoginErrMsg" class="text-center mt-4">' . $pgReplace . '</div>');
+    endif;
 endif;
 
 $pgHtm  = '';

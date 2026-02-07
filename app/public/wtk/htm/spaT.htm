@@ -48,13 +48,8 @@
                     <h2 class="text-2xl font-bold" id="langWelcome">Welcome</h2>
                     <h4 class="text-lg">to @CompanyName@</h4>
                 </div>
-
-                <!-- Error Message -->
-                <div id="LoginErrMsg" class="text-center text-red-500 p-2"></div>
-
-                <!-- Login Form -->
+                <div id="LoginErrMsg" class="text-center mt-4"></div>
                 <form class="p-6 space-y-4">
-                    <!-- Email Input -->
                     <div class="form-control">
                         <label class="input validator w-full">
                             <svg class="wtk-icon">
@@ -65,8 +60,6 @@
                         </label>
                         <div class="validator-hint hidden">Enter valid email address</div>
                     </div>
-
-                    <!-- Password -->
                     <div class="form-control">
                         <label class="input validator w-full">
                             <svg class="wtk-icon">
@@ -80,9 +73,6 @@
                         </label>
                         <div class="validator-hint hidden">Enter a password</div>
                     </div>
-                    <!-- Password Input -->
-
-                    <!-- Remember Me Checkbox -->
                     <div class="mb-6 flex items-center">
                         <label for="rememberMe" class="flex items-center cursor-pointer">
                             <input type="checkbox" value="Y" id="rememberMe" name="rememberMe" @rememberMe@
@@ -90,16 +80,12 @@
                             <span id="langRemember" class="ml-2 text-sm text-gray-600">Remember Me</span>
                         </label>
                     </div>
-
-                    <!-- Sign In Button -->
                     <div class="text-center">
                         <button id="btnLogin" type="button" onclick="wtkLoginForm('')"
                                 class="btn btn-primary w-full shadow-md hover:shadow-lg">
                             Sign in
                         </button>
                     </div>
-
-                    <!-- Links -->
                     <ul class="mt-4 text-center space-y-2">
                         <li>
                             <a onclick="showForgotPW('loginPage')"
@@ -110,7 +96,6 @@
                                class="text-blue-600 hover:text-blue-800 text-sm cursor-pointer">Create account</a>
                         </li>
                     </ul>
-
                     <!-- Language Selector -->
                     <div class="mt-4 max-w-xs mx-auto">
                         <select id="selLangList" onchange="wtkLangUpdate(this.value)"
