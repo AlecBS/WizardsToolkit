@@ -901,6 +901,7 @@ function wtkHtmlDecode($fncString) {
 * @return string with spaces before every capital letter
 */
 function wtkInsertSpaces($fncFieldName) {
+    $fncFieldName = str_replace('_', ' ', $fncFieldName);
     $fncWordArray = preg_split('/(?<=[a-z])(?=\d)|(?<=\d)(?=[a-z])|_/', $fncFieldName); // Split words at boundaries between letters and digits or underscores
     $fncResult = '';
     foreach ($fncWordArray as &$fncWord) {
