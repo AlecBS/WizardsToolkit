@@ -787,7 +787,7 @@ CREATE TABLE "wtkRevenue" (
   "EcomPayId"   varchar(60),
   "AffiliateUID"  int,
   "AffiliateRate" decimal(5,2),
-  "RevType"     varchar(4),
+  "RevType"     varchar(80),
   "IPaddress"   varchar(40),
   "PayerEmail"  varchar(60),
   "PayerId"     varchar(60),
