@@ -263,9 +263,23 @@ function wtkReadDir($fncDir = '.', $fncFileType = 'image', $fncSubCall = 'N'){
         endwhile; // ($fncSubDir = readdir($fncHandle)) !== false
         closedir($fncHandle);
     endif;  // $fncHandle = opendir($fncDir)
-    sort($fncResult);
+    wtkSortInnerArrays($fncResult);
     return $fncResult;
 }  // end of wtkReadDir
+
+// recursively sort any numeric-indexed array of values
+function wtkSortInnerArrays(&$array) {
+    foreach ($array as &$value) {
+        if (is_array($value)) {
+            // recurse first
+            wtkSortInnerArrays($value);
+            // if this is a list (numeric keys), sort its values
+            if (array_keys($value) === range(0, count($value) - 1)) {
+                sort($value); // ascending, reindex 0..n-1 [web:2]
+            }
+        }
+    }
+} // end of wtkSortInnerArrays
 
 /**
 * File Display
