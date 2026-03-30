@@ -36,7 +36,6 @@ endif;  // $pgFilterValue != ''
 $pgSQL .= ' ORDER BY l.`UID` DESC';
 
 $gloEditPage = 'updateLogView';
-$gloAddPage  = $gloEditPage;
 $gloDelPage  = 'wtkUpdateLog';
 
 wtkFillSuppressArray('LogAddDate');
