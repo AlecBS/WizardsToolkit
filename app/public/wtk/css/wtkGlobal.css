@@ -840,8 +840,6 @@ textarea.materialize-textarea:disabled+label {
 /*NAVBAR*/
 .navbar.navbar-home {
   background: var(--gradient-color);
-  height: 72px;
-  padding: 7px;
 }
 
 .navbar h4, .navbar h5 {
