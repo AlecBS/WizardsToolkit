@@ -33,6 +33,7 @@ else:
 endif;
 $pgDateTime = date('n/j/Y \a\t g:i A');
 
+$pgNote = nl2br($pgNote);
 $pgHtm =<<<htmVAR
 <div class="forum-single b-shadow">
     <div class="content-user">
