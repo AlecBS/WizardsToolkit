@@ -210,6 +210,9 @@ $pgFilter = array (
     'AppVersion' => $pgAppVersion
 );
 wtkSqlExec(wtkSqlPrep($pgSQL), $pgFilter);
+if (($gloSiteDesign == 'MPA') || (wtkGetPost('MpaOrSpa') == 'MPA')):
+    wtkSetCookie('apiKey',$pgApiKey,'1month');
+endif;
 echo $pgHtm;
 exit;
 ?>

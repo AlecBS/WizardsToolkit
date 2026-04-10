@@ -179,10 +179,10 @@ function wtkLogout(){
                 if (pgAccessMethod == 'ios') {
                     //              window.ReactNativeWebView.postMessage('logout');
                 }
-                if (elementExist('wrongApp')){
+                if (elementExist('wrongApp')) {
                     $('#wrongApp').addClass(pgHide);
                 }
-                if (elementExist('FABbtn')){
+                if (elementExist('FABbtn')) {
                     $('#FABbtn').addClass(pgHide);
                 }
                 $('body').addClass('bg-second');
@@ -226,7 +226,7 @@ function wtkRegister() {
                 data: (fncFormData),
                 success: function(data) {
                   let fncJSON = $.parseJSON(data);
-                  if (fncJSON.result != 'ok'){
+                  if (fncJSON.result != 'ok') {
                       waitLoad('off');
                       wtkAlert(fncJSON.result);
                       $('#regForgot').removeClass(pgHide);
@@ -241,14 +241,18 @@ function wtkRegister() {
                           url:  '/wtk/ajxRegister.php',
                           data: (fncFormData),
                           success: function(data) {
-                              $('#mainPage').html(data);
-                              $('body').removeClass('bg-second');
-                              pgPageArray.push('0~0~newRegOK');
-                              waitLoad('off');
-                              $('#backBtn').addClass(pgHide);
-                              $('#myNavbar').removeClass(pgHide);
-                              $('#myPassword').val(fncPW);
-                              pgApiKey = $('#regApiKey').val();
+                              if (pgMPAvsSPA == 'MPA') {
+                                  location.reload();
+                              } else {
+                                  $('#mainPage').html(data);
+                                  $('body').removeClass('bg-second');
+                                  pgPageArray.push('0~0~newRegOK');
+                                  waitLoad('off');
+                                  $('#backBtn').addClass(pgHide);
+                                  $('#myNavbar').removeClass(pgHide);
+                                  $('#myPassword').val(fncPW);
+                                  pgApiKey = $('#regApiKey').val();
+                              }
                           }
                       })
                   }
@@ -264,7 +268,7 @@ function wtkRegister() {
 function wtkCheckEmail(fncEmail, fncGoToURL) {
     $.getJSON('/wtk/ajxVerifyEmail.php?Email=' + fncEmail, function(data) {
         $.each(data, function(key, value) {
-            if(value == 0){
+            if (value == 0) {
                 ajaxPost('wtkForm', fncGoToURL);
             } else {
                 wtkAlert("Your email already exists in our database.  Did you forget your login information? ");
