@@ -58,10 +58,17 @@ SQLVAR;
     $pgEmail = wtkSqlValue('Email');
 endif;
 
-$pgEmailMsg  = "<h3>Question from $gloCoName app</h3>";
-$pgEmailMsg .= "<p>$pgFirstName ($pgEmail) has reported:</p><hr>";
-$pgEmailMsg .= nl2br($pgBugMsg) . '<hr>';
-$pgEmailMsg .= '<p>More technical details are stored in wtkBugReport table. Check it out at: ' . $gloWebBaseURL . '/admin/bugView.php?id=' . $pgUID . ' .</p>';
+$pgBugMsg = nl2br($pgBugMsg);
+$pgLink = $gloWebBaseURL . '/admin/bugView.php?id=' . $pgUID;
+$pgLink = wtkReplace($pgLink, '//admin/','/admin/');
+$pgEmailMsg =<<<htmVAR
+<br><h3>Question from $gloCoName app</h3>
+<p>$pgFirstName ($pgEmail) has reported:</p><hr>
+$pgBugMsg<hr>
+<p>More technical details are stored in wtkBugReport table.
+ Check it out at: $pgLink</p>
+htmVAR;
+
 $pgSaveArray = array (
     'FromUID' => $gloUserUID
 );
