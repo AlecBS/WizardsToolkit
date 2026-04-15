@@ -166,7 +166,7 @@ function wtkAddUserHistory($fncPageTitle = ''){
             if ($gloConnType == 'ADO'):
                 $fncPageTitle = wtkEscapeStringForDB($fncPageTitle);
                 $fncSQL .= ' VALUES (' . $fncUserUID . ',' . $fncOtherId . ",'" . $fncPageTitle . "','" . $gloCurrentPage . "', $fncPageTime)";
-                wtkSqlExec($fncSQL);
+                wtkSqlExec($fncSQL, []);
                 if ($fncUserUID == 'NULL'):
                     $pgHistoryUID = wtkSqlGetOneResult("SELECT `UID` FROM `wtkUserHistory` WHERE `UserUID` IS NULL ORDER BY `UID` DESC LIMIT 1");
                 else:
@@ -181,7 +181,7 @@ function wtkAddUserHistory($fncPageTitle = ''){
                     'PageURL' => $gloCurrentPage,
                     'SecondsTaken' => $fncPageTime
                 );
-                wtkSqlExec($fncSQL, $fncFilter);
+                wtkSqlExec($fncSQL, $fncFilter, false);
                 if ($fncUserUID == 'NULL'):
                     $pgHistoryUID = wtkSqlGetOneResult('SELECT `UID` FROM `wtkUserHistory` WHERE `UserUID` IS NULL ORDER BY `UID` DESC LIMIT 1', []);
                 else:

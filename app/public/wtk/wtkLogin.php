@@ -99,7 +99,7 @@ SQLVAR;
       then log back in.
     </p>
   </div>
-</div>            
+</div>
 htmVAR;
             else:
                 $pgHtm =<<<htmVAR
@@ -169,7 +169,7 @@ htmVAR;
             'CurrentPage' => $pgSavePg,
             'PassedId' => $pgPassedId
         );
-        wtkSqlExec(wtkSqlPrep($pgSQL), $pgSQLFilter);
+        wtkSqlExec(wtkSqlPrep($pgSQL), $pgSQLFilter, false);
         if ($gloSiteDesign == 'MPA'):
             wtkSetCookie('apiKey', $pgApiKey, '1month');
         endif;
