@@ -30,12 +30,12 @@ if ($pgNewPassHash != ''):
             <div class="row">
                 <div id="resultMsg" class="col s12"></div>
                 <div class="input-field col m6 s12">
-                    <input type="password" name="wtkwtkUsersWebPassword" id="wtkwtkUsersWebPassword" class="char-cntr" data-length="20">
+                    <input type="password" name="wtkwtkUsersWebPassword" id="wtkwtkUsersWebPassword" data-length="30">
                     <label for="wtkwtkUsersWebPassword">Password</label>
                     <span class="material-icons toggle-password" data-toggle="#wtkwtkUsersWebPassword" style="cursor:pointer;">visibility</span>
                 </div>
                 <div class="input-field col m6 s12">
-                    <input type="password" name="rePW" id="rePW" class="char-cntr" data-length="20">
+                    <input type="password" name="rePW" id="rePW" data-length="30">
                     <label for="rePW">Confirm Password</label>
                     <span class="material-icons toggle-password" data-toggle="#rePW" style="cursor:pointer;">visibility</span>
                 </div>

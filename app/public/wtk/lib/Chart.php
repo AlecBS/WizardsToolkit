@@ -171,8 +171,8 @@ htmVAR;
     $fncChart = wtkReplace($fncChart, 'wtkArea','wtk' . $fncChartNum . 'Area');
     $fncChart = wtkReplace($fncChart, 'wtkPie','wtk' . $fncChartNum . 'Pie');
 
+    $fncFirstTab = 'regRpt';
     if ($fncOpsCnt == 0):
-        $fncFirstTab = 'regRpt';
         $fncTabs =<<<htmVAR
 <li class="tab col s3"><a class="active" onclick="Javascript:changeChart('regRpt', 'nada', $fncChartNum)">Report</a></li>
     <li class="tab col s2"><a onclick="Javascript:changeChart('bar', 'barCanvas$fncChartNum', $fncChartNum )">Bar Chart</a></li>
