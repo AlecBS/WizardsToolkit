@@ -434,7 +434,7 @@ function wtkMergePage($fncFiller, $fncPageTitle, $fncTemplateHTML = '', $fncSkip
     global $gloCoLogo, $gloCoName, $gloMobileApp, $gloFormMsg, $gloJsInit,
            $gloFormChangeArray, $pgSearchReplaceCntr, $gloShowPrint, $gloPrinting,
            $gloShowExport, $gloShowExportXML, $gloIconPrint, $gloIconExport, $gloIconExportXML,
-           $gloIsFileUploadForm, $gloUserUID, $gloMyPage, $gloDarkLight, $gloCSSLib;
+           $gloIsFileUploadForm, $gloUserUID, $gloMyPage, $gloDarkLight, $gloCSSLib, $gloDeviceType;
 
     // BEGIN  moved here since Header needs to be affected
     if (wtkGetParam('Err') == 'BadSearch'):
@@ -473,6 +473,10 @@ function wtkMergePage($fncFiller, $fncPageTitle, $fncTemplateHTML = '', $fncSkip
         $fncTemplate = wtkReplace($fncTemplate, '<title>@PageTitle@</title>', $fncTitle);
         $fncTemplate = wtkReplace($fncTemplate, '@PageTitle@', $fncPageTitle);
         $fncTemplate = wtkReplace($fncTemplate, '@FormMessage@', $gloFormMsg);
+        if (($gloDeviceType == 'phone') && ($gloCSSLib == 'MaterializeCSS')):
+            $fncFiller = wtkReplace($fncFiller, '<select ','<select class="browser-default" ');
+        endif;
+
         $fncTemplate = wtkReplace($fncTemplate, '@wtkContent@', $fncFiller);
 //      $fncTemplate = wtkReplace($fncTemplate, '//@initAttributes@//', $gloJsInit);
         // BEGIN  Used in upload file forms.

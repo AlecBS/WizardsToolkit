@@ -1184,10 +1184,12 @@ function wtkCURLcall($fncURL, $fncHeader, $fncPost, $fncPostCount = 1, $fncErrTi
     if ($fncGetOrPost == 'POST'):
         curl_setopt($ch, CURLOPT_POST, $fncPostCount);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fncPost);
-    else:
-        $fncGet = http_build_query($fncPost); // Convert post data to query string
-        // Append query string to URL for GET request
-        $fncURL .= '?' . $fncGet;
+    else: // GET, DELETE, etc.
+        if ($fncPost != ''):
+            $fncGet = http_build_query($fncPost); // Convert post data to query string
+            // Append query string to URL for GET request
+            $fncURL .= '?' . $fncGet;
+        endif;
     endif;
     curl_setopt($ch, CURLOPT_URL, $fncURL);
 
