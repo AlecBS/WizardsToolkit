@@ -3,3 +3,4 @@ Disallow: /admin/
 Disallow: /cron/
 Disallow: /devUtils/
 Disallow: /exports/
+Disallow: /wtk/

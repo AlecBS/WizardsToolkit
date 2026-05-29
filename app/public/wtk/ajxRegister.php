@@ -177,18 +177,31 @@ $pgTmp = wtkSendMail($pgMailArray);
 
 $pgApiKey = md5(uniqid(rand(), true));
 $pgRegKey = wtkFormHidden('regApiKey', $pgApiKey);
+if ($gloSiteDesign == 'MPA'):
+    $pgFromPage = $_SERVER['HTTP_REFERER'];
+    $pgFromPage = wtkReplace($pgFromPage, $gloWebBaseURL,'');
+    $pgFromPage = wtkReplace($pgFromPage, '?ready=register','');
+    $pgGoToBtn = '<a class="waves-effect waves-light btn blue b-shadow" href="' . $pgFromPage . '">Return</a>';
+else:
+    $pgGoToBtn = '<a class="waves-effect waves-light btn blue b-shadow" onclick="Javascript:goHome();">Go to Dashboard</a>';
+endif;
 $pgHtm =<<<htmVAR
 <div class="container">
-    <div class="card">
-      <div class="card-content">
-        <h3>Registration Complete!</h3>
-        <p>$pgSaveRegMsg1</p>
-        <br>
-        <p>$pgSaveRegMsg2</p>
-      </div>
+    <br><br>
+    <div class="row">
+        <div class="col m6 offset-m3 s12">
+            <div class="card">
+              <div class="card-content">
+                <h3>Registration Complete!</h3>
+                <p>$pgSaveRegMsg1</p>
+                <br>
+                <p>$pgSaveRegMsg2</p>
+              </div>
+            </div>
+        </div>
     </div>
     <div align="center"><br><br>
-        <a class="waves-effect waves-light btn blue b-shadow" onclick="Javascript:goHome();">Go to Dashboard</a>
+        $pgGoToBtn
     </div>
 </div>
 $pgRegKey

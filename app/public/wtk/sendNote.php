@@ -35,7 +35,7 @@ $pgDateTime = date('n/j/Y \a\t g:i A');
 
 $pgNote = nl2br($pgNote);
 $pgHtm =<<<htmVAR
-<div class="forum-single b-shadow">
+<div class="forum-single card b-shadow">
     <div class="content-user">
         <img src="$pgPhoto">
         <h5>$pgUserName</h5>

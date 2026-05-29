@@ -69,7 +69,7 @@ $$
 
 CREATE FUNCTION `fncCalcDistance`(fncFromLat decimal(24,7), fncFromLong decimal(24,7),
         fncToLat decimal(24,7), fncToLong decimal(24,7)) RETURNS decimal(24,7)
-  DETERMINISTIC  -- ABS 10/18/17  this line seems to be required for Percona 5.6
+  DETERMINISTIC  -- this line required for Percona 5.6
 BEGIN
 	SET @return_value = (SELECT ((ACOS(SIN(fncFromLat * PI() / 180) * SIN(fncToLat * PI() / 180) +
 				COS(fncFromLat * PI() / 180) * COS(fncToLat * PI() / 180) * COS((fncFromLong - fncToLong) * PI() / 180)) * 180 / PI()) * 60 * 1.1515)
@@ -93,6 +93,37 @@ BEGIN
         )
     END;
     RETURN fncFormattedDuration;
+END
+$$
+
+CREATE FUNCTION fncOrdinalSuffix(n VARCHAR(10))
+   RETURNS VARCHAR(12)
+   DETERMINISTIC
+BEGIN
+    -- Example usage:
+    -- SELECT fncOrdinalSuffix(3) AS 'NumSuffix'; -- returns '3rd'
+    DECLARE suffix VARCHAR(2);
+    DECLARE num INT;
+
+    -- If input isn't numeric, return it as-is
+    IF n REGEXP '^[0-9]+$' = 0 THEN
+        RETURN n;
+    END IF;
+
+    SET num = CAST(n AS SIGNED);
+
+    IF MOD(ABS(num), 100) BETWEEN 11 AND 13 THEN
+        SET suffix = 'th';
+    ELSE
+        CASE MOD(ABS(num), 10)
+            WHEN 1 THEN SET suffix = 'st';
+            WHEN 2 THEN SET suffix = 'nd';
+            WHEN 3 THEN SET suffix = 'rd';
+            ELSE SET suffix = 'th';
+        END CASE;
+    END IF;
+
+    RETURN CONCAT(n, suffix);
 END
 $$
 
