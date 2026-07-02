@@ -204,7 +204,7 @@ $gloEmailUserName       = 'yourUserName';
 //TCP port to connect to, use 587 for `PHPMailer::ENCRYPTION_STARTTLS` above
 //  `PHPMailer::ENCRYPTION_SMTPS` encouraged
 $gloEmailSMTPAuth       = true;
-$gloConfirmDelete       = false;
+$gloConfirmDelete       = 'N';
 //  END  Email configuration variables
 
 $gloAddPlaceHolder    = true;  // When Mobile Phone AND Add Page, then hide Label and show PlaceHolder instead

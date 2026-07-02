@@ -519,7 +519,7 @@ function goHome() {
 function getDashboardCounts() {
     if ((pgSite == 'admin') || (pgWidgets == 'Y')) {
         if (pgSite == 'admin') {
-            ajaxFillDiv('/wtk/widgets',0,'widgetDIV');
+            ajaxFillDiv('/wtk/widgets',2,'widgetDIV');
         } else {
             ajaxFillDiv('/wtk/widgets',1,'widgetDIV');
         }
