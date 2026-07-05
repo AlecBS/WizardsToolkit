@@ -1,5 +1,3 @@
--- USE wiztools;
-
 INSERT INTO `wtkCompanySettings` (`CoName`, `DomainName`, `AppVersion`, `EnableLockout`)
  VALUES ('Your Company', 'https://your-company.com', '2.0.0', 'Y');
 
@@ -63,7 +61,7 @@ INSERT INTO `wtkPages` (`UID`, `PageName`, `FileName`, `Path`)
 (25, 'Emails Sent', 'emailHistory', '/admin/'),
 (26, 'Chats', 'chatList', '/wtk/'),
 (27, 'Access Fails', 'failedAttemptList', '/admin/'),
-(28, 'Broadcast List', 'broadcastList', '/admin/'),
+(28, 'Broadcast', 'broadcastList', '/admin/'),
 (29, 'Widget Groups', 'widgetGroupList', '/admin/'),
 (30, 'Widgets', 'widgetList', '/admin/'),
 (31, 'Revenue', 'revenueList', '/admin/'),

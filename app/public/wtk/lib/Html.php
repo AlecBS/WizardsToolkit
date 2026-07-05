@@ -283,7 +283,7 @@ SELECT COUNT(*)
   FROM `wtkBroadcast` b
     LEFT OUTER JOIN `wtkBroadcast_wtkUsers` x ON x.`BroadcastUID` = b.`UID` AND x.`UserUID` = $gloUserUID
   WHERE (x.`UID` IS NULL OR b.`AllowClose` = 'N')
-        AND CURRENT_DATE BETWEEN COALESCE(b.`ShowOnDate`,CURRENT_DATE) AND b.`ShowUntilDate`
+        AND CURRENT_DATE BETWEEN COALESCE(b.`ShowOnDate`,CURRENT_DATE) AND COALESCE(b.`ShowUntilDate`,CURRENT_DATE)
         AND b.`AudienceType` IN ('ALL', :AudienceType)
         AND b.`DelDate` IS NULL
         $fncFilter
@@ -298,7 +298,7 @@ SELECT b.`UID`, b.`MessageType`, COALESCE(b.`MessageHeader`,'') AS `MessageHeade
   FROM `wtkBroadcast` b
     LEFT OUTER JOIN `wtkBroadcast_wtkUsers` x ON x.`BroadcastUID` = b.`UID` AND x.`UserUID` = $gloUserUID
   WHERE (x.`UID` IS NULL OR b.`AllowClose` = 'N')
-        AND CURRENT_DATE BETWEEN COALESCE(b.`ShowOnDate`,CURRENT_DATE) AND b.`ShowUntilDate`
+        AND CURRENT_DATE BETWEEN COALESCE(b.`ShowOnDate`,CURRENT_DATE) AND COALESCE(b.`ShowUntilDate`,CURRENT_DATE)
         AND b.`AudienceType` IN ('All', :AudienceType )
         AND b.`DelDate` IS NULL
         $fncFilter
@@ -345,9 +345,9 @@ SQLVAR;
 
         if ($fncContent != ''):
             $fncResult =<<<htmVAR
-<div id="broadcastDIV" class="carousel carousel-slider center">
+<div id="broadcastDIV" class="carousel carousel-slider no-autoinit center">
     $fncContent
-</div>
+</div><br>
 <input type="hidden" id="HasCarousel" name="HasCarousel" value="Y">
 <input type="hidden" id="broadcastCount" name="broadcastCount" value="$fncCount">
 htmVAR;
