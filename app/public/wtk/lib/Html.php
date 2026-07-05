@@ -323,13 +323,13 @@ SQLVAR;
             $fncTmp  = '<div id="wtkBC' . $fncUID . '" style="transform: translateY(0px) !important" class="carousel-item ' . $fncRow['BroadcastColor'] . $fncTextColor . '">' . "\n";
             $fncHeader = $fncRow['MessageHeader'];
             if ($fncHeader != ''):
-                $fncTmp .= '  <br><h1';
+                $fncTmp .= '  <br><h2';
                 if ($fncTextColor != ''):
                     $fncTmp .= ' class="' . $fncTextColor . '"';
                 endif;
-                $fncTmp .= '>' . $fncHeader . '</h1>' . "\n";
+                $fncTmp .= '>' . $fncHeader . '</h2>' . "\n";
             endif;  // fncHeader != ''
-            $fncTmp .= '  <br><p>' . nl2br($fncRow['MessageNote']) . '</p>' . "\n";
+            $fncTmp .= '  <p>' . nl2br($fncRow['MessageNote']) . '</p>' . "\n";
             if ($fncRow['AllowClose'] == 'Y'):
                 if ($gloCSSLib == 'TailwindCSS'):
                     $fncBtn = 'wtk-btn-square';

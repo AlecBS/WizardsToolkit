@@ -880,6 +880,7 @@ CREATE TABLE `wtkRevenue` (
   `UserUID`     int UNSIGNED,
   `OrderUID`    int UNSIGNED,
   `EcomUID`     int UNSIGNED,
+  `ShopUID`     int UNSIGNED,
   `EcomTxnType` varchar(60),
   `EcomPayId`   varchar(60),
   `AffiliateUID`  int UNSIGNED,

@@ -479,7 +479,7 @@ htmVAR;
                 if ($pgPieChart == 'Y'):
                     $pgChartOps[] = 'pie';
                 endif;
-                $pgHtm .= wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps);
+                $pgHtm .= wtkRptChart($pgSQL, $pgSqlFilter, $pgChartOps,0,'','N','fRpt' . $gloRNG);
             else:
                 if ($pgHideHeader == true):
                     $pgHtm = '';

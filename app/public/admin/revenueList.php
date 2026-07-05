@@ -8,15 +8,18 @@ endif;
 $pgDate = wtkSqlDateFormat('r.`AddDate`', 'Date', $gloSqlDateTime);
 $pgSQL =<<<SQLVAR
 SELECT r.`UID`, $pgDate,
-    CONCAT(
-       CASE WHEN r.`UserUID` IS NULL THEN ''
-           ELSE CONCAT('<a onclick="JavaScript:ajaxGo(\'/wtk/userEdit\',', r.`UserUID`, ');">')
-       END,
-       COALESCE(r.`FirstName`,''), ' ', COALESCE(r.`LastName`,''),'<br>',r.`PayerEmail`,
-           CASE WHEN r.`UserUID` IS NULL THEN '' ELSE '</a>' END) AS `Client`,
-    r.`ItemName`, e.`PaymentProvider`, r.`PaymentStatus`, r.`GrossAmount`, r.`MerchantFee`, r.`CurrencyCode`
+    if (COALESCE(r.`UserUID`,0) = 0,
+        CONCAT(COALESCE(r.`FirstName`,''), ' ', COALESCE(r.`LastName`,''),'<br>',
+            COALESCE(r.`PayerEmail`,'')),
+        CONCAT('<a onclick="JavaScript:ajaxGo(\'/wtk/userEdit\',', r.`UserUID`, ');">',
+            COALESCE(u.`FirstName`,''), ' ', COALESCE(u.`LastName`,''),'<br>',
+            COALESCE(u.`Email`,''),'</a>')
+    ) AS `Client`,
+    r.`ItemName`, e.`PaymentProvider`, r.`PaymentStatus`,
+    r.`GrossAmount`, r.`MerchantFee`, r.`CurrencyCode`
 FROM `wtkRevenue` r
   INNER JOIN `wtkEcommerce` e ON e.`UID` = r.`EcomUID`
+  LEFT OUTER JOIN `wtkUsers` u ON u.`UID` = r.`UserUID`
 SQLVAR;
 $pgHideReset = ' class="hide"';
 $pgFilterValue = wtkFilterRequest('wtkFilter');
@@ -94,6 +97,7 @@ htmVAR;
 $gloColumnAlignArray = array (
     'GrossAmount' => 'right',
     'MerchantFee' => 'right',
+    'PaymentStatus' => 'center',
 	'CurrencyCode' => 'center'
 );
 $pgHtm .= wtkBuildDataBrowse($pgSQL, [], 'wtkRevenue', 'revenueList.php','Y');

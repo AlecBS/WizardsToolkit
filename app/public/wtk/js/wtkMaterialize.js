@@ -279,10 +279,17 @@ function afterPageLoad(fncPage) {
         let fncTmp7 = M.Tooltip.init(elems7, optionNone);
     }
     if ($('#HasCarousel').val() == 'Y') {
-        wtkDebugLog('afterPageLoad: HasCarousel 5');
-        $('.carousel').carousel({
+        wtkDebugLog('afterPageLoad: HasCarousel');
+        M.Carousel.init
+        var elems8 = document.querySelectorAll('.carousel');
+        var fncTmp8 = M.Carousel.init(elems8, {
+            fullWidth: true,
             indicators: true
         });
+        setInterval(function() {
+           let fncTmp8a = M.Carousel.getInstance(document.querySelector('.carousel'));
+           fncTmp8a.next();
+       }, 5400);
     }
     if ($('#refreshMenu').val() == 'Y') {
         $('#refreshMenu').val('N');

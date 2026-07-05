@@ -9,16 +9,14 @@ function wtkAddItemToCart(fncType, fncItemUID){
     if (elementExist('addOnQty')) {
         fncAddOnQty = $('#addOnQty').val();
     }
-    let fncKidUIDs = 0;
-    if (elementExist('KidUIDs')) {
-        fncKidUIDs = $('#KidUIDs').val();
-    }
     $.ajax({
         type: 'POST',
         url: 'ajxAddItemToCart.php',
-        data: { apiKey: pgApiKey, rng: fncType, id: fncItemUID, qty: fncQty, addOnQty: fncAddOnQty, KidUIDs: fncKidUIDs },
+        data: { apiKey: pgApiKey, rng: fncType, id: fncItemUID, qty: fncQty, addOnQty: fncAddOnQty },
         success: function(data) {
             waitLoad('off');
+            let fncJSON = $.parseJSON(data);
+            $('#cartCount').text(fncJSON.count);
             $('#cartBtn').removeClass('hide');
             M.toast({html: 'Item added to cart', classes: 'green rounded'});
             if (elementExist('buyMsg')) {
@@ -140,4 +138,4 @@ function wtkStripeSubscription() {
     .catch(function(error) {
         console.error('Error:', error);
     });
-} // wtkStripeCart
+} // wtkStripeSubscription

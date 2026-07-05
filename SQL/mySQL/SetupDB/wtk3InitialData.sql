@@ -919,49 +919,43 @@ INSERT INTO `wtkWidget` (`UID`, `WidgetName`, `SecurityLevel`, `WidgetType`, `Ch
 (19, 'Last 5 Users', 30, 'List', NULL, NULL, 'Y', 'Last 5 unique users that accessed website.',
     'SELECT wu.`FirstName` AS `User`,\n    DATE_FORMAT(h.`AddDate`, \'%c/%e/%y at %k:%i\') AS `LastAccess`,\n    h.`PageURL`\nFROM `wtkUserHistory` h\n  INNER JOIN (\n    SELECT MAX(`UID`) AS `MaxUID`\n    FROM `wtkUserHistory`\n    GROUP BY `UserUID`\n  ) latest ON h.`UID` = latest.`MaxUID`\n  INNER JOIN `wtkUsers` wu ON wu.`UID` = h.`UserUID`\nWHERE wu.`DelDate` IS NULL\nORDER BY h.`UID` DESC LIMIT 5', NULL, NULL, 'N'),
 (20, 'Weekly Income', 80, 'Chart', 'Area', NULL, NULL, 'weekly income summaries', 'SELECT `WeekEnding`, `Income`\r\nFROM (\r\n    SELECT DATE_FORMAT(DATE_ADD(`AddDate`, INTERVAL (1 - DAYOFWEEK(`AddDate`)) + 7 DAY), \'%b %D\') AS `WeekEnding`,\r\n           COALESCE(SUM(`GrossAmount`), 0) AS `Income`,\r\n           `AddDate`\r\n    FROM `wtkRevenue`\r\n    WHERE `PaymentStatus` IN (\'Paid\', \'Authorized\',\'succeeded\')\r\n    GROUP BY YEAR(`AddDate`), WEEK(`AddDate`, 1)\r\n    ORDER BY YEAR(`AddDate`) DESC, WEEK(`AddDate`, 1) DESC\r\n    LIMIT 7\r\n) AS subquery\r\nORDER BY `AddDate` ASC', '/admin/moneyStats', NULL, 'N'),
-(21, 'Unique Visitors', 80, 'Count', NULL, 'info-gradient', NULL, 'visitors to marketing site', 'SELECT COUNT(DISTINCT(`IPaddress`)) as `Count`\r\nFROM `wtkVisitors`\r\nWHERE `AddDate` > (NOW() - INTERVAL 7 DAY)', '/admin/visitorStats', NULL, 'N'),
+(21, 'Unique Visitors', 80, 'Count', NULL, 'info-gradient', NULL, 'visitors to sales site in last 7 days', 'SELECT COUNT(DISTINCT(`IPaddress`)) as `Count`\r\nFROM `wtkVisitors`\r\nWHERE `AddDate` > (NOW() - INTERVAL 7 DAY)', '/admin/visitorStats', NULL, 'N'),
 (22, 'Affiliates', 80, 'Count', NULL, 'success-gradient', NULL, NULL, 'SELECT COUNT(*)\r\n FROM `wtkAffiliates`\r\nWHERE `DelDate` IS NULL', '/admin/affiliateList', NULL, 'N'),
 (23, 'Prospects', 80, 'Count', NULL, 'info-gradient', NULL, NULL, 'SELECT COUNT(*)\r\n FROM `wtkProspects`\r\nWHERE `DelDate` IS NULL', '/admin/prospectList', NULL, 'N'),
 (24, 'Help System', 1, 'List', 'Area', 'danger-gradient', 'Y', NULL, 'SELECT `UID`, CONCAT(\'<a onclick=\"wtkShowHelp(\',`UID`,\')\">\',`HelpTitle`,\'</a>\') AS `HowTo`\r\n  FROM `wtkHelp`\r\nORDER BY `HelpTitle` ASC', NULL, NULL, 'N');
 
-
-INSERT INTO `wtkWidgetGroup_X_Widget` (`WidgetGroupUID`, `WidgetUID`, `WidgetPriority`)
+INSERT INTO `wtkWidgetGroup_X_Widget`
+   (`WidgetGroupUID`, `WidgetUID`, `WidgetPriority`)
  VALUES
 (0, 15, 10),
 (0, 16, 20),
 (0, 17, 30),
 (0, 18, 40),
 (0, 13, 50),
-(0, 1, 60),
-(0, 12, 70),
-(0, 9, 80),
-(0, 10, 90),
-(0, 11, 100),
-(0, 14, 110),
+(0, 14, 60),
+(0, 12, 80),
+(0, 9, 90),
+(0, 10, 100),
+(0, 11, 110),
+(1, 15, 10),
+(1, 16, 20),
+(1, 17, 30),
+(1, 18, 40),
+(1, 13, 50),
+(1, 1, 60),
+(1, 12, 70),
+(1, 9, 80),
+(1, 10, 90),
+(1, 11, 100),
+(1, 14, 110),
 (2, 4, 10),
 (2, 5, 20),
 (2, 6, 30),
 (2, 21, 40),
-(2, 22, 50),
-(2, 23, 60),
-(2, 16, 70),
-(2, 17, 80),
-(2, 8, 90),
-(2, 7, 100),
-(2, 20, 110);
-
+(2, 7, 90),
+(2, 20, 100),
+(2, 8, 110);
 /* Example Data for initial CRON Job Testing */
 
 INSERT INTO `wtkBackgroundActions` (`TriggerTime`, `ActionType`, `ForUserUID`, `Param1UID`, `Param2UID`, `Param1Str`, `Param2Str`)
  VALUES (NOW(), 'Thank4Order', '1', NULL, NULL, 'SKU123', 'support');
-
-/*
--- For App Testing of Microphone
-INSERT INTO `wtkWidget` (`WidgetName`, `SecurityLevel`, `WidgetType`, `ChartType`, `WidgetColor`, `SkipFooter`, `WidgetDescription`, `WidgetSQL`, `WidgetURL`, `PassRNG`, `WindowModal`) VALUES
-('Microphone Test', 1, 'Link', 'Area', 'danger-gradient', 'N', 'test out microphone on mobile app', NULL, '/demo/micTest', NULL, 'N');
-
-INSERT INTO `wtkWidgetGroup_X_Widget` (`WidgetGroupUID`, `WidgetUID`)
-SELECT 1, `UID`
-  FROM `wtkWidget`
- WHERE `WidgetName` = 'Microphone Test';
-*/

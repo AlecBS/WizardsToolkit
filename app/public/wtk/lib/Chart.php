@@ -126,12 +126,14 @@ function wtkGraphValues($fncSQL, $fncSqlFilter, $fncDateFormat = '') {
 * @return html and charts
 */
 $pgHasTabs = false;
-function wtkRptChart($fncSQL, $fncSqlFilter = [], $fncChartOps = [], $fncChartNum = 0, $fncDateFormat = '', $fncCurrency = 'N'){
+function wtkRptChart($fncSQL, $fncSqlFilter = [], $fncChartOps = [], $fncChartNum = 0, $fncDateFormat = '', $fncCurrency = 'N', $fncRptId = ''){
     // pass # to $fncChartNum if more than one chart on a page
     global $gloDeviceType, $gloSiteDesign, $pgHasTabs;
-    $fncRptId = 'wtkRpt' . $fncChartNum;
     $fncOpsCnt = count($fncChartOps);
     if (in_array('regRpt', $fncChartOps) || ($fncOpsCnt == 0)):
+        if ($fncRptId == ''):
+            $fncRptId = 'wtkRpt' . $fncChartNum;
+        endif;
         $fncRegRpt = wtkBuildDataBrowse($fncSQL, $fncSqlFilter, $fncRptId, '', 'N');
     else:
         $fncRegRpt = '';
