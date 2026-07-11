@@ -58,7 +58,8 @@ endif;
 
 if (isset($_GET["header"]) && isset($_GET["ImageFileName"]) && isset($_GET["NewWidth"])):
     $header = $_GET["header"];
-    $ImageFileName = utf8_decode($_GET["ImageFileName"]);
+//  $ImageFileName = utf8_decode($_GET["ImageFileName"]);
+    $ImageFileName = mb_convert_encoding($_GET["ImageFileName"], 'ISO-8859-1', 'UTF-8');
     $NewWidth = $_GET["NewWidth"];
     if ((!(isset($_GET["NewHeight"]))) || ($_GET["NewHeight"] == 0)):
         $keepratio = 1;
@@ -75,7 +76,7 @@ $ratio = $width / $height;
 
 if ( ($keepratio == "1") || ($ratio < 1)):
     //CHANGE WIDTH TO MATCH RATIO
-    $NewHeight = round(($NewWidth / $ratio), 2);
+    $NewHeight = round(($NewWidth / $ratio), 0);
 endif;
 
 //LOADS IMAGE FROM FILE INTO VARIABLE.  ASSUMES IS ALWAYS JPEG
