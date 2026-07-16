@@ -398,9 +398,11 @@ function wtkPrepSQLValue($fncTable, $fncField, $fncValue){
         $fncSelect = $gloWTKobjConn->query($fncQuery);
         $fncColInfo = $fncSelect->getColumnMeta(0);
         $fncDateType = '';
-        $fncDateType = $fncColInfo['native_type'];
+        $fncDateType = $fncColInfo['native_type'] ?? '';
         wtkTimeTrack('wtkPrepSQLValue: ' . $fncField . ' is a ' . $fncDateType);
         switch (strtoupper($fncDateType)):
+            case 'JSON':
+                break;
             case 'SHORT':
             case 'INT24':
             case 'LONG':
