@@ -207,6 +207,8 @@ CREATE TABLE "wtkClients" (
   "UID" SERIAL PRIMARY KEY,
   "AddDate" timestamp without time zone DEFAULT now(),
   "ClientName" VARCHAR(30),
+  "FirstName" varchar(30),
+  "LastName" varchar(35),
   "Address" VARCHAR(30),
   "Address2" VARCHAR(30),
   "City" VARCHAR(30),

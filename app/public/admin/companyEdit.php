@@ -9,7 +9,7 @@ else:
 endif;
 
 $pgSQL =<<<SQLVAR
-SELECT `UID`, `CoName`, `PayPalEmail`, `DomainName`, `AppVersion`,
+SELECT `UID`, `CoName`, `Email`, `DomainName`, `AppVersion`,
     `PreferWYSIWYG`, `EnableLockout`
   FROM `wtkCompanySettings`
 WHERE `UID` = ?
@@ -33,8 +33,8 @@ if ($gloWTKmode == 'Copy'): // Copy data feature
     $pgHtm = wtkReplace($pgHtm, ' name="Origwtk', ' name="Copywtk');
     $gloWTKmode = 'ADD';
 endif;
-$pgTmp  = wtkFormText('wtkCompanySettings', 'PayPalEmail', 'email');
-$pgHtm .= wtkReplace($pgTmp, 'Pay Pal','PayPal');
+$pgHtm .= wtkFormText('wtkCompanySettings', 'Email', 'email');
+//$pgHtm .= wtkReplace($pgTmp, 'Pay Pal','PayPal');
 $pgHtm .= wtkFormText('wtkCompanySettings', 'DomainName');
 $pgHtm .= wtkFormText('wtkCompanySettings', 'AppVersion');
 
