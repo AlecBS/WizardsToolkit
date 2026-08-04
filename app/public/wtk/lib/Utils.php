@@ -860,6 +860,7 @@ function wtkFormatDateTime($fncFormat, $fncVal = '') {
         if ($fncVal == '0000-00-00' || $fncVal == '00/00/0000'):
             return '';
         else:   // Not $fncVal == '0000-00-00' || $fncVal == '00/00/0000'
+            $fncVal = str_replace(' at ', '', $fncVal);
             if (strtotime($fncVal) > -1):
                 return date($fncFormat, strtotime($fncVal));
             else:

@@ -174,6 +174,11 @@ htmVAR;
             endif;
         endif;
         $pgRowCount++;
+        // BEGIN if want to limit and manually do only 3000 at a time
+        // if ($pgRowCount > 3000):
+        //     break;
+        // endif;
+        //  END  if want to limit and manually do only 3000 at a time
         if (($pgStep == 'verify') && ($pgRowCount > 10)):
             break;
         endif;
