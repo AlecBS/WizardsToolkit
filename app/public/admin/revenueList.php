@@ -45,6 +45,7 @@ $pgSQL  = wtkSqlPrep($pgSQL);
 $gloEditPage = '/admin/revenueEdit';
 //$gloDelPage  = 'wtkRevenue'; // have DelDate at end if should DelDate instead of DELETE
 
+wtkFillSuppressArray('MerchantFee'); // remove this line if tracking this
 wtkSetHeaderSort('PaymentStatus', 'Payment Status');
 wtkSetHeaderSort('GrossAmount', 'Gross Amount');
 

@@ -12,8 +12,8 @@ SELECT
     COALESCE(t.`Year`, DATE_FORMAT(NOW(), '%Y')) AS `Year`,
     COALESCE(t.`Quarter`, QUARTER(NOW())) AS `Quarter`,
     COALESCE(t.`Month`, DATE_FORMAT(NOW(), '%m')) AS `Month`,
-    COALESCE(SUM(IF(r.`PaymentStatus` = 'Authorized', r.`GrossAmount`, 0)), 0) AS `GrossIncome`,
-    COALESCE(SUM(IF(r.`PaymentStatus` = 'Refund', r.`GrossAmount`, 0)), 0) AS `Refunds`
+    COALESCE(SUM(IF(r.`PaymentStatus` IN ('authorized','succeeded', 'paid'), r.`GrossAmount`, 0)), 0) AS `GrossIncome`,
+    COALESCE(SUM(IF(r.`PaymentStatus` = 'refund', r.`GrossAmount`, 0)), 0) AS `Refunds`
 FROM (
     SELECT
         DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y') AS `Year`,
@@ -21,7 +21,7 @@ FROM (
         DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%m') AS `Month`
 ) t
 LEFT JOIN `wtkRevenue` r ON DATE_FORMAT(r.`AddDate`, '%Y-%m') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m')
-    AND r.`PaymentStatus` IN ('Authorized', 'Refund')
+    AND r.`PaymentStatus` IN ('authorized','succeeded','paid','refund')
 GROUP BY t.`Year`, t.`Quarter`, t.`Month`
 SQLVAR;
 wtkSqlExec($pgSQL, []);

@@ -907,7 +907,8 @@ CREATE TABLE `wtkRevenue` (
     FOREIGN KEY (`EcomUID`) REFERENCES wtkEcommerce(`UID`),
   CONSTRAINT `fk_wtkRevenue_UserUID`
     FOREIGN KEY (`UserUID`) REFERENCES wtkUsers(`UID`),
-  INDEX `ix_RevenueAddDate` (`AddDate`)
+  INDEX `ix_RevenueAddDate` (`AddDate`),
+  UNIQUE `ix_wtkRevenue_EcomPayId` (`EcomPayId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE `wtkInboundLog` (
