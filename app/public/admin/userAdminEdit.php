@@ -29,9 +29,20 @@ $pgHtm .= wtkFormText('wtkUsers', 'LastName');
 $pgHtm .= wtkFormText('wtkUsers', 'Email', 'email');
 $pgHtm .= wtkFormText('wtkUsers', 'City');
 
-$pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'SecurityLevel' AND `DelDate` IS NULL ORDER BY `LookupValue` ASC";
-// if using MySQL can have above ORDER BY CAST(`LookupValue` AS SIGNED) ASC
-$pgHtm .= wtkFormSelect('wtkUsers', 'SecurityLevel', $pgSQL, [], 'LookupDisplay', 'LookupValue','','m6 s6');
+$pgSQL =<<<SQLVAR
+SELECT `LookupValue`, `LookupDisplay`
+  FROM `wtkLookups`
+WHERE `LookupType` = 'SecurityLevel'
+  AND CAST(`LookupValue` AS SIGNED) <= :MaxSecLevel
+ORDER BY CAST(`LookupValue` AS SIGNED) ASC
+SQLVAR;
+// for MySQL should have above ORDER BY CAST(`LookupValue` AS SIGNED) ASC
+$pgMaxSecLevel = $gloUserSecLevel;
+if ($pgUserSecLevel > $pgMaxSecLevel):
+    $pgMaxSecLevel = $pgUserSecLevel;
+endif;  // Manager level
+$pgLupSqlFilter = array('MaxSecLevel' => $pgMaxSecLevel);
+$pgHtm .= wtkFormSelect('wtkUsers', 'SecurityLevel', $pgSQL, $pgLupSqlFilter, 'LookupDisplay', 'LookupValue','','m4 s6');
 
 $pgSQL  = "SELECT `LookupValue`, `LookupDisplay` FROM `wtkLookups` WHERE `LookupType` = 'StaffRole' ORDER BY `LookupDisplay` ASC";
 $pgHtm .= wtkFormSelect('wtkUsers', 'StaffRole', $pgSQL, [], 'LookupDisplay', 'LookupValue','','m6 s6');
