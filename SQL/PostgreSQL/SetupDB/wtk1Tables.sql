@@ -167,7 +167,7 @@ CREATE TABLE "wtkBroadcast_wtkUsers" (
   CONSTRAINT "fk_wtkBroadcast_wtkUsers_UserUID"
     FOREIGN KEY ("UserUID") REFERENCES "wtkUsers"("UID")
 );
-CREATE INDEX "ix_wtkBroadcast_wtkUsers" ON "wtkBroadcast_wtkUsers"("UserUID","BroadcastUID")
+CREATE INDEX "ix_wtkBroadcast_wtkUsers" ON "wtkBroadcast_wtkUsers"("UserUID","BroadcastUID");
 
 CREATE TABLE "wtkBugReport" (
   "UID" SERIAL PRIMARY KEY,
@@ -201,7 +201,7 @@ CREATE TABLE "wtkChat"(
   CONSTRAINT "fk_wtkChat_SendToUserUID"
     FOREIGN KEY ("SendToUserUID") REFERENCES "wtkUsers"("UID")
 );
-CREATE INDEX "ix_wtkChat_FromTo" ON "wtkChat"("SendByUserUID","SendToUserUID")
+CREATE INDEX "ix_wtkChat_FromTo" ON "wtkChat"("SendByUserUID","SendToUserUID");
 
 CREATE TABLE "wtkClients" (
   "UID" SERIAL PRIMARY KEY,
@@ -439,8 +439,8 @@ CREATE TABLE "wtkIncomeByMonth" (
   "Refunds" decimal(10,2),
   "WhyNote" varchar(250)
 );
-CREATE INDEX "ix_wtkIncomeByQtr" ON "wtkIncomeByMonth" ("YearTracked","Quarter"),
-CREATE INDEX "ix_wtkIncomeByMonth" ON "wtkIncomeByMonth" ("YearTracked","MonthInYear")
+CREATE INDEX "ix_wtkIncomeByQtr" ON "wtkIncomeByMonth" ("YearTracked","Quarter");
+CREATE INDEX "ix_wtkIncomeByMonth" ON "wtkIncomeByMonth" ("YearTracked","MonthInYear");
 
 CREATE TABLE "wtkLanguage" (
   "UID" SERIAL PRIMARY KEY,
