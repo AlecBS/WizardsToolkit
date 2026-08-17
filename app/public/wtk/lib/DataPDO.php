@@ -129,6 +129,7 @@ function wtkSqlGetOneResult($fncSQL, $fncSqlFilter, $fncDefault = '', $fncForceW
     global $gloServer1, $gloServerRO, $gloWTKobjConn, $gloWTKobjConnRO;
     $fncSQL = wtkSqlPrep($fncSQL);
     if (($fncForceWriteDB == true) || ($gloServer1 == $gloServerRO)): // no difference so use main connection
+        wtkConnectToDB($fncForceWriteDB);
         $fncPDO = $gloWTKobjConn->prepare($fncSQL);
     else:
         wtkConnectToDB(true);

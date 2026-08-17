@@ -587,6 +587,7 @@ CREATE TABLE `wtkMenuGroups` (
   `GroupName` varchar(20),
   `GroupURL` varchar(140),
   `Priority` smallint NOT NULL DEFAULT 10,
+  `SecurityLevel` SMALLINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`UID`),
   CONSTRAINT `fk_wtkMenuGroups_MenuUID`
     FOREIGN KEY (`MenuUID`) REFERENCES `wtkMenuSets`(`UID`)
